@@ -1,0 +1,28 @@
+# robots.txt para Kickverse
+# Sitio web de camisetas de fútbol personalizadas
+
+User-agent: *
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /img/
+Allow: /index.html
+Allow: /catalogo.html
+
+# Bloquear acceso a archivos sensibles
+Disallow: /data/
+Disallow: /*.json$
+
+# Páginas específicas
+Disallow: /404.html
+
+# Permitir rastreo de imágenes
+User-agent: Googlebot-Image
+Allow: /img/
+
+# Sitemap
+Sitemap: https://kickverse.com/sitemap.xml
+
+# Crawl-delay para bots agresivos
+User-agent: *
+Crawl-delay: 1
