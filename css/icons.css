@@ -1,0 +1,71 @@
+/* ============================================
+   KICKVERSE - ICONOS PNG
+   Sistema de iconos personalizados
+   ============================================ */
+
+.icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    object-fit: contain;
+}
+
+.icon-lg {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-xl {
+    width: 48px;
+    height: 48px;
+}
+
+.icon-xxl {
+    width: 64px;
+    height: 64px;
+}
+
+.icon-hero {
+    width: 128px;
+    height: 128px;
+}
+
+/* Iconos específicos */
+.icon-soccer { color: #0066FF; }
+.icon-trophy { color: #FFD700; }
+.icon-shirt { color: var(--accent-primary); }
+.icon-cart { color: var(--text-primary); }
+.icon-check { color: #10B981; }
+.icon-close { color: #EF4444; }
+.icon-lightning { color: #F59E0B; }
+.icon-gift { color: #EC4899; }
+.icon-whatsapp { color: #25D366; }
+.icon-arrow-right { color: var(--accent-primary); }
+.icon-arrow-left { color: var(--text-secondary); }
+
+/* Container para iconos inline */
+.icon-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Animaciones de iconos */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.icon-animated {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.icon-spin {
+    animation: rotate 1s linear infinite;
+}

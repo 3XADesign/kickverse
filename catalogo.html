@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Catálogo completo de camisetas de fútbol - Kickverse. Todas las ligas, todos los equipos. Personalización incluida desde 29,99€">
+    <title>Catálogo Completo - Kickverse | Todas las Camisetas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/catalog.css">
+    <link rel="icon" href="assets/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="img/logotipo.svg" alt="Kickverse Logotipo" class="logo-img-full">
+            </a>
+            <nav class="nav-menu">
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        <span>Categorías</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 10.5L3 5.5H13L8 10.5Z"/>
+                        </svg>
+                    </button>
+                    <div class="nav-dropdown-content">
+                        <a href="catalogo.html?category=laliga" class="dropdown-item">
+                            <img src="img/leagues/laliga.svg" alt="LaLiga" class="dropdown-icon">
+                            <span>LaLiga 🇪🇸</span>
+                        </a>
+                        <a href="catalogo.html?category=premier" class="dropdown-item">
+                            <img src="img/leagues/premier.svg" alt="Premier" class="dropdown-icon">
+                            <span>Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+                        </a>
+                        <a href="catalogo.html?category=seriea" class="dropdown-item">
+                            <img src="img/leagues/seriea.svg" alt="Serie A" class="dropdown-icon">
+                            <span>Serie A 🇮🇹</span>
+                        </a>
+                        <a href="catalogo.html?category=bundesliga" class="dropdown-item">
+                            <img src="img/leagues/bundesliga.svg" alt="Bundesliga" class="dropdown-icon">
+                            <span>Bundesliga 🇩🇪</span>
+                        </a>
+                        <a href="catalogo.html?category=ligue1" class="dropdown-item">
+                            <img src="img/leagues/ligue1.svg" alt="Ligue 1" class="dropdown-icon">
+                            <span>Ligue 1 🇫🇷</span>
+                        </a>
+                        <a href="catalogo.html?category=selecciones" class="dropdown-item">
+                            <span class="dropdown-icon">🌍</span>
+                            <span>Selecciones</span>
+                        </a>
+                    </div>
+                </div>
+                <a href="catalogo.html" class="nav-link">Catálogo</a>
+                <a href="form.html" class="nav-link nav-link-cta">Personalizar</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+                <span class="theme-toggle-slider">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </span>
+            </button>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Abrir menú">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Catalog Hero -->
+    <section class="catalog-hero">
+        <div class="container">
+            <div class="catalog-hero-content">
+                <h1 class="catalog-title">Catálogo Completo</h1>
+                <p class="catalog-subtitle">
+                    +200 camisetas disponibles · Personalización incluida · Envío 24-48h
+                </p>
+                <div class="catalog-stats">
+                    <div class="stat-badge">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Ligas</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span class="stat-number">95+</span>
+                        <span class="stat-label">Equipos</span>
+                    </div>
+                    <div class="stat-badge">
+                        <span class="stat-number">3x2</span>
+                        <span class="stat-label">Activo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Section -->
+    <section class="catalog-section">
+        <div class="container">
+            <!-- Search Bar -->
+            <div class="catalog-search">
+                <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Busca tu equipo...">
+            </div>
+
+            <!-- Filters -->
+            <div class="catalog-filters">
+                <button class="filter-btn active" data-filter="all">
+                    <span>Todas</span>
+                </button>
+                <button class="filter-btn" data-filter="laliga">
+                    <img src="img/leagues/laliga.svg" alt="LaLiga">
+                    <span>LaLiga</span>
+                </button>
+                <button class="filter-btn" data-filter="premier">
+                    <img src="img/leagues/premier.svg" alt="Premier">
+                    <span>Premier</span>
+                </button>
+                <button class="filter-btn" data-filter="seriea">
+                    <img src="img/leagues/seriea.svg" alt="Serie A">
+                    <span>Serie A</span>
+                </button>
+                <button class="filter-btn" data-filter="bundesliga">
+                    <img src="img/leagues/bundesliga.svg" alt="Bundesliga">
+                    <span>Bundesliga</span>
+                </button>
+                <button class="filter-btn" data-filter="ligue1">
+                    <img src="img/leagues/ligue1.svg" alt="Ligue 1">
+                    <span>Ligue 1</span>
+                </button>
+                <button class="filter-btn" data-filter="selecciones">
+                    <span>🌍</span>
+                    <span>Selecciones</span>
+                </button>
+            </div>
+
+            <!-- Results Count -->
+            <div class="results-info">
+                <p><span id="resultsCount">0</span> camisetas disponibles</p>
+            </div>
+
+            <!-- Catalog Grid - Se genera dinámicamente -->
+            <div id="catalogGrid" class="catalog-grid">
+                <!-- Las tarjetas se generan dinámicamente con JavaScript -->
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <div class="no-results-icon">🔍</div>
+                <h3>No se encontraron resultados</h3>
+                <p>Prueba con otro término de búsqueda o categoría</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <h2>🎁 Promoción 3x2 Activa</h2>
+                <p>Lleva 3 camisetas y paga solo 2 · Personalización incluida</p>
+                <a href="form.html" class="btn-promo">Empezar mi pedido →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Kickverse</h4>
+                    <p>Tu universo de camisetas de fútbol</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <a href="index.html">Inicio</a>
+                    <a href="catalogo.html">Catálogo</a>
+                    <a href="form.html">Personalizar</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <a href="https://wa.me/34614299735" target="_blank">WhatsApp</a>
+                    <p>+34 614 299 735</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kickverse. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Personalización -->
+    <div id="personalizationModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">&times;</button>
+            
+            <div class="modal-header">
+                <img class="modal-product-image" id="modalProductImage" src="" alt="">
+                <div class="modal-product-info">
+                    <h2 class="modal-product-name" id="modalProductName"></h2>
+                    <p class="modal-product-type" id="modalProductType"></p>
+                    <span class="modal-product-league" id="modalProductLeague"></span>
+                </div>
+            </div>
+
+            <form id="personalizationForm">
+                <!-- Talla -->
+                <div class="form-group">
+                    <label for="size">Talla <span class="required">*</span></label>
+                    <div class="size-options">
+                        <button type="button" class="size-btn" data-size="S">S</button>
+                        <button type="button" class="size-btn" data-size="M">M</button>
+                        <button type="button" class="size-btn" data-size="L">L</button>
+                        <button type="button" class="size-btn" data-size="XL">XL</button>
+                        <button type="button" class="size-btn" data-size="XXL">XXL</button>
+                    </div>
+                    <input type="hidden" id="selectedSize" name="size" required>
+                </div>
+
+                <!-- Número -->
+                <div class="form-group">
+                    <label for="number">Número</label>
+                    <input type="number" id="number" name="number" min="0" max="99" placeholder="Ej: 10">
+                </div>
+
+                <!-- Dorsal -->
+                <div class="form-group">
+                    <label for="dorsal">Nombre del dorsal</label>
+                    <input type="text" id="dorsal" name="dorsal" placeholder="Ej: BENZEMA" maxlength="15">
+                </div>
+
+                <!-- Parches -->
+                <div class="form-group">
+                    <label>Parches (+5€)</label>
+                    <div class="toggle-container">
+                        <input type="checkbox" id="patches" name="patches" class="toggle-checkbox">
+                        <label for="patches" class="toggle-label">
+                            <span class="toggle-text" data-off="No" data-on="Sí"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Código de descuento -->
+                <div class="form-group">
+                    <label for="discountCode">Código de descuento</label>
+                    <div class="discount-input-container">
+                        <input type="text" id="discountCode" name="discountCode" placeholder="Ej: KICK10">
+                        <button type="button" id="applyDiscount" class="btn-apply">Aplicar</button>
+                    </div>
+                    <span class="discount-message" id="discountMessage"></span>
+                </div>
+
+                <!-- Métodos de pago -->
+                <div class="form-group">
+                    <label>Métodos de pago disponibles</label>
+                    <div class="payment-methods">
+                        <div class="payment-method" data-method="Bizum">
+                            <img src="img/payment/bizum.svg" alt="Bizum" onerror="this.style.display='none'">
+                            <span>Bizum</span>
+                        </div>
+                        <div class="payment-method" data-method="Visa">
+                            <img src="img/payment/visa-alt.svg" alt="Visa" onerror="this.style.display='none'">
+                            <span>Visa</span>
+                        </div>
+                        <div class="payment-method" data-method="Mastercard">
+                            <img src="img/payment/mastercard.svg" alt="Mastercard" onerror="this.style.display='none'">
+                            <span>Mastercard</span>
+                        </div>
+                        <div class="payment-method" data-method="PayPal">
+                            <img src="img/payment/paypal.svg" alt="PayPal" onerror="this.style.display='none'">
+                            <span>PayPal</span>
+                        </div>
+                        <div class="payment-method" data-method="Transferencia">
+                            <img src="img/payment/bank.svg" alt="Transferencia" onerror="this.style.display='none'">
+                            <span>Transferencia</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedPayment" name="payment">
+                </div>
+
+                <!-- Resumen de precio -->
+                <div class="price-summary">
+                    <div class="price-row">
+                        <span>Precio base:</span>
+                        <span id="basePrice">29.99€</span>
+                    </div>
+                    <div class="price-row" id="patchesRow" style="display: none;">
+                        <span>Parches:</span>
+                        <span>+5.00€</span>
+                    </div>
+                    <div class="price-row" id="discountRow" style="display: none;">
+                        <span>Descuento:</span>
+                        <span id="discountAmount">-0.00€</span>
+                    </div>
+                    <div class="price-row price-total">
+                        <span>Total:</span>
+                        <span id="totalPrice">29.99€</span>
+                    </div>
+                </div>
+
+                <!-- Botón de envío -->
+                <button type="submit" class="btn-submit">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    Enviar pedido por WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/theme.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/catalog.js"></script>
+    <script src="js/modal.js"></script>
+</body>
+</html>

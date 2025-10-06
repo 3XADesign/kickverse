@@ -1,0 +1,691 @@
+/* ============================================
+   KICKVERSE FORM - FLAT DESIGN
+   Formulario moderno con logos de ligas y equipos
+   ============================================ */
+
+/* ============= PROGRESS BAR ============= */
+.progress-container {
+    position: sticky;
+    top: 74px;
+    width: 100%;
+    background: var(--bg-primary);
+    border-bottom: 2px solid var(--border-color);
+    z-index: 999;
+    padding: 1rem 0;
+}
+
+.progress-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.progress-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.progress-line {
+    position: absolute;
+    top: 20px;
+    left: 5%;
+    right: 5%;
+    height: 3px;
+    background: var(--border-color);
+    z-index: 0;
+}
+
+.progress-line-fill {
+    height: 100%;
+    background: #7e9181;
+    transition: width 0.4s ease;
+    width: 0%;
+}
+
+.progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    gap: 0.5rem;
+}
+
+.progress-step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 3px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+}
+
+.progress-step.active .progress-step-circle {
+    border-color: #7e9181;
+    background: #7e9181;
+    color: white;
+}
+
+.progress-step.completed .progress-step-circle {
+    border-color: #7e9181;
+    background: #7e9181;
+    color: white;
+}
+
+.progress-step-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    text-align: center;
+}
+
+.progress-step.active .progress-step-label {
+    color: #7e9181;
+    font-weight: 600;
+}
+
+/* ============= FORM SECTION ============= */
+.form-section {
+    min-height: calc(100vh - 200px);
+    padding: 3rem 0;
+    background: var(--bg-secondary);
+}
+
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.form-step {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.form-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-title {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.form-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+}
+
+/* ============= OPTION CARDS - FLAT DESIGN ============= */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+/* Grid específico para ligas (6 items) */
+#step1 .options-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+    #step1 .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    #step1 .options-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.option-card {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.option-card:hover {
+    border-color: #7e9181;
+    background: rgba(126, 145, 129, 0.03);
+}
+
+.option-card.selected {
+    border-color: #7e9181;
+    background: rgba(126, 145, 129, 0.08);
+}
+
+.option-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.option-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.option-text {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+/* ============= LEAGUE CARDS - DESTACADAS ============= */
+.league-card {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    position: relative;
+}
+
+.league-card:hover {
+    border-color: #7e9181;
+    transform: translateY(-4px);
+}
+
+.league-card.selected {
+    border-color: #7e9181;
+    background: rgba(126, 145, 129, 0.08);
+}
+
+.league-card-icon {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.league-card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.league-card-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+}
+
+.league-card-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ============= TEAM SELECTOR - VISUAL GRID ============= */
+.teams-search {
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    padding-left: 3rem;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease;
+    position: relative;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #7e9181;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.team-card {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.team-card:hover {
+    border-color: #7e9181;
+    transform: translateY(-2px);
+}
+
+.team-card.selected {
+    border-color: #7e9181;
+    background: rgba(126, 145, 129, 0.08);
+}
+
+.team-card-logo {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-card-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.team-card-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+/* ============= SIZE SELECTOR ============= */
+.size-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.size-card {
+    padding: 2rem 1rem;
+}
+
+.size-card .option-text {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* ============= YES/NO OPTIONS ============= */
+.yn-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* ============= PERSONALIZATION FORM ============= */
+.personalization-form {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group:last-child {
+    margin-bottom: 0;
+}
+
+.input-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #7e9181;
+}
+
+/* ============= SUMMARY CARD ============= */
+.summary-card {
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.summary-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.summary-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.summary-price {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.summary-price-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.summary-price-total {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #7e9181;
+}
+
+/* ============= BUTTONS ============= */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-back {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.btn-back:hover {
+    border-color: #7e9181;
+    color: #7e9181;
+}
+
+.btn-large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ============= CART COUNTER ============= */
+.cart-counter {
+    position: sticky;
+    top: 140px;
+    background: #7e9181;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 0 auto 2rem;
+    max-width: 600px;
+    z-index: 998;
+    box-shadow: 0 2px 8px rgba(126, 145, 129, 0.3);
+}
+
+.cart-counter p {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* ============= DARK MODE ============= */
+[data-theme="dark"] .form-section {
+    background: var(--bg-primary);
+}
+
+[data-theme="dark"] .progress-container {
+    background: var(--bg-primary);
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .progress-line {
+    background: var(--border-color);
+}
+
+[data-theme="dark"] .progress-step-circle {
+    background: var(--bg-primary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .progress-step.active .progress-step-circle,
+[data-theme="dark"] .progress-step.completed .progress-step-circle {
+    border-color: #7e9181;
+    background: #7e9181;
+    color: white;
+}
+
+[data-theme="dark"] .progress-step-label {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .progress-step.active .progress-step-label {
+    color: #93a596;
+}
+
+[data-theme="dark"] .form-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .form-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .option-card,
+[data-theme="dark"] .league-card,
+[data-theme="dark"] .team-card,
+[data-theme="dark"] .search-input,
+[data-theme="dark"] .personalization-form,
+[data-theme="dark"] .summary-card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .option-text,
+[data-theme="dark"] .league-card-title,
+[data-theme="dark"] .team-card-name,
+[data-theme="dark"] .summary-label,
+[data-theme="dark"] .summary-title {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .league-card-subtitle,
+[data-theme="dark"] .summary-value {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .option-card:hover,
+[data-theme="dark"] .league-card:hover,
+[data-theme="dark"] .team-card:hover {
+    border-color: #7e9181;
+    background: rgba(126, 145, 129, 0.15);
+}
+
+[data-theme="dark"] .option-card.selected,
+[data-theme="dark"] .league-card.selected,
+[data-theme="dark"] .team-card.selected {
+    border-color: #7e9181;
+    background: rgba(126, 145, 129, 0.25);
+}
+
+[data-theme="dark"] .search-input {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .search-input::placeholder {
+    color: var(--text-tertiary);
+}
+
+[data-theme="dark"] .search-input:focus {
+    border-color: #7e9181;
+}
+
+[data-theme="dark"] .search-icon {
+    color: var(--text-tertiary);
+}
+
+[data-theme="dark"] .input-group label {
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .input-group input {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .input-group input::placeholder {
+    color: var(--text-tertiary);
+}
+
+[data-theme="dark"] .input-group input:focus {
+    border-color: #7e9181;
+}
+
+[data-theme="dark"] .summary-item {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .summary-price {
+    border-top-color: var(--border-color);
+}
+
+[data-theme="dark"] .cart-counter {
+    background: #7e9181;
+    color: white;
+}
+
+/* ============= RESPONSIVE ============= */
+@media (max-width: 768px) {
+    .form-title {
+        font-size: 1.5rem;
+    }
+    
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .teams-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    .team-card {
+        padding: 1rem 0.5rem;
+    }
+    
+    .team-card-logo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .team-card-name {
+        font-size: 0.75rem;
+    }
+    
+    .progress-steps {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+    }
+    
+    .progress-step-label {
+        font-size: 0.65rem;
+    }
+}
