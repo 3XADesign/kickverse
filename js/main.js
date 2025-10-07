@@ -1175,8 +1175,31 @@ function renderCart() {
     
     cartContainer.innerHTML = html;
     
+    // Calcular descuento si hay cupón aplicado
+    const discount = calculateDiscount(total);
+    const finalTotal = total - discount;
+    
+    // Actualizar subtotal
+    const subtotalElement = document.getElementById('cart-subtotal');
+    if (subtotalElement) {
+        subtotalElement.textContent = `${total.toFixed(2)}€`;
+    }
+    
+    // Mostrar/ocultar fila de descuento
+    const discountRow = document.getElementById('discount-row');
+    const discountAmount = document.getElementById('cart-discount');
+    if (discountRow && discountAmount) {
+        if (discount > 0) {
+            discountAmount.textContent = `-${discount.toFixed(2)}€`;
+            discountRow.style.display = 'flex';
+        } else {
+            discountRow.style.display = 'none';
+        }
+    }
+    
+    // Actualizar total final
     if (cartTotal) {
-        cartTotal.textContent = `${total.toFixed(2)}€`;
+        cartTotal.textContent = `${finalTotal.toFixed(2)}€`;
     }
     
     // Mostrar promoción 3x2
@@ -1244,8 +1267,18 @@ function finalizarCompraCarrito() {
         mensaje += `Precio: ${(item.precio * item.cantidad).toFixed(2)}€\n\n`;
     });
     
-    const total = cartItems.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    mensaje += `TOTAL: ${total.toFixed(2)}€\n\n`;
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    mensaje += `Subtotal: ${subtotal.toFixed(2)}€\n`;
+    
+    // Añadir descuento si existe
+    if (appliedCoupon) {
+        const discount = calculateDiscount(subtotal);
+        mensaje += `Descuento (${appliedCoupon.code}): -${discount.toFixed(2)}€\n`;
+        mensaje += `TOTAL: ${(subtotal - discount).toFixed(2)}€\n\n`;
+    } else {
+        mensaje += `TOTAL: ${subtotal.toFixed(2)}€\n\n`;
+    }
+    
     mensaje += `¿Cual es el siguiente paso?`;
     
     const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
@@ -1570,3 +1603,196 @@ window.addEventListener('resize', () => {
         updateCarouselPosition();
     }
 });
+
+// ============================================
+// SISTEMA DE CUPONES Y DESCUENTOS
+// ============================================
+
+// Definición de cupones disponibles
+const AVAILABLE_COUPONS = {
+    'WELCOME5': {
+        type: 'fixed', // descuento fijo
+        value: 5,
+        minPurchase: 60,
+        description: 'Descuento de 5€ en compras superiores a 60€'
+    },
+    'NOTBETTING10': {
+        type: 'percentage', // porcentaje
+        value: 10,
+        maxDiscount: 5,
+        minPurchase: 0,
+        description: 'Descuento del 10% (máximo 5€)'
+    },
+    'TOPBONUS10': {
+        type: 'percentage',
+        value: 10,
+        maxDiscount: 5,
+        minPurchase: 0,
+        description: 'Descuento del 10% (máximo 5€)'
+    },
+    'KICKVERSE10': {
+        type: 'percentage',
+        value: 10,
+        maxDiscount: 5,
+        minPurchase: 0,
+        description: 'Descuento del 10% (máximo 5€)'
+    }
+};
+
+// Variable global para el cupón aplicado
+let appliedCoupon = null;
+
+// Mostrar popup de bienvenida (solo primera visita)
+function showWelcomePopup() {
+    const hasVisited = localStorage.getItem('kickverse_visited');
+    
+    if (!hasVisited) {
+        setTimeout(() => {
+            const popup = document.getElementById('welcome-popup');
+            if (popup) {
+                popup.classList.add('active');
+            }
+        }, 2000); // Mostrar después de 2 segundos
+        
+        localStorage.setItem('kickverse_visited', 'true');
+    }
+}
+
+// Cerrar popup de bienvenida
+function closeWelcomePopup() {
+    const popup = document.getElementById('welcome-popup');
+    if (popup) {
+        popup.classList.remove('active');
+    }
+}
+
+// Copiar código de cupón
+function copyCouponCode(code) {
+    navigator.clipboard.writeText(code).then(() => {
+        const btn = event.target.closest('.btn-copy');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+        btn.style.background = 'var(--primary-color)';
+        btn.style.color = 'white';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+        }, 2000);
+    }).catch(err => {
+        console.error('Error al copiar:', err);
+    });
+}
+
+// Aplicar cupón
+function applyCoupon() {
+    const input = document.getElementById('coupon-input');
+    const couponCode = input.value.trim().toUpperCase();
+    const messageDiv = document.getElementById('coupon-message');
+    
+    if (!couponCode) {
+        showCouponMessage('Por favor, introduce un código de cupón', 'error');
+        return;
+    }
+    
+    const coupon = AVAILABLE_COUPONS[couponCode];
+    
+    if (!coupon) {
+        showCouponMessage('Cupón no válido o expirado', 'error');
+        input.value = '';
+        return;
+    }
+    
+    // Calcular subtotal
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    
+    // Verificar compra mínima
+    if (subtotal < coupon.minPurchase) {
+        showCouponMessage(`Este cupón requiere una compra mínima de ${coupon.minPurchase}€`, 'error');
+        return;
+    }
+    
+    // Aplicar cupón
+    appliedCoupon = {
+        code: couponCode,
+        ...coupon
+    };
+    
+    input.value = '';
+    showCouponMessage(`¡Cupón aplicado! ${coupon.description}`, 'success');
+    showAppliedCoupon(couponCode);
+    renderCart(); // Recalcular totales
+}
+
+// Eliminar cupón
+function removeCoupon() {
+    appliedCoupon = null;
+    
+    const appliedDiv = document.getElementById('applied-coupon');
+    if (appliedDiv) {
+        appliedDiv.style.display = 'none';
+    }
+    
+    const messageDiv = document.getElementById('coupon-message');
+    if (messageDiv) {
+        messageDiv.style.display = 'none';
+    }
+    
+    renderCart(); // Recalcular totales
+}
+
+// Mostrar mensaje de cupón
+function showCouponMessage(message, type) {
+    const messageDiv = document.getElementById('coupon-message');
+    if (!messageDiv) return;
+    
+    messageDiv.className = `coupon-message ${type}`;
+    messageDiv.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+    messageDiv.style.display = 'block';
+    
+    if (type === 'error') {
+        setTimeout(() => {
+            messageDiv.style.display = 'none';
+        }, 4000);
+    }
+}
+
+// Mostrar cupón aplicado
+function showAppliedCoupon(code) {
+    const appliedDiv = document.getElementById('applied-coupon');
+    const codeSpan = document.getElementById('applied-coupon-code');
+    
+    if (appliedDiv && codeSpan) {
+        codeSpan.textContent = code;
+        appliedDiv.style.display = 'flex';
+    }
+}
+
+// Calcular descuento
+function calculateDiscount(subtotal) {
+    if (!appliedCoupon) return 0;
+    
+    let discount = 0;
+    
+    if (appliedCoupon.type === 'fixed') {
+        discount = appliedCoupon.value;
+    } else if (appliedCoupon.type === 'percentage') {
+        discount = (subtotal * appliedCoupon.value) / 100;
+        
+        // Aplicar descuento máximo si existe
+        if (appliedCoupon.maxDiscount && discount > appliedCoupon.maxDiscount) {
+            discount = appliedCoupon.maxDiscount;
+        }
+    }
+    
+    // El descuento no puede ser mayor que el subtotal
+    return Math.min(discount, subtotal);
+}
+
+// Inicializar popup de bienvenida al cargar la página
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', showWelcomePopup);
+} else {
+    showWelcomePopup();
+}

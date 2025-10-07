@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="./css/camiseta-card.css">
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/coupon.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/utils.css">
 </head>
@@ -416,8 +417,41 @@
                     
                     <div id="cart-promo-message" class="cart-promo-message" style="display: none;"></div>
                     
+                    <!-- Cupón de descuento -->
+                    <div class="cart-coupon-section">
+                        <div class="cart-coupon-header">
+                            <i class="fas fa-tag"></i>
+                            <span>¿Tienes un cupón de descuento?</span>
+                        </div>
+                        <div class="cart-coupon-input-group">
+                            <input type="text" id="coupon-input" placeholder="Introduce tu código" maxlength="15">
+                            <button class="btn btn-primary btn-sm" onclick="applyCoupon()">Aplicar</button>
+                        </div>
+                        <div id="coupon-message" class="coupon-message"></div>
+                        <div id="applied-coupon" class="applied-coupon" style="display: none;">
+                            <div class="applied-coupon-info">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="applied-coupon-code"></span>
+                            </div>
+                            <button class="btn-remove-coupon" onclick="removeCoupon()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
                     <div class="cart-summary">
                         <div class="cart-summary-row">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal">0.00€</span>
+                        </div>
+                        <div class="cart-summary-row" id="discount-row" style="display: none;">
+                            <span class="discount-label">
+                                <i class="fas fa-tag"></i>
+                                Descuento:
+                            </span>
+                            <span class="discount-amount" id="cart-discount">-0.00€</span>
+                        </div>
+                        <div class="cart-summary-row cart-summary-total">
                             <span>Total:</span>
                             <span class="cart-total-price" id="cart-total">0.00€</span>
                         </div>
@@ -434,6 +468,39 @@
                     Finalizar Compra
                 </button>
             </div>
+        </div>
+    </div>
+    
+    <!-- Popup de Bienvenida con Descuento -->
+    <div id="welcome-popup" class="welcome-popup">
+        <div class="welcome-popup-content">
+            <button class="welcome-popup-close" onclick="closeWelcomePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="welcome-popup-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h2>¡Bienvenido a Kickverse!</h2>
+            <p class="welcome-popup-subtitle">Consigue tu primer descuento</p>
+            <div class="welcome-popup-offer">
+                <div class="welcome-popup-amount">5€</div>
+                <div class="welcome-popup-text">de descuento en tu primera compra</div>
+            </div>
+            <div class="welcome-popup-conditions">
+                <i class="fas fa-info-circle"></i>
+                <span>Válido para compras superiores a 60€</span>
+            </div>
+            <div class="welcome-popup-coupon">
+                <div class="welcome-popup-coupon-label">Tu código:</div>
+                <div class="welcome-popup-coupon-code" id="welcome-coupon-code">WELCOME5</div>
+                <button class="btn btn-copy" onclick="copyCouponCode('WELCOME5')">
+                    <i class="fas fa-copy"></i>
+                    Copiar código
+                </button>
+            </div>
+            <button class="btn btn-primary btn-lg" onclick="closeWelcomePopup()">
+                ¡Empezar a comprar!
+            </button>
         </div>
     </div>
     
