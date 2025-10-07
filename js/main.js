@@ -1372,6 +1372,47 @@ function initCarousel() {
     });
     indicatorsContainer.innerHTML = indicatorsHTML;
     
+    // Añadir event listeners a los botones de comprar del carrusel
+    const carouselBuyButtons = document.querySelectorAll('.btn-comprar-carousel');
+    carouselBuyButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const equipo = this.getAttribute('data-equipo');
+            const equipacion = this.getAttribute('data-equipacion');
+            const precio = parseFloat(this.getAttribute('data-precio'));
+            const imagen = this.getAttribute('data-imagen');
+            const liga = this.getAttribute('data-liga');
+            
+            // Actualizar el producto actual con la liga correcta
+            currentProductForCart = {
+                equipo: equipo,
+                equipacion: equipacion,
+                precio: precio,
+                imagen: imagen,
+                liga: liga
+            };
+            
+            // Resetear formulario
+            document.getElementById('personalizar-talla').value = '';
+            document.getElementById('personalizar-parches').checked = false;
+            document.getElementById('personalizar-custom').checked = false;
+            document.getElementById('personalizar-nombre').value = '';
+            document.getElementById('personalizar-dorsal').value = '';
+            document.getElementById('custom-fields').style.display = 'none';
+            
+            // Actualizar título del modal
+            const modalTitle = document.querySelector('#personalizar-modal .modal-title');
+            if (modalTitle) {
+                modalTitle.textContent = `Personalizar ${equipo}`;
+            }
+            
+            // Abrir modal
+            openModal('personalizar-modal');
+        });
+    });
+    
     // Iniciar autoplay
     startCarouselAutoplay();
     
@@ -1397,7 +1438,7 @@ function generateCarouselItem(jersey, index) {
     }[jersey.liga] || jersey.liga;
     
     return `
-        <div class="carousel-item">
+        <div class="carousel-item" data-index="${index}">
             <div class="camiseta-card">
                 <div class="camiseta-badge badge-discount">-60%</div>
                 <div class="camiseta-image-wrapper">
@@ -1429,8 +1470,12 @@ function generateCarouselItem(jersey, index) {
                         <div class="price-old">99.99€</div>
                         <div class="price-current">39.99€</div>
                     </div>
-                    <button class="btn btn-primary btn-comprar" 
-                            onclick="openPersonalizarModal('${jersey.equipo}', '${tipoTexto}', 39.99, '${imagenPath}')">
+                    <button class="btn btn-primary btn-comprar-carousel" 
+                            data-equipo="${jersey.equipo}" 
+                            data-equipacion="${tipoTexto}" 
+                            data-precio="39.99" 
+                            data-imagen="${imagenPath}"
+                            data-liga="${ligaNombre}">
                         <i class="fas fa-shopping-cart"></i>
                         Comprar
                     </button>

@@ -515,6 +515,105 @@
         <i class="fab fa-whatsapp"></i>
     </a>
     
+    <!-- Modal Personalizar -->
+    <div class="modal" id="personalizar-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-edit"></i>
+                    Personalizar Camiseta
+                </h3>
+                <button class="modal-close" onclick="closeModal('personalizar-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="personalizar-talla">
+                        <i class="fas fa-ruler"></i>
+                        Selecciona tu talla *
+                    </label>
+                    <select id="personalizar-talla" required>
+                        <option value="">Selecciona una talla</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                        <option value="XXXL">XXXL</option>
+                    </select>
+                    <small class="form-help">
+                        <i class="fas fa-info-circle"></i>
+                        ¿No sabes tu talla? <a href="tallas.html" target="_blank">Ver guía de tallas</a>
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="personalizar-parches">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">
+                            <i class="fas fa-award"></i>
+                            Añadir parches oficiales (+5€)
+                        </span>
+                    </label>
+                    <small class="form-help">
+                        Incluye: Parches de liga, campeón, etc.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="personalizar-custom" onchange="toggleCustomFields()">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">
+                            <i class="fas fa-signature"></i>
+                            Personalizar nombre y dorsal (+10€)
+                        </span>
+                    </label>
+                </div>
+
+                <div id="custom-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="personalizar-nombre">
+                            <i class="fas fa-user"></i>
+                            Nombre
+                        </label>
+                        <input type="text" 
+                               id="personalizar-nombre" 
+                               placeholder="Ej: MESSI"
+                               maxlength="12">
+                        <small class="form-help">Máximo 12 caracteres</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personalizar-dorsal">
+                            <i class="fas fa-hashtag"></i>
+                            Dorsal
+                        </label>
+                        <input type="number" 
+                               id="personalizar-dorsal" 
+                               placeholder="Ej: 10"
+                               min="0" 
+                               max="99">
+                        <small class="form-help">Entre 0 y 99</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('personalizar-modal')">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" onclick="agregarAlCarrito()">
+                    <i class="fas fa-cart-plus"></i>
+                    Añadir al Carrito
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Carrito -->
     <div class="modal" id="cart-modal">
         <div class="modal-content modal-cart">
