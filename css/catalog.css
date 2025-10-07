@@ -327,6 +327,48 @@
     background: rgba(126, 145, 129, 0.05);
 }
 
+/* Botón añadir al carrito */
+.btn-add-cart {
+    background: #7e9181;
+    flex: 1;
+}
+
+.btn-add-cart:hover {
+    background: #6a7b6e;
+    transform: translateY(-2px);
+}
+
+/* Botón personalizar */
+.btn-personalize {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.btn-personalize:hover {
+    border-color: #7e9181;
+    background: rgba(126, 145, 129, 0.1);
+}
+
+/* Product actions layout */
+.product-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .product-actions {
+        flex-direction: column;
+    }
+    
+    .btn-add-cart,
+    .btn-personalize {
+        width: 100%;
+    }
+}
+
 /* ============= NO RESULTS ============= */
 .no-results {
     text-align: center;

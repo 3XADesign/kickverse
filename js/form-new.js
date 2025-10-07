@@ -441,9 +441,77 @@ function updateSummary() {
 // AÑADIR AL CARRITO
 // ============================================
 function addToCart() {
-    // Aquí iría la lógica del carrito si la tienes
-    // Por ahora, redirigir a WhatsApp
-    sendToWhatsApp();
+    // Validar que se haya completado el formulario
+    if (!formData.league || !formData.team || !formData.size) {
+        alert('Por favor, completa todos los campos obligatorios');
+        return;
+    }
+
+    // Obtener imagen de la camiseta (puedes personalizarlo)
+    const teamImage = getTeamImage();
+
+    // Crear item del carrito
+    const cartItem = {
+        league: leagueNames[formData.league] || formData.league,
+        team: formData.team,
+        type: 'Local', // Puedes hacer que el usuario seleccione
+        size: formData.size,
+        playerName: formData.playerName || '',
+        playerNumber: formData.playerNumber || '',
+        patches: formData.patches,
+        price: formData.price,
+        image: teamImage
+    };
+
+    // Añadir al carrito usando la clase global
+    if (window.shoppingCart) {
+        window.shoppingCart.addItem(cartItem);
+        window.shoppingCart.openCart();
+        
+        // Resetear formulario para añadir más camisetas
+        setTimeout(() => {
+            if (confirm('¿Quieres añadir otra camiseta?')) {
+                resetForm();
+            }
+        }, 1500);
+    } else {
+        console.error('Shopping cart not initialized');
+    }
+}
+
+// Función auxiliar para obtener imagen del equipo
+function getTeamImage() {
+    const league = formData.league;
+    const teamName = formData.team;
+    
+    if (league && teamsData[league]) {
+        const team = teamsData[league].find(t => t.name === teamName);
+        if (team && team.logo) {
+            return team.logo;
+        }
+    }
+    
+    return '';
+}
+
+// Función para resetear el formulario
+function resetForm() {
+    currentStep = 1;
+    formData = {
+        league: '',
+        team: '',
+        size: '',
+        patches: '',
+        playerName: '',
+        playerNumber: '',
+        price: 29.99
+    };
+    
+    // Volver al primer paso
+    document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+    document.getElementById('step1').classList.add('active');
+    updateProgressBar();
+    updatePrice();
 }
 
 // ============================================

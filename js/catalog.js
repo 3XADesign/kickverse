@@ -213,18 +213,22 @@ function createProductCard(product) {
             </div>
             
             <div class="product-actions">
+                <button class="btn-product btn-add-cart" 
+                        data-team="${teamName}"
+                        data-type="${type}"
+                        data-image="${imagePath}"
+                        data-league="${league}"
+                        data-price="${price}">
+                    🛒 Añadir al carrito
+                </button>
                 <button class="btn-product btn-personalize" 
                         data-team="${teamName}"
                         data-type="${type}"
                         data-image="${imagePath}"
                         data-league="${league}"
                         data-price="${price}">
-                    ✍️ Personalizar ahora
+                    ✍️ Personalizar
                 </button>
-                <a href="https://wa.me/34614299735?text=Hola,%20quiero%20info%20sobre%20${encodeURIComponent(teamName + ' ' + type)}" 
-                   class="btn-product btn-product-secondary" target="_blank">
-                    💬 Consultar
-                </a>
             </div>
         </div>
     `;
@@ -274,3 +278,65 @@ function setupSearch() {
         renderCatalog();
     });
 }
+
+// ============================================
+// FUNCIONALIDAD DEL CARRITO
+// ============================================
+function setupCartButtons() {
+    // Event delegation para botones dinámicos
+    document.addEventListener('click', (e) => {
+        // Botón añadir al carrito
+        if (e.target.classList.contains('btn-add-cart') || e.target.closest('.btn-add-cart')) {
+            const btn = e.target.classList.contains('btn-add-cart') ? e.target : e.target.closest('.btn-add-cart');
+            handleAddToCart(btn);
+        }
+        
+        // Botón personalizar (redirigir a form.html)
+        if (e.target.classList.contains('btn-personalize') || e.target.closest('.btn-personalize')) {
+            const btn = e.target.classList.contains('btn-personalize') ? e.target : e.target.closest('.btn-personalize');
+            handlePersonalize(btn);
+        }
+    });
+}
+
+function handleAddToCart(btn) {
+    const team = btn.dataset.team;
+    const type = btn.dataset.type;
+    const image = btn.dataset.image;
+    const league = btn.dataset.league;
+    const price = parseFloat(btn.dataset.price);
+    
+    // Crear item del carrito
+    const cartItem = {
+        league: leagueInfo[league]?.name || league,
+        team: team,
+        type: type,
+        size: 'M', // Talla por defecto
+        playerName: '',
+        playerNumber: '',
+        patches: 'No',
+        price: price,
+        image: image
+    };
+    
+    // Añadir al carrito
+    if (window.shoppingCart) {
+        window.shoppingCart.addItem(cartItem);
+    } else {
+        console.error('Shopping cart not initialized');
+    }
+}
+
+function handlePersonalize(btn) {
+    const team = btn.dataset.team;
+    const type = btn.dataset.type;
+    const league = btn.dataset.league;
+    
+    // Redirigir al formulario con parámetros
+    window.location.href = `form.html?league=${league}&team=${encodeURIComponent(team)}&type=${type}`;
+}
+
+// Llamar a setupCartButtons cuando se inicializa
+document.addEventListener('DOMContentLoaded', () => {
+    setupCartButtons();
+});
