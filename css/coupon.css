@@ -1,0 +1,426 @@
+/* ============================================
+   CUPONES Y DESCUENTOS
+   ============================================ */
+
+/* Sección de cupón en el carrito */
+.cart-coupon-section {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.cart-coupon-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.cart-coupon-header i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.cart-coupon-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.cart-coupon-input-group input {
+    flex: 1;
+    padding: 0.625rem 0.875rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.cart-coupon-input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.cart-coupon-input-group input::placeholder {
+    color: var(--text-tertiary);
+    text-transform: none;
+}
+
+.cart-coupon-input-group .btn {
+    padding: 0.625rem 1.25rem;
+    white-space: nowrap;
+}
+
+/* Mensajes de cupón */
+.coupon-message {
+    margin-top: 0.75rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+.coupon-message.success {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    display: block;
+}
+
+.coupon-message.error {
+    background: rgba(244, 67, 54, 0.1);
+    color: #f44336;
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    display: block;
+}
+
+.coupon-message i {
+    margin-right: 0.5rem;
+}
+
+/* Cupón aplicado */
+.applied-coupon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-radius: 6px;
+    animation: slideDown 0.3s ease;
+}
+
+.applied-coupon-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4caf50;
+    font-weight: 600;
+}
+
+.applied-coupon-info i {
+    font-size: 1.1rem;
+}
+
+.btn-remove-coupon {
+    background: transparent;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-remove-coupon:hover {
+    background: rgba(244, 67, 54, 0.1);
+    transform: scale(1.1);
+}
+
+/* Resumen con descuento */
+.cart-summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.625rem 0;
+}
+
+.discount-label {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.discount-label i {
+    margin-right: 0.25rem;
+}
+
+.discount-amount {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.cart-summary-total {
+    border-top: 2px solid var(--border-color);
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* ============================================
+   POPUP DE BIENVENIDA
+   ============================================ */
+
+.welcome-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.welcome-popup.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.welcome-popup-content {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: popupSlideIn 0.4s ease;
+}
+
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.welcome-popup-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.welcome-popup-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    transform: rotate(90deg);
+}
+
+.welcome-popup-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: pulse 2s infinite;
+}
+
+.welcome-popup-icon i {
+    font-size: 2.5rem;
+    color: white;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 20px rgba(255, 107, 53, 0);
+    }
+}
+
+.welcome-popup h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.welcome-popup-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.welcome-popup-offer {
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 193, 7, 0.1));
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-popup-amount {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.welcome-popup-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.welcome-popup-conditions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--accent-color);
+}
+
+.welcome-popup-conditions i {
+    font-size: 1.1rem;
+}
+
+.welcome-popup-coupon {
+    background: var(--bg-primary);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-popup-coupon-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.welcome-popup-coupon-code {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+    font-family: 'Courier New', monospace;
+}
+
+.btn-copy {
+    background: rgba(255, 107, 53, 0.1);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-copy:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.btn-copy i {
+    font-size: 1rem;
+}
+
+.welcome-popup .btn-lg {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .welcome-popup-content {
+        padding: 2rem 1.5rem;
+        width: 95%;
+    }
+    
+    .welcome-popup h2 {
+        font-size: 1.5rem;
+    }
+    
+    .welcome-popup-amount {
+        font-size: 2.5rem;
+    }
+    
+    .welcome-popup-coupon-code {
+        font-size: 1.5rem;
+    }
+    
+    .cart-coupon-input-group {
+        flex-direction: column;
+    }
+    
+    .cart-coupon-input-group .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-popup-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .welcome-popup-icon i {
+        font-size: 2rem;
+    }
+    
+    .welcome-popup-amount {
+        font-size: 2rem;
+    }
+}
+
+/* Animación de slide down */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
