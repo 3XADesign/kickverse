@@ -237,14 +237,14 @@ function closeModal(modal) {
 
 function comprarWhatsApp(equipo, equipacion, precio) {
     const telefono = '34614299735';
-    const mensaje = `¡Hola Kickverse! 👋
+    const mensaje = `Hola Kickverse!
 
 Quiero comprar:
-🏆 Equipo: ${equipo}
-👕 Equipación: ${equipacion}
-💰 Precio: ${precio}
+Equipo: ${equipo}
+Equipacion: ${equipacion}
+Precio: ${precio}
 
-¿Cuáles son los siguientes pasos?`;
+¿Cuales son los siguientes pasos?`;
     
     const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     window.open(urlWhatsApp, '_blank');
@@ -253,24 +253,24 @@ Quiero comprar:
 function generarMensajeWhatsApp(data) {
     const telefono = '34614299735';
     
-    let mensaje = `¡Hola Kickverse! 👋
+    let mensaje = `Hola Kickverse!
 
 Quiero realizar un pedido:
 
-📋 DETALLES DEL PEDIDO:
-🏆 Liga: ${data.liga}
-⚽ Equipo: ${data.equipo}
-👕 Equipación: ${data.equipacion}
-📏 Talla: ${data.talla}
-🏅 Parches: ${data.parches ? 'Sí' : 'No'}`;
+DETALLES DEL PEDIDO:
+Liga: ${data.liga}
+Equipo: ${data.equipo}
+Equipacion: ${data.equipacion}
+Talla: ${data.talla}
+Parches: ${data.parches ? 'Si' : 'No'}`;
 
     if (data.personalizar) {
-        mensaje += `\n✏️ Personalización:
+        mensaje += `\nPersonalizacion:
    - Nombre: ${data.nombre}
    - Dorsal: ${data.dorsal}`;
     }
     
-    mensaje += `\n\n¿Cuál es el precio final y los pasos a seguir?`;
+    mensaje += `\n\n¿Cual es el precio final y los pasos a seguir?`;
     
     const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     return urlWhatsApp;
@@ -931,11 +931,11 @@ function generarTarjetaCamiseta(camiseta, tipo) {
                     </div>
                 </div>
                 <div class="camiseta-price">
-                    <div class="price-old">99.99€</div>
-                    <div class="price-current">39.99€</div>
+                    <div class="price-old">79.99€</div>
+                    <div class="price-current">29.99€</div>
                 </div>
                 <button class="btn btn-primary btn-comprar" 
-                        onclick="openPersonalizarModal('${camiseta.equipo}', '${tipoTexto}', 39.99, '${imagenPath}')">
+                        onclick="openPersonalizarModal('${camiseta.equipo}', '${tipoTexto}', 29.99, '${imagenPath}')">
                     <i class="fas fa-shopping-cart"></i>
                     Comprar
                 </button>
@@ -1229,24 +1229,24 @@ function finalizarCompraCarrito() {
     }
     
     const telefono = '34614299735';
-    let mensaje = `¡Hola Kickverse! 👋\n\nQuiero realizar un pedido:\n\n`;
+    let mensaje = `Hola Kickverse!\n\nQuiero realizar un pedido:\n\n`;
     
     cartItems.forEach((item, index) => {
-        mensaje += `📦 PRODUCTO ${index + 1}:\n`;
-        mensaje += `⚽ Equipo: ${item.equipo}\n`;
-        mensaje += `👕 Equipación: ${item.equipacion}\n`;
-        mensaje += `📏 Talla: ${item.talla}\n`;
-        mensaje += `🏅 Parches: ${item.parches ? 'Sí' : 'No'}\n`;
+        mensaje += `PRODUCTO ${index + 1}:\n`;
+        mensaje += `Equipo: ${item.equipo}\n`;
+        mensaje += `Equipacion: ${item.equipacion}\n`;
+        mensaje += `Talla: ${item.talla}\n`;
+        mensaje += `Parches: ${item.parches ? 'Si' : 'No'}\n`;
         if (item.nombre) {
-            mensaje += `✏️ Personalización: ${item.nombre} #${item.dorsal}\n`;
+            mensaje += `Personalizacion: ${item.nombre} #${item.dorsal}\n`;
         }
-        mensaje += `🔢 Cantidad: ${item.cantidad}\n`;
-        mensaje += `💰 Precio: ${(item.precio * item.cantidad).toFixed(2)}€\n\n`;
+        mensaje += `Cantidad: ${item.cantidad}\n`;
+        mensaje += `Precio: ${(item.precio * item.cantidad).toFixed(2)}€\n\n`;
     });
     
     const total = cartItems.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    mensaje += `💵 TOTAL: ${total.toFixed(2)}€\n\n`;
-    mensaje += `¿Cuál es el siguiente paso?`;
+    mensaje += `TOTAL: ${total.toFixed(2)}€\n\n`;
+    mensaje += `¿Cual es el siguiente paso?`;
     
     const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     window.open(urlWhatsApp, '_blank');
@@ -1467,13 +1467,13 @@ function generateCarouselItem(jersey, index) {
                         </div>
                     </div>
                     <div class="camiseta-price">
-                        <div class="price-old">99.99€</div>
-                        <div class="price-current">39.99€</div>
+                        <div class="price-old">79.99€</div>
+                        <div class="price-current">29.99€</div>
                     </div>
                     <button class="btn btn-primary btn-comprar-carousel" 
                             data-equipo="${jersey.equipo}" 
                             data-equipacion="${tipoTexto}" 
-                            data-precio="39.99" 
+                            data-precio="29.99" 
                             data-imagen="${imagenPath}"
                             data-liga="${ligaNombre}">
                         <i class="fas fa-shopping-cart"></i>
