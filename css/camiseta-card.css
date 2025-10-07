@@ -256,25 +256,83 @@
 
 .camiseta-price {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
+  flex-direction: column;
+  gap: 4px;
   margin-top: auto;
   margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de brillo en el fondo */
+.camiseta-price::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: priceShine 3s infinite;
+}
+
+@keyframes priceShine {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
 }
 
 .price-old {
   font-size: 0.9rem;
-  color: var(--text-tertiary);
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: line-through;
+  font-weight: 500;
+  text-align: center;
 }
 
 .price-current {
-  font-size: 1.75rem;
-  font-weight: var(--font-weight-bold);
-  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #a855f7;
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f59e0b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.5px;
+  line-height: 1;
+  position: relative;
+  display: block;
+  text-align: center;
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)) 
+          drop-shadow(0 0 16px rgba(236, 72, 153, 0.4));
+  animation: priceGlow 3s ease-in-out infinite;
+}
+
+/* Animación de glow pulsante */
+@keyframes priceGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)) 
+            drop-shadow(0 0 16px rgba(236, 72, 153, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.8)) 
+            drop-shadow(0 0 24px rgba(236, 72, 153, 0.6));
+  }
+}
+
+/* Fallback para navegadores antiguos */
+@supports not (background-clip: text) {
+  .price-current {
+    color: #a855f7;
+    -webkit-text-fill-color: #a855f7;
+  }
 }
 
 .camiseta-price-currency {
