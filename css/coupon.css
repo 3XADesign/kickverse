@@ -130,12 +130,21 @@
 .cart-summary-row {
     display: flex;
     justify-content: space-between;
-    padding: 0.625rem 0;
+    align-items: center;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+}
+
+.cart-summary-row span {
+    line-height: 1.4;
 }
 
 .discount-label {
     color: var(--primary-color);
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .discount-label i {
@@ -144,15 +153,49 @@
 
 .discount-amount {
     color: var(--primary-color);
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.05rem;
 }
 
 .cart-summary-total {
     border-top: 2px solid var(--border-color);
-    margin-top: 0.5rem;
-    padding-top: 1rem;
-    font-size: 1.2rem;
+    margin-top: 1rem;
+    padding: 1.25rem 0 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, transparent, rgba(255, 107, 53, 0.03));
+    border-radius: 8px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.cart-summary-total span:first-child {
+    color: var(--text-primary);
+    font-size: 1.25rem;
     font-weight: 700;
+}
+
+.cart-summary-total .cart-total-price {
+    font-size: 2rem !important;
+    font-weight: 900 !important;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    letter-spacing: 1px;
+    filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.4));
+    display: inline-block;
+    animation: priceGlow 2s ease-in-out infinite;
+}
+
+@keyframes priceGlow {
+    0%, 100% {
+        filter: drop-shadow(0 2px 8px rgba(255, 107, 53, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 2px 12px rgba(255, 107, 53, 0.6));
+    }
 }
 
 /* ============================================
@@ -396,6 +439,14 @@
     .cart-coupon-input-group .btn {
         width: 100%;
     }
+    
+    .cart-summary-total .cart-total-price {
+        font-size: 1.65rem !important;
+    }
+    
+    .cart-summary-total span:first-child {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -410,6 +461,19 @@
     
     .welcome-popup-amount {
         font-size: 2rem;
+    }
+    
+    .cart-summary-total {
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
+    }
+    
+    .cart-summary-total .cart-total-price {
+        font-size: 1.5rem !important;
+    }
+    
+    .cart-summary-total span:first-child {
+        font-size: 1rem;
     }
 }
 
