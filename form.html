@@ -1,495 +1,218 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MQFTT34L');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Primary Meta Tags -->
-    <title>Personaliza tu Camiseta de Fútbol | Formulario de Pedido - Kickverse</title>
-    <meta name="title" content="Personaliza tu Camiseta de Fútbol | Formulario de Pedido - Kickverse">
-    <meta name="description" content="🎨 Personaliza tu camiseta de fútbol: añade nombre, número y escudo. Elige tu talla y recíbela en 24-48h. Pago seguro. Envío gratis desde 50€">
-    <meta name="keywords" content="personalizar camiseta fútbol, comprar camiseta personalizada, formulario pedido camisetas, añadir nombre camiseta, numeración camisetas fútbol">
-    <meta name="robots" content="noindex, follow">
-    <meta name="author" content="Kickverse">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://kickverse.com/form.html">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kickverse.com/form.html">
-    <meta property="og:title" content="Personaliza tu Camiseta de Fútbol - Kickverse">
-    <meta property="og:description" content="🎨 Personaliza tu camiseta: añade nombre, número y escudo. Envío 24-48h">
-    <meta property="og:image" content="https://kickverse.com/img/hero-jersey.png">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://kickverse.com/form.html">
-    <meta name="twitter:title" content="Personaliza tu Camiseta de Fútbol - Kickverse">
-    <meta name="twitter:description" content="🎨 Personaliza tu camiseta: añade nombre, número y escudo">
-    <meta name="twitter:image" content="https://kickverse.com/img/hero-jersey.png">
+    <meta name="description" content="Crea tu pedido personalizado de camiseta de fútbol en Kickverse. Elige liga, equipo, talla y personalización.">
+    <title>Pedido Personalizado - Kickverse</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/png" href="./img/logo.png">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/icons.css">
-    <link rel="stylesheet" href="css/cart.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- JSON-LD Schema for Product Customization -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "name": "Formulario de Personalización de Camisetas",
-      "description": "Personaliza tu camiseta de fútbol con nombre y número",
-      "url": "https://kickverse.com/form.html",
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [{
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Inicio",
-          "item": "https://kickverse.com/"
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Catálogo",
-          "item": "https://kickverse.com/catalogo.html"
-        },{
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Personalización",
-          "item": "https://kickverse.com/form.html"
-        }]
-      }
-    }
-    </script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/utils.css">
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQFTT34L"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     
-    <!-- Cart Overlay -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    
-    <!-- Cart Sidebar -->
-    <aside class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>
-                <svg class="icon icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-                Mi Carrito
-                <span id="cartCount" style="font-size: 0.875rem; color: var(--text-secondary);">(0)</span>
-            </h3>
-            <button class="cart-close" id="cartClose">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"/>
-                    <line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-            </button>
-        </div>
-        <div class="cart-body" id="cartBody">
-            <div class="cart-empty">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-                <p>Tu carrito está vacío</p>
-                <p style="font-size: 0.875rem; margin-top: 0.5rem;">Añade tu primera camiseta</p>
-            </div>
-        </div>
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="cart-summary">
-                <div class="cart-summary-row">
-                    <span>Subtotal:</span>
-                    <span id="cartSubtotal">0,00 €</span>
-                </div>
-                <div class="cart-summary-row discount" id="cartDiscountRow" style="display: none;">
-                    <span>Descuento 3x2:</span>
-                    <span id="cartDiscount">-0,00 €</span>
-                </div>
-                <div class="cart-summary-row total">
-                    <span>Total:</span>
-                    <span id="cartTotal">0,00 €</span>
-                </div>
-            </div>
-            <div class="cart-actions">
-                <button class="btn btn-primary btn-large" onclick="sendToWhatsApp()">
-                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                    </svg>
-                    Confirmar por WhatsApp
-                </button>
-            </div>
-        </div>
-    </aside>
-    
-    <!-- Floating Cart Button -->
-    <button class="cart-button" id="cartButton">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="9" cy="21" r="1"/>
-            <circle cx="20" cy="21" r="1"/>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-        </svg>
-        <span class="cart-badge" id="cartBadge" style="display: none;">0</span>
-    </button>
-    <!-- Header -->
+    <!-- Header/Navigation -->
     <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="img/logotipo.svg" alt="Kickverse Logotipo" class="logo-img-full">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse Logo">
+                <span>Kickverse</span>
             </a>
-            <nav class="nav">
-                <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-                    <span class="theme-toggle-slider">
-                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="5"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                    </span>
-                </button>
+            
+            <nav class="header-nav">
+                <ul class="header-nav-list">
+                    <li><a href="index.html" class="header-nav-link">Inicio</a></li>
+                    <li><a href="form.html" class="header-nav-link active">Pedido Personalizado</a></li>
+                    <li><a href="catalogo.html" class="header-nav-link">Catálogo</a></li>
+                    <li><a href="index.html#beneficios" class="header-nav-link">¿Por qué nosotros?</a></li>
+                    <li><a href="index.html#contacto" class="header-nav-link">Contacto</a></li>
+                </ul>
             </nav>
+            
+            <div class="header-actions">
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
-
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-wrapper">
-            <div class="progress-steps">
-                <div class="progress-line">
-                    <div class="progress-line-fill" id="progressLineFill"></div>
-                </div>
-                <div class="progress-step active" data-step="1">
-                    <div class="progress-step-circle">1</div>
-                    <span class="progress-step-label">Liga</span>
-                </div>
-                <div class="progress-step" data-step="2">
-                    <div class="progress-step-circle">2</div>
-                    <span class="progress-step-label">Equipo</span>
-                </div>
-                <div class="progress-step" data-step="3">
-                    <div class="progress-step-circle">3</div>
-                    <span class="progress-step-label">Talla</span>
-                </div>
-                <div class="progress-step" data-step="4">
-                    <div class="progress-step-circle">4</div>
-                    <span class="progress-step-label">Parches</span>
-                </div>
-                <div class="progress-step" data-step="5">
-                    <div class="progress-step-circle">5</div>
-                    <span class="progress-step-label">Nombre</span>
-                </div>
-                <div class="progress-step" data-step="6">
-                    <div class="progress-step-circle">6</div>
-                    <span class="progress-step-label">Confirmar</span>
-                </div>
-            </div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <span class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse">
+                Kickverse
+            </span>
+            <button class="mobile-menu-close" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        <nav class="mobile-menu-nav">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="form.html" class="mobile-menu-link"><i class="fas fa-shirt"></i> Pedido Personalizado</a></li>
+                <li><a href="catalogo.html" class="mobile-menu-link"><i class="fas fa-th"></i> Catálogo</a></li>
+                <li><a href="index.html#beneficios" class="mobile-menu-link"><i class="fas fa-star"></i> ¿Por qué nosotros?</a></li>
+                <li><a href="index.html#contacto" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contacto</a></li>
+            </ul>
+        </nav>
     </div>
-
-    <!-- Cart Counter -->
-    <div class="cart-counter" id="cartCounter" style="display: none;">
-        <p>🛒 Has elegido <strong id="itemCount">0</strong> de 3 camisetas</p>
-    </div>
-
-    <!-- Form Container -->
-    <section class="form-section">
-        <div class="container">
+    <div class="menu-overlay"></div>
+    
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Form Wizard Section -->
+        <section class="form-wizard" id="form-wizard">
             <div class="form-container">
-                <!-- Step 1: Liga -->
-                <div class="form-step active" id="step1">
-                    <h2 class="form-title">¿Qué tipo de camiseta estás buscando?</h2>
-                    <p class="form-subtitle">Paso 1 de 6 · Elige la competición</p>
-                    <div class="options-grid">
-                        <button class="league-card" data-value="laliga" onclick="selectLeague('laliga')">
-                            <div class="league-card-icon">
-                                <img src="img/leagues/laliga.svg" alt="LaLiga">
-                            </div>
-                            <div class="league-card-title">LaLiga</div>
-                            <div class="league-card-subtitle">España 🇪🇸</div>
-                        </button>
-                        <button class="league-card" data-value="premier" onclick="selectLeague('premier')">
-                            <div class="league-card-icon">
-                                <img src="img/leagues/premier.svg" alt="Premier League">
-                            </div>
-                            <div class="league-card-title">Premier League</div>
-                            <div class="league-card-subtitle">Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
-                        </button>
-                        <button class="league-card" data-value="seriea" onclick="selectLeague('seriea')">
-                            <div class="league-card-icon">
-                                <img src="img/leagues/seriea.svg" alt="Serie A">
-                            </div>
-                            <div class="league-card-title">Serie A</div>
-                            <div class="league-card-subtitle">Italia 🇮🇹</div>
-                        </button>
-                        <button class="league-card" data-value="bundesliga" onclick="selectLeague('bundesliga')">
-                            <div class="league-card-icon">
-                                <img src="img/leagues/bundesliga.svg" alt="Bundesliga">
-                            </div>
-                            <div class="league-card-title">Bundesliga</div>
-                            <div class="league-card-subtitle">Alemania 🇩🇪</div>
-                        </button>
-                        <button class="league-card" data-value="ligue1" onclick="selectLeague('ligue1')">
-                            <div class="league-card-icon">
-                                <img src="img/leagues/ligue1.svg" alt="Ligue 1">
-                            </div>
-                            <div class="league-card-title">Ligue 1</div>
-                            <div class="league-card-subtitle">Francia 🇫�</div>
-                        </button>
-                        <button class="league-card" data-value="selecciones" onclick="selectLeague('selecciones')">
-                            <div class="league-card-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#7e9181" stroke-width="2" style="width: 80px; height: 80px;">
-                                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
-                                    <line x1="4" y1="22" x2="4" y2="15"/>
-                                </svg>
-                            </div>
-                            <div class="league-card-title">Selecciones</div>
-                            <div class="league-card-subtitle">Mundiales 🌍</div>
-                        </button>
-                    </div>
+                
+                <!-- Form Header -->
+                <div class="form-header">
+                    <h1>Crea tu Pedido Personalizado</h1>
+                    <p>Sigue los pasos y personaliza tu camiseta de fútbol perfecta</p>
                 </div>
-
-                <!-- Step 2: Equipo -->
-                <div class="form-step" id="step2">
-                    <h2 class="form-title">Elige tu equipo</h2>
-                    <p class="form-subtitle">Paso 2 de 6 · <span id="leagueName"></span></p>
-                    
-                    <div class="teams-search">
-                        <div class="search-wrapper">
-                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="m21 21-4.35-4.35"/>
-                            </svg>
-                            <input type="text" class="search-input" id="teamSearch" placeholder="Buscar equipo...">
-                        </div>
-                    </div>
-                    
-                    <div class="teams-grid" id="teamsGrid">
-                        <!-- Se llenará dinámicamente con JavaScript -->
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button class="btn btn-secondary btn-back" onclick="previousStep()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                                <path d="M19 12H5M12 19l-7-7 7-7"/>
-                            </svg>
-                            Atrás
-                        </button>
-                    </div>
+                
+                <!-- Progress Bar -->
+                <div class="form-progress">
+                    <div class="form-progress-bar" id="progress-bar" style="width: 14%;"></div>
                 </div>
-
-                <!-- Step 3: Talla -->
-                <div class="form-step" id="step3">
-                    <h2 class="form-title">Elige tu talla</h2>
-                    <p class="form-subtitle">Paso 3 de 6 · Guía de tallas disponible</p>
-                    <div class="options-grid size-grid">
-                        <button class="option-card size-card" data-value="S" onclick="selectSize('S')">
-                            <span class="option-text">S</span>
-                        </button>
-                        <button class="option-card size-card" data-value="M" onclick="selectSize('M')">
-                            <span class="option-text">M</span>
-                        </button>
-                        <button class="option-card size-card" data-value="L" onclick="selectSize('L')">
-                            <span class="option-text">L</span>
-                        </button>
-                        <button class="option-card size-card" data-value="XL" onclick="selectSize('XL')">
-                            <span class="option-text">XL</span>
-                        </button>
-                        <button class="option-card size-card" data-value="XXL" onclick="selectSize('XXL')">
-                            <span class="option-text">XXL</span>
-                        </button>
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn btn-secondary btn-back" onclick="previousStep()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                                <path d="M19 12H5M12 19l-7-7 7-7"/>
-                            </svg>
-                            Atrás
-                        </button>
-                    </div>
+                <p class="form-progress-text" id="progress-text">Paso 1 de 7</p>
+                
+                <!-- Step Content -->
+                <div id="step-content">
+                    <!-- El contenido se carga dinámicamente con JavaScript -->
                 </div>
-
-                <!-- Step 4: Parches -->
-                <div class="form-step" id="step4">
-                    <h2 class="form-title">¿Deseas parches oficiales?</h2>
-                    <p class="form-subtitle">Paso 4 de 6 · +5€ por camiseta</p>
-                    <div class="options-grid yn-grid">
-                        <button class="option-card" data-value="si" onclick="selectPatches('si')">
-                            <span class="option-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#7e9181" stroke-width="3" style="width: 60px; height: 60px;">
-                                    <path d="M20 6L9 17l-5-5"/>
-                                </svg>
-                            </span>
-                            <span class="option-text">Sí, con parches</span>
-                        </button>
-                        <button class="option-card" data-value="no" onclick="selectPatches('no')">
-                            <span class="option-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="#7e9181" stroke-width="3" style="width: 60px; height: 60px;">
-                                    <line x1="18" y1="6" x2="6" y2="18"/>
-                                    <line x1="6" y1="6" x2="18" y2="18"/>
-                                </svg>
-                            </span>
-                            <span class="option-text">No, gracias</span>
-                        </button>
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn btn-secondary btn-back" onclick="previousStep()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                                <path d="M19 12H5M12 19l-7-7 7-7"/>
-                            </svg>
-                            Atrás
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 5: Personalización -->
-                <div class="form-step" id="step5">
-                    <h2 class="form-title">¿Quieres personalizar la camiseta?</h2>
-                    <p class="form-subtitle">Paso 5 de 6 • +5€ (Opcional)</p>
-                    <div class="personalization-form">
-                        <div class="input-group">
-                            <label for="playerName">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="8" r="4"/>
-                                    <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-                                </svg>
-                                Nombre (opcional)
-                            </label>
-                            <input type="text" id="playerName" placeholder="Ej: RAMOS" maxlength="15">
-                        </div>
-                        <div class="input-group">
-                            <label for="playerNumber">
-                                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <line x1="4" y1="9" x2="20" y2="9"/>
-                                    <line x1="4" y1="15" x2="20" y2="15"/>
-                                    <line x1="10" y1="3" x2="8" y2="21"/>
-                                    <line x1="16" y1="3" x2="14" y2="21"/>
-                                </svg>
-                                Número (opcional)
-                            </label>
-                            <input type="number" id="playerNumber" placeholder="Ej: 7" min="0" max="99">
-                        </div>
-                    </div>
-                    <div class="form-actions">
-                        <button class="btn btn-secondary btn-back" onclick="previousStep()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                                <path d="M19 12H5M12 19l-7-7 7-7"/>
-                            </svg>
-                            Atrás
-                        </button>
-                        <button class="btn btn-primary btn-icon" onclick="nextStep()">
-                            Continuar
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                                <path d="M5 12h14M12 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 6: Resumen -->
-                <div class="form-step" id="step6">
-                    <h2 class="form-title">Resumen de tu pedido</h2>
-                    <p class="form-subtitle">Paso 6 de 6 · Revisa antes de confirmar</p>
-                    
-                    <div class="summary-card">
-                        <h3 class="summary-title">Detalles de la camiseta</h3>
-                        
-                        <div class="summary-item">
-                            <span class="summary-label">Liga</span>
-                            <span class="summary-value" id="summaryLeague">-</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Equipo</span>
-                            <span class="summary-value" id="summaryTeam">-</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Talla</span>
-                            <span class="summary-value" id="summarySize">-</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Parches oficiales</span>
-                            <span class="summary-value" id="summaryPatches">-</span>
-                        </div>
-                        <div class="summary-item" id="personalizationRow" style="display: none;">
-                            <span class="summary-label">Personalización</span>
-                            <span class="summary-value" id="summaryPersonalization">-</span>
-                        </div>
-                        
-                        <div class="summary-price">
-                            <div class="summary-price-row">
-                                <span>Camiseta base</span>
-                                <span>29,99 €</span>
-                            </div>
-                            <div class="summary-price-row" id="patchesPriceRow" style="display: none;">
-                                <span>Parches oficiales</span>
-                                <span>+5,00 €</span>
-                            </div>
-                            <div class="summary-price-row" id="personalizationPriceRow" style="display: none;">
-                                <span>Personalización</span>
-                                <span>+5,00 €</span>
-                            </div>
-                            <div class="summary-price-row">
-                                <span class="summary-price-total">Total</span>
-                                <span class="summary-price-total" id="totalPrice">29,99 €</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button class="btn btn-secondary btn-back" onclick="previousStep()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                                <path d="M19 12H5M12 19l-7-7 7-7"/>
-                            </svg>
-                            Modificar
-                        </button>
-                        <button class="btn btn-primary btn-large btn-icon" onclick="addToCart()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
-                                <circle cx="9" cy="21" r="1"/>
-                                <circle cx="20" cy="21" r="1"/>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                            </svg>
-                            Añadir al carrito
-                        </button>
-                    </div>
-                </div>
+                
             </div>
-        </div>
-    </section>
-
+        </section>
+        
+    </main>
+    
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2025 Kickverse. <a href="index.html">Volver al inicio</a></p>
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="./img/logo.png" alt="Kickverse">
+                        <span>Kickverse</span>
+                    </div>
+                    <p class="footer-description">
+                        Tu tienda online de confianza para camisetas de fútbol. 
+                        Encuentra las mejores equipaciones de clubes y selecciones al mejor precio.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces</h4>
+                    <nav class="footer-links">
+                        <a href="index.html" class="footer-link">Inicio</a>
+                        <a href="form.html" class="footer-link">Pedido Personalizado</a>
+                        <a href="catalogo.html" class="footer-link">Catálogo</a>
+                        <a href="index.html#beneficios" class="footer-link">¿Por qué nosotros?</a>
+                    </nav>
+                </div>
+                
+                <!-- Información -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal</h4>
+                    <nav class="footer-links">
+                        <a href="#" class="footer-link">Términos y Condiciones</a>
+                        <a href="#" class="footer-link">Política de Privacidad</a>
+                        <a href="#" class="footer-link">Política de Envíos</a>
+                        <a href="#" class="footer-link">Devoluciones</a>
+                    </nav>
+                </div>
+                
+                <!-- Contacto -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div class="footer-contact-info">
+                            <div class="footer-contact-label">WhatsApp</div>
+                            <a href="https://wa.me/34614299735" class="footer-contact-value">+34 614 299 735</a>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="footer-contact-info">
+                            <div class="footer-contact-label">Email</div>
+                            <a href="mailto:contacto@kickverse.com" class="footer-contact-value">contacto@kickverse.com</a>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados. Desarrollado por <a href="#">3XA Design</a></p>
+                </div>
+                <div class="footer-payment">
+                    <span class="footer-payment-text">Métodos de pago:</span>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-visa" style="font-size: 1.5rem; color: #1A1F71;"></i>
+                    </div>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-mastercard" style="font-size: 1.5rem; color: #EB001B;"></i>
+                    </div>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-paypal" style="font-size: 1.5rem; color: #003087;"></i>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </footer>
-
-    <script src="js/theme.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/form-new.js"></script>
+    
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/34614299735?text=Hola%20Kickverse!%20Quiero%20información" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- JavaScript -->
+    <script src="./js/main.js"></script>
+    
 </body>
 </html>

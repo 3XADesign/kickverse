@@ -1,0 +1,333 @@
+/* ============================================
+   CAMISETA-CARD.CSS - Tarjetas de producto
+   ============================================ */
+
+.camiseta-card {
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.camiseta-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.camiseta-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(168, 85, 247, 0.5);
+}
+
+.camiseta-card:hover::before {
+  opacity: 0.05;
+}
+
+/* Card badge */
+.camiseta-badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background: var(--gradient-primary);
+  color: var(--color-text-primary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  box-shadow: var(--shadow-md);
+}
+
+.camiseta-badge.badge-discount {
+  background: var(--color-accent-green);
+  color: var(--color-bg-primary);
+}
+
+/* Card image */
+.camiseta-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+  overflow: hidden;
+}
+
+.camiseta-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  transition: all var(--transition-normal);
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+}
+
+.camiseta-card:hover .camiseta-image {
+  transform: translate(-50%, -50%) scale(1.1) rotate(5deg);
+}
+
+/* League badge */
+.camiseta-league {
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  width: 35px;
+  height: 35px;
+  background-color: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camiseta-league img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Card content */
+.camiseta-content {
+  padding: var(--spacing-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.camiseta-team {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.camiseta-team i {
+  color: var(--color-accent-purple);
+}
+
+.camiseta-name {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.3;
+}
+
+.camiseta-type {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.85rem;
+  color: var(--color-accent-purple);
+  background: rgba(168, 85, 247, 0.1);
+  padding: 4px var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-md);
+  width: fit-content;
+}
+
+/* Stats */
+.camiseta-stats {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.camiseta-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.camiseta-stat-label {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.camiseta-stat-value {
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Features */
+.camiseta-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.camiseta-feature {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px var(--spacing-xs);
+  border-radius: var(--radius-sm);
+}
+
+.camiseta-feature i {
+  color: var(--color-accent-green);
+  font-size: 0.7rem;
+}
+
+/* Price */
+.camiseta-price-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  margin-bottom: var(--spacing-md);
+}
+
+.camiseta-price-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.camiseta-price-old {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+.camiseta-price {
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.camiseta-price-currency {
+  font-size: 1.25rem;
+  margin-left: 2px;
+}
+
+/* Actions */
+.camiseta-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.camiseta-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 0.9rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  border: none;
+}
+
+.camiseta-btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-text-primary);
+}
+
+.camiseta-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-neon);
+}
+
+.camiseta-btn-whatsapp {
+  background-color: #25d366;
+  color: #ffffff;
+}
+
+.camiseta-btn-whatsapp:hover {
+  background-color: #20ba5a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+}
+
+.camiseta-btn-icon {
+  width: 45px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+}
+
+.camiseta-btn-icon:hover {
+  background: rgba(168, 85, 247, 0.2);
+  color: var(--color-accent-purple);
+}
+
+/* Favorite */
+.camiseta-favorite {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  width: 40px;
+  height: 40px;
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 2;
+  border: 2px solid transparent;
+}
+
+.camiseta-favorite:hover {
+  color: var(--color-accent-pink);
+  border-color: var(--color-accent-pink);
+  transform: scale(1.1);
+}
+
+.camiseta-favorite.active {
+  color: var(--color-accent-pink);
+  background: rgba(236, 72, 153, 0.2);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .camiseta-card {
+    transition: all var(--transition-normal);
+  }
+}

@@ -1,0 +1,674 @@
+// ============================================
+// MAIN.JS - Lógica principal de Kickverse
+// ============================================
+
+// Variables globales
+let currentStep = 1;
+let formData = {
+    liga: '',
+    equipo: '',
+    equipacion: '',
+    talla: '',
+    parches: false,
+    personalizar: false,
+    nombre: '',
+    dorsal: ''
+};
+let cartItems = [];
+
+// ============================================
+// INICIALIZACIÓN
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    initMobileMenu();
+    initScrollEffects();
+    initModals();
+    
+    // Inicializar formulario si existe
+    if (document.getElementById('form-wizard')) {
+        initFormWizard();
+    }
+    
+    // Inicializar catálogo si existe
+    if (document.getElementById('catalogo-grid')) {
+        initCatalogo();
+    }
+});
+
+// ============================================
+// MENÚ MÓVIL
+// ============================================
+
+function initMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const menuClose = document.querySelector('.mobile-menu-close');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    const mobileLinks = document.querySelectorAll('.mobile-menu-link');
+    
+    if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    
+    if (menuClose) {
+        menuClose.addEventListener('click', closeMobileMenu);
+    }
+    
+    if (menuOverlay) {
+        menuOverlay.addEventListener('click', closeMobileMenu);
+    }
+    
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            setTimeout(closeMobileMenu, 300);
+        });
+    });
+}
+
+function closeMobileMenu() {
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const menuOverlay = document.querySelector('.menu-overlay');
+    
+    if (mobileMenu) mobileMenu.classList.remove('active');
+    if (menuOverlay) menuOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ============================================
+// EFECTOS DE SCROLL
+// ============================================
+
+function initScrollEffects() {
+    const header = document.querySelector('.header');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+}
+
+// ============================================
+// MODALES
+// ============================================
+
+function initModals() {
+    const modals = document.querySelectorAll('.modal');
+    
+    modals.forEach(modal => {
+        const closeBtn = modal.querySelector('.modal-close');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => closeModal(modal));
+        }
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal(modal);
+            }
+        });
+    });
+}
+
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeModal(modal) {
+    if (typeof modal === 'string') {
+        modal = document.getElementById(modal);
+    }
+    
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// ============================================
+// WHATSAPP - COMPRA DIRECTA
+// ============================================
+
+function comprarWhatsApp(equipo, equipacion, precio) {
+    const telefono = '34614299735';
+    const mensaje = `¡Hola Kickverse! 👋
+
+Quiero comprar:
+🏆 Equipo: ${equipo}
+👕 Equipación: ${equipacion}
+💰 Precio: ${precio}
+
+¿Cuáles son los siguientes pasos?`;
+    
+    const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(urlWhatsApp, '_blank');
+}
+
+function generarMensajeWhatsApp(data) {
+    const telefono = '34614299735';
+    
+    let mensaje = `¡Hola Kickverse! 👋
+
+Quiero realizar un pedido:
+
+📋 DETALLES DEL PEDIDO:
+🏆 Liga: ${data.liga}
+⚽ Equipo: ${data.equipo}
+👕 Equipación: ${data.equipacion}
+📏 Talla: ${data.talla}
+🏅 Parches: ${data.parches ? 'Sí' : 'No'}`;
+
+    if (data.personalizar) {
+        mensaje += `\n✏️ Personalización:
+   - Nombre: ${data.nombre}
+   - Dorsal: ${data.dorsal}`;
+    }
+    
+    mensaje += `\n\n¿Cuál es el precio final y los pasos a seguir?`;
+    
+    const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    return urlWhatsApp;
+}
+
+// ============================================
+// FORMULARIO DINÁMICO - WIZARD
+// ============================================
+
+function initFormWizard() {
+    loadStepContent(1);
+    updateProgressBar();
+}
+
+function loadStepContent(step) {
+    currentStep = step;
+    const stepContainer = document.getElementById('step-content');
+    
+    if (!stepContainer) return;
+    
+    let content = '';
+    
+    switch(step) {
+        case 1:
+            content = getStep1Content();
+            break;
+        case 2:
+            content = getStep2Content();
+            break;
+        case 3:
+            content = getStep3Content();
+            break;
+        case 4:
+            content = getStep4Content();
+            break;
+        case 5:
+            content = getStep5Content();
+            break;
+        case 6:
+            content = getStep6Content();
+            break;
+        case 7:
+            content = getStep7Content();
+            break;
+    }
+    
+    stepContainer.innerHTML = content;
+    updateProgressBar();
+    
+    // Scroll to top suavemente
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function getStep1Content() {
+    return `
+        <div class="form-step">
+            <h2>Paso 1: Elige tu Liga</h2>
+            <p class="text-secondary mb-lg">Selecciona la liga de tu equipo favorito</p>
+            
+            <div class="grid grid-3">
+                <div class="option-card" onclick="selectLiga('La Liga')">
+                    <i class="fas fa-futbol"></i>
+                    <h3>La Liga</h3>
+                    <p>España</p>
+                </div>
+                <div class="option-card" onclick="selectLiga('Premier League')">
+                    <i class="fas fa-futbol"></i>
+                    <h3>Premier League</h3>
+                    <p>Inglaterra</p>
+                </div>
+                <div class="option-card" onclick="selectLiga('Serie A')">
+                    <i class="fas fa-futbol"></i>
+                    <h3>Serie A</h3>
+                    <p>Italia</p>
+                </div>
+                <div class="option-card" onclick="selectLiga('Bundesliga')">
+                    <i class="fas fa-futbol"></i>
+                    <h3>Bundesliga</h3>
+                    <p>Alemania</p>
+                </div>
+                <div class="option-card" onclick="selectLiga('Ligue 1')">
+                    <i class="fas fa-futbol"></i>
+                    <h3>Ligue 1</h3>
+                    <p>Francia</p>
+                </div>
+                <div class="option-card" onclick="selectLiga('Selecciones')">
+                    <i class="fas fa-flag"></i>
+                    <h3>Selecciones</h3>
+                    <p>Nacionales</p>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function selectLiga(liga) {
+    formData.liga = liga;
+    nextStep();
+}
+
+function getStep2Content() {
+    const equipos = getEquiposPorLiga(formData.liga);
+    
+    let html = `
+        <div class="form-step">
+            <h2>Paso 2: Elige tu Equipo</h2>
+            <p class="text-secondary mb-md">Liga: ${formData.liga}</p>
+            
+            <div class="grid grid-3">
+    `;
+    
+    equipos.forEach(equipo => {
+        html += `
+            <div class="option-card" onclick="selectEquipo('${equipo}')">
+                <i class="fas fa-shield-halved"></i>
+                <h3>${equipo}</h3>
+            </div>
+        `;
+    });
+    
+    html += `
+            </div>
+            <button class="btn btn-secondary mt-lg" onclick="previousStep()">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+        </div>
+    `;
+    
+    return html;
+}
+
+function selectEquipo(equipo) {
+    formData.equipo = equipo;
+    nextStep();
+}
+
+function getStep3Content() {
+    return `
+        <div class="form-step">
+            <h2>Paso 3: Elige la Equipación</h2>
+            <p class="text-secondary mb-md">Equipo: ${formData.equipo}</p>
+            
+            <div class="grid grid-2">
+                <div class="option-card" onclick="selectEquipacion('Local')">
+                    <i class="fas fa-home"></i>
+                    <h3>Primera Equipación</h3>
+                    <p>Local</p>
+                </div>
+                <div class="option-card" onclick="selectEquipacion('Visitante')">
+                    <i class="fas fa-plane"></i>
+                    <h3>Segunda Equipación</h3>
+                    <p>Visitante</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary mt-lg" onclick="previousStep()">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+        </div>
+    `;
+}
+
+function selectEquipacion(equipacion) {
+    formData.equipacion = equipacion;
+    nextStep();
+}
+
+function getStep4Content() {
+    const tallas = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+    
+    let html = `
+        <div class="form-step">
+            <h2>Paso 4: Elige tu Talla</h2>
+            <p class="text-secondary mb-lg">Selecciona la talla que mejor te quede</p>
+            
+            <div class="grid grid-3">
+    `;
+    
+    tallas.forEach(talla => {
+        html += `
+            <div class="option-card" onclick="selectTalla('${talla}')">
+                <i class="fas fa-ruler"></i>
+                <h3>${talla}</h3>
+            </div>
+        `;
+    });
+    
+    html += `
+            </div>
+            <button class="btn btn-secondary mt-lg" onclick="previousStep()">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+        </div>
+    `;
+    
+    return html;
+}
+
+function selectTalla(talla) {
+    formData.talla = talla;
+    nextStep();
+}
+
+function getStep5Content() {
+    return `
+        <div class="form-step">
+            <h2>Paso 5: ¿Quieres añadir parches?</h2>
+            <p class="text-secondary mb-lg">Parches oficiales de liga (recomendado)</p>
+            
+            <div class="grid grid-2">
+                <div class="option-card" onclick="selectParches(true)">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Sí, con parches</h3>
+                    <p>+5€</p>
+                </div>
+                <div class="option-card" onclick="selectParches(false)">
+                    <i class="fas fa-times-circle"></i>
+                    <h3>No, sin parches</h3>
+                    <p>Sin coste</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary mt-lg" onclick="previousStep()">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+        </div>
+    `;
+}
+
+function selectParches(conParches) {
+    formData.parches = conParches;
+    nextStep();
+}
+
+function getStep6Content() {
+    return `
+        <div class="form-step">
+            <h2>Paso 6: ¿Quieres personalizarla?</h2>
+            <p class="text-secondary mb-lg">Añade nombre y dorsal a tu camiseta</p>
+            
+            <div class="grid grid-2">
+                <div class="option-card" onclick="selectPersonalizacion(true)">
+                    <i class="fas fa-edit"></i>
+                    <h3>Sí, personalizar</h3>
+                    <p>+10€</p>
+                </div>
+                <div class="option-card" onclick="selectPersonalizacion(false)">
+                    <i class="fas fa-times"></i>
+                    <h3>No, sin personalizar</h3>
+                    <p>Sin coste</p>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary mt-lg" onclick="previousStep()">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+        </div>
+    `;
+}
+
+function selectPersonalizacion(personalizar) {
+    formData.personalizar = personalizar;
+    
+    if (personalizar) {
+        nextStep();
+    } else {
+        // Si no quiere personalizar, mostramos resumen
+        mostrarResumen();
+    }
+}
+
+function getStep7Content() {
+    return `
+        <div class="form-step">
+            <h2>Paso 7: Datos de personalización</h2>
+            <p class="text-secondary mb-lg">Introduce el nombre y dorsal</p>
+            
+            <div class="form-group">
+                <label for="nombre-input">Nombre</label>
+                <input type="text" 
+                       id="nombre-input" 
+                       placeholder="Ej: RODRÍGUEZ" 
+                       maxlength="12"
+                       value="${formData.nombre}">
+            </div>
+            
+            <div class="form-group">
+                <label for="dorsal-input">Dorsal</label>
+                <input type="number" 
+                       id="dorsal-input" 
+                       placeholder="Ej: 10" 
+                       min="1" 
+                       max="99"
+                       value="${formData.dorsal}">
+            </div>
+            
+            <div class="flex gap-md mt-lg">
+                <button class="btn btn-secondary" onclick="previousStep()">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </button>
+                <button class="btn btn-primary" onclick="guardarPersonalizacion()">
+                    <i class="fas fa-check"></i> Continuar
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function guardarPersonalizacion() {
+    const nombre = document.getElementById('nombre-input').value.trim();
+    const dorsal = document.getElementById('dorsal-input').value.trim();
+    
+    if (!nombre || !dorsal) {
+        alert('Por favor, completa todos los campos de personalización');
+        return;
+    }
+    
+    formData.nombre = nombre.toUpperCase();
+    formData.dorsal = dorsal;
+    
+    mostrarResumen();
+}
+
+function mostrarResumen() {
+    const stepContainer = document.getElementById('step-content');
+    
+    let precioBase = 29.99;
+    let precioParches = formData.parches ? 5 : 0;
+    let precioPersonalizacion = formData.personalizar ? 10 : 0;
+    let precioTotal = precioBase + precioParches + precioPersonalizacion;
+    
+    let html = `
+        <div class="form-step">
+            <h2>Resumen de tu Pedido</h2>
+            <p class="text-secondary mb-xl">Revisa los detalles antes de continuar</p>
+            
+            <div class="card mb-lg">
+                <div class="summary-item">
+                    <span class="summary-label">Liga:</span>
+                    <span class="summary-value">${formData.liga}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Equipo:</span>
+                    <span class="summary-value">${formData.equipo}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Equipación:</span>
+                    <span class="summary-value">${formData.equipacion}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Talla:</span>
+                    <span class="summary-value">${formData.talla}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Parches:</span>
+                    <span class="summary-value">${formData.parches ? 'Sí (+5€)' : 'No'}</span>
+                </div>
+    `;
+    
+    if (formData.personalizar) {
+        html += `
+                <div class="summary-item">
+                    <span class="summary-label">Personalización:</span>
+                    <span class="summary-value">${formData.nombre} #${formData.dorsal} (+10€)</span>
+                </div>
+        `;
+    }
+    
+    html += `
+                <div class="summary-total">
+                    <div class="summary-item" style="border: none;">
+                        <span class="summary-label">TOTAL:</span>
+                        <span class="summary-value">${precioTotal.toFixed(2)}€</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-promo mb-lg">
+                <p class="modal-promo-text">
+                    <i class="fas fa-gift"></i> ¡Añade 2 más y la 3ª es GRATIS!
+                </p>
+            </div>
+            
+            <div class="flex flex-column gap-md">
+                <button class="btn btn-whatsapp btn-lg" onclick="finalizarPedidoWhatsApp()">
+                    <i class="fab fa-whatsapp"></i>
+                    Finalizar Pedido por WhatsApp
+                </button>
+                <button class="btn btn-secondary" onclick="resetForm()">
+                    <i class="fas fa-redo"></i>
+                    Añadir Otra Camiseta
+                </button>
+                <button class="btn btn-outline" onclick="loadStepContent(6)">
+                    <i class="fas fa-arrow-left"></i>
+                    Modificar Pedido
+                </button>
+            </div>
+        </div>
+    `;
+    
+    stepContainer.innerHTML = html;
+    currentStep = 7;
+    updateProgressBar();
+}
+
+function finalizarPedidoWhatsApp() {
+    const url = generarMensajeWhatsApp(formData);
+    window.open(url, '_blank');
+}
+
+function nextStep() {
+    if (currentStep < 7) {
+        loadStepContent(currentStep + 1);
+    }
+}
+
+function previousStep() {
+    if (currentStep > 1) {
+        loadStepContent(currentStep - 1);
+    }
+}
+
+function resetForm() {
+    formData = {
+        liga: '',
+        equipo: '',
+        equipacion: '',
+        talla: '',
+        parches: false,
+        personalizar: false,
+        nombre: '',
+        dorsal: ''
+    };
+    loadStepContent(1);
+}
+
+function updateProgressBar() {
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    
+    if (progressBar && progressText) {
+        const progress = (currentStep / 7) * 100;
+        progressBar.style.width = `${progress}%`;
+        progressText.textContent = `Paso ${currentStep} de 7`;
+    }
+}
+
+// ============================================
+// DATOS - EQUIPOS POR LIGA
+// ============================================
+
+function getEquiposPorLiga(liga) {
+    const equipos = {
+        'La Liga': [
+            'Real Madrid', 'FC Barcelona', 'Atlético de Madrid', 
+            'Sevilla FC', 'Valencia CF', 'Real Betis',
+            'Athletic Bilbao', 'Real Sociedad', 'Villarreal CF',
+            'Celta de Vigo', 'RCD Espanyol', 'Getafe CF',
+            'CA Osasuna', 'Rayo Vallecano', 'Deportivo Alavés',
+            'RCD Mallorca', 'Girona FC'
+        ],
+        'Premier League': [
+            'Manchester United', 'Manchester City', 'Liverpool FC',
+            'Chelsea FC', 'Arsenal FC', 'Tottenham',
+            'Newcastle United', 'West Ham', 'Aston Villa'
+        ],
+        'Serie A': [
+            'Juventus', 'AC Milan', 'Inter de Milán',
+            'AS Roma', 'SSC Napoli', 'Lazio'
+        ],
+        'Bundesliga': [
+            'Bayern Múnich', 'Borussia Dortmund', 'RB Leipzig',
+            'Bayer Leverkusen', 'Eintracht Frankfurt'
+        ],
+        'Ligue 1': [
+            'Paris Saint-Germain', 'Olympique de Marsella', 'AS Monaco',
+            'Olympique de Lyon', 'Lille OSC'
+        ],
+        'Selecciones': [
+            'España', 'Brasil', 'Argentina',
+            'Francia', 'Alemania', 'Italia',
+            'Portugal', 'Inglaterra', 'Países Bajos'
+        ]
+    };
+    
+    return equipos[liga] || [];
+}
+
+// ============================================
+// CATÁLOGO - FILTROS Y BÚSQUEDA
+// ============================================
+
+function initCatalogo() {
+    // Aquí se puede añadir lógica de filtros cuando sea necesario
+    console.log('Catálogo inicializado');
+}

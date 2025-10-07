@@ -1,691 +1,281 @@
 /* ============================================
-   KICKVERSE FORM - FLAT DESIGN
-   Formulario moderno con logos de ligas y equipos
+   FORM.CSS - Estilos del formulario dinámico
    ============================================ */
 
-/* ============= PROGRESS BAR ============= */
-.progress-container {
-    position: sticky;
-    top: 74px;
-    width: 100%;
-    background: var(--bg-primary);
-    border-bottom: 2px solid var(--border-color);
-    z-index: 999;
-    padding: 1rem 0;
-}
-
-.progress-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-.progress-steps {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-}
-
-.progress-line {
-    position: absolute;
-    top: 20px;
-    left: 5%;
-    right: 5%;
-    height: 3px;
-    background: var(--border-color);
-    z-index: 0;
-}
-
-.progress-line-fill {
-    height: 100%;
-    background: #7e9181;
-    transition: width 0.4s ease;
-    width: 0%;
-}
-
-.progress-step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-    gap: 0.5rem;
-}
-
-.progress-step-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--bg-primary);
-    border: 3px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    color: var(--text-secondary);
-}
-
-.progress-step.active .progress-step-circle {
-    border-color: #7e9181;
-    background: #7e9181;
-    color: white;
-}
-
-.progress-step.completed .progress-step-circle {
-    border-color: #7e9181;
-    background: #7e9181;
-    color: white;
-}
-
-.progress-step-label {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    font-weight: 500;
-    text-align: center;
-}
-
-.progress-step.active .progress-step-label {
-    color: #7e9181;
-    font-weight: 600;
-}
-
-/* ============= FORM SECTION ============= */
-.form-section {
-    min-height: calc(100vh - 200px);
-    padding: 3rem 0;
-    background: var(--bg-secondary);
+.form-wizard {
+  min-height: 100vh;
+  padding-top: 100px;
+  padding-bottom: var(--spacing-2xl);
 }
 
 .form-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
 }
 
+/* Progress bar */
+.form-progress {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
+  height: 8px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-xl);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form-progress-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  transition: width var(--transition-normal);
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+.form-progress-text {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin-top: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Form step */
 .form-step {
-    display: none;
-    animation: fadeIn 0.4s ease;
+  animation: fadeInUp 0.5s ease-out;
 }
 
-.form-step.active {
-    display: block;
+.form-step h2 {
+  text-align: center;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: var(--spacing-md);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.form-step > p {
+  text-align: center;
+  font-size: 1.1rem;
 }
 
-.form-title {
-    font-size: 2rem;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-
-.form-subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-    font-size: 0.95rem;
-}
-
-/* ============= OPTION CARDS - FLAT DESIGN ============= */
-.options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-}
-
-/* Grid específico para ligas (6 items) */
-#step1 .options-grid {
-    grid-template-columns: repeat(3, 1fr);
-}
-
-@media (max-width: 768px) {
-    #step1 .options-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    #step1 .options-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
+/* Option cards */
 .option-card {
-    background: var(--bg-primary);
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+  background: var(--gradient-card);
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.option-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+  pointer-events: none;
 }
 
 .option-card:hover {
-    border-color: #7e9181;
-    background: rgba(126, 145, 129, 0.03);
+  transform: translateY(-10px);
+  border-color: var(--color-accent-purple);
+  box-shadow: var(--shadow-neon);
+}
+
+.option-card:hover::before {
+  opacity: 0.1;
+}
+
+.option-card i {
+  font-size: 3rem;
+  color: var(--color-accent-purple);
+  margin-bottom: var(--spacing-md);
+  transition: all var(--transition-normal);
+}
+
+.option-card:hover i {
+  transform: scale(1.2);
+  color: var(--color-accent-pink);
+}
+
+.option-card h3 {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.option-card p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 0;
 }
 
 .option-card.selected {
-    border-color: #7e9181;
-    background: rgba(126, 145, 129, 0.08);
+  border-color: var(--color-accent-purple);
+  background: rgba(168, 85, 247, 0.1);
 }
 
-.option-icon {
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Form groups */
+.form-group {
+  margin-bottom: var(--spacing-lg);
 }
 
-.option-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+.form-group label {
+  display: block;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-xs);
+  font-size: 1rem;
 }
 
-.option-text {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--text-primary);
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: var(--spacing-md);
+  background-color: var(--color-bg-secondary);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  transition: all var(--transition-fast);
 }
 
-/* ============= LEAGUE CARDS - DESTACADAS ============= */
-.league-card {
-    background: var(--bg-primary);
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    padding: 2.5rem 2rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    position: relative;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-purple);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
 }
 
-.league-card:hover {
-    border-color: #7e9181;
-    transform: translateY(-4px);
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
-.league-card.selected {
-    border-color: #7e9181;
-    background: rgba(126, 145, 129, 0.08);
+.form-group-inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
 }
 
-.league-card-icon {
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.league-card-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.league-card-title {
-    font-weight: 700;
-    font-size: 1.3rem;
-    color: var(--text-primary);
-}
-
-.league-card-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-/* ============= TEAM SELECTOR - VISUAL GRID ============= */
-.teams-search {
-    margin-bottom: 2rem;
-}
-
-.search-input {
-    width: 100%;
-    padding: 1rem 1.25rem;
-    padding-left: 3rem;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    transition: border-color 0.3s ease;
-    position: relative;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: #7e9181;
-}
-
-.search-wrapper {
-    position: relative;
-}
-
-.search-icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
-    pointer-events: none;
-}
-
-.teams-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.team-card {
-    background: var(--bg-primary);
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    padding: 1.5rem 1rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.team-card:hover {
-    border-color: #7e9181;
-    transform: translateY(-2px);
-}
-
-.team-card.selected {
-    border-color: #7e9181;
-    background: rgba(126, 145, 129, 0.08);
-}
-
-.team-card-logo {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.team-card-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.team-card-name {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    line-height: 1.3;
-}
-
-/* ============= SIZE SELECTOR ============= */
-.size-grid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    max-width: 600px;
-    margin: 0 auto 2rem;
-}
-
-.size-card {
-    padding: 2rem 1rem;
-}
-
-.size-card .option-text {
-    font-size: 2rem;
-    font-weight: 800;
-}
-
-/* ============= YES/NO OPTIONS ============= */
-.yn-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    max-width: 600px;
-    margin: 0 auto 2rem;
-}
-
-/* ============= PERSONALIZATION FORM ============= */
-.personalization-form {
-    background: var(--bg-primary);
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.input-group {
-    margin-bottom: 1.5rem;
-}
-
-.input-group:last-child {
-    margin-bottom: 0;
-}
-
-.input-group label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--text-primary);
-}
-
-.input-group input {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    font-size: 1rem;
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    transition: border-color 0.3s ease;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: #7e9181;
-}
-
-/* ============= SUMMARY CARD ============= */
-.summary-card {
-    background: var(--bg-primary);
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-}
-
-.summary-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: var(--text-primary);
-}
-
+/* Summary items */
 .summary-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .summary-item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .summary-label {
-    font-weight: 600;
-    color: var(--text-secondary);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  font-size: 1rem;
 }
 
 .summary-value {
-    font-weight: 600;
-    color: var(--text-primary);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  text-align: right;
+  font-size: 1rem;
 }
 
-.summary-price {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 2px solid var(--border-color);
+.summary-total {
+  background: rgba(168, 85, 247, 0.1);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-md);
+  border: 2px solid var(--color-accent-purple);
 }
 
-.summary-price-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.75rem;
+.summary-total .summary-label {
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.summary-price-total {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #7e9181;
+.summary-total .summary-value {
+  font-size: 2rem;
+  font-weight: var(--font-weight-bold);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* ============= BUTTONS ============= */
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
+/* Form header */
+.form-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
 }
 
-.btn-back {
-    background: transparent;
-    border: 2px solid var(--border-color);
-    color: var(--text-primary);
+.form-header h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: var(--spacing-md);
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.btn-back:hover {
-    border-color: #7e9181;
-    color: #7e9181;
+.form-header p {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.btn-large {
-    padding: 1.25rem 2.5rem;
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .form-group-inline {
+    grid-template-columns: 1fr;
+  }
+  
+  .option-card {
+    padding: var(--spacing-lg);
+  }
+  
+  .option-card i {
+    font-size: 2rem;
+  }
+  
+  .option-card h3 {
     font-size: 1.1rem;
-    font-weight: 700;
+  }
 }
 
-.btn-icon {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-/* ============= CART COUNTER ============= */
-.cart-counter {
-    position: sticky;
-    top: 140px;
-    background: #7e9181;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    border-radius: 4px;
-    margin: 0 auto 2rem;
-    max-width: 600px;
-    z-index: 998;
-    box-shadow: 0 2px 8px rgba(126, 145, 129, 0.3);
-}
-
-.cart-counter p {
-    margin: 0;
-    font-weight: 600;
-}
-
-/* ============= DARK MODE ============= */
-[data-theme="dark"] .form-section {
-    background: var(--bg-primary);
-}
-
-[data-theme="dark"] .progress-container {
-    background: var(--bg-primary);
-    border-bottom-color: var(--border-color);
-}
-
-[data-theme="dark"] .progress-line {
-    background: var(--border-color);
-}
-
-[data-theme="dark"] .progress-step-circle {
-    background: var(--bg-primary);
-    border-color: var(--border-color);
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .progress-step.active .progress-step-circle,
-[data-theme="dark"] .progress-step.completed .progress-step-circle {
-    border-color: #7e9181;
-    background: #7e9181;
-    color: white;
-}
-
-[data-theme="dark"] .progress-step-label {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .progress-step.active .progress-step-label {
-    color: #93a596;
-}
-
-[data-theme="dark"] .form-title {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .form-subtitle {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .option-card,
-[data-theme="dark"] .league-card,
-[data-theme="dark"] .team-card,
-[data-theme="dark"] .search-input,
-[data-theme="dark"] .personalization-form,
-[data-theme="dark"] .summary-card {
-    background: var(--bg-secondary);
-    border-color: var(--border-color);
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .option-text,
-[data-theme="dark"] .league-card-title,
-[data-theme="dark"] .team-card-name,
-[data-theme="dark"] .summary-label,
-[data-theme="dark"] .summary-title {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .league-card-subtitle,
-[data-theme="dark"] .summary-value {
-    color: var(--text-secondary);
-}
-
-[data-theme="dark"] .option-card:hover,
-[data-theme="dark"] .league-card:hover,
-[data-theme="dark"] .team-card:hover {
-    border-color: #7e9181;
-    background: rgba(126, 145, 129, 0.15);
-}
-
-[data-theme="dark"] .option-card.selected,
-[data-theme="dark"] .league-card.selected,
-[data-theme="dark"] .team-card.selected {
-    border-color: #7e9181;
-    background: rgba(126, 145, 129, 0.25);
-}
-
-[data-theme="dark"] .search-input {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .search-input::placeholder {
-    color: var(--text-tertiary);
-}
-
-[data-theme="dark"] .search-input:focus {
-    border-color: #7e9181;
-}
-
-[data-theme="dark"] .search-icon {
-    color: var(--text-tertiary);
-}
-
-[data-theme="dark"] .input-group label {
-    color: var(--text-primary);
-}
-
-[data-theme="dark"] .input-group input {
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    border-color: var(--border-color);
-}
-
-[data-theme="dark"] .input-group input::placeholder {
-    color: var(--text-tertiary);
-}
-
-[data-theme="dark"] .input-group input:focus {
-    border-color: #7e9181;
-}
-
-[data-theme="dark"] .summary-item {
-    border-bottom-color: var(--border-color);
-}
-
-[data-theme="dark"] .summary-price {
-    border-top-color: var(--border-color);
-}
-
-[data-theme="dark"] .cart-counter {
-    background: #7e9181;
-    color: white;
-}
-
-/* ============= RESPONSIVE ============= */
-@media (max-width: 768px) {
-    .form-title {
-        font-size: 1.5rem;
-    }
-    
-    .options-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .teams-grid {
-        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-        gap: 0.75rem;
-    }
-    
-    .team-card {
-        padding: 1rem 0.5rem;
-    }
-    
-    .team-card-logo {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .team-card-name {
-        font-size: 0.75rem;
-    }
-    
-    .progress-steps {
-        overflow-x: auto;
-        padding-bottom: 0.5rem;
-    }
-    
-    .progress-step-label {
-        font-size: 0.65rem;
-    }
+@media (min-width: 768px) {
+  .form-container {
+    padding: 0 var(--spacing-xl);
+  }
 }

@@ -1,473 +1,494 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MQFTT34L');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Primary Meta Tags -->
-    <title>Catálogo de Camisetas de Fútbol 2024/2025 | LaLiga, Premier League, Serie A - Kickverse</title>
-    <meta name="title" content="Catálogo de Camisetas de Fútbol 2024/2025 | LaLiga, Premier League, Serie A - Kickverse">
-    <meta name="description" content="✅ Catálogo completo con +200 camisetas de fútbol oficiales. Real Madrid, Barcelona, Manchester United y más. Personalización gratis. Envío 24-48h. Desde 29,99€">
-    <meta name="keywords" content="catálogo camisetas fútbol, camisetas laliga 2024, camisetas premier league, camisetas barcelona, camisetas real madrid, equipaciones fútbol baratas, todas las camisetas de fútbol">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="Kickverse">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://kickverse.com/catalogo.html">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://kickverse.com/catalogo.html">
-    <meta property="og:title" content="Catálogo de Camisetas de Fútbol 2024/2025 - Kickverse">
-    <meta property="og:description" content="✅ Catálogo completo con +200 camisetas de fútbol oficiales. Real Madrid, Barcelona, Manchester United y más. Personalización gratis desde 29,99€">
-    <meta property="og:image" content="https://kickverse.com/img/hero-jersey.png">
-    <meta property="og:site_name" content="Kickverse">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://kickverse.com/catalogo.html">
-    <meta name="twitter:title" content="Catálogo de Camisetas de Fútbol 2024/2025 - Kickverse">
-    <meta name="twitter:description" content="✅ Catálogo completo con +200 camisetas oficiales. Personalización gratis desde 29,99€">
-    <meta name="twitter:image" content="https://kickverse.com/img/hero-jersey.png">
+    <meta name="description" content="Catálogo completo de camisetas de fútbol en Kickverse. Encuentra todas las equipaciones de clubes y selecciones.">
+    <title>Catálogo - Kickverse</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
-    <link rel="apple-touch-icon" href="assets/favicon.ico">
+    <link rel="icon" type="image/png" href="./img/logo.png">
     
-    <!-- Preconnect -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/catalog.css">
-    <link rel="stylesheet" href="css/cart.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- JSON-LD Schema Markup for Product Catalog -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Catálogo de Camisetas de Fútbol",
-      "description": "Catálogo completo de camisetas de fútbol de todas las ligas y equipos principales",
-      "url": "https://kickverse.com/catalogo.html",
-      "breadcrumb": {
-        "@type": "BreadcrumbList",
-        "itemListElement": [{
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Inicio",
-          "item": "https://kickverse.com/"
-        },{
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Catálogo",
-          "item": "https://kickverse.com/catalogo.html"
-        }]
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "Camisetas de Fútbol Disponibles",
-      "description": "Lista de camisetas de fútbol disponibles en Kickverse",
-      "numberOfItems": "200+"
-    }
-    </script>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/catalogo.css">
+    <link rel="stylesheet" href="./css/camiseta-card.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/utils.css">
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQFTT34L"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     
-    <!-- Header -->
+    <!-- Header/Navigation -->
     <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="img/logotipo.svg" alt="Kickverse Logotipo" class="logo-img-full">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse Logo">
+                <span>Kickverse</span>
             </a>
-            <nav class="nav-menu">
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">
-                        <span>Categorías</span>
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 10.5L3 5.5H13L8 10.5Z"/>
-                        </svg>
-                    </button>
-                    <div class="nav-dropdown-content">
-                        <a href="catalogo.html?category=laliga" class="dropdown-item">
-                            <img src="img/leagues/laliga.svg" alt="LaLiga" class="dropdown-icon">
-                            <span>LaLiga 🇪🇸</span>
-                        </a>
-                        <a href="catalogo.html?category=premier" class="dropdown-item">
-                            <img src="img/leagues/premier.svg" alt="Premier" class="dropdown-icon">
-                            <span>Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
-                        </a>
-                        <a href="catalogo.html?category=seriea" class="dropdown-item">
-                            <img src="img/leagues/seriea.svg" alt="Serie A" class="dropdown-icon">
-                            <span>Serie A 🇮🇹</span>
-                        </a>
-                        <a href="catalogo.html?category=bundesliga" class="dropdown-item">
-                            <img src="img/leagues/bundesliga.svg" alt="Bundesliga" class="dropdown-icon">
-                            <span>Bundesliga 🇩🇪</span>
-                        </a>
-                        <a href="catalogo.html?category=ligue1" class="dropdown-item">
-                            <img src="img/leagues/ligue1.svg" alt="Ligue 1" class="dropdown-icon">
-                            <span>Ligue 1 🇫🇷</span>
-                        </a>
-                        <a href="catalogo.html?category=selecciones" class="dropdown-item">
-                            <span class="dropdown-icon">🌍</span>
-                            <span>Selecciones</span>
-                        </a>
-                    </div>
-                </div>
-                <a href="catalogo.html" class="nav-link">Catálogo</a>
-                <a href="form.html" class="nav-link nav-link-cta">Personalizar</a>
+            
+            <nav class="header-nav">
+                <ul class="header-nav-list">
+                    <li><a href="index.html" class="header-nav-link">Inicio</a></li>
+                    <li><a href="form.html" class="header-nav-link">Pedido Personalizado</a></li>
+                    <li><a href="catalogo.html" class="header-nav-link active">Catálogo</a></li>
+                    <li><a href="index.html#beneficios" class="header-nav-link">¿Por qué nosotros?</a></li>
+                    <li><a href="index.html#contacto" class="header-nav-link">Contacto</a></li>
+                </ul>
             </nav>
-            <button class="cart-button" data-cart-open aria-label="Abrir carrito">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-                <span data-cart-count style="display:none;">0</span>
-            </button>
-            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
-                <span class="theme-toggle-slider">
-                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </span>
-            </button>
-            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Abrir menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+            
+            <div class="header-actions">
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
-
-    <!-- Catalog Hero -->
-    <section class="catalog-hero">
-        <div class="container">
-            <div class="catalog-hero-content">
-                <h1 class="catalog-title">Catálogo Completo</h1>
-                <p class="catalog-subtitle">
-                    +200 camisetas disponibles · Personalización incluida · Envío 24-48h
-                </p>
-                <div class="catalog-stats">
-                    <div class="stat-badge">
-                        <span class="stat-number">6</span>
-                        <span class="stat-label">Ligas</span>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <span class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse">
+                Kickverse
+            </span>
+            <button class="mobile-menu-close" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-menu-nav">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="form.html" class="mobile-menu-link"><i class="fas fa-shirt"></i> Pedido Personalizado</a></li>
+                <li><a href="catalogo.html" class="mobile-menu-link"><i class="fas fa-th"></i> Catálogo</a></li>
+                <li><a href="index.html#beneficios" class="mobile-menu-link"><i class="fas fa-star"></i> ¿Por qué nosotros?</a></li>
+                <li><a href="index.html#contacto" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="menu-overlay"></div>
+    
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Catalogo Section -->
+        <section class="catalogo">
+            <div class="container">
+                
+                <!-- Catalogo Header -->
+                <div class="catalogo-header">
+                    <h1>Catálogo Completo</h1>
+                    <p>Explora nuestra colección de camisetas de fútbol. Más de 500 equipaciones disponibles.</p>
+                </div>
+                
+                <!-- Promo Banner -->
+                <div class="catalogo-promo">
+                    <h3><i class="fas fa-gift"></i> ¡Promoción 3x2!</h3>
+                    <p>La tercera camiseta es completamente GRATIS</p>
+                </div>
+                
+                <!-- Filters -->
+                <div class="catalogo-filters">
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <label class="filter-label" for="filter-liga">
+                                <i class="fas fa-trophy"></i> Liga
+                            </label>
+                            <select id="filter-liga" class="filter-select">
+                                <option value="">Todas las ligas</option>
+                                <option value="laliga">La Liga</option>
+                                <option value="premier">Premier League</option>
+                                <option value="seriea">Serie A</option>
+                                <option value="bundesliga">Bundesliga</option>
+                                <option value="ligue1">Ligue 1</option>
+                                <option value="selecciones">Selecciones</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label" for="filter-equipo">
+                                <i class="fas fa-shield-halved"></i> Equipo
+                            </label>
+                            <select id="filter-equipo" class="filter-select">
+                                <option value="">Todos los equipos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label" for="filter-equipacion">
+                                <i class="fas fa-shirt"></i> Equipación
+                            </label>
+                            <select id="filter-equipacion" class="filter-select">
+                                <option value="">Todas</option>
+                                <option value="local">Local</option>
+                                <option value="visitante">Visitante</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label" for="filter-search">
+                                <i class="fas fa-search"></i> Buscar
+                            </label>
+                            <input type="text" 
+                                   id="filter-search" 
+                                   class="filter-search" 
+                                   placeholder="Buscar equipo...">
+                        </div>
                     </div>
-                    <div class="stat-badge">
-                        <span class="stat-number">95+</span>
-                        <span class="stat-label">Equipos</span>
-                    </div>
-                    <div class="stat-badge">
-                        <span class="stat-number">3x2</span>
-                        <span class="stat-label">Activo</span>
+                    
+                    <div class="filters-actions">
+                        <button class="btn btn-primary filter-btn" onclick="aplicarFiltros()">
+                            <i class="fas fa-filter"></i>
+                            Aplicar Filtros
+                        </button>
+                        <button class="btn btn-secondary filter-btn" onclick="limpiarFiltros()">
+                            <i class="fas fa-redo"></i>
+                            Limpiar
+                        </button>
                     </div>
                 </div>
+                
+                <!-- Catalogo Info -->
+                <div class="catalogo-info">
+                    <div class="catalogo-count">
+                        Mostrando <strong id="count-showing">12</strong> de <strong id="count-total">500</strong> camisetas
+                    </div>
+                    <div class="catalogo-view-options">
+                        <button class="view-btn active" aria-label="Vista de cuadrícula">
+                            <i class="fas fa-th"></i>
+                        </button>
+                        <button class="view-btn" aria-label="Vista de lista">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Catalogo Grid -->
+                <div class="catalogo-grid" id="catalogo-grid">
+                    
+                    <!-- Las camisetas se cargarían dinámicamente, pero aquí muestro ejemplos -->
+                    
+                    <!-- Real Madrid Local -->
+                    <div class="camiseta-card">
+                        <div class="camiseta-badge badge-discount">-60%</div>
+                        <div class="camiseta-image-wrapper">
+                            <div class="camiseta-league">
+                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
+                            </div>
+                            <img src="./img/camisetas/laliga_real-madrid_local.png" 
+                                 alt="Camiseta Real Madrid Local" 
+                                 class="camiseta-image"
+                                 onerror="this.src='./img/hero-jersey.png'">
+                        </div>
+                        <div class="camiseta-content">
+                            <div class="camiseta-team">
+                                <i class="fas fa-shield-halved"></i>
+                                Real Madrid
+                            </div>
+                            <h3 class="camiseta-name">Real Madrid 24/25</h3>
+                            <div class="camiseta-type">
+                                <i class="fas fa-home"></i>
+                                Primera Equipación
+                            </div>
+                            <div class="camiseta-features">
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Tecnología Dri-FIT
+                                </span>
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Parches Oficiales
+                                </span>
+                            </div>
+                            <div class="camiseta-price-wrapper">
+                                <div class="camiseta-price-group">
+                                    <span class="camiseta-price-old">79.99€</span>
+                                    <span class="camiseta-price">
+                                        29.99<span class="camiseta-price-currency">€</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="camiseta-actions">
+                                <button class="camiseta-btn camiseta-btn-whatsapp" 
+                                        onclick="comprarWhatsApp('Real Madrid', 'Local', '29.99€')">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Barcelona Local -->
+                    <div class="camiseta-card">
+                        <div class="camiseta-badge badge-discount">-60%</div>
+                        <div class="camiseta-image-wrapper">
+                            <div class="camiseta-league">
+                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
+                            </div>
+                            <img src="./img/camisetas/laliga_barcelona_local.png" 
+                                 alt="Camiseta Barcelona Local" 
+                                 class="camiseta-image"
+                                 onerror="this.src='./img/hero-jersey.png'">
+                        </div>
+                        <div class="camiseta-content">
+                            <div class="camiseta-team">
+                                <i class="fas fa-shield-halved"></i>
+                                FC Barcelona
+                            </div>
+                            <h3 class="camiseta-name">Barcelona 24/25</h3>
+                            <div class="camiseta-type">
+                                <i class="fas fa-home"></i>
+                                Primera Equipación
+                            </div>
+                            <div class="camiseta-features">
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Tecnología Dri-FIT
+                                </span>
+                            </div>
+                            <div class="camiseta-price-wrapper">
+                                <div class="camiseta-price-group">
+                                    <span class="camiseta-price-old">79.99€</span>
+                                    <span class="camiseta-price">
+                                        29.99<span class="camiseta-price-currency">€</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="camiseta-actions">
+                                <button class="camiseta-btn camiseta-btn-whatsapp" 
+                                        onclick="comprarWhatsApp('FC Barcelona', 'Local', '29.99€')">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Atlético Madrid Local -->
+                    <div class="camiseta-card">
+                        <div class="camiseta-badge badge-discount">-60%</div>
+                        <div class="camiseta-image-wrapper">
+                            <div class="camiseta-league">
+                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
+                            </div>
+                            <img src="./img/camisetas/laliga_atletico_local.png" 
+                                 alt="Camiseta Atlético Local" 
+                                 class="camiseta-image"
+                                 onerror="this.src='./img/hero-jersey.png'">
+                        </div>
+                        <div class="camiseta-content">
+                            <div class="camiseta-team">
+                                <i class="fas fa-shield-halved"></i>
+                                Atlético de Madrid
+                            </div>
+                            <h3 class="camiseta-name">Atlético 24/25</h3>
+                            <div class="camiseta-type">
+                                <i class="fas fa-home"></i>
+                                Primera Equipación
+                            </div>
+                            <div class="camiseta-price-wrapper">
+                                <div class="camiseta-price-group">
+                                    <span class="camiseta-price-old">79.99€</span>
+                                    <span class="camiseta-price">
+                                        29.99<span class="camiseta-price-currency">€</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="camiseta-actions">
+                                <button class="camiseta-btn camiseta-btn-whatsapp" 
+                                        onclick="comprarWhatsApp('Atlético de Madrid', 'Local', '29.99€')">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- España -->
+                    <div class="camiseta-card">
+                        <div class="camiseta-badge">SELECCIÓN</div>
+                        <div class="camiseta-image-wrapper">
+                            <img src="./img/camisetas/selecciones_espana.png" 
+                                 alt="Camiseta España" 
+                                 class="camiseta-image"
+                                 onerror="this.src='./img/hero-jersey.png'">
+                        </div>
+                        <div class="camiseta-content">
+                            <div class="camiseta-team">
+                                <i class="fas fa-flag"></i>
+                                Selección Española
+                            </div>
+                            <h3 class="camiseta-name">España 2024</h3>
+                            <div class="camiseta-type">
+                                <i class="fas fa-star"></i>
+                                Campeones de Europa
+                            </div>
+                            <div class="camiseta-price-wrapper">
+                                <div class="camiseta-price-group">
+                                    <span class="camiseta-price-old">79.99€</span>
+                                    <span class="camiseta-price">
+                                        29.99<span class="camiseta-price-currency">€</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="camiseta-actions">
+                                <button class="camiseta-btn camiseta-btn-whatsapp" 
+                                        onclick="comprarWhatsApp('España', 'Local', '29.99€')">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <!-- CTA Final -->
+                <div class="text-center mt-xl">
+                    <p class="text-secondary mb-md">¿No encuentras lo que buscas?</p>
+                    <a href="form.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-magic"></i>
+                        Crear Pedido Personalizado
+                    </a>
+                </div>
+                
             </div>
-        </div>
-    </section>
-
-    <!-- Catalog Section -->
-    <section class="catalog-section">
-        <div class="container">
-            <!-- Search Bar -->
-            <div class="catalog-search">
-                <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Busca tu equipo...">
-            </div>
-
-            <!-- Filters -->
-            <div class="catalog-filters">
-                <button class="filter-btn active" data-filter="all">
-                    <span>Todas</span>
-                </button>
-                <button class="filter-btn" data-filter="laliga">
-                    <img src="img/leagues/laliga.svg" alt="LaLiga">
-                    <span>LaLiga</span>
-                </button>
-                <button class="filter-btn" data-filter="premier">
-                    <img src="img/leagues/premier.svg" alt="Premier">
-                    <span>Premier</span>
-                </button>
-                <button class="filter-btn" data-filter="seriea">
-                    <img src="img/leagues/seriea.svg" alt="Serie A">
-                    <span>Serie A</span>
-                </button>
-                <button class="filter-btn" data-filter="bundesliga">
-                    <img src="img/leagues/bundesliga.svg" alt="Bundesliga">
-                    <span>Bundesliga</span>
-                </button>
-                <button class="filter-btn" data-filter="ligue1">
-                    <img src="img/leagues/ligue1.svg" alt="Ligue 1">
-                    <span>Ligue 1</span>
-                </button>
-                <button class="filter-btn" data-filter="selecciones">
-                    <span>🌍</span>
-                    <span>Selecciones</span>
-                </button>
-            </div>
-
-            <!-- Results Count -->
-            <div class="results-info">
-                <p><span id="resultsCount">0</span> camisetas disponibles</p>
-            </div>
-
-            <!-- Catalog Grid - Se genera dinámicamente -->
-            <div id="catalogGrid" class="catalog-grid">
-                <!-- Las tarjetas se generan dinámicamente con JavaScript -->
-            </div>
-
-            <!-- No Results -->
-            <div id="noResults" class="no-results" style="display: none;">
-                <div class="no-results-icon">🔍</div>
-                <h3>No se encontraron resultados</h3>
-                <p>Prueba con otro término de búsqueda o categoría</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Promo Banner -->
-    <section class="promo-banner">
-        <div class="container">
-            <div class="promo-content">
-                <h2>🎁 Promoción 3x2 Activa</h2>
-                <p>Lleva 3 camisetas y paga solo 2 · Personalización incluida</p>
-                <a href="form.html" class="btn-promo">Empezar mi pedido →</a>
-            </div>
-        </div>
-    </section>
-
+        </section>
+        
+    </main>
+    
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="footer-container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Kickverse</h4>
-                    <p>Tu universo de camisetas de fútbol</p>
+                
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="./img/logo.png" alt="Kickverse">
+                        <span>Kickverse</span>
+                    </div>
+                    <p class="footer-description">
+                        Tu tienda online de confianza para camisetas de fútbol. 
+                        Encuentra las mejores equipaciones de clubes y selecciones al mejor precio.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" class="footer-social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="footer-social-link" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
                 </div>
+                
+                <!-- Links -->
                 <div class="footer-section">
-                    <h4>Enlaces</h4>
-                    <a href="index.html">Inicio</a>
-                    <a href="catalogo.html">Catálogo</a>
-                    <a href="form.html">Personalizar</a>
+                    <h4 class="footer-title">Enlaces</h4>
+                    <nav class="footer-links">
+                        <a href="index.html" class="footer-link">Inicio</a>
+                        <a href="form.html" class="footer-link">Pedido Personalizado</a>
+                        <a href="catalogo.html" class="footer-link">Catálogo</a>
+                        <a href="index.html#beneficios" class="footer-link">¿Por qué nosotros?</a>
+                    </nav>
                 </div>
+                
+                <!-- Información -->
                 <div class="footer-section">
-                    <h4>Contacto</h4>
-                    <a href="https://wa.me/34614299735" target="_blank">WhatsApp</a>
-                    <p>+34 614 299 735</p>
+                    <h4 class="footer-title">Legal</h4>
+                    <nav class="footer-links">
+                        <a href="#" class="footer-link">Términos y Condiciones</a>
+                        <a href="#" class="footer-link">Política de Privacidad</a>
+                        <a href="#" class="footer-link">Política de Envíos</a>
+                        <a href="#" class="footer-link">Devoluciones</a>
+                    </nav>
                 </div>
+                
+                <!-- Contacto -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div class="footer-contact-info">
+                            <div class="footer-contact-label">WhatsApp</div>
+                            <a href="https://wa.me/34614299735" class="footer-contact-value">+34 614 299 735</a>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="footer-contact-info">
+                            <div class="footer-contact-label">Email</div>
+                            <a href="mailto:contacto@kickverse.com" class="footer-contact-value">contacto@kickverse.com</a>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
+            
+            <!-- Footer Bottom -->
             <div class="footer-bottom">
-                <p>&copy; 2025 Kickverse. Todos los derechos reservados.</p>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados. Desarrollado por <a href="#">3XA Design</a></p>
+                </div>
+                <div class="footer-payment">
+                    <span class="footer-payment-text">Métodos de pago:</span>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-visa" style="font-size: 1.5rem; color: #1A1F71;"></i>
+                    </div>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-mastercard" style="font-size: 1.5rem; color: #EB001B;"></i>
+                    </div>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-paypal" style="font-size: 1.5rem; color: #003087;"></i>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </footer>
-
-    <!-- Modal de Personalización -->
-    <div id="personalizationModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            
-            <div class="modal-header">
-                <img class="modal-product-image" id="modalProductImage" src="" alt="">
-                <div class="modal-product-info">
-                    <h2 class="modal-product-name" id="modalProductName"></h2>
-                    <p class="modal-product-type" id="modalProductType"></p>
-                    <span class="modal-product-league" id="modalProductLeague"></span>
-                </div>
-            </div>
-
-            <form id="personalizationForm">
-                <!-- Talla -->
-                <div class="form-group">
-                    <label for="size">Talla <span class="required">*</span></label>
-                    <div class="size-options">
-                        <button type="button" class="size-btn" data-size="S">S</button>
-                        <button type="button" class="size-btn" data-size="M">M</button>
-                        <button type="button" class="size-btn" data-size="L">L</button>
-                        <button type="button" class="size-btn" data-size="XL">XL</button>
-                        <button type="button" class="size-btn" data-size="XXL">XXL</button>
-                    </div>
-                    <input type="hidden" id="selectedSize" name="size" required>
-                </div>
-
-                <!-- Número -->
-                <div class="form-group">
-                    <label for="number">Número</label>
-                    <input type="number" id="number" name="number" min="0" max="99" placeholder="Ej: 10">
-                </div>
-
-                <!-- Dorsal -->
-                <div class="form-group">
-                    <label for="dorsal">Nombre del dorsal</label>
-                    <input type="text" id="dorsal" name="dorsal" placeholder="Ej: BENZEMA" maxlength="15">
-                </div>
-
-                <!-- Parches -->
-                <div class="form-group">
-                    <label>Parches (+5€)</label>
-                    <div class="toggle-container">
-                        <input type="checkbox" id="patches" name="patches" class="toggle-checkbox">
-                        <label for="patches" class="toggle-label">
-                            <span class="toggle-text" data-off="No" data-on="Sí"></span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Código de descuento -->
-                <div class="form-group">
-                    <label for="discountCode">Código de descuento</label>
-                    <div class="discount-input-container">
-                        <input type="text" id="discountCode" name="discountCode" placeholder="Ej: KICK10">
-                        <button type="button" id="applyDiscount" class="btn-apply">Aplicar</button>
-                    </div>
-                    <span class="discount-message" id="discountMessage"></span>
-                </div>
-
-                <!-- Métodos de pago -->
-                <div class="form-group">
-                    <label>Métodos de pago disponibles</label>
-                    <div class="payment-methods">
-                        <div class="payment-method" data-method="Bizum">
-                            <img src="img/payment/bizum.svg" alt="Bizum" onerror="this.style.display='none'">
-                            <span>Bizum</span>
-                        </div>
-                        <div class="payment-method" data-method="Visa">
-                            <img src="img/payment/visa-alt.svg" alt="Visa" onerror="this.style.display='none'">
-                            <span>Visa</span>
-                        </div>
-                        <div class="payment-method" data-method="Mastercard">
-                            <img src="img/payment/mastercard.svg" alt="Mastercard" onerror="this.style.display='none'">
-                            <span>Mastercard</span>
-                        </div>
-                        <div class="payment-method" data-method="PayPal">
-                            <img src="img/payment/paypal.svg" alt="PayPal" onerror="this.style.display='none'">
-                            <span>PayPal</span>
-                        </div>
-                        <div class="payment-method" data-method="Transferencia">
-                            <img src="img/payment/bank.svg" alt="Transferencia" onerror="this.style.display='none'">
-                            <span>Transferencia</span>
-                        </div>
-                    </div>
-                    <input type="hidden" id="selectedPayment" name="payment">
-                </div>
-
-                <!-- Resumen de precio -->
-                <div class="price-summary">
-                    <div class="price-row">
-                        <span>Precio base:</span>
-                        <span id="basePrice">29.99€</span>
-                    </div>
-                    <div class="price-row" id="patchesRow" style="display: none;">
-                        <span>Parches:</span>
-                        <span>+5.00€</span>
-                    </div>
-                    <div class="price-row" id="discountRow" style="display: none;">
-                        <span>Descuento:</span>
-                        <span id="discountAmount">-0.00€</span>
-                    </div>
-                    <div class="price-row price-total">
-                        <span>Total:</span>
-                        <span id="totalPrice">29.99€</span>
-                    </div>
-                </div>
-
-                <!-- Botón de envío -->
-                <button type="submit" class="btn-submit">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                    Enviar pedido por WhatsApp
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Cart Overlay -->
-    <div class="cart-overlay" id="cartOverlay"></div>
     
-    <!-- Cart Sidebar -->
-    <aside class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-                Mi Carrito
-                <span id="cartCount" style="font-size: 0.875rem; color: var(--text-secondary);">(0)</span>
-            </h3>
-            <button class="cart-close" id="cartClose">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="18" y1="6" x2="6" y2="18"/>
-                    <line x1="6" y1="6" x2="18" y2="18"/>
-                </svg>
-            </button>
-        </div>
-        <div class="cart-body" id="cartBody">
-            <div class="cart-empty">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="9" cy="21" r="1"/>
-                    <circle cx="20" cy="21" r="1"/>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
-                </svg>
-                <p>Tu carrito está vacío</p>
-            </div>
-        </div>
-        <div class="cart-footer" id="cartFooter" style="display: none;">
-            <div class="discount-badge">🎁 Oferta 3x2 activa</div>
-            <div class="cart-summary">
-                <div class="cart-summary-row">
-                    <span>Subtotal:</span>
-                    <span id="cartSubtotal">0,00 €</span>
-                </div>
-                <div class="cart-summary-row discount" id="cartDiscountRow" style="display: none;">
-                    <span>Descuento 3x2:</span>
-                    <span id="cartDiscount">-0,00 €</span>
-                </div>
-                <div class="cart-summary-row total">
-                    <span>Total:</span>
-                    <span id="cartTotal">0,00 €</span>
-                </div>
-            </div>
-            <button class="cart-checkout" id="checkoutBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-                Finalizar Compra
-            </button>
-        </div>
-    </aside>
-
-    <script src="js/theme.js"></script>
-    <script src="js/navbar.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/catalog.js"></script>
-    <script src="js/modal.js"></script>
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/34614299735?text=Hola%20Kickverse!%20Quiero%20información" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- JavaScript -->
+    <script src="./js/main.js"></script>
+    <script>
+        // Funciones específicas del catálogo
+        function aplicarFiltros() {
+            console.log('Filtros aplicados');
+            // Aquí iría la lógica de filtrado
+        }
+        
+        function limpiarFiltros() {
+            document.getElementById('filter-liga').value = '';
+            document.getElementById('filter-equipo').value = '';
+            document.getElementById('filter-equipacion').value = '';
+            document.getElementById('filter-search').value = '';
+            console.log('Filtros limpiados');
+        }
+    </script>
+    
 </body>
 </html>
