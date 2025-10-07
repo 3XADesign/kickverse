@@ -107,6 +107,16 @@
   color: var(--color-accent-pink);
 }
 
+.option-card img {
+  transition: all var(--transition-normal);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.option-card:hover img {
+  transform: scale(1.1);
+  filter: drop-shadow(0 8px 16px rgba(168, 85, 247, 0.4));
+}
+
 .option-card h3 {
   font-size: 1.25rem;
   font-weight: var(--font-weight-bold);

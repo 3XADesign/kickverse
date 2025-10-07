@@ -237,32 +237,32 @@ function getStep1Content() {
             
             <div class="grid grid-3">
                 <div class="option-card" onclick="selectLiga('La Liga')">
-                    <i class="fas fa-futbol"></i>
+                    <img src="./img/leagues/laliga.svg" alt="La Liga" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
                     <h3>La Liga</h3>
                     <p>España</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Premier League')">
-                    <i class="fas fa-futbol"></i>
+                    <img src="./img/leagues/premier.svg" alt="Premier League" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
                     <h3>Premier League</h3>
                     <p>Inglaterra</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Serie A')">
-                    <i class="fas fa-futbol"></i>
+                    <img src="./img/leagues/seriea.svg" alt="Serie A" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
                     <h3>Serie A</h3>
                     <p>Italia</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Bundesliga')">
-                    <i class="fas fa-futbol"></i>
+                    <img src="./img/leagues/bundesliga.svg" alt="Bundesliga" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
                     <h3>Bundesliga</h3>
                     <p>Alemania</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Ligue 1')">
-                    <i class="fas fa-futbol"></i>
+                    <img src="./img/leagues/ligue1.svg" alt="Ligue 1" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
                     <h3>Ligue 1</h3>
                     <p>Francia</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Selecciones')">
-                    <i class="fas fa-flag"></i>
+                    <i class="fas fa-flag" style="font-size: 3rem; color: var(--color-accent-purple); margin-bottom: var(--spacing-md);"></i>
                     <h3>Selecciones</h3>
                     <p>Nacionales</p>
                 </div>
@@ -288,10 +288,15 @@ function getStep2Content() {
     `;
     
     equipos.forEach(equipo => {
+        const logoPath = getEquipoLogo(formData.liga, equipo.nombre);
         html += `
-            <div class="option-card" onclick="selectEquipo('${equipo}')">
-                <i class="fas fa-shield-halved"></i>
-                <h3>${equipo}</h3>
+            <div class="option-card" onclick="selectEquipo('${equipo.nombre}')">
+                <img src="${logoPath}" 
+                     alt="${equipo.nombre}" 
+                     style="width: 70px; height: 70px; margin-bottom: var(--spacing-md); object-fit: contain;"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <i class="fas fa-shield-halved" style="display: none; font-size: 3rem; color: var(--color-accent-purple); margin-bottom: var(--spacing-md);"></i>
+                <h3>${equipo.display}</h3>
             </div>
         `;
     });
@@ -630,38 +635,103 @@ function updateProgressBar() {
 function getEquiposPorLiga(liga) {
     const equipos = {
         'La Liga': [
-            'Real Madrid', 'FC Barcelona', 'Atlético de Madrid', 
-            'Sevilla FC', 'Valencia CF', 'Real Betis',
-            'Athletic Bilbao', 'Real Sociedad', 'Villarreal CF',
-            'Celta de Vigo', 'RCD Espanyol', 'Getafe CF',
-            'CA Osasuna', 'Rayo Vallecano', 'Deportivo Alavés',
-            'RCD Mallorca', 'Girona FC'
+            { nombre: 'Real Madrid', display: 'Real Madrid', slug: 'realmadrid' },
+            { nombre: 'FC Barcelona', display: 'FC Barcelona', slug: 'barcelona' },
+            { nombre: 'Atlético de Madrid', display: 'Atlético de Madrid', slug: 'atlmadrid' },
+            { nombre: 'Sevilla FC', display: 'Sevilla FC', slug: 'sevilla' },
+            { nombre: 'Valencia CF', display: 'Valencia CF', slug: 'valencia' },
+            { nombre: 'Real Betis', display: 'Real Betis', slug: 'betis' },
+            { nombre: 'Athletic Bilbao', display: 'Athletic Bilbao', slug: 'athletic' },
+            { nombre: 'Real Sociedad', display: 'Real Sociedad', slug: 'realsociedad' },
+            { nombre: 'Villarreal CF', display: 'Villarreal CF', slug: 'villarreal' },
+            { nombre: 'Celta de Vigo', display: 'Celta de Vigo', slug: 'celta' },
+            { nombre: 'RCD Espanyol', display: 'RCD Espanyol', slug: 'espanyol' },
+            { nombre: 'Getafe CF', display: 'Getafe CF', slug: 'getafe' },
+            { nombre: 'CA Osasuna', display: 'CA Osasuna', slug: 'osasuna' },
+            { nombre: 'Rayo Vallecano', display: 'Rayo Vallecano', slug: 'rayovallecano' },
+            { nombre: 'Deportivo Alavés', display: 'Deportivo Alavés', slug: 'alaves' },
+            { nombre: 'RCD Mallorca', display: 'RCD Mallorca', slug: 'mallorca' },
+            { nombre: 'Girona FC', display: 'Girona FC', slug: 'girona' }
         ],
         'Premier League': [
-            'Manchester United', 'Manchester City', 'Liverpool FC',
-            'Chelsea FC', 'Arsenal FC', 'Tottenham',
-            'Newcastle United', 'West Ham', 'Aston Villa'
+            { nombre: 'Manchester United', display: 'Manchester United', slug: 'manchesterunited' },
+            { nombre: 'Manchester City', display: 'Manchester City', slug: 'manchestercity' },
+            { nombre: 'Liverpool FC', display: 'Liverpool FC', slug: 'liverpool' },
+            { nombre: 'Chelsea FC', display: 'Chelsea FC', slug: 'chelsea' },
+            { nombre: 'Arsenal FC', display: 'Arsenal FC', slug: 'arsenal' },
+            { nombre: 'Tottenham', display: 'Tottenham', slug: 'tottenham' },
+            { nombre: 'Newcastle United', display: 'Newcastle United', slug: 'newcastle' },
+            { nombre: 'West Ham', display: 'West Ham', slug: 'westham' },
+            { nombre: 'Aston Villa', display: 'Aston Villa', slug: 'astonvilla' }
         ],
         'Serie A': [
-            'Juventus', 'AC Milan', 'Inter de Milán',
-            'AS Roma', 'SSC Napoli', 'Lazio'
+            { nombre: 'Juventus', display: 'Juventus', slug: 'juventus' },
+            { nombre: 'AC Milan', display: 'AC Milan', slug: 'milan' },
+            { nombre: 'Inter de Milán', display: 'Inter de Milán', slug: 'inter' },
+            { nombre: 'AS Roma', display: 'AS Roma', slug: 'roma' },
+            { nombre: 'SSC Napoli', display: 'SSC Napoli', slug: 'napoli' },
+            { nombre: 'Lazio', display: 'Lazio', slug: 'lazio' }
         ],
         'Bundesliga': [
-            'Bayern Múnich', 'Borussia Dortmund', 'RB Leipzig',
-            'Bayer Leverkusen', 'Eintracht Frankfurt'
+            { nombre: 'Bayern Múnich', display: 'Bayern Múnich', slug: 'bayern' },
+            { nombre: 'Borussia Dortmund', display: 'Borussia Dortmund', slug: 'dortmund' },
+            { nombre: 'RB Leipzig', display: 'RB Leipzig', slug: 'leipzig' },
+            { nombre: 'Bayer Leverkusen', display: 'Bayer Leverkusen', slug: 'leverkusen' },
+            { nombre: 'Eintracht Frankfurt', display: 'Eintracht Frankfurt', slug: 'frankfurt' }
         ],
         'Ligue 1': [
-            'Paris Saint-Germain', 'Olympique de Marsella', 'AS Monaco',
-            'Olympique de Lyon', 'Lille OSC'
+            { nombre: 'Paris Saint-Germain', display: 'Paris Saint-Germain', slug: 'psg' },
+            { nombre: 'Olympique de Marsella', display: 'Olympique de Marsella', slug: 'olimpiquemarsella' },
+            { nombre: 'AS Monaco', display: 'AS Monaco', slug: 'monaco' },
+            { nombre: 'Olympique de Lyon', display: 'Olympique de Lyon', slug: 'olympiquelyon' },
+            { nombre: 'Lille OSC', display: 'Lille OSC', slug: 'lille' }
         ],
         'Selecciones': [
-            'España', 'Brasil', 'Argentina',
-            'Francia', 'Alemania', 'Italia',
-            'Portugal', 'Inglaterra', 'Países Bajos'
+            { nombre: 'España', display: 'España', slug: 'espana' },
+            { nombre: 'Brasil', display: 'Brasil', slug: 'brasil' },
+            { nombre: 'Argentina', display: 'Argentina', slug: 'argentina' },
+            { nombre: 'Francia', display: 'Francia', slug: 'francia' },
+            { nombre: 'Alemania', display: 'Alemania', slug: 'alemania' },
+            { nombre: 'Italia', display: 'Italia', slug: 'italia' },
+            { nombre: 'Portugal', display: 'Portugal', slug: 'portugal' },
+            { nombre: 'Inglaterra', display: 'Inglaterra', slug: 'inglaterra' },
+            { nombre: 'Países Bajos', display: 'Países Bajos', slug: 'paisesbajos' }
         ]
     };
     
     return equipos[liga] || [];
+}
+
+// Función auxiliar para obtener el logo del equipo
+function getEquipoLogo(liga, equipoNombre) {
+    const equipos = getEquiposPorLiga(liga);
+    const equipo = equipos.find(e => e.nombre === equipoNombre);
+    
+    if (!equipo) return './img/clubs/default.png';
+    
+    let prefix = '';
+    switch(liga) {
+        case 'La Liga':
+            prefix = 'laliga';
+            break;
+        case 'Premier League':
+            prefix = 'premier';
+            break;
+        case 'Serie A':
+            prefix = 'seriea';
+            break;
+        case 'Bundesliga':
+            prefix = 'bundesliga';
+            break;
+        case 'Ligue 1':
+            prefix = 'ligue1';
+            break;
+        case 'Selecciones':
+            prefix = 'selecciones';
+            break;
+    }
+    
+    return `./img/clubs/${prefix}_${equipo.slug}.png`;
 }
 
 // ============================================
