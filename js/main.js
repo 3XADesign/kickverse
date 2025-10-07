@@ -237,27 +237,27 @@ function getStep1Content() {
             
             <div class="grid grid-3">
                 <div class="option-card" onclick="selectLiga('La Liga')">
-                    <img src="./img/leagues/laliga.svg" alt="La Liga" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
+                    <img src="./img/leagues/laliga.svg" alt="La Liga" style="width: 80px; height: 80px; margin: 0 auto var(--spacing-md) auto; object-fit: contain; display: block;">
                     <h3>La Liga</h3>
                     <p>España</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Premier League')">
-                    <img src="./img/leagues/premier.svg" alt="Premier League" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
+                    <img src="./img/leagues/premier.svg" alt="Premier League" style="width: 80px; height: 80px; margin: 0 auto var(--spacing-md) auto; object-fit: contain; display: block;">
                     <h3>Premier League</h3>
                     <p>Inglaterra</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Serie A')">
-                    <img src="./img/leagues/seriea.svg" alt="Serie A" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
+                    <img src="./img/leagues/seriea.svg" alt="Serie A" style="width: 80px; height: 80px; margin: 0 auto var(--spacing-md) auto; object-fit: contain; display: block;">
                     <h3>Serie A</h3>
                     <p>Italia</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Bundesliga')">
-                    <img src="./img/leagues/bundesliga.svg" alt="Bundesliga" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
+                    <img src="./img/leagues/bundesliga.svg" alt="Bundesliga" style="width: 80px; height: 80px; margin: 0 auto var(--spacing-md) auto; object-fit: contain; display: block;">
                     <h3>Bundesliga</h3>
                     <p>Alemania</p>
                 </div>
                 <div class="option-card" onclick="selectLiga('Ligue 1')">
-                    <img src="./img/leagues/ligue1.svg" alt="Ligue 1" style="width: 80px; height: 80px; margin-bottom: var(--spacing-md); object-fit: contain;">
+                    <img src="./img/leagues/ligue1.svg" alt="Ligue 1" style="width: 80px; height: 80px; margin: 0 auto var(--spacing-md) auto; object-fit: contain; display: block;">
                     <h3>Ligue 1</h3>
                     <p>Francia</p>
                 </div>
@@ -293,9 +293,9 @@ function getStep2Content() {
             <div class="option-card" onclick="selectEquipo('${equipo.nombre}')">
                 <img src="${logoPath}" 
                      alt="${equipo.nombre}" 
-                     style="width: 70px; height: 70px; margin-bottom: var(--spacing-md); object-fit: contain;"
+                     style="width: 70px; height: 70px; margin: 0 auto var(--spacing-md) auto; object-fit: contain; display: block;"
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <i class="fas fa-shield-halved" style="display: none; font-size: 3rem; color: var(--color-accent-purple); margin-bottom: var(--spacing-md);"></i>
+                <i class="fas fa-shield-halved" style="display: none; font-size: 3rem; color: var(--color-accent-purple); margin: 0 auto var(--spacing-md) auto;"></i>
                 <h3>${equipo.display}</h3>
             </div>
         `;
