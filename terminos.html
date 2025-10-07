@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones - Kickverse</title>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtag/js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MQFTT34L');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/utils.css">
+    
+    <style>
+        /* Fix para el header */
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md) var(--spacing-lg);
+        }
+        
+        .header-logo img {
+            height: 40px;
+            max-height: 40px;
+            width: auto;
+        }
+        
+        .header-nav {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+        }
+        
+        /* Estilos específicos para términos y condiciones */
+        .terminos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            margin-top: 80px; /* Espacio para el header fijo */
+        }
+
+        .terminos-header {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+            padding-bottom: var(--spacing-xl);
+            border-bottom: 2px solid rgba(168, 85, 247, 0.3);
+        }
+
+        .terminos-header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .terminos-header .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .promo-banner {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(236, 72, 153, 0.2));
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            border-radius: 50px;
+            padding: var(--spacing-sm) var(--spacing-xl);
+            font-weight: 600;
+            color: var(--color-primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .promo-banner i {
+            margin-right: var(--spacing-xs);
+            color: var(--color-secondary);
+        }
+
+        .terminos-content {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-2xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .terminos-section {
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-xl);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terminos-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .terminos-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .terminos-section h2 i {
+            font-size: 1.2rem;
+            color: var(--color-secondary);
+        }
+
+        .terminos-section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin: var(--spacing-lg) 0 var(--spacing-sm) 0;
+        }
+
+        .terminos-section p {
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--spacing-md);
+            text-align: justify;
+        }
+
+        .terminos-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin: var(--spacing-md) 0;
+        }
+
+        .terminos-section ul li {
+            position: relative;
+            padding-left: var(--spacing-xl);
+            margin-bottom: var(--spacing-sm);
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        .terminos-section ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+            border-left: 4px solid var(--color-primary);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .highlight-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(239, 68, 68, 0.1));
+            border-left: 4px solid var(--color-accent);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .warning-box p {
+            margin-bottom: 0;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-box {
+            background: linear-gradient(135deg, rgba(132, 204, 22, 0.1), rgba(34, 197, 94, 0.1));
+            border: 1px solid rgba(132, 204, 22, 0.3);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-success);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-box p {
+            margin-bottom: var(--spacing-lg);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+        }
+
+        .contact-btn.whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        .contact-btn.email {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+        }
+
+        .contact-btn.email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .terminos-container {
+                padding: var(--spacing-xl) var(--spacing-md);
+            }
+
+            .terminos-content {
+                padding: var(--spacing-lg);
+            }
+
+            .terminos-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .contact-buttons {
+                flex-direction: column;
+            }
+
+            .contact-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQFTT34L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="header-logo">
+                <img src="img/logotipo.svg" alt="Kickverse Logo">
+            </a>
+            
+            <nav class="header-nav" id="mainNav">
+                <ul class="header-nav-list">
+                    <li><a href="index.html" class="header-nav-link">Inicio</a></li>
+                    <li><a href="catalogo.html" class="header-nav-link">Catálogo</a></li>
+                    <li><a href="form.html" class="header-nav-link">Personalizar</a></li>
+                    <li><a href="terminos.html" class="header-nav-link active">Términos</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn-icon" id="cartBtn" aria-label="Carrito de compras">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="btn-icon mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="terminos-container">
+        <div class="terminos-header">
+            <h1>Términos y Condiciones</h1>
+            <p class="subtitle">kickverse.es - Tu tienda de camisetas de fútbol personalizadas</p>
+            <div class="promo-banner">
+                <i class="fas fa-gift"></i>
+                Oferta especial primera compra hasta 01/11 - Código: <strong>WELCOME10</strong>
+            </div>
+        </div>
+
+        <div class="terminos-content">
+            <!-- Información General -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-info-circle"></i> INFORMACIÓN GENERAL</h2>
+                <p>Este sitio web es operado por <strong>Kickverse</strong>. En todo el sitio, los términos "nosotros", "nos" y "nuestro" se refieren a Kickverse. Kickverse ofrece este sitio web, incluyendo toda la información, herramientas y servicios disponibles para ti en este sitio, el usuario, está condicionado a la aceptación de todos los términos, condiciones, políticas y notificaciones aquí establecidas.</p>
+                
+                <p>Al visitar nuestro sitio y/o comprar algo de nosotros, participas en nuestro "Servicio" y aceptas los siguientes términos y condiciones ("Términos de Servicio", "Términos"), incluidos todos los términos y condiciones adicionales y las políticas a las que se hace referencia en el presente documento y/o disponible a través de hipervínculos.</p>
+
+                <div class="highlight-box">
+                    <p><strong>IMPORTANTE:</strong> Al acceder o utilizar cualquier parte del sitio, estás aceptando los Términos de Servicio. Si no estás de acuerdo con todos los términos y condiciones de este acuerdo, entonces no deberías acceder a la página web o usar cualquiera de los servicios.</p>
+                </div>
+
+                <p>Nos reservamos el derecho de actualizar, cambiar o reemplazar cualquier parte de los Términos de Servicio mediante la publicación de actualizaciones y/o cambios en nuestro sitio web. Es tu responsabilidad chequear esta página periódicamente para verificar cambios.</p>
+            </section>
+
+            <!-- Sección 1 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-store"></i> SECCIÓN 1 – TÉRMINOS DE LA TIENDA EN LÍNEA</h2>
+                <p>Al utilizar este sitio, declaras que:</p>
+                <ul>
+                    <li>Tienes al menos la mayoría de edad en tu estado o provincia de residencia</li>
+                    <li>No usarás nuestros productos con ningún propósito ilegal o no autorizado</li>
+                    <li>No violarás ninguna ley en tu jurisdicción (incluyendo las leyes de derecho de autor)</li>
+                    <li>No transmitirás virus, malware o cualquier código de naturaleza destructiva</li>
+                </ul>
+                <div class="warning-box">
+                    <p>⚠️ El incumplimiento o violación de cualquiera de estos Términos darán lugar al cese inmediato de tus Servicios.</p>
+                </div>
+            </section>
+
+            <!-- Sección 2 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-gavel"></i> SECCIÓN 2 – CONDICIONES GENERALES</h2>
+                <p>Nos reservamos el derecho de rechazar la prestación de servicio a cualquier persona, por cualquier motivo y en cualquier momento.</p>
+                <p>Entiendes que tu contenido (sin incluir la información de tu tarjeta de crédito), puede ser transferida sin encriptar. La información de tarjetas de crédito está siempre encriptada durante la transferencia a través de las redes.</p>
+                <p>Estás de acuerdo con no reproducir, duplicar, copiar, vender, revender o explotar cualquier parte del Servicio sin el expreso permiso por escrito de nuestra parte.</p>
+            </section>
+
+            <!-- Sección 3 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-database"></i> SECCIÓN 3 – EXACTITUD Y ACTUALIDAD DE LA INFORMACIÓN</h2>
+                <p>No nos hacemos responsables si la información disponible en este sitio no es exacta, completa o actual. El material en este sitio es provisto solo para información general y no debe confiarse en ella como la única base para la toma de decisiones.</p>
+                <p>Nos reservamos el derecho de modificar los contenidos de este sitio en cualquier momento, pero no tenemos obligación de actualizar cualquier información en nuestro sitio. Aceptas que es tu responsabilidad de monitorear los cambios en nuestro sitio.</p>
+            </section>
+
+            <!-- Sección 4 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-euro-sign"></i> SECCIÓN 4 – MODIFICACIONES AL SERVICIO Y PRECIOS</h2>
+                <p>Los precios de nuestros productos están sujetos a cambio sin aviso.</p>
+                <p>Nos reservamos el derecho de modificar o discontinuar el Servicio (o cualquier parte del contenido) en cualquier momento sin aviso previo.</p>
+                <p>No seremos responsables ante ti o alguna tercera parte por cualquier modificación, cambio de precio, suspensión o discontinuidad del Servicio.</p>
+            </section>
+
+            <!-- Sección 5 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-tshirt"></i> SECCIÓN 5 – NATURALEZA DEL SERVICIO Y PRODUCTOS</h2>
+                
+                <div class="warning-box">
+                    <p><strong>⚠️ IMPORTANTE - SERVICIO DE INTERMEDIACIÓN:</strong></p>
+                    <p><strong>Kickverse actúa exclusivamente como intermediario</strong> entre el cliente y los proveedores de camisetas de fútbol. NO somos fabricantes, distribuidores ni propietarios de los productos ofrecidos en este sitio web.</p>
+                </div>
+
+                <p><strong>Kickverse</strong> es una plataforma de intermediación que facilita la conexión entre clientes y proveedores de camisetas de fútbol personalizadas. Nuestra función es:</p>
+                
+                <ul>
+                    <li>Mostrar productos disponibles de terceros proveedores</li>
+                    <li>Facilitar la comunicación entre cliente y proveedor</li>
+                    <li>Coordinar pedidos y seguimiento de envíos</li>
+                    <li>Proporcionar servicio de atención al cliente</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Exención de responsabilidad sobre productos:</strong></p>
+                    <p>Los productos mostrados en este sitio web son fabricados, almacenados y enviados por terceros proveedores independientes. Kickverse NO tiene control directo sobre la fabricación, almacenamiento, calidad ni distribución de las camisetas.</p>
+                </div>
+
+                <p><strong>Limitación de garantías:</strong></p>
+                <ul>
+                    <li>NO garantizamos la autenticidad, originalidad ni marca oficial de los productos</li>
+                    <li>NO nos hacemos responsables de defectos de fabricación ni calidad del producto final</li>
+                    <li>NO garantizamos que los productos cumplan con estándares específicos de calidad</li>
+                    <li>Las imágenes son referenciales y pueden no coincidir exactamente con el producto recibido</li>
+                    <li>Los colores pueden variar según el monitor y el producto final</li>
+                </ul>
+
+                <p><strong>Responsabilidad del proveedor:</strong> Todas las cuestiones relacionadas con la calidad, autenticidad, defectos de fabricación, propiedad intelectual y marcas registradas de los productos son responsabilidad exclusiva del proveedor fabricante, NO de Kickverse.</p>
+
+                <p>Ciertos productos pueden estar disponibles exclusivamente en línea y tener cantidades limitadas. Nos reservamos el derecho de limitar las cantidades y modificar precios sin previo aviso.</p>
+                
+                <div class="warning-box">
+                    <p><strong>⚠️ Al realizar una compra en Kickverse, el cliente reconoce y acepta expresamente que:</strong></p>
+                    <ul>
+                        <li>Entiende que Kickverse es únicamente un intermediario</li>
+                        <li>Los productos son suministrados por terceros proveedores</li>
+                        <li>Kickverse no garantiza la originalidad ni autenticidad de las camisetas</li>
+                        <li>Para productos oficiales debe dirigirse a tiendas oficiales de las marcas</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Sección 6 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-file-invoice"></i> SECCIÓN 6 – FACTURACIÓN E INFORMACIÓN DE CUENTA</h2>
+                <p>Nos reservamos el derecho de rechazar cualquier pedido que realices con nosotros. Podemos, a nuestra discreción, limitar o cancelar las cantidades compradas por persona, por hogar o por pedido.</p>
+                
+                <p>Te comprometes a proporcionar información actual, completa y precisa de la compra y cuenta utilizada para todas las compras realizadas en nuestra tienda.</p>
+
+                <div class="warning-box">
+                    <p>⚠️ No nos hacemos responsables de información errónea proporcionada en los pedidos. Es responsabilidad del cliente verificar toda la información antes de completar la compra.</p>
+                </div>
+            </section>
+
+            <!-- Sección 7 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-tools"></i> SECCIÓN 7 – HERRAMIENTAS OPCIONALES</h2>
+                <p>Es posible que te proporcionemos acceso a herramientas de terceros a los cuales no monitoreamos y sobre los que no tenemos control ni entrada.</p>
+                <p>Reconoces y aceptas que proporcionamos acceso a este tipo de herramientas "tal cual" y "según disponibilidad" sin garantías de ningún tipo.</p>
+                <p>Cualquier uso que hagas de las herramientas opcionales es bajo tu propio riesgo y discreción.</p>
+            </section>
+
+            <!-- Sección 8 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-link"></i> SECCIÓN 8 – ENLACES DE TERCERAS PARTES</h2>
+                <p>Cierto contenido, productos y servicios disponibles vía nuestro Servicio puede incluir material de terceras partes.</p>
+                <p>Enlaces de terceras partes en este sitio pueden direccionarte a sitios web que no están afiliados con nosotros. No nos responsabilizamos de examinar o evaluar el contenido o exactitud de sitios web de terceros.</p>
+                <p>Quejas, reclamos o preguntas con respecto a productos de terceros deben ser dirigidas a la tercera parte correspondiente.</p>
+            </section>
+
+            <!-- Sección 9 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-comments"></i> SECCIÓN 9 – COMENTARIOS DE USUARIO</h2>
+                <p>Si envías comentarios, sugerencias o materiales, aceptas que podamos, en cualquier momento, sin restricción, editar, copiar, publicar, distribuir o utilizar por cualquier medio dichos comentarios.</p>
+                <p>Aceptas que tus comentarios no violarán los derechos de terceras partes, incluyendo derechos de autor, marca, privacidad o propiedad intelectual.</p>
+                <p>No puedes utilizar una dirección de correo electrónico falsa, usar otra identidad que no sea legítima, o engañar a terceras partes o a nosotros en cuanto al origen de tus comentarios.</p>
+            </section>
+
+            <!-- Sección 10 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-user-shield"></i> SECCIÓN 10 – INFORMACIÓN PERSONAL</h2>
+                <p>Tu presentación de información personal a través del sitio se rige por nuestra Política de Privacidad.</p>
+                <p>Nos comprometemos a proteger tu información personal y utilizarla únicamente para los fines relacionados con tu compra y experiencia en Kickverse.</p>
+            </section>
+
+            <!-- Sección 11 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-exclamation-triangle"></i> SECCIÓN 11 – ERRORES Y OMISIONES</h2>
+                <p>De vez en cuando puede haber información en nuestro sitio que contiene errores tipográficos, inexactitudes u omisiones relacionadas con descripciones de productos, precios, promociones u ofertas.</p>
+                
+                <div class="warning-box">
+                    <p>⚠️ No nos hacemos responsables de errores en la web. Cualquier pedido realizado de forma incorrecta, fraudulenta o a coste 0,00€ por error en el procedimiento de pago no será enviado.</p>
+                </div>
+
+                <p>Nos reservamos el derecho de corregir errores, inexactitudes u omisiones y de cambiar o actualizar la información o cancelar pedidos si alguna información es inexacta, incluso después de que hayas enviado tu orden.</p>
+            </section>
+
+            <!-- Sección 12 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-ban"></i> SECCIÓN 12 – USOS PROHIBIDOS</h2>
+                <p>Además de otras prohibiciones, se prohíbe el uso del sitio para:</p>
+                <ul>
+                    <li>Ningún propósito ilegal</li>
+                    <li>Violar cualquier regulación, regla o ley internacional, federal o local</li>
+                    <li>Infringir o violar derechos de propiedad intelectual</li>
+                    <li>Acosar, abusar, insultar, dañar o discriminar</li>
+                    <li>Presentar información falsa o engañosa</li>
+                    <li>Transmitir virus o código malicioso</li>
+                    <li>Recopilar o rastrear información personal de otros</li>
+                    <li>Generar spam o interferir con la seguridad del Servicio</li>
+                </ul>
+                <p>Nos reservamos el derecho de suspender el uso del Servicio por violar cualquiera de estos usos prohibidos.</p>
+            </section>
+
+            <!-- Sección 13 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-shield-alt"></i> SECCIÓN 13 – EXCLUSIÓN DE GARANTÍAS Y LIMITACIÓN DE RESPONSABILIDAD</h2>
+                
+                <div class="warning-box">
+                    <p><strong>⚠️ EXENCIÓN TOTAL DE RESPONSABILIDAD SOBRE PRODUCTOS:</strong></p>
+                    <p>Dado que <strong>Kickverse actúa exclusivamente como intermediario</strong> y NO es fabricante, distribuidor ni propietario de las camisetas, queda expresamente establecido que:</p>
+                </div>
+
+                <p><strong>Kickverse NO es responsable de:</strong></p>
+                <ul>
+                    <li>La calidad, autenticidad, originalidad o estado de las camisetas</li>
+                    <li>Defectos de fabricación, materiales o confección de los productos</li>
+                    <li>Infracciones de propiedad intelectual, marcas registradas o derechos de autor relacionados con los productos</li>
+                    <li>Discrepancias entre las imágenes mostradas y el producto final recibido</li>
+                    <li>Reclamaciones de terceros relacionadas con la autenticidad o legalidad de las camisetas</li>
+                    <li>Daños, pérdidas o perjuicios derivados del uso de los productos</li>
+                    <li>Garantías implícitas de comerciabilidad o aptitud para un propósito particular</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>RESPONSABILIDAD DEL PROVEEDOR:</strong> Todas las cuestiones legales, de calidad, garantías y reclamaciones relacionadas con las camisetas son responsabilidad exclusiva del proveedor fabricante. Kickverse solo facilita la conexión y coordinación del pedido.</p>
+                </div>
+
+                <p><strong>Limitación del servicio de intermediación:</strong></p>
+                <ul>
+                    <li>No garantizamos que el servicio de intermediación será ininterrumpido, puntual o libre de errores</li>
+                    <li>El servicio se proporciona "tal cual" y "según disponibilidad" sin garantías de ningún tipo</li>
+                    <li>No garantizamos que los proveedores cumplan con estándares específicos de calidad</li>
+                </ul>
+
+                <p><strong>Exclusión de daños:</strong> En ningún caso Kickverse, nuestros directores, empleados o colaboradores serán responsables por:</p>
+                <ul>
+                    <li>Daños directos, indirectos, incidentales, punitivos, especiales o consecuentes</li>
+                    <li>Pérdida de beneficios, ingresos, datos o uso</li>
+                    <li>Reclamaciones relacionadas con la calidad, autenticidad o legalidad de los productos</li>
+                    <li>Infracciones de propiedad intelectual cometidas por los proveedores</li>
+                    <li>Problemas derivados del uso o posesión de las camisetas</li>
+                </ul>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ NO PROPORCIONAMOS GARANTÍA POST-VENTA:</strong> Una vez recibido el producto, Kickverse no ofrece garantía alguna sobre el mismo, ya que no controlamos su fabricación ni calidad. Cualquier garantía debe ser gestionada directamente con el proveedor.</p>
+                </div>
+
+                <p><strong>Aceptación del cliente:</strong> Al realizar un pedido, el cliente reconoce y acepta expresamente todas estas limitaciones de responsabilidad y entiende que Kickverse es únicamente un facilitador del servicio, sin responsabilidad sobre los productos en sí mismos.</p>
+            </section>
+
+            <!-- Sección 14 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-handshake"></i> SECCIÓN 14 – INDEMNIZACIÓN Y PROTECCIÓN LEGAL</h2>
+                <p>Al utilizar los servicios de Kickverse y realizar pedidos a través de nuestra plataforma, <strong>aceptas indemnizar, defender y mantener completamente indemne</strong> a Kickverse, sus directores, empleados, colaboradores y afiliados de:</p>
+                
+                <ul>
+                    <li>Cualquier reclamo, demanda o acción legal relacionada con la autenticidad, originalidad o legalidad de las camisetas adquiridas</li>
+                    <li>Reclamaciones de terceros por infracción de derechos de propiedad intelectual, marcas registradas o derechos de autor relacionados con los productos</li>
+                    <li>Disputas sobre la calidad, defectos o estado de las camisetas</li>
+                    <li>Incumplimiento de estas Condiciones de Servicio</li>
+                    <li>Violación de cualquier ley o derechos de terceros</li>
+                    <li>Uso indebido de los productos adquiridos</li>
+                    <li>Daños y perjuicios derivados de la posesión o uso de las camisetas</li>
+                </ul>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ PROTECCIÓN LEGAL DE KICKVERSE:</strong> El cliente asume toda la responsabilidad legal sobre los productos adquiridos a través de nuestra plataforma, reconociendo que Kickverse actúa únicamente como intermediario sin control sobre la fabricación, autenticidad o legalidad de las camisetas.</p>
+                </div>
+
+                <p>Esta indemnización incluye, sin limitación, todos los costos legales, honorarios de abogados, gastos de defensa legal y cualquier indemnización o acuerdo que pueda surgir de dichas reclamaciones.</p>
+            </section>
+
+            <!-- Sección 15 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-puzzle-piece"></i> SECCIÓN 15 – DIVISIBILIDAD</h2>
+                <p>En el caso de que se determine que cualquier disposición de estas Condiciones de Servicio sea ilegal, nula o inejecutable, dicha disposición será efectiva en la máxima medida permitida por la ley, y la parte no exigible se considerará separada de estos Términos sin afectar la validez de las demás disposiciones.</p>
+            </section>
+
+            <!-- Sección 16 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-times-circle"></i> SECCIÓN 16 – RESCISIÓN</h2>
+                <p>Estas Condiciones de servicio son efectivas a menos que y hasta que sean terminadas por ti o nosotros.</p>
+                <p>Puedes terminar estos Términos de Servicio en cualquier momento avisándonos que ya no deseas utilizar nuestros servicios.</p>
+                <p>Si a nuestro juicio fallas en el cumplimiento de cualquier término, podemos terminar este acuerdo en cualquier momento sin previo aviso.</p>
+            </section>
+
+            <!-- Sección 17 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-file-contract"></i> SECCIÓN 17 – ACUERDO COMPLETO</h2>
+                <p>Estas Condiciones del servicio y las políticas publicadas por nosotros constituyen el acuerdo completo entre tú y nosotros y rigen el uso del Servicio.</p>
+                <p>Cualquier ambigüedad en la interpretación de estas Condiciones no se interpretará en contra del grupo de redacción.</p>
+            </section>
+
+            <!-- Sección 18 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-balance-scale"></i> SECCIÓN 18 – LEY APLICABLE</h2>
+                <p>Estas Condiciones del servicio se regirán e interpretarán en conformidad con las leyes de España y la jurisdicción española.</p>
+            </section>
+
+            <!-- Sección 19 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-sync-alt"></i> SECCIÓN 19 – CAMBIOS EN LOS TÉRMINOS</h2>
+                <p>Puedes revisar la versión más actualizada de los Términos de Servicio en cualquier momento en esta página.</p>
+                <p>Nos reservamos el derecho de actualizar, modificar o reemplazar cualquier parte de estas Condiciones mediante la publicación de actualizaciones en nuestro sitio web.</p>
+                <p>El uso continuo del sitio después de la publicación de cualquier cambio implica la aceptación de dichos cambios.</p>
+            </section>
+
+            <!-- Sección 20 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-shipping-fast"></i> SECCIÓN 20 – ENVÍOS Y ENTREGAS</h2>
+                
+                <div class="warning-box">
+                    <p><strong>⚠️ GESTIÓN DE ENVÍOS POR TERCEROS:</strong> Kickverse NO gestiona directamente el envío ni la logística de los productos. Los envíos son realizados por el proveedor fabricante o sus servicios de mensajería asociados.</p>
+                </div>
+
+                <p><strong>Kickverse actúa como coordinador del pedido:</strong></p>
+                <ul>
+                    <li>Transmitimos tu pedido al proveedor correspondiente</li>
+                    <li>Proporcionamos información de seguimiento cuando está disponible</li>
+                    <li>Coordinamos la comunicación entre cliente y proveedor</li>
+                    <li>NO controlamos los tiempos de preparación, envío ni entrega</li>
+                </ul>
+
+                <p>Los tiempos de envío estimados son aproximados y proporcionados por los proveedores. Pueden variar según:</p>
+                <ul>
+                    <li>Disponibilidad del producto</li>
+                    <li>Ubicación geográfica del cliente</li>
+                    <li>Volumen de pedidos del proveedor</li>
+                    <li>Servicios de mensajería y aduanas</li>
+                    <li>Factores externos fuera de nuestro control</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Proceso de pedido:</strong> Recibirás un correo de confirmación tras realizar tu pedido. Cuando el proveedor proporcione la información de seguimiento, te la enviaremos para que puedas rastrear tu pedido.</p>
+                </div>
+
+                <p><strong>Responsabilidad del cliente sobre tallas:</strong> Debes elegir correctamente la talla de la camiseta. Puedes consultar nuestra guía de tallas o contactarnos para resolver dudas ANTES de realizar el pedido.</p>
+
+                <div class="warning-box">
+                    <p>⚠️ <strong>IMPORTANTE - ERRORES DE TALLA:</strong> Si hay algún error de talla por decisión incorrecta del cliente, NO nos hacemos cargo, ya que proporcionamos toda la información de tallaje previamente. Los productos personalizados no admiten cambio por error del cliente.</p>
+                </div>
+
+                <p><strong>Reclamaciones sobre productos:</strong> Si el producto llega con defectos evidentes de fabricación, debes contactarnos inmediatamente (máximo 48 horas) vía WhatsApp o email con fotografías. Evaluaremos el caso con el proveedor y, de confirmarse el fallo de fábrica, coordinaremos una solución.</p>
+
+                <p><strong>Limitación de responsabilidad en envíos:</strong> Kickverse NO es responsable de retrasos, pérdidas o daños durante el transporte, ya que el envío es gestionado por el proveedor y servicios de mensajería externos.</p>
+            </section>
+
+            <!-- Sección 21 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-undo"></i> SECCIÓN 21 – POLÍTICA DE DEVOLUCIONES Y RECLAMACIONES</h2>
+                
+                <div class="warning-box">
+                    <p><strong>⚠️ IMPORTANTE - DEVOLUCIONES LIMITADAS:</strong> Debido a que Kickverse actúa como intermediario y los productos son gestionados por proveedores externos, las devoluciones están muy limitadas y sujetas a la política del proveedor fabricante.</p>
+                </div>
+
+                <p><strong>Kickverse NO puede garantizar devoluciones</strong> ya que no controlamos el inventario ni la logística inversa. Actuamos como coordinadores ante el proveedor en los siguientes casos:</p>
+                
+                <p><strong>Casos evaluables para gestión con el proveedor:</strong></p>
+                <ul>
+                    <li>Defectos evidentes de fabricación (debes proporcionar fotografías en las primeras 48 horas)</li>
+                    <li>Errores graves en el producto recibido vs. producto pedido</li>
+                    <li>Productos dañados durante el transporte (con evidencia fotográfica inmediata)</li>
+                </ul>
+
+                <p><strong>NO se aceptan devoluciones ni reclamaciones por:</strong></p>
+                <ul>
+                    <li>Error del cliente al seleccionar talla, equipo o personalización</li>
+                    <li>Cambio de opinión del cliente</li>
+                    <li>Productos personalizados con nombre y número (salvo defecto grave de fabricación)</li>
+                    <li>Diferencias menores de color o tono respecto a las imágenes de referencia</li>
+                    <li>Expectativas del cliente sobre autenticidad u originalidad</li>
+                    <li>Problemas no comunicados dentro de las 48 horas tras recepción</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Proceso de reclamación:</strong> Si consideras que hay un defecto de fabricación, contacta inmediatamente (máximo 48 horas) vía WhatsApp (+34 614 29 97 35) o email (info@kickverse.es) con:</p>
+                    <ul>
+                        <li>Número de pedido</li>
+                        <li>Fotografías claras del problema</li>
+                        <li>Descripción detallada del defecto</li>
+                    </ul>
+                    <p>Evaluaremos el caso y lo coordinaremos con el proveedor. La decisión final sobre la procedencia de la reclamación corresponde al proveedor fabricante.</p>
+                </div>
+
+                <p><strong>NO garantizamos:</strong></p>
+                <ul>
+                    <li>Reemplazo automático de productos</li>
+                    <li>Reembolso económico en todos los casos</li>
+                    <li>Tiempos específicos de resolución de reclamaciones</li>
+                    <li>Aceptación de todas las reclamaciones por parte del proveedor</li>
+                </ul>
+
+                <div class="warning-box">
+                    <p>⚠️ <strong>El cliente asume el riesgo</strong> de que su reclamación pueda no ser aceptada por el proveedor. Kickverse hará su mejor esfuerzo por coordinar una solución, pero no tiene capacidad de decisión sobre las políticas del proveedor fabricante.</p>
+                </div>
+            </section>
+
+            <!-- Sección 22 -->
+            <section class="terminos-section">
+                <h2><i class="fas fa-exclamation-circle"></i> SECCIÓN 22 – DECLARACIÓN SOBRE PROPIEDAD INTELECTUAL Y MARCAS</h2>
+                
+                <div class="warning-box">
+                    <p><strong>⚠️ AVISO LEGAL IMPORTANTE:</strong></p>
+                    <p><strong>Kickverse NO es titular, licenciatario ni está afiliado con ninguna de las marcas, equipos de fútbol, ligas o entidades deportivas</strong> cuyos diseños puedan aparecer en los productos ofrecidos a través de esta plataforma.</p>
+                </div>
+
+                <p><strong>Naturaleza de los productos:</strong></p>
+                <ul>
+                    <li>Los productos mostrados son fabricados por proveedores externos independientes</li>
+                    <li>Kickverse NO garantiza que los productos sean oficiales, originales o licenciados</li>
+                    <li>Las imágenes de marcas, logos y escudos mostrados son propiedad de sus respectivos titulares</li>
+                    <li>Kickverse utiliza dichas imágenes únicamente con fines descriptivos e informativos</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>DECLARACIÓN EXPRESA:</strong> Si el cliente desea adquirir productos oficiales, originales y licenciados, debe dirigirse a las tiendas oficiales de las marcas o distribuidores autorizados. Los productos disponibles en Kickverse pueden NO ser oficiales.</p>
+                </div>
+
+                <p><strong>Responsabilidad del cliente:</strong></p>
+                <ul>
+                    <li>El cliente reconoce y acepta que los productos pueden no ser oficiales ni originales</li>
+                    <li>El cliente no podrá alegar desconocimiento de esta circunstancia</li>
+                    <li>El cliente asume toda responsabilidad legal sobre la adquisición y uso de los productos</li>
+                    <li>El cliente no podrá reclamar por expectativas de autenticidad u originalidad</li>
+                </ul>
+
+                <p><strong>Exención de responsabilidad sobre infracciones:</strong></p>
+                <ul>
+                    <li>Kickverse NO es responsable de posibles infracciones de propiedad intelectual cometidas por los proveedores</li>
+                    <li>Cualquier reclamación de terceros sobre marcas o derechos de autor debe dirigirse al proveedor fabricante</li>
+                    <li>El cliente exime a Kickverse de cualquier responsabilidad derivada de reclamaciones por infracción de marcas</li>
+                </ul>
+
+                <div class="warning-box">
+                    <p><strong>⚠️ ACEPTACIÓN OBLIGATORIA:</strong> Al realizar un pedido en Kickverse, el cliente declara haber leído, comprendido y aceptado expresamente que:</p>
+                    <ul>
+                        <li>Kickverse es únicamente un intermediario</li>
+                        <li>Los productos pueden NO ser oficiales ni originales</li>
+                        <li>Kickverse NO garantiza la autenticidad de las camisetas</li>
+                        <li>Para productos oficiales debe acudir a tiendas oficiales</li>
+                        <li>No realizará reclamaciones basadas en falta de autenticidad</li>
+                        <li>Asume toda la responsabilidad legal sobre los productos adquiridos</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Box -->
+        <div class="contact-box">
+            <h3>¿Tienes preguntas sobre nuestros términos?</h3>
+            <p>Estamos aquí para ayudarte. Contacta con nosotros por cualquiera de estos medios:</p>
+            <div class="contact-buttons">
+                <a href="https://wa.me/34614299735" class="contact-btn whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp: +34 614 29 97 35
+                </a>
+                <a href="mailto:info@kickverse.es" class="contact-btn email">
+                    <i class="fas fa-envelope"></i>
+                    info@kickverse.es
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Kickverse</h3>
+                    <p>Tu tienda de camisetas de fútbol personalizadas. Diseña la tuya con los mejores equipos del mundo.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="form.html">Personalizar</a></li>
+                        <li><a href="tallas.html">Guía de Tallas</a></li>
+                        <li><a href="terminos.html">Términos y Condiciones</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fab fa-whatsapp"></i> +34 614 29 97 35</li>
+                        <li><i class="fas fa-envelope"></i> info@kickverse.es</li>
+                        <li><i class="fas fa-clock"></i> Lun - Vie: 9:00 - 18:00</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Suscríbete para recibir ofertas exclusivas</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Tu email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Kickverse. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Back to top functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
