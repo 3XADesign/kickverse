@@ -122,6 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
         initCatalogo();
     }
     
+    // Inicializar carrusel si existe
+    if (document.getElementById('carousel-track')) {
+        initCarousel();
+    }
+    
     // Cargar carrito desde localStorage
     loadCartFromStorage();
 });
@@ -1327,3 +1332,196 @@ function agregarAlCarrito() {
     // Opcional: abrir el carrito
     // openCart();
 }
+
+// ============================================
+// CARRUSEL DE CAMISETAS
+// ============================================
+
+let currentSlide = 0;
+let carouselInterval = null;
+const CAROUSEL_INTERVAL_TIME = 5000; // 5 segundos
+
+// Camisetas destacadas para el carrusel (las más vendidas)
+const featuredJerseys = [
+    { liga: 'laliga', equipo: 'Real Madrid', slug: 'madrid', tipo: 'local' },
+    { liga: 'laliga', equipo: 'Barcelona', slug: 'barcelona', tipo: 'local' },
+    { liga: 'premier', equipo: 'Manchester City', slug: 'manchestercity', tipo: 'local' },
+    { liga: 'premier', equipo: 'Liverpool', slug: 'liverpool', tipo: 'local' },
+    { liga: 'seriea', equipo: 'Juventus', slug: 'juventus', tipo: 'local' },
+    { liga: 'bundesliga', equipo: 'Bayern München', slug: 'bayern', tipo: 'local' },
+    { liga: 'ligue1', equipo: 'Paris Saint-Germain', slug: 'psg', tipo: 'local' }
+];
+
+function initCarousel() {
+    const carouselTrack = document.getElementById('carousel-track');
+    const indicatorsContainer = document.getElementById('carousel-indicators');
+    
+    if (!carouselTrack || !indicatorsContainer) return;
+    
+    // Generar items del carrusel
+    let carouselHTML = '';
+    featuredJerseys.forEach((jersey, index) => {
+        carouselHTML += generateCarouselItem(jersey, index);
+    });
+    carouselTrack.innerHTML = carouselHTML;
+    
+    // Generar indicadores
+    let indicatorsHTML = '';
+    featuredJerseys.forEach((_, index) => {
+        indicatorsHTML += `<div class="carousel-indicator ${index === 0 ? 'active' : ''}" onclick="goToSlide(${index})"></div>`;
+    });
+    indicatorsContainer.innerHTML = indicatorsHTML;
+    
+    // Iniciar autoplay
+    startCarouselAutoplay();
+    
+    // Pausar autoplay al hover
+    const carouselContainer = document.querySelector('.carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', stopCarouselAutoplay);
+        carouselContainer.addEventListener('mouseleave', startCarouselAutoplay);
+    }
+}
+
+function generateCarouselItem(jersey, index) {
+    const tipoTexto = jersey.tipo === 'local' ? 'Primera Equipación' : 'Segunda Equipación';
+    const imagenPath = `./img/camisetas/${jersey.liga}_${jersey.slug}_${jersey.tipo}.png`;
+    const ligaIcon = `./img/leagues/${jersey.liga}.svg`;
+    
+    const ligaNombre = {
+        'laliga': 'La Liga',
+        'premier': 'Premier League',
+        'seriea': 'Serie A',
+        'bundesliga': 'Bundesliga',
+        'ligue1': 'Ligue 1'
+    }[jersey.liga] || jersey.liga;
+    
+    return `
+        <div class="carousel-item">
+            <div class="camiseta-card">
+                <div class="camiseta-badge badge-discount">-60%</div>
+                <div class="camiseta-image-wrapper">
+                    <div class="camiseta-league">
+                        <img src="${ligaIcon}" alt="${ligaNombre}" onerror="this.style.display='none'">
+                    </div>
+                    <img src="${imagenPath}" 
+                         alt="Camiseta ${jersey.equipo} ${tipoTexto}" 
+                         class="camiseta-image"
+                         onerror="this.src='./img/hero-jersey.png'">
+                </div>
+                <div class="camiseta-content">
+                    <div class="camiseta-team">
+                        <i class="fas fa-shield-halved"></i>
+                        <span>${jersey.equipo}</span>
+                    </div>
+                    <h3 class="camiseta-name">${tipoTexto}</h3>
+                    <div class="camiseta-details">
+                        <div class="camiseta-type">
+                            <i class="fas fa-tag"></i>
+                            <span>${ligaNombre}</span>
+                        </div>
+                        <div class="camiseta-sizes">
+                            <i class="fas fa-ruler"></i>
+                            <span>XS-XXL</span>
+                        </div>
+                    </div>
+                    <div class="camiseta-price">
+                        <div class="price-old">99.99€</div>
+                        <div class="price-current">39.99€</div>
+                    </div>
+                    <button class="btn btn-primary btn-comprar" 
+                            onclick="openPersonalizarModal('${jersey.equipo}', '${tipoTexto}', 39.99, '${imagenPath}')">
+                        <i class="fas fa-shopping-cart"></i>
+                        Comprar
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function moveCarousel(direction) {
+    const totalSlides = featuredJerseys.length;
+    const carouselTrack = document.getElementById('carousel-track');
+    
+    // Calcular cuántos slides se muestran según el ancho de pantalla
+    const slidesVisible = getSlidesVisible();
+    const maxSlide = Math.max(0, totalSlides - slidesVisible);
+    
+    currentSlide += direction;
+    
+    // Limitar el rango
+    if (currentSlide < 0) {
+        currentSlide = maxSlide;
+    } else if (currentSlide > maxSlide) {
+        currentSlide = 0;
+    }
+    
+    updateCarouselPosition();
+    updateIndicators();
+    
+    // Reiniciar autoplay
+    stopCarouselAutoplay();
+    startCarouselAutoplay();
+}
+
+function goToSlide(slideIndex) {
+    currentSlide = slideIndex;
+    updateCarouselPosition();
+    updateIndicators();
+    
+    // Reiniciar autoplay
+    stopCarouselAutoplay();
+    startCarouselAutoplay();
+}
+
+function updateCarouselPosition() {
+    const carouselTrack = document.getElementById('carousel-track');
+    if (!carouselTrack) return;
+    
+    const slideWidth = carouselTrack.children[0].offsetWidth;
+    const gap = 24; // var(--spacing-lg) = 24px
+    const offset = -(currentSlide * (slideWidth + gap));
+    
+    carouselTrack.style.transform = `translateX(${offset}px)`;
+}
+
+function updateIndicators() {
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+            indicator.classList.add('active');
+        } else {
+            indicator.classList.remove('active');
+        }
+    });
+}
+
+function getSlidesVisible() {
+    const width = window.innerWidth;
+    if (width > 1024) return 3;
+    if (width > 768) return 2;
+    return 1;
+}
+
+function startCarouselAutoplay() {
+    if (carouselInterval) return; // Ya está corriendo
+    
+    carouselInterval = setInterval(() => {
+        moveCarousel(1);
+    }, CAROUSEL_INTERVAL_TIME);
+}
+
+function stopCarouselAutoplay() {
+    if (carouselInterval) {
+        clearInterval(carouselInterval);
+        carouselInterval = null;
+    }
+}
+
+// Actualizar posición en resize
+window.addEventListener('resize', () => {
+    if (document.getElementById('carousel-track')) {
+        updateCarouselPosition();
+    }
+});
