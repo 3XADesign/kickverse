@@ -15,6 +15,92 @@ let formData = {
     dorsal: ''
 };
 let cartItems = [];
+let currentProductForCart = null; // Producto actual para añadir al carrito
+
+// ============================================
+// BASE DE DATOS DE CAMISETAS DISPONIBLES
+// ============================================
+
+const camisetasDisponibles = [
+    // LA LIGA
+    { liga: 'laliga', equipo: 'Alavés', slug: 'alaves', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Athletic Bilbao', slug: 'bilbao', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Atlético Madrid', slug: 'atletico', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Barcelona', slug: 'barcelona', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Real Betis', slug: 'betis', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Celta de Vigo', slug: 'celta', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Elche', slug: 'elche', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Espanyol', slug: 'espanyol', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Getafe', slug: 'getafe', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Girona', slug: 'girona', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Levante', slug: 'levante', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Mallorca', slug: 'mallorca', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Osasuna', slug: 'osasuna', local: true, visitante: false },
+    { liga: 'laliga', equipo: 'Rayo Vallecano', slug: 'rayo', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Real Madrid', slug: 'madrid', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Real Oviedo', slug: 'oviedo', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Real Sociedad', slug: 'realsociedad', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Sevilla', slug: 'sevilla', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Valencia', slug: 'valencia', local: true, visitante: true },
+    { liga: 'laliga', equipo: 'Villarreal', slug: 'villareal', local: true, visitante: true },
+    
+    // PREMIER LEAGUE
+    { liga: 'premier', equipo: 'Arsenal', slug: 'arsenal', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Aston Villa', slug: 'astonvilla', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Chelsea', slug: 'chelsea', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Crystal Palace', slug: 'crystalpalace', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Everton', slug: 'everton', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Liverpool', slug: 'liverpool', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Manchester City', slug: 'manchestercity', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Manchester United', slug: 'manchesterunited', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Newcastle', slug: 'newscastle', local: true, visitante: true },
+    { liga: 'premier', equipo: 'Tottenham', slug: 'tottenham', local: true, visitante: true },
+    { liga: 'premier', equipo: 'West Ham', slug: 'westham', local: true, visitante: true },
+    
+    // SERIE A
+    { liga: 'seriea', equipo: 'Atalanta', slug: 'atalanta', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Bologna', slug: 'bologna', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Fiorentina', slug: 'fiorentina', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Inter', slug: 'inter', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Juventus', slug: 'juventus', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Lazio', slug: 'lazio', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Milan', slug: 'milan', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Napoli', slug: 'napoli', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Roma', slug: 'roma', local: true, visitante: true },
+    { liga: 'seriea', equipo: 'Torino', slug: 'torino', local: true, visitante: true },
+    
+    // BUNDESLIGA
+    { liga: 'bundesliga', equipo: 'Augsburg', slug: 'Augsburg', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Bayern München', slug: 'bayern', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Borussia Dortmund', slug: 'dortmund', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Eintracht Frankfurt', slug: 'Eintracht', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'SC Freiburg', slug: 'Freiburg', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Hamburger SV', slug: 'Hamburger', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Heidenheim', slug: 'Heidenheim', local: true, visitante: false },
+    { liga: 'bundesliga', equipo: 'Hoffenheim', slug: 'Hoffenheim', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'FC Köln', slug: 'Köln', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'RB Leipzig', slug: 'Leipzig', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Mainz 05', slug: 'Mainz05', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Bayer Leverkusen', slug: 'leverkusen', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Borussia Mönchengladbach', slug: 'Mönchengladbach', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'St. Pauli', slug: 'St.Pauli', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'VfB Stuttgart', slug: 'Stuttgart', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Union Berlin', slug: 'UnionBerlin', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'Werder Bremen', slug: 'bremen', local: true, visitante: true },
+    { liga: 'bundesliga', equipo: 'VfL Wolfsburg', slug: 'wolfburg', local: true, visitante: true },
+    
+    // LIGUE 1
+    { liga: 'ligue1', equipo: 'Olympique Lyon', slug: 'lyon', local: true, visitante: true },
+    { liga: 'ligue1', equipo: 'Olympique Marseille', slug: 'marsella', local: true, visitante: true },
+    { liga: 'ligue1', equipo: 'AS Monaco', slug: 'monaco', local: true, visitante: true },
+    { liga: 'ligue1', equipo: 'Paris Saint-Germain', slug: 'psg', local: true, visitante: true },
+    
+    // SELECCIONES
+    { liga: 'selecciones', equipo: 'Argentina', slug: 'argentina', local: true, visitante: true },
+    { liga: 'selecciones', equipo: 'Colombia', slug: 'colombia', local: true, visitante: true },
+    { liga: 'selecciones', equipo: 'Japón', slug: 'japon', local: true, visitante: true },
+    { liga: 'selecciones', equipo: 'Uruguay', slug: 'uruguay', local: true, visitante: true },
+];
 
 // ============================================
 // INICIALIZACIÓN
@@ -24,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initScrollEffects();
     initModals();
+    initCart();
     
     // Inicializar formulario si existe
     if (document.getElementById('form-wizard')) {
@@ -34,6 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('catalogo-grid')) {
         initCatalogo();
     }
+    
+    // Cargar carrito desde localStorage
+    loadCartFromStorage();
 });
 
 // ============================================
@@ -739,6 +829,501 @@ function getEquipoLogo(liga, equipoNombre) {
 // ============================================
 
 function initCatalogo() {
-    // Aquí se puede añadir lógica de filtros cuando sea necesario
     console.log('Catálogo inicializado');
+    
+    // Generar catálogo completo
+    generarCatalogo();
+    
+    // Event listeners para filtros
+    const filterLiga = document.getElementById('filter-liga');
+    const filterEquipo = document.getElementById('filter-equipo');
+    const filterEquipacion = document.getElementById('filter-equipacion');
+    const filterSearch = document.getElementById('filter-search');
+    
+    if (filterLiga) {
+        filterLiga.addEventListener('change', aplicarFiltros);
+    }
+    if (filterEquipacion) {
+        filterEquipacion.addEventListener('change', aplicarFiltros);
+    }
+    if (filterSearch) {
+        filterSearch.addEventListener('input', aplicarFiltros);
+    }
+}
+
+function generarCatalogo() {
+    const catalogoGrid = document.getElementById('catalogo-grid');
+    if (!catalogoGrid) return;
+    
+    let catalogoHTML = '';
+    let totalCamisetas = 0;
+    
+    camisetasDisponibles.forEach(camiseta => {
+        // Generar camiseta local
+        if (camiseta.local) {
+            catalogoHTML += generarTarjetaCamiseta(camiseta, 'local');
+            totalCamisetas++;
+        }
+        
+        // Generar camiseta visitante
+        if (camiseta.visitante) {
+            catalogoHTML += generarTarjetaCamiseta(camiseta, 'visitante');
+            totalCamisetas++;
+        }
+    });
+    
+    catalogoGrid.innerHTML = catalogoHTML;
+    
+    // Actualizar contador total
+    const countTotal = document.getElementById('count-total');
+    const countShowing = document.getElementById('count-showing');
+    if (countTotal) countTotal.textContent = totalCamisetas;
+    if (countShowing) countShowing.textContent = totalCamisetas;
+}
+
+function generarTarjetaCamiseta(camiseta, tipo) {
+    const tipoTexto = tipo === 'local' ? 'Primera Equipación' : 'Segunda Equipación';
+    const imagenPath = `./img/camisetas/${camiseta.liga}_${camiseta.slug}_${tipo}.png`;
+    const ligaIcon = `./img/leagues/${camiseta.liga}.svg`;
+    const escudoPath = getLogoPath(camiseta.liga, camiseta.slug);
+    
+    // Nombre de liga para mostrar
+    const ligaNombre = {
+        'laliga': 'La Liga',
+        'premier': 'Premier League',
+        'seriea': 'Serie A',
+        'bundesliga': 'Bundesliga',
+        'ligue1': 'Ligue 1',
+        'selecciones': 'Selecciones'
+    }[camiseta.liga] || camiseta.liga;
+    
+    return `
+        <div class="camiseta-card" data-liga="${camiseta.liga}" data-equipacion="${tipo}" data-equipo="${camiseta.equipo.toLowerCase()}">
+            <div class="camiseta-badge badge-discount">-60%</div>
+            <div class="camiseta-image-wrapper">
+                <div class="camiseta-league">
+                    <img src="${ligaIcon}" alt="${ligaNombre}" onerror="this.style.display='none'">
+                </div>
+                <img src="${imagenPath}" 
+                     alt="Camiseta ${camiseta.equipo} ${tipoTexto}" 
+                     class="camiseta-image"
+                     onerror="this.src='./img/hero-jersey.png'">
+            </div>
+            <div class="camiseta-content">
+                <div class="camiseta-team">
+                    <i class="fas fa-shield-halved"></i>
+                    <span>${camiseta.equipo}</span>
+                </div>
+                <h3 class="camiseta-name">${tipoTexto}</h3>
+                <div class="camiseta-details">
+                    <div class="camiseta-type">
+                        <i class="fas fa-tag"></i>
+                        <span>${ligaNombre}</span>
+                    </div>
+                    <div class="camiseta-sizes">
+                        <i class="fas fa-ruler"></i>
+                        <span>XS-XXL</span>
+                    </div>
+                </div>
+                <div class="camiseta-price">
+                    <div class="price-old">99.99€</div>
+                    <div class="price-current">39.99€</div>
+                </div>
+                <button class="btn btn-primary btn-comprar" 
+                        onclick="openPersonalizarModal('${camiseta.equipo}', '${tipoTexto}', 39.99, '${imagenPath}')">
+                    <i class="fas fa-shopping-cart"></i>
+                    Comprar
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function getLogoPath(liga, slug) {
+    let prefix = '';
+    
+    switch(liga) {
+        case 'laliga':
+            prefix = 'laliga';
+            break;
+        case 'premier':
+            prefix = 'premier';
+            break;
+        case 'seriea':
+            prefix = 'seriea';
+            break;
+        case 'bundesliga':
+            prefix = 'bundesliga';
+            break;
+        case 'ligue1':
+            prefix = 'ligue1';
+            break;
+        case 'selecciones':
+            prefix = 'selecciones';
+            break;
+    }
+    
+    return `./img/clubs/${prefix}_${slug}.png`;
+}
+
+function aplicarFiltros() {
+    const liga = document.getElementById('filter-liga').value.toLowerCase();
+    const equipacion = document.getElementById('filter-equipacion').value.toLowerCase();
+    const searchText = document.getElementById('filter-search').value.toLowerCase();
+    
+    const cards = document.querySelectorAll('.camiseta-card');
+    let visibleCount = 0;
+    
+    cards.forEach(card => {
+        const teamElement = card.querySelector('.camiseta-team');
+        const nameElement = card.querySelector('.camiseta-name');
+        const typeElement = card.querySelector('.camiseta-type');
+        
+        if (!teamElement || !nameElement) return;
+        
+        const teamText = teamElement.textContent.toLowerCase();
+        const nameText = nameElement.textContent.toLowerCase();
+        const typeText = typeElement ? typeElement.textContent.toLowerCase() : '';
+        
+        let showCard = true;
+        
+        // Filtrar por búsqueda
+        if (searchText && !teamText.includes(searchText) && !nameText.includes(searchText)) {
+            showCard = false;
+        }
+        
+        // Filtrar por equipación
+        if (equipacion) {
+            if (equipacion === 'local' && !typeText.includes('primera') && !typeText.includes('local')) {
+                showCard = false;
+            }
+            if (equipacion === 'visitante' && !typeText.includes('segunda') && !typeText.includes('visitante')) {
+                showCard = false;
+            }
+        }
+        
+        // Mostrar u ocultar tarjeta
+        if (showCard) {
+            card.style.display = '';
+            visibleCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+    
+    // Actualizar contador
+    const countShowing = document.getElementById('count-showing');
+    if (countShowing) {
+        countShowing.textContent = visibleCount;
+    }
+}
+
+function limpiarFiltros() {
+    document.getElementById('filter-liga').value = '';
+    document.getElementById('filter-equipo').value = '';
+    document.getElementById('filter-equipacion').value = '';
+    document.getElementById('filter-search').value = '';
+    
+    // Mostrar todas las tarjetas
+    const cards = document.querySelectorAll('.camiseta-card');
+    cards.forEach(card => {
+        card.style.display = '';
+    });
+    
+    // Actualizar contador
+    const countShowing = document.getElementById('count-showing');
+    if (countShowing) {
+        countShowing.textContent = cards.length;
+    }
+}
+
+// ============================================
+// CARRITO DE COMPRAS
+// ============================================
+
+function initCart() {
+    updateCartBadge();
+}
+
+function loadCartFromStorage() {
+    const savedCart = localStorage.getItem('kickverse_cart');
+    if (savedCart) {
+        cartItems = JSON.parse(savedCart);
+        updateCartBadge();
+    }
+}
+
+function saveCartToStorage() {
+    localStorage.setItem('kickverse_cart', JSON.stringify(cartItems));
+    updateCartBadge();
+}
+
+function updateCartBadge() {
+    const badge = document.getElementById('cart-badge');
+    if (badge) {
+        const itemCount = cartItems.reduce((sum, item) => sum + item.cantidad, 0);
+        badge.textContent = itemCount;
+        badge.style.display = itemCount > 0 ? 'flex' : 'none';
+    }
+}
+
+function addToCart(item) {
+    // Buscar si ya existe en el carrito
+    const existingIndex = cartItems.findIndex(cartItem => 
+        cartItem.equipo === item.equipo && 
+        cartItem.equipacion === item.equipacion && 
+        cartItem.talla === item.talla &&
+        cartItem.nombre === item.nombre &&
+        cartItem.dorsal === item.dorsal
+    );
+    
+    if (existingIndex >= 0) {
+        // Si existe, aumentar cantidad
+        cartItems[existingIndex].cantidad++;
+    } else {
+        // Si no existe, añadir nuevo item
+        cartItems.push({
+            ...item,
+            cantidad: 1,
+            id: Date.now() // ID único
+        });
+    }
+    
+    saveCartToStorage();
+    showCartNotification('Producto añadido al carrito');
+}
+
+function removeFromCart(itemId) {
+    cartItems = cartItems.filter(item => item.id !== itemId);
+    saveCartToStorage();
+    renderCart();
+}
+
+function updateCartItemQuantity(itemId, newQuantity) {
+    const item = cartItems.find(item => item.id === itemId);
+    if (item) {
+        if (newQuantity <= 0) {
+            removeFromCart(itemId);
+        } else {
+            item.cantidad = newQuantity;
+            saveCartToStorage();
+            renderCart();
+        }
+    }
+}
+
+function clearCart() {
+    cartItems = [];
+    saveCartToStorage();
+    renderCart();
+}
+
+function renderCart() {
+    const cartContainer = document.getElementById('cart-items-container');
+    const cartEmpty = document.getElementById('cart-empty');
+    const cartContent = document.getElementById('cart-content');
+    const cartTotal = document.getElementById('cart-total');
+    
+    if (!cartContainer) return;
+    
+    if (cartItems.length === 0) {
+        if (cartEmpty) cartEmpty.style.display = 'block';
+        if (cartContent) cartContent.style.display = 'none';
+        return;
+    }
+    
+    if (cartEmpty) cartEmpty.style.display = 'none';
+    if (cartContent) cartContent.style.display = 'block';
+    
+    let html = '';
+    let total = 0;
+    
+    cartItems.forEach(item => {
+        const itemTotal = item.precio * item.cantidad;
+        total += itemTotal;
+        
+        html += `
+            <div class="cart-item" data-id="${item.id}">
+                <div class="cart-item-image">
+                    <img src="${item.imagen}" alt="${item.equipo}">
+                </div>
+                <div class="cart-item-details">
+                    <h4>${item.equipo}</h4>
+                    <p>${item.equipacion} - Talla: ${item.talla}</p>
+                    ${item.parches ? '<span class="badge badge-sm">Con parches</span>' : ''}
+                    ${item.nombre ? `<span class="badge badge-primary badge-sm">${item.nombre} #${item.dorsal}</span>` : ''}
+                </div>
+                <div class="cart-item-quantity">
+                    <button onclick="updateCartItemQuantity(${item.id}, ${item.cantidad - 1})" class="btn-quantity">-</button>
+                    <span>${item.cantidad}</span>
+                    <button onclick="updateCartItemQuantity(${item.id}, ${item.cantidad + 1})" class="btn-quantity">+</button>
+                </div>
+                <div class="cart-item-price">
+                    <span>${itemTotal.toFixed(2)}€</span>
+                </div>
+                <button onclick="removeFromCart(${item.id})" class="cart-item-remove">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+    });
+    
+    cartContainer.innerHTML = html;
+    
+    if (cartTotal) {
+        cartTotal.textContent = `${total.toFixed(2)}€`;
+    }
+    
+    // Mostrar promoción 3x2
+    const promoMessage = document.getElementById('cart-promo-message');
+    if (promoMessage) {
+        const totalItems = cartItems.reduce((sum, item) => sum + item.cantidad, 0);
+        if (totalItems >= 2 && totalItems < 3) {
+            promoMessage.innerHTML = '<i class="fas fa-gift"></i> ¡Añade 1 más y la tercera es GRATIS!';
+            promoMessage.style.display = 'block';
+        } else if (totalItems >= 3) {
+            promoMessage.innerHTML = '<i class="fas fa-check-circle"></i> ¡Promoción 3x2 aplicada!';
+            promoMessage.style.display = 'block';
+        } else {
+            promoMessage.style.display = 'none';
+        }
+    }
+}
+
+function showCartNotification(message) {
+    // Crear notificación temporal
+    const notification = document.createElement('div');
+    notification.className = 'cart-notification';
+    notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
+
+function openCart() {
+    renderCart();
+    openModal('cart-modal');
+}
+
+function finalizarCompraCarrito() {
+    if (cartItems.length === 0) {
+        alert('El carrito está vacío');
+        return;
+    }
+    
+    const telefono = '34614299735';
+    let mensaje = `¡Hola Kickverse! 👋\n\nQuiero realizar un pedido:\n\n`;
+    
+    cartItems.forEach((item, index) => {
+        mensaje += `📦 PRODUCTO ${index + 1}:\n`;
+        mensaje += `⚽ Equipo: ${item.equipo}\n`;
+        mensaje += `👕 Equipación: ${item.equipacion}\n`;
+        mensaje += `📏 Talla: ${item.talla}\n`;
+        mensaje += `🏅 Parches: ${item.parches ? 'Sí' : 'No'}\n`;
+        if (item.nombre) {
+            mensaje += `✏️ Personalización: ${item.nombre} #${item.dorsal}\n`;
+        }
+        mensaje += `🔢 Cantidad: ${item.cantidad}\n`;
+        mensaje += `💰 Precio: ${(item.precio * item.cantidad).toFixed(2)}€\n\n`;
+    });
+    
+    const total = cartItems.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    mensaje += `💵 TOTAL: ${total.toFixed(2)}€\n\n`;
+    mensaje += `¿Cuál es el siguiente paso?`;
+    
+    const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(urlWhatsApp, '_blank');
+}
+
+// ============================================
+// MODAL DE PERSONALIZACIÓN (CATÁLOGO)
+// ============================================
+
+function openPersonalizarModal(equipo, equipacion, precio, imagenSrc) {
+    currentProductForCart = {
+        equipo: equipo,
+        equipacion: equipacion,
+        precio: parseFloat(precio),
+        imagen: imagenSrc,
+        liga: 'La Liga' // Default, se puede mejorar
+    };
+    
+    // Resetear formulario
+    document.getElementById('personalizar-talla').value = '';
+    document.getElementById('personalizar-parches').checked = false;
+    document.getElementById('personalizar-custom').checked = false;
+    document.getElementById('personalizar-nombre').value = '';
+    document.getElementById('personalizar-dorsal').value = '';
+    document.getElementById('custom-fields').style.display = 'none';
+    
+    // Actualizar título del modal
+    const modalTitle = document.querySelector('#personalizar-modal .modal-title');
+    if (modalTitle) {
+        modalTitle.textContent = `Personalizar ${equipo}`;
+    }
+    
+    openModal('personalizar-modal');
+}
+
+function toggleCustomFields() {
+    const checkbox = document.getElementById('personalizar-custom');
+    const fields = document.getElementById('custom-fields');
+    
+    if (checkbox.checked) {
+        fields.style.display = 'block';
+    } else {
+        fields.style.display = 'none';
+        document.getElementById('personalizar-nombre').value = '';
+        document.getElementById('personalizar-dorsal').value = '';
+    }
+}
+
+function agregarAlCarrito() {
+    const talla = document.getElementById('personalizar-talla').value;
+    const parches = document.getElementById('personalizar-parches').checked;
+    const personalizar = document.getElementById('personalizar-custom').checked;
+    const nombre = document.getElementById('personalizar-nombre').value.trim().toUpperCase();
+    const dorsal = document.getElementById('personalizar-dorsal').value.trim();
+    
+    if (!talla) {
+        alert('Por favor selecciona una talla');
+        return;
+    }
+    
+    if (personalizar && (!nombre || !dorsal)) {
+        alert('Por favor completa el nombre y dorsal');
+        return;
+    }
+    
+    // Calcular precio
+    let precioFinal = currentProductForCart.precio;
+    if (parches) precioFinal += 5;
+    if (personalizar) precioFinal += 10;
+    
+    const item = {
+        ...currentProductForCart,
+        talla: talla,
+        parches: parches,
+        nombre: personalizar ? nombre : '',
+        dorsal: personalizar ? dorsal : '',
+        precio: precioFinal
+    };
+    
+    addToCart(item);
+    closeModal('personalizar-modal');
+    
+    // Opcional: abrir el carrito
+    // openCart();
 }

@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/form.css">
     <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/utils.css">
 </head>
@@ -47,6 +48,11 @@
             </nav>
             
             <div class="header-actions">
+                <button class="btn-cart" onclick="openCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Carrito</span>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
                 <button class="menu-toggle" aria-label="Abrir menú">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -211,8 +217,53 @@
         <i class="fab fa-whatsapp"></i>
     </a>
     
+    <!-- Modal Carrito -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content modal-cart">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    Carrito de Compras
+                </h3>
+                <button class="modal-close" onclick="closeModal('cart-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-empty" class="cart-empty" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Tu carrito está vacío</h4>
+                    <p>Añade productos para comenzar tu compra</p>
+                </div>
+                
+                <div id="cart-content">
+                    <div id="cart-items-container"></div>
+                    
+                    <div id="cart-promo-message" class="cart-promo-message" style="display: none;"></div>
+                    
+                    <div class="cart-summary">
+                        <div class="cart-summary-row">
+                            <span>Total:</span>
+                            <span class="cart-total-price" id="cart-total">0.00€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="cart-footer">
+                <button class="btn btn-secondary" onclick="clearCart()">
+                    <i class="fas fa-trash"></i>
+                    Vaciar Carrito
+                </button>
+                <button class="btn btn-whatsapp" onclick="finalizarCompraCarrito()">
+                    <i class="fab fa-whatsapp"></i>
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
-    
 </body>
+</html></body>
 </html>

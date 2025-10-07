@@ -1,8 +1,0 @@
-<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-  <rect width="800" height="800" fill="#f8f9fa"/>
-  <path d="M 200 150 L 150 250 L 150 700 L 650 700 L 650 250 L 600 150 L 550 200 L 500 150 L 300 150 L 250 200 Z" 
-        fill="#FFDF00" stroke="#009B3A" stroke-width="4"/>
-  <ellipse cx="400" cy="150" rx="50" ry="30" fill="#FFDF00" stroke="#009B3A" stroke-width="4"/>
-  <text x="400" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="#009B3A">BRASIL</text>
-  <text x="400" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#009B3A">10</text>
-</svg>

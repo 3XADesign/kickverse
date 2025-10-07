@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="./css/catalogo.css">
     <link rel="stylesheet" href="./css/camiseta-card.css">
     <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/utils.css">
 </head>
@@ -48,6 +49,10 @@
             </nav>
             
             <div class="header-actions">
+                <button class="btn-cart" onclick="openCart()" aria-label="Abrir carrito">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
                 <button class="menu-toggle" aria-label="Abrir menú">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -175,182 +180,7 @@
                 
                 <!-- Catalogo Grid -->
                 <div class="catalogo-grid" id="catalogo-grid">
-                    
-                    <!-- Las camisetas se cargarían dinámicamente, pero aquí muestro ejemplos -->
-                    
-                    <!-- Real Madrid Local -->
-                    <div class="camiseta-card">
-                        <div class="camiseta-badge badge-discount">-60%</div>
-                        <div class="camiseta-image-wrapper">
-                            <div class="camiseta-league">
-                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
-                            </div>
-                            <img src="./img/camisetas/laliga_real-madrid_local.png" 
-                                 alt="Camiseta Real Madrid Local" 
-                                 class="camiseta-image"
-                                 onerror="this.src='./img/hero-jersey.png'">
-                        </div>
-                        <div class="camiseta-content">
-                            <div class="camiseta-team">
-                                <i class="fas fa-shield-halved"></i>
-                                Real Madrid
-                            </div>
-                            <h3 class="camiseta-name">Real Madrid 24/25</h3>
-                            <div class="camiseta-type">
-                                <i class="fas fa-home"></i>
-                                Primera Equipación
-                            </div>
-                            <div class="camiseta-features">
-                                <span class="camiseta-feature">
-                                    <i class="fas fa-check-circle"></i>
-                                    Tecnología Dri-FIT
-                                </span>
-                                <span class="camiseta-feature">
-                                    <i class="fas fa-check-circle"></i>
-                                    Parches Oficiales
-                                </span>
-                            </div>
-                            <div class="camiseta-price-wrapper">
-                                <div class="camiseta-price-group">
-                                    <span class="camiseta-price-old">79.99€</span>
-                                    <span class="camiseta-price">
-                                        29.99<span class="camiseta-price-currency">€</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="camiseta-actions">
-                                <button class="camiseta-btn camiseta-btn-whatsapp" 
-                                        onclick="comprarWhatsApp('Real Madrid', 'Local', '29.99€')">
-                                    <i class="fab fa-whatsapp"></i>
-                                    Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Barcelona Local -->
-                    <div class="camiseta-card">
-                        <div class="camiseta-badge badge-discount">-60%</div>
-                        <div class="camiseta-image-wrapper">
-                            <div class="camiseta-league">
-                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
-                            </div>
-                            <img src="./img/camisetas/laliga_barcelona_local.png" 
-                                 alt="Camiseta Barcelona Local" 
-                                 class="camiseta-image"
-                                 onerror="this.src='./img/hero-jersey.png'">
-                        </div>
-                        <div class="camiseta-content">
-                            <div class="camiseta-team">
-                                <i class="fas fa-shield-halved"></i>
-                                FC Barcelona
-                            </div>
-                            <h3 class="camiseta-name">Barcelona 24/25</h3>
-                            <div class="camiseta-type">
-                                <i class="fas fa-home"></i>
-                                Primera Equipación
-                            </div>
-                            <div class="camiseta-features">
-                                <span class="camiseta-feature">
-                                    <i class="fas fa-check-circle"></i>
-                                    Tecnología Dri-FIT
-                                </span>
-                            </div>
-                            <div class="camiseta-price-wrapper">
-                                <div class="camiseta-price-group">
-                                    <span class="camiseta-price-old">79.99€</span>
-                                    <span class="camiseta-price">
-                                        29.99<span class="camiseta-price-currency">€</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="camiseta-actions">
-                                <button class="camiseta-btn camiseta-btn-whatsapp" 
-                                        onclick="comprarWhatsApp('FC Barcelona', 'Local', '29.99€')">
-                                    <i class="fab fa-whatsapp"></i>
-                                    Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Atlético Madrid Local -->
-                    <div class="camiseta-card">
-                        <div class="camiseta-badge badge-discount">-60%</div>
-                        <div class="camiseta-image-wrapper">
-                            <div class="camiseta-league">
-                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
-                            </div>
-                            <img src="./img/camisetas/laliga_atletico_local.png" 
-                                 alt="Camiseta Atlético Local" 
-                                 class="camiseta-image"
-                                 onerror="this.src='./img/hero-jersey.png'">
-                        </div>
-                        <div class="camiseta-content">
-                            <div class="camiseta-team">
-                                <i class="fas fa-shield-halved"></i>
-                                Atlético de Madrid
-                            </div>
-                            <h3 class="camiseta-name">Atlético 24/25</h3>
-                            <div class="camiseta-type">
-                                <i class="fas fa-home"></i>
-                                Primera Equipación
-                            </div>
-                            <div class="camiseta-price-wrapper">
-                                <div class="camiseta-price-group">
-                                    <span class="camiseta-price-old">79.99€</span>
-                                    <span class="camiseta-price">
-                                        29.99<span class="camiseta-price-currency">€</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="camiseta-actions">
-                                <button class="camiseta-btn camiseta-btn-whatsapp" 
-                                        onclick="comprarWhatsApp('Atlético de Madrid', 'Local', '29.99€')">
-                                    <i class="fab fa-whatsapp"></i>
-                                    Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- España -->
-                    <div class="camiseta-card">
-                        <div class="camiseta-badge">SELECCIÓN</div>
-                        <div class="camiseta-image-wrapper">
-                            <img src="./img/camisetas/selecciones_espana.png" 
-                                 alt="Camiseta España" 
-                                 class="camiseta-image"
-                                 onerror="this.src='./img/hero-jersey.png'">
-                        </div>
-                        <div class="camiseta-content">
-                            <div class="camiseta-team">
-                                <i class="fas fa-flag"></i>
-                                Selección Española
-                            </div>
-                            <h3 class="camiseta-name">España 2024</h3>
-                            <div class="camiseta-type">
-                                <i class="fas fa-star"></i>
-                                Campeones de Europa
-                            </div>
-                            <div class="camiseta-price-wrapper">
-                                <div class="camiseta-price-group">
-                                    <span class="camiseta-price-old">79.99€</span>
-                                    <span class="camiseta-price">
-                                        29.99<span class="camiseta-price-currency">€</span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="camiseta-actions">
-                                <button class="camiseta-btn camiseta-btn-whatsapp" 
-                                        onclick="comprarWhatsApp('España', 'Local', '29.99€')">
-                                    <i class="fab fa-whatsapp"></i>
-                                    Comprar
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    <!-- Las camisetas se generan dinámicamente desde JavaScript -->
                 </div>
                 
                 <!-- CTA Final -->
@@ -472,23 +302,120 @@
         <i class="fab fa-whatsapp"></i>
     </a>
     
+    <!-- Modal Personalizar -->
+    <div class="modal" id="personalizar-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Personalizar Camiseta</h3>
+                <button class="modal-close" onclick="closeModal('personalizar-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="personalizar-talla">
+                        <i class="fas fa-ruler"></i> Talla *
+                    </label>
+                    <select id="personalizar-talla" required>
+                        <option value="">Selecciona una talla</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="personalizar-parches">
+                        <span>Añadir parches oficiales (+5€)</span>
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="personalizar-custom" onchange="toggleCustomFields()">
+                        <span>Personalizar con nombre y dorsal (+10€)</span>
+                    </label>
+                </div>
+                
+                <div id="custom-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="personalizar-nombre">
+                            <i class="fas fa-user"></i> Nombre
+                        </label>
+                        <input type="text" id="personalizar-nombre" placeholder="Ej: RODRÍGUEZ" maxlength="12">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personalizar-dorsal">
+                            <i class="fas fa-hashtag"></i> Dorsal
+                        </label>
+                        <input type="number" id="personalizar-dorsal" placeholder="Ej: 10" min="1" max="99">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('personalizar-modal')">
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" onclick="agregarAlCarrito()">
+                    <i class="fas fa-shopping-cart"></i>
+                    Añadir al Carrito
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Carrito -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content modal-cart">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    Carrito de Compras
+                </h3>
+                <button class="modal-close" onclick="closeModal('cart-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-empty" class="cart-empty" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Tu carrito está vacío</h4>
+                    <p>Añade productos para comenzar tu compra</p>
+                </div>
+                
+                <div id="cart-content">
+                    <div id="cart-items-container"></div>
+                    
+                    <div id="cart-promo-message" class="cart-promo-message" style="display: none;"></div>
+                    
+                    <div class="cart-summary">
+                        <div class="cart-summary-row">
+                            <span>Total:</span>
+                            <span class="cart-total-price" id="cart-total">0.00€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="cart-footer">
+                <button class="btn btn-secondary" onclick="clearCart()">
+                    <i class="fas fa-trash"></i>
+                    Vaciar Carrito
+                </button>
+                <button class="btn btn-whatsapp" onclick="finalizarCompraCarrito()">
+                    <i class="fab fa-whatsapp"></i>
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
-    <script>
-        // Funciones específicas del catálogo
-        function aplicarFiltros() {
-            console.log('Filtros aplicados');
-            // Aquí iría la lógica de filtrado
-        }
-        
-        function limpiarFiltros() {
-            document.getElementById('filter-liga').value = '';
-            document.getElementById('filter-equipo').value = '';
-            document.getElementById('filter-equipacion').value = '';
-            document.getElementById('filter-search').value = '';
-            console.log('Filtros limpiados');
-        }
-    </script>
     
 </body>
 </html>
