@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/direccion.css">
+    <link rel="stylesheet" href="./css/upsell.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/utils.css">
 </head>
@@ -74,7 +75,6 @@
             <div class="header-actions">
                 <button class="btn-cart" onclick="openCart()">
                     <i class="fas fa-shopping-cart"></i>
-                    <span>Carrito</span>
                     <span class="cart-badge" id="cart-badge">0</span>
                 </button>
                 <button class="menu-toggle" aria-label="Abrir menú">
@@ -443,6 +443,34 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Upsell - 3x2 -->
+    <div class="upsell-modal" id="upsell-modal">
+        <div class="upsell-content">
+            <div class="upsell-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h2 class="upsell-title">¡Te falta 1 para llevarte una GRATIS!</h2>
+            <div class="upsell-badge">OFERTA 3x2</div>
+            <p class="upsell-text">
+                Añade una tercera camiseta ahora y no pagarás nada por ella. 
+                ¡Aprovecha esta oportunidad única!
+            </p>
+            <div class="upsell-actions">
+                <button class="upsell-btn upsell-btn-primary" onclick="aceptarUpsell()">
+                    <i class="fas fa-check"></i>
+                    Añadir otra camiseta
+                </button>
+                <button class="upsell-btn upsell-btn-secondary" onclick="rechazarUpsell()">
+                    <i class="fas fa-times"></i>
+                    Finalizar pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container Cross-sell (se inyecta dinámicamente en el paso 7) -->
+    <div id="crosssell-container"></div>
 
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
