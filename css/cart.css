@@ -259,22 +259,50 @@
 
 /* Mensaje de promoción */
 .cart-promo-message {
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
-    border: 2px solid var(--accent-purple);
     border-radius: var(--radius-md);
     padding: var(--spacing-md);
     margin-bottom: var(--spacing-lg);
     text-align: center;
+    font-weight: 600;
     animation: promoGlow 2s ease-in-out infinite;
 }
 
+.cart-promo-message.info {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(96, 165, 250, 0.1));
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+}
+
+.cart-promo-message.info i {
+    color: #3b82f6;
+}
+
+.cart-promo-message.warning {
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.1));
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+}
+
+.cart-promo-message.warning i {
+    color: var(--accent-color);
+}
+
+.cart-promo-message.success {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(129, 199, 132, 0.1));
+    border: 2px solid #4caf50;
+    color: #4caf50;
+}
+
+.cart-promo-message.success i {
+    color: #4caf50;
+}
+
 .cart-promo-message i {
-    color: var(--accent-purple);
     margin-right: var(--spacing-xs);
 }
 
 .cart-promo-message strong {
-    color: var(--accent-purple);
+    color: inherit;
 }
 
 @keyframes promoGlow {
