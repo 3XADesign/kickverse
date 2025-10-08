@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/direccion.css">
     <link rel="stylesheet" href="./css/mystery-box.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/utils.css">
@@ -619,10 +620,10 @@
                         Personalización gratuita y envío rápido.
                     </p>
                     <div class="footer-social">
-                        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/kickverse.es/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/kickverse_es" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.tiktok.com/@kickverse_es" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://t.me/kickverse_es" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
                     </div>
                 </div>
 
@@ -722,26 +723,351 @@
         </div>
     </div>
 
+    <!-- Modal Mystery Box - Datos de Pedido -->
+    <div class="modal" id="mystery-box-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-gift"></i>
+                    <span id="mystery-modal-title">Completa tu pedido</span>
+                </h2>
+                <button class="close-modal" onclick="closeMysteryBoxModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="mystery-box-form" class="direccion-form">
+                    
+                    <!-- Resumen del Pedido -->
+                    <div class="mystery-box-summary">
+                        <h3><i class="fas fa-box-open"></i> Resumen del Pedido</h3>
+                        <div class="summary-info">
+                            <div class="summary-item">
+                                <strong>Mystery Box:</strong>
+                                <span id="summary-box-type"></span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Precio:</strong>
+                                <span id="summary-price"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Selección de Talla -->
+                    <div class="form-group">
+                        <label for="mystery-talla">
+                            <i class="fas fa-tshirt"></i>
+                            Talla *
+                        </label>
+                        <select id="mystery-talla" name="talla" required>
+                            <option value="">Selecciona tu talla</option>
+                            <option value="S">S - Small</option>
+                            <option value="M">M - Medium</option>
+                            <option value="L">L - Large</option>
+                            <option value="XL">XL - Extra Large</option>
+                            <option value="XXL">XXL - 2X Large</option>
+                        </select>
+                    </div>
+
+                    <!-- Selección de Liga (solo para Box por Liga) -->
+                    <div class="form-group" id="liga-group" style="display: none;">
+                        <label for="mystery-liga">
+                            <i class="fas fa-trophy"></i>
+                            Liga Preferida *
+                        </label>
+                        <select id="mystery-liga" name="liga">
+                            <option value="">Selecciona una liga</option>
+                            <option value="LaLiga">LaLiga (España)</option>
+                            <option value="Premier League">Premier League (Inglaterra)</option>
+                            <option value="Serie A">Serie A (Italia)</option>
+                            <option value="Bundesliga">Bundesliga (Alemania)</option>
+                            <option value="Ligue 1">Ligue 1 (Francia)</option>
+                            <option value="Eredivisie">Eredivisie (Países Bajos)</option>
+                            <option value="Liga Portugal">Liga Portugal</option>
+                        </select>
+                    </div>
+
+                    <hr style="border: 1px solid rgba(255,255,255,0.1); margin: var(--spacing-lg) 0;">
+
+                    <!-- Dirección de Envío -->
+                    <h3 style="margin-bottom: var(--spacing-md); color: var(--text-primary);">
+                        <i class="fas fa-shipping-fast"></i> Dirección de Envío
+                    </h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="mystery-nombre">
+                                <i class="fas fa-user"></i>
+                                Nombre completo *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="mystery-nombre" 
+                                name="nombre" 
+                                required
+                                placeholder="Ej: Juan García"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="mystery-telefono">
+                                <i class="fas fa-phone"></i>
+                                Teléfono *
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="mystery-telefono" 
+                                name="telefono" 
+                                required
+                                placeholder="Ej: +34 600 000 000"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mystery-email">
+                            <i class="fas fa-envelope"></i>
+                            Email (opcional)
+                        </label>
+                        <input 
+                            type="email" 
+                            id="mystery-email" 
+                            name="email"
+                            placeholder="tu@email.com"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mystery-calle">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Dirección *
+                        </label>
+                        <input 
+                            type="text" 
+                            id="mystery-calle" 
+                            name="calle" 
+                            required
+                            placeholder="Calle, número, piso, puerta"
+                        >
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="mystery-ciudad">
+                                <i class="fas fa-city"></i>
+                                Ciudad *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="mystery-ciudad" 
+                                name="ciudad" 
+                                required
+                                placeholder="Ej: Madrid"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="mystery-provincia">
+                                <i class="fas fa-map"></i>
+                                Provincia *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="mystery-provincia" 
+                                name="provincia" 
+                                required
+                                placeholder="Ej: Madrid"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="mystery-cp">
+                                <i class="fas fa-mail-bulk"></i>
+                                Código Postal *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="mystery-cp" 
+                                name="cp" 
+                                required
+                                placeholder="Ej: 28001"
+                                pattern="[0-9]{5}"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="mystery-pais">
+                                <i class="fas fa-flag"></i>
+                                País *
+                            </label>
+                            <select id="mystery-pais" name="pais" required>
+                                <option value="">Selecciona un país</option>
+                                <option value="España" selected>España</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Francia">Francia</option>
+                                <option value="Italia">Italia</option>
+                                <option value="Alemania">Alemania</option>
+                                <option value="Reino Unido">Reino Unido</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mystery-notas">
+                            <i class="fas fa-sticky-note"></i>
+                            Notas adicionales (opcional)
+                        </label>
+                        <textarea 
+                            id="mystery-notas" 
+                            name="notas" 
+                            rows="3"
+                            placeholder="Información adicional para la entrega..."
+                        ></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeMysteryBoxModal()">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-whatsapp" onclick="confirmarPedidoMysteryBox()">
+                    <i class="fab fa-whatsapp"></i>
+                    Confirmar y Enviar por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- JavaScript -->
     <script src="./js/main.js"></script>
     <script>
-        // Mystery Box WhatsApp Function
+        // Variables globales para el pedido de Mystery Box
+        let currentMysteryBox = {
+            tipo: '',
+            precio: ''
+        };
+
+        // Abrir modal de Mystery Box
         function pedirMysteryBox(boxType, precio) {
-            const telefono = '34614299735';
+            // Guardar información del pedido
+            currentMysteryBox.tipo = boxType;
+            currentMysteryBox.precio = precio;
             
-            // Crear el mensaje base
-            let mensaje = `¡Hola Kickverse! 🎁\n\nQuiero pedir una Mystery Box:\n\n📦 Modelo: ${boxType}\n💰 Precio: ${precio}\n`;
+            // Actualizar el título y resumen en el modal
+            document.getElementById('summary-box-type').textContent = boxType;
+            document.getElementById('summary-price').textContent = precio;
             
-            // Si es Box por Liga, preguntar por la liga
+            // Mostrar/ocultar campo de liga según el tipo de box
+            const ligaGroup = document.getElementById('liga-group');
+            const ligaSelect = document.getElementById('mystery-liga');
+            
             if (boxType === 'Box por Liga') {
-                mensaje += `\n🏆 Liga preferida: (LaLiga, Premier League, Serie A, Bundesliga, Ligue 1, etc.)\n`;
+                ligaGroup.style.display = 'block';
+                ligaSelect.required = true;
+            } else {
+                ligaGroup.style.display = 'none';
+                ligaSelect.required = false;
+                ligaSelect.value = '';
             }
             
-            // Siempre preguntar por la talla
-            mensaje += `👕 Talla: (S, M, L, XL, XXL)\n\n¿Hay disponibilidad?`;
+            // Cargar dirección guardada si existe
+            cargarDireccionMysteryBox();
+            
+            // Abrir el modal
+            openModal('mystery-box-modal');
+        }
 
-            const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+        // Cerrar modal de Mystery Box
+        function closeMysteryBoxModal() {
+            closeModal('mystery-box-modal');
+            document.getElementById('mystery-box-form').reset();
+        }
+
+        // Cargar dirección guardada
+        function cargarDireccionMysteryBox() {
+            const direccionGuardada = localStorage.getItem('kickverse_direccion');
+            if (!direccionGuardada) return;
+            
+            try {
+                const direccion = JSON.parse(direccionGuardada);
+                
+                // Llenar campos de dirección
+                if (direccion.nombre) document.getElementById('mystery-nombre').value = direccion.nombre;
+                if (direccion.telefono) document.getElementById('mystery-telefono').value = direccion.telefono;
+                if (direccion.email) document.getElementById('mystery-email').value = direccion.email;
+                if (direccion.calle) document.getElementById('mystery-calle').value = direccion.calle;
+                if (direccion.ciudad) document.getElementById('mystery-ciudad').value = direccion.ciudad;
+                if (direccion.provincia) document.getElementById('mystery-provincia').value = direccion.provincia;
+                if (direccion.cp) document.getElementById('mystery-cp').value = direccion.cp;
+                if (direccion.pais) document.getElementById('mystery-pais').value = direccion.pais;
+                if (direccion.notas) document.getElementById('mystery-notas').value = direccion.notas;
+            } catch (e) {
+                console.error('Error al cargar dirección:', e);
+            }
+        }
+
+        // Confirmar pedido y enviar por WhatsApp
+        function confirmarPedidoMysteryBox() {
+            const form = document.getElementById('mystery-box-form');
+            
+            // Validar formulario
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            // Obtener datos del formulario
+            const talla = document.getElementById('mystery-talla').value;
+            const liga = document.getElementById('mystery-liga').value;
+            const nombre = document.getElementById('mystery-nombre').value;
+            const telefono = document.getElementById('mystery-telefono').value;
+            const email = document.getElementById('mystery-email').value;
+            const calle = document.getElementById('mystery-calle').value;
+            const ciudad = document.getElementById('mystery-ciudad').value;
+            const provincia = document.getElementById('mystery-provincia').value;
+            const cp = document.getElementById('mystery-cp').value;
+            const pais = document.getElementById('mystery-pais').value;
+            const notas = document.getElementById('mystery-notas').value;
+            
+            // Guardar dirección para futuros pedidos
+            const direccion = {
+                nombre, telefono, email, calle, ciudad, provincia, cp, pais, notas
+            };
+            localStorage.setItem('kickverse_direccion', JSON.stringify(direccion));
+            
+            // Construir mensaje para WhatsApp (sin emojis)
+            let mensaje = `Hola Kickverse!\n\nQuiero pedir una Mystery Box:\n\n`;
+            mensaje += `PEDIDO:\n`;
+            mensaje += `- Modelo: ${currentMysteryBox.tipo}\n`;
+            mensaje += `- Precio: ${currentMysteryBox.precio}\n`;
+            mensaje += `- Talla: ${talla}\n`;
+            
+            if (liga) {
+                mensaje += `- Liga: ${liga}\n`;
+            }
+            
+            mensaje += `\nDIRECCION DE ENVIO:\n`;
+            mensaje += `Nombre: ${nombre}\n`;
+            mensaje += `Telefono: ${telefono}\n`;
+            if (email) {
+                mensaje += `Email: ${email}\n`;
+            }
+            mensaje += `Direccion: ${calle}\n`;
+            mensaje += `${ciudad}, ${provincia}\n`;
+            mensaje += `CP: ${cp}\n`;
+            mensaje += `Pais: ${pais}\n`;
+            if (notas) {
+                mensaje += `Notas: ${notas}\n`;
+            }
+            
+            mensaje += `\nHay disponibilidad?`;
+            
+            // Enviar por WhatsApp
+            const whatsappTel = '34614299735';
+            const urlWhatsApp = `https://wa.me/${whatsappTel}?text=${encodeURIComponent(mensaje)}`;
             window.open(urlWhatsApp, '_blank');
+            
+            // Cerrar modal
+            closeMysteryBoxModal();
         }
 
         // FAQ Toggle Function

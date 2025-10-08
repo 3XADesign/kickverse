@@ -958,3 +958,173 @@
 .faq-item:nth-child(4) { --index: 4; }
 .faq-item:nth-child(5) { --index: 5; }
 .faq-item:nth-child(6) { --index: 6; }
+
+/* ========================================
+   MYSTERY BOX MODAL - PEDIDO
+   ======================================== */
+
+.mystery-box-summary {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+    border: 2px solid rgba(168, 85, 247, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.mystery-box-summary h3 {
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.mystery-box-summary h3 i {
+    color: var(--accent-purple);
+    font-size: 1.5rem;
+}
+
+.summary-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.summary-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.summary-item span {
+    color: var(--accent-purple);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+/* Ajustes para el modal de Mystery Box */
+#mystery-box-modal .modal-dialog {
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#mystery-box-modal .modal-body {
+    max-height: calc(90vh - 180px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: var(--spacing-lg);
+}
+
+#mystery-box-modal .modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+#mystery-box-modal .modal-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+#mystery-box-modal .modal-body::-webkit-scrollbar-thumb {
+    background: var(--accent-purple);
+    border-radius: 4px;
+}
+
+#mystery-box-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-pink);
+}
+
+#mystery-box-modal .modal-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+#mystery-box-modal .modal-title i {
+    color: var(--accent-purple);
+}
+
+#mystery-box-modal hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: var(--spacing-lg) 0;
+}
+
+#mystery-box-modal h3 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+#mystery-box-modal h3 i {
+    color: var(--accent-purple);
+}
+
+/* Responsive para modal */
+@media (max-width: 768px) {
+    #mystery-box-modal .modal-dialog {
+        max-width: 95%;
+        max-height: 95vh;
+        margin: var(--spacing-sm);
+    }
+    
+    #mystery-box-modal .modal-body {
+        max-height: calc(95vh - 160px);
+        padding: var(--spacing-md);
+    }
+    
+    .mystery-box-summary {
+        padding: var(--spacing-md);
+    }
+    
+    .summary-item {
+        font-size: 0.9rem;
+    }
+    
+    .summary-item span {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #mystery-box-modal .modal-dialog {
+        max-width: 100%;
+        max-height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    #mystery-box-modal .modal-body {
+        max-height: calc(100vh - 140px);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    #mystery-box-modal .modal-header {
+        padding: var(--spacing-md);
+    }
+    
+    #mystery-box-modal .modal-footer {
+        padding: var(--spacing-md);
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    #mystery-box-modal .modal-footer .btn {
+        width: 100%;
+    }
+}
