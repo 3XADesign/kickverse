@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Visera -->
+  <ellipse cx="100" cy="140" rx="90" ry="25" fill="#2d3748" opacity="0.3"/>
+  <path d="M 20 140 Q 100 135 180 140 Q 100 145 20 140" fill="#1a202c"/>
+  
+  <!-- Base de la gorra -->
+  <ellipse cx="100" cy="85" rx="60" ry="12" fill="#2d3748"/>
+  
+  <!-- Corona de la gorra -->
+  <path d="M 40 85 Q 40 40 100 35 Q 160 40 160 85 L 140 85 Q 140 55 100 50 Q 60 55 60 85 Z" fill="#e2e8f0"/>
+  
+  <!-- Paneles de la gorra -->
+  <path d="M 100 35 L 100 85 L 160 85 Q 160 40 100 35" fill="#cbd5e0" opacity="0.5"/>
+  <path d="M 100 35 L 100 85 L 40 85 Q 40 40 100 35" fill="#f7fafc" opacity="0.3"/>
+  
+  <!-- Botón superior -->
+  <circle cx="100" cy="35" r="8" fill="#4a5568"/>
+  <circle cx="100" cy="35" r="5" fill="#2d3748"/>
+  
+  <!-- Detalles de costuras -->
+  <path d="M 100 40 L 100 82" stroke="#a0aec0" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+  <path d="M 70 50 Q 100 48 130 50" stroke="#a0aec0" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+  
+  <!-- Ajustador trasero -->
+  <rect x="95" y="83" width="10" height="4" rx="1" fill="#4a5568"/>
+</svg>

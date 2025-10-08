@@ -679,7 +679,40 @@ function mostrarResumen() {
 }
 
 function finalizarPedidoWhatsApp() {
-    generarMensajeWhatsApp(formData);
+    // Primero añadir el pedido actual al carrito si no está ya
+    if (formData.equipo && !cartItems.some(item => 
+        item.equipo === formData.equipo && 
+        item.equipacion === formData.equipacion &&
+        item.talla === formData.talla &&
+        item.nombre === formData.nombre &&
+        item.dorsal === formData.dorsal
+    )) {
+        const producto = {
+            liga: formData.liga,
+            equipo: formData.equipo,
+            equipacion: formData.equipacion,
+            talla: formData.talla,
+            parches: formData.parches,
+            personalizar: formData.personalizar,
+            nombre: formData.nombre,
+            dorsal: formData.dorsal,
+            precio: 27.99,
+            nombreProducto: `${formData.equipo} - ${formData.equipacion}`
+        };
+        
+        cartItems.push(producto);
+        localStorage.setItem('kickverse_cart', JSON.stringify(cartItems));
+        updateCartCount();
+    }
+    
+    // Verificar si debe mostrar upsell (exactamente 2 camisetas)
+    if (cartItems.length === 2 && !upsellActivado) {
+        mostrarModalUpsell();
+        return;
+    }
+    
+    // Si no hay upsell o ya se vio, mostrar cross-sell y resumen
+    mostrarCrossSellYResumen();
 }
 
 function nextStep() {
@@ -2006,4 +2039,368 @@ function confirmarDireccionYEnviar() {
     // Resetear variables
     mensajePendiente = null;
     tipoPedidoPendiente = null;
+}
+
+// ============================================
+// UPSELLING Y CROSS-SELLING
+// ============================================
+
+// Variables para upselling/cross-selling
+let upsellActivado = false;
+let crosssellItems = [];
+
+/**
+ * Verificar si se debe mostrar el modal de upsell (3x2)
+ * Se activa cuando el usuario ha añadido exactamente 2 camisetas
+ */
+function verificarUpsell() {
+    // Contar camisetas en el carrito
+    const numCamisetas = cartItems.length;
+    
+    // Si tiene exactamente 2 camisetas y no ha visto el upsell, mostrarlo
+    if (numCamisetas === 2 && !upsellActivado) {
+        mostrarModalUpsell();
+        return true;
+    }
+    
+    return false;
+}
+
+/**
+ * Mostrar el modal de upsell 3x2
+ */
+function mostrarModalUpsell() {
+    const modal = document.getElementById('upsell-modal');
+    if (modal) {
+        modal.classList.add('active');
+        upsellActivado = true;
+    }
+}
+
+/**
+ * Cerrar el modal de upsell
+ */
+function cerrarModalUpsell() {
+    const modal = document.getElementById('upsell-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+/**
+ * Usuario acepta el upsell - vuelve al paso 1 para añadir otra camiseta
+ */
+function aceptarUpsell() {
+    cerrarModalUpsell();
+    
+    // Volver al paso 1 del formulario
+    loadStepContent(1);
+    
+    // Scroll suave al formulario
+    const formWizard = document.getElementById('form-wizard');
+    if (formWizard) {
+        formWizard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+/**
+ * Usuario rechaza el upsell - continuar con cross-sell y resumen
+ */
+function rechazarUpsell() {
+    cerrarModalUpsell();
+    
+    // Mostrar cross-sell y resumen final
+    mostrarCrossSellYResumen();
+}
+
+/**
+ * Detectar equipo elegido y generar cross-sell contextual
+ */
+function generarCrossSellContextual() {
+    const equipoElegido = formData.equipo;
+    const ligaElegida = formData.liga;
+    
+    crosssellItems = [];
+    
+    // Cross-sell específico por equipo
+    const crosssellData = {
+        'Real Madrid': {
+            camiseta: {
+                nombre: '2.ª Equipación Real Madrid',
+                descripcion: 'Camiseta negra alternativa temporada 2024/25',
+                imagen: './img/camisetas/laliga_real-madrid_visitante.png',
+                precioOriginal: 79.99,
+                precioOferta: 27.99,
+                tipo: 'camiseta'
+            },
+            accesorio: {
+                nombre: 'Gorra Real Madrid Blanca',
+                descripcion: 'Gorra oficial con escudo bordado',
+                imagen: './img/icons/gorra.svg',
+                precioOriginal: 19.99,
+                precioOferta: 7.99,
+                tipo: 'accesorio'
+            }
+        },
+        'FC Barcelona': {
+            camiseta: {
+                nombre: '2.ª Equipación FC Barcelona',
+                descripcion: 'Camiseta azul oscura alternativa temporada 2024/25',
+                imagen: './img/camisetas/laliga_barcelona_visitante.png',
+                precioOriginal: 79.99,
+                precioOferta: 27.99,
+                tipo: 'camiseta'
+            },
+            accesorio: {
+                nombre: 'Gorra FC Barcelona Azulgrana',
+                descripcion: 'Gorra oficial con escudo bordado',
+                imagen: './img/icons/gorra.svg',
+                precioOriginal: 19.99,
+                precioOferta: 7.99,
+                tipo: 'accesorio'
+            }
+        },
+        'Atlético de Madrid': {
+            camiseta: {
+                nombre: '2.ª Equipación Atlético de Madrid',
+                descripcion: 'Camiseta azul alternativa temporada 2024/25',
+                imagen: './img/camisetas/laliga_atletico_visitante.png',
+                precioOriginal: 79.99,
+                precioOferta: 27.99,
+                tipo: 'camiseta'
+            },
+            accesorio: {
+                nombre: 'Gorra Atlético de Madrid',
+                descripcion: 'Gorra oficial con escudo bordado',
+                imagen: './img/icons/gorra.svg',
+                precioOriginal: 19.99,
+                precioOferta: 7.99,
+                tipo: 'accesorio'
+            }
+        }
+    };
+    
+    // Si existe cross-sell específico para el equipo elegido
+    if (crosssellData[equipoElegido]) {
+        const items = crosssellData[equipoElegido];
+        
+        // Añadir segunda equipación si la elegida fue la local
+        if (formData.equipacion === 'Local' && items.camiseta) {
+            crosssellItems.push(items.camiseta);
+        }
+        
+        // Siempre añadir el accesorio
+        if (items.accesorio) {
+            crosssellItems.push(items.accesorio);
+        }
+    } else {
+        // Cross-sell genérico: solo accesorio
+        crosssellItems.push({
+            nombre: `Gorra ${equipoElegido}`,
+            descripcion: 'Gorra oficial con escudo bordado',
+            imagen: './img/icons/gorra.svg',
+            precioOriginal: 19.99,
+            precioOferta: 7.99,
+            tipo: 'accesorio'
+        });
+    }
+    
+    return crosssellItems;
+}
+
+/**
+ * Renderizar el cross-sell en el DOM
+ */
+function renderizarCrossSell() {
+    const items = generarCrossSellContextual();
+    
+    if (items.length === 0) return '';
+    
+    let html = `
+        <div class="crosssell-container">
+            <div class="crosssell-header">
+                <h3 class="crosssell-title">
+                    <i class="fas fa-plus-circle"></i>
+                    También disponible
+                </h3>
+                <p class="crosssell-subtitle">Completa tu pedido con estos productos especiales</p>
+            </div>
+            <div class="crosssell-grid">
+    `;
+    
+    items.forEach((item, index) => {
+        const ahorro = item.precioOriginal - item.precioOferta;
+        const porcentajeDescuento = Math.round((ahorro / item.precioOriginal) * 100);
+        
+        html += `
+            <div class="crosssell-card">
+                <span class="crosssell-badge">-${porcentajeDescuento}%</span>
+                <img src="${item.imagen}" alt="${item.nombre}" class="crosssell-image" onerror="this.src='./img/hero-jersey.png'">
+                <div class="crosssell-info">
+                    <h4 class="crosssell-name">${item.nombre}</h4>
+                    <p class="crosssell-desc">${item.descripcion}</p>
+                    <div class="crosssell-pricing">
+                        <span class="crosssell-price-old">${item.precioOriginal.toFixed(2)}€</span>
+                        <span class="crosssell-price-new">${item.precioOferta.toFixed(2)}€</span>
+                    </div>
+                    <span class="crosssell-savings">Ahorras ${ahorro.toFixed(2)}€</span>
+                    <button class="crosssell-btn" onclick="añadirCrossSell(${index})">
+                        <i class="fas fa-cart-plus"></i>
+                        Añadir al pedido
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += `
+            </div>
+        </div>
+    `;
+    
+    return html;
+}
+
+/**
+ * Añadir item de cross-sell al pedido
+ */
+function añadirCrossSell(index) {
+    const item = crosssellItems[index];
+    
+    if (!item) return;
+    
+    // Crear objeto de producto para el carrito
+    const producto = {
+        liga: formData.liga,
+        equipo: formData.equipo,
+        equipacion: item.tipo === 'camiseta' ? 'Visitante' : 'Accesorio',
+        talla: item.tipo === 'camiseta' ? formData.talla : 'Única',
+        parches: false,
+        personalizar: false,
+        nombre: '',
+        dorsal: '',
+        precio: item.precioOferta,
+        nombreProducto: item.nombre
+    };
+    
+    // Añadir al carrito
+    cartItems.push(producto);
+    
+    // Guardar en localStorage
+    localStorage.setItem('kickverse_cart', JSON.stringify(cartItems));
+    
+    // Feedback visual
+    const btn = event.target.closest('.crosssell-btn');
+    if (btn) {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Añadido';
+        btn.style.background = 'linear-gradient(135deg, var(--accent-green), #10b981)';
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+            btn.disabled = false;
+        }, 2000);
+    }
+    
+    // Actualizar contador del carrito
+    updateCartCount();
+}
+
+/**
+ * Mostrar cross-sell y resumen final antes de WhatsApp
+ */
+function mostrarCrossSellYResumen() {
+    const stepContent = document.getElementById('step-content');
+    
+    if (!stepContent) return;
+    
+    // Calcular totales
+    let totalCarrito = 0;
+    cartItems.forEach(item => {
+        totalCarrito += item.precio || 27.99;
+    });
+    
+    // Renderizar cross-sell y resumen
+    const crosssellHTML = renderizarCrossSell();
+    
+    let html = `
+        <div class="step-content">
+            <h2><i class="fas fa-check-circle"></i> ¡Casi listo!</h2>
+            <p class="step-subtitle">Revisa tu pedido antes de finalizarlo</p>
+            
+            ${crosssellHTML}
+            
+            <div class="final-summary">
+                <div class="summary-header">
+                    <h3 class="summary-title">
+                        <i class="fas fa-receipt"></i>
+                        Resumen del Pedido
+                    </h3>
+                </div>
+                
+                <div class="summary-items">
+    `;
+    
+    // Listar items del carrito
+    cartItems.forEach((item, index) => {
+        const nombreItem = item.nombreProducto || `${item.equipo} - ${item.equipacion}`;
+        const precioItem = item.precio || 27.99;
+        
+        html += `
+            <div class="summary-item">
+                <span class="summary-item-name">
+                    <i class="fas fa-shirt"></i>
+                    ${nombreItem}
+                    ${item.personalizar ? ` (${item.nombre} #${item.dorsal})` : ''}
+                </span>
+                <span class="summary-item-price">${precioItem.toFixed(2)}€</span>
+            </div>
+        `;
+    });
+    
+    html += `
+                </div>
+                
+                <div class="summary-total">
+                    <span class="summary-total-label">
+                        <i class="fas fa-calculator"></i>
+                        Total del Pedido
+                    </span>
+                    <span class="summary-total-price">${totalCarrito.toFixed(2)}€</span>
+                </div>
+            </div>
+            
+            <div class="step-actions">
+                <button class="btn btn-secondary btn-lg" onclick="loadStepContent(1)">
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al Inicio
+                </button>
+                <button class="btn btn-whatsapp btn-lg" onclick="finalizarConCrossSell()">
+                    <i class="fab fa-whatsapp"></i>
+                    Finalizar y Enviar a WhatsApp
+                </button>
+            </div>
+        </div>
+    `;
+    
+    stepContent.innerHTML = html;
+    
+    // Scroll al inicio del contenido
+    stepContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/**
+ * Finalizar pedido incluyendo items de cross-sell
+ */
+function finalizarConCrossSell() {
+    // Si no hay items en el carrito, usar formData actual
+    if (cartItems.length === 0 && formData.equipo) {
+        // Construir mensaje con los datos del formulario actual
+        generarMensajeWhatsApp(formData);
+    } else {
+        // Usar función de finalizar carrito que ya maneja múltiples items
+        finalizarCompraCarrito();
+    }
 }
