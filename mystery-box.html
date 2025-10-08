@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SD9ETEJ9TG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SD9ETEJ9TG');
+    </script>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MQFTT34L');</script>
+    <!-- End Google Tag Manager -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mystery Box Kickverse - Cajas sorpresa con 5 camisetas de fútbol premium. Elige tu box y recibe equipaciones exclusivas sin spoilers.">
+    <title>Mystery Box - Kickverse | Cajas Sorpresa de Camisetas</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./img/logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/mystery-box.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/utils.css">
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQFTT34L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse Logo">
+                <span>Kickverse</span>
+            </a>
+            
+            <nav class="header-nav">
+                <ul class="header-nav-list">
+                    <li><a href="index.html" class="header-nav-link">Inicio</a></li>
+                    <li><a href="form.html" class="header-nav-link">Pedido Personalizado</a></li>
+                    <li><a href="catalogo.html" class="header-nav-link">Catálogo</a></li>
+                    <li><a href="mystery-box.html" class="header-nav-link active">Mystery Box</a></li>
+                    <li><a href="index.html#beneficios" class="header-nav-link">¿Por qué nosotros?</a></li>
+                    <li><a href="index.html#contacto" class="header-nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="btn-cart" onclick="openCart()" aria-label="Abrir carrito">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <span class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse">
+                Kickverse
+            </span>
+            <button class="mobile-menu-close" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-menu-nav">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="form.html" class="mobile-menu-link"><i class="fas fa-shirt"></i> Pedido Personalizado</a></li>
+                <li><a href="catalogo.html" class="mobile-menu-link"><i class="fas fa-th"></i> Catálogo</a></li>
+                <li><a href="mystery-box.html" class="mobile-menu-link active"><i class="fas fa-gift"></i> Mystery Box</a></li>
+                <li><a href="index.html#beneficios" class="mobile-menu-link"><i class="fas fa-star"></i> ¿Por qué nosotros?</a></li>
+                <li><a href="index.html#contacto" class="mobile-menu-link"><i class="fas fa-envelope"></i> Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="menu-overlay"></div>
+
+    <!-- Hero Section -->
+    <section class="mystery-hero">
+        <div class="mystery-hero-particles"></div>
+        <div class="container">
+            <div class="mystery-hero-content">
+                <div class="mystery-badge">
+                    <i class="fas fa-gift"></i>
+                    <span>Edición Limitada</span>
+                </div>
+                <h1 class="mystery-hero-title">
+                    <span class="gradient-text">Mystery Box</span>
+                </h1>
+                <p class="mystery-hero-subtitle">
+                    5 camisetas sorpresa. Calidad premium. Cero spoilers.
+                </p>
+                <div class="mystery-hero-features">
+                    <div class="feature-item">
+                        <i class="fas fa-box-open"></i>
+                        <span>5 Camisetas</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>100% Calidad</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-truck"></i>
+                        <span>Envío Gratis</span>
+                    </div>
+                </div>
+                <a href="#boxes" class="btn btn-primary btn-lg">
+                    <i class="fas fa-arrow-down"></i>
+                    Elige tu Caja
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <i class="fas fa-bolt"></i>
+                <span>¡La tercera camiseta te sale GRATIS! Solo en boxes hasta este domingo.</span>
+                <i class="fas fa-bolt"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mystery Boxes Section -->
+    <section class="mystery-boxes" id="boxes">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Elige tu Mystery Box</h2>
+                <p class="section-subtitle">Cada caja es única. No hay dos iguales.</p>
+            </div>
+
+            <div class="boxes-grid">
+                <!-- Box Clásica -->
+                <div class="mystery-box-card" data-box="clasica">
+                    <div class="box-badge">Más Popular</div>
+                    <div class="box-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3 class="box-title">Box Clásica</h3>
+                    <p class="box-description">
+                        5 camisetas aleatorias de las mejores ligas europeas. 
+                        Mix perfecto entre equipos top y sorpresas. Todas con nombre y dorsal de jugadores destacados.
+                    </p>
+                    <div class="box-price">
+                        <span class="price-old">149.95€</span>
+                        <span class="price-current">99.99€</span>
+                    </div>
+                    <ul class="box-benefits">
+                        <li><i class="fas fa-check-circle"></i> 5 camisetas oficiales</li>
+                        <li><i class="fas fa-check-circle"></i> Ligas variadas</li>
+                        <li><i class="fas fa-check-circle"></i> Envío gratis</li>
+                        <li><i class="fas fa-check-circle"></i> Con nombre y dorsal de jugador top</li>
+                    </ul>
+                    <button class="btn btn-primary btn-box" onclick="pedirMysteryBox('Box Clásica', '99.99€')">
+                        <i class="fab fa-whatsapp"></i>
+                        Pedir por WhatsApp
+                    </button>
+                    <div class="box-mystery-overlay">
+                        <i class="fas fa-question"></i>
+                    </div>
+                </div>
+
+                <!-- Box por Liga -->
+                <div class="mystery-box-card" data-box="liga">
+                    <div class="box-badge premium">Premium</div>
+                    <div class="box-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3 class="box-title">Box por Liga</h3>
+                    <p class="box-description">
+                        Elige tu liga favorita y recibe 5 camisetas de equipos diferentes. 
+                        Todas con nombre y dorsal de jugadores destacados. Perfecto para coleccionistas.
+                    </p>
+                    <div class="box-price">
+                        <span class="price-old">159.95€</span>
+                        <span class="price-current">109.99€</span>
+                    </div>
+                    <ul class="box-benefits">
+                        <li><i class="fas fa-check-circle"></i> 5 camisetas de tu liga favorita</li>
+                        <li><i class="fas fa-check-circle"></i> Equipos variados</li>
+                        <li><i class="fas fa-check-circle"></i> Envío gratis</li>
+                        <li><i class="fas fa-check-circle"></i> Con nombre y dorsal de jugador top</li>
+                    </ul>
+                    <button class="btn btn-primary btn-box" onclick="pedirMysteryBox('Box por Liga', '109.99€')">
+                        <i class="fab fa-whatsapp"></i>
+                        Pedir por WhatsApp
+                    </button>
+                    <div class="box-mystery-overlay">
+                        <i class="fas fa-question"></i>
+                    </div>
+                </div>
+
+                <!-- Box Premium -->
+                <div class="mystery-box-card" data-box="premium">
+                    <div class="box-badge exclusive">Exclusivo</div>
+                    <div class="box-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3 class="box-title">Box Premium</h3>
+                    <p class="box-description">
+                        Solo equipos top. Real Madrid, Barcelona, PSG, Liverpool...
+                        La elite del fútbol mundial con jugadores legendarios en cada camiseta.
+                    </p>
+                    <div class="box-price">
+                        <span class="price-old">199.95€</span>
+                        <span class="price-current">149.99€</span>
+                    </div>
+                    <ul class="box-benefits">
+                        <li><i class="fas fa-check-circle"></i> 5 camisetas de élite</li>
+                        <li><i class="fas fa-check-circle"></i> Equipos top garantizados</li>
+                        <li><i class="fas fa-check-circle"></i> Envío gratis</li>
+                        <li><i class="fas fa-check-circle"></i> Con nombre y dorsal de jugador top</li>
+                        <li><i class="fas fa-check-circle"></i> Caja premium de regalo</li>
+                    </ul>
+                    <button class="btn btn-primary btn-box" onclick="pedirMysteryBox('Box Premium', '149.99€')">
+                        <i class="fab fa-whatsapp"></i>
+                        Pedir por WhatsApp
+                    </button>
+                    <div class="box-mystery-overlay">
+                        <i class="fas fa-question"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparativa Section -->
+    <section class="mystery-compare">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Compara las Cajas</h2>
+                <p class="section-subtitle">Encuentra la perfecta para ti</p>
+            </div>
+
+            <div class="compare-table-wrapper">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Características</th>
+                            <th>
+                                <div class="table-header">
+                                    <i class="fas fa-cube"></i>
+                                    <span>Clásica</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="table-header">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Por Liga</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div class="table-header">
+                                    <i class="fas fa-gem"></i>
+                                    <span>Premium</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Número de camisetas</td>
+                            <td><i class="fas fa-check"></i> 5</td>
+                            <td><i class="fas fa-check"></i> 5</td>
+                            <td><i class="fas fa-check"></i> 5</td>
+                        </tr>
+                        <tr>
+                            <td>Equipos top garantizados</td>
+                            <td><i class="fas fa-check"></i> 2-3</td>
+                            <td><i class="fas fa-check"></i> 3-4</td>
+                            <td><i class="fas fa-check"></i> 5</td>
+                        </tr>
+                        <tr>
+                            <td>Con nombre y dorsal de jugador</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Envío gratis</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Caja de regalo premium</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Precio</td>
+                            <td><strong>99.99€</strong></td>
+                            <td><strong>109.99€</strong></td>
+                            <td><strong>149.99€</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="mystery-benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">¿Por qué elegir una Mystery Box?</h2>
+                <p class="section-subtitle">Ventajas exclusivas que solo encontrarás aquí</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="benefit-title">Ahorro Real</h3>
+                    <p class="benefit-text">
+                        Hasta un 50% menos que comprar camisetas por separado. 
+                        Más de 70€ de descuento garantizado.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="benefit-title">Camisetas Top</h3>
+                    <p class="benefit-text">
+                        Posibilidad de recibir equipaciones de equipos élite 
+                        y ediciones especiales difíciles de conseguir.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="benefit-title">Sorpresa Garantizada</h3>
+                    <p class="benefit-text">
+                        La emoción de no saber qué vas a recibir. 
+                        Como abrir regalos en tu cumpleaños.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3 class="benefit-title">Envío Gratis</h3>
+                    <p class="benefit-text">
+                        Todas nuestras Mystery Boxes incluyen envío gratuito 
+                        a cualquier punto de la península.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <h3 class="benefit-title">Calidad Garantizada</h3>
+                    <p class="benefit-text">
+                        100% calidad premium y en perfecto estado. 
+                        Devolución gratuita si no cumple expectativas.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="benefit-title">Jugadores Top</h3>
+                    <p class="benefit-text">
+                        Todas las camisetas incluyen nombre y dorsal 
+                        de jugadores destacados del equipo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="mystery-testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+                <p class="section-subtitle">Experiencias reales de unboxing</p>
+            </div>
+
+            <div class="testimonials-carousel">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Me tocó una camiseta del City y una del Madrid. ¡ÉPICO! 
+                        No me esperaba recibir equipos tan top en la Box Clásica."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Carlos M.</h4>
+                            <span>Box Clásica</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Repetiré sin duda. Vino una personalizada con mi nombre 
+                        y todo. El packaging es espectacular, ideal para regalar."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Laura G.</h4>
+                            <span>Box Premium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        "Pedí la Box de LaLiga y me mandaron camisetas del Barça, 
+                        Madrid, Atleti, Betis y Valencia. Calidad 10/10."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="author-info">
+                            <h4>Javier R.</h4>
+                            <span>Box por Liga</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="mystery-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Preguntas Frecuentes</h2>
+                <p class="section-subtitle">Todo lo que necesitas saber</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>¿Puedo elegir los equipos?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            No, el concepto de Mystery Box es la sorpresa. Sin embargo, 
+                            en la Box por Liga puedes elegir la competición (LaLiga, Premier, 
+                            Serie A, etc.) y te enviaremos 5 equipos diferentes de esa liga.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>¿Cuánto tarda el envío?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Todas las Mystery Boxes se envían en 3-5 días laborables con envío gratis. 
+                            Recibirás un código de seguimiento una vez se procese tu pedido.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>¿Puedo devolver alguna camiseta?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Sí. Si alguna camiseta tiene un defecto de fabricación o no es tu talla, 
+                            puedes devolverla gratuitamente en un plazo de 14 días. Sin embargo, 
+                            por la naturaleza de la Mystery Box, no aceptamos devoluciones por 
+                            "no me gusta el equipo".
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>¿Qué calidad tienen las camisetas?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Todas nuestras camisetas son réplicas de alta calidad con licencia oficial. 
+                            Mismo tejido técnico que las originales, escudos bordados y parches de liga. 
+                            100% garantizado.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>¿Las camisetas vienen con nombre y número?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Sí, todas las camisetas de nuestras Mystery Boxes incluyen nombre y dorsal 
+                            de jugadores destacados del equipo. No podrás elegir cuál, pero siempre 
+                            serán jugadores top e icónicos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>¿Cómo realizo el pedido?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>
+                            Es muy sencillo: haz clic en "Pedir por WhatsApp" en la caja que quieras, 
+                            se abrirá un chat con nosotros donde podrás indicarnos tu talla preferida 
+                            y completar el pedido. Te responderemos de inmediato.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final Section -->
+    <section class="mystery-cta-final">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">¿Listo para la sorpresa?</h2>
+                <p class="cta-text">
+                    Miles de clientes ya han probado nuestras Mystery Boxes. 
+                    Únete a la comunidad Kickverse.
+                </p>
+                <a href="#boxes" class="btn btn-primary btn-lg">
+                    <i class="fas fa-box-open"></i>
+                    Elegir mi Mystery Box
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="./img/logo.png" alt="Kickverse">
+                        <span>Kickverse</span>
+                    </div>
+                    <p class="footer-description">
+                        Tu tienda de camisetas de fútbol con la mejor calidad y precio. 
+                        Personalización gratuita y envío rápido.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="./index.html">Inicio</a></li>
+                        <li><a href="./catalogo.html">Catálogo</a></li>
+                        <li><a href="./form.html">Personalizar</a></li>
+                        <li><a href="./mystery-box.html">Mystery Box</a></li>
+                        <li><a href="./tallas.html">Guía de Tallas</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="./terminos.html">Términos y Condiciones</a></li>
+                        <li><a href="./terminos.html#privacidad">Política de Privacidad</a></li>
+                        <li><a href="./terminos.html#cookies">Política de Cookies</a></li>
+                        <li><a href="./terminos.html#envios">Envíos y Devoluciones</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 class="footer-title">Contacto</h3>
+                    <ul class="footer-contact">
+                        <li>
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/34614299735">+34 614 299 735</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@kickverse.com">info@kickverse.com</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>L-V: 9:00 - 20:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Kickverse. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/34614299735" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Modal Carrito -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content modal-cart">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    Carrito de Compras
+                </h3>
+                <button class="modal-close" onclick="closeModal('cart-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-empty" class="cart-empty" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Tu carrito está vacío</h4>
+                    <p>Añade productos para comenzar tu compra</p>
+                </div>
+                
+                <div id="cart-content">
+                    <div id="cart-items-container"></div>
+                    
+                    <div id="cart-promo-message" class="cart-promo-message" style="display: none;"></div>
+                    
+                    <div class="cart-summary">
+                        <div class="cart-summary-row">
+                            <span>Total:</span>
+                            <span class="cart-total-price" id="cart-total">0.00€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="cart-footer">
+                <button class="btn btn-secondary" onclick="clearCart()">
+                    <i class="fas fa-trash"></i>
+                    Vaciar Carrito
+                </button>
+                <button class="btn btn-whatsapp" onclick="finalizarCompraCarrito()">
+                    <i class="fab fa-whatsapp"></i>
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="./js/main.js"></script>
+    <script>
+        // Mystery Box WhatsApp Function
+        function pedirMysteryBox(boxType, precio) {
+            const telefono = '34614299735';
+            
+            // Crear el mensaje base
+            let mensaje = `¡Hola Kickverse! 🎁\n\nQuiero pedir una Mystery Box:\n\n📦 Modelo: ${boxType}\n💰 Precio: ${precio}\n`;
+            
+            // Si es Box por Liga, preguntar por la liga
+            if (boxType === 'Box por Liga') {
+                mensaje += `\n🏆 Liga preferida: (LaLiga, Premier League, Serie A, Bundesliga, Ligue 1, etc.)\n`;
+            }
+            
+            // Siempre preguntar por la talla
+            mensaje += `👕 Talla: (S, M, L, XL, XXL)\n\n¿Hay disponibilidad?`;
+
+            const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsApp, '_blank');
+        }
+
+        // FAQ Toggle Function
+        function toggleFAQ(button) {
+            const faqItem = button.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked FAQ if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.mystery-box-card, .benefit-card, .testimonial-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
