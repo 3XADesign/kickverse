@@ -13,6 +13,7 @@
 .carousel-wrapper {
     overflow: hidden;
     border-radius: var(--radius-lg);
+    position: relative;
 }
 
 .carousel-track {
@@ -20,6 +21,7 @@
     gap: var(--spacing-lg);
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
+    -webkit-overflow-scrolling: touch;
 }
 
 .carousel-item {
@@ -148,59 +150,85 @@
 @media (max-width: 768px) {
     .carousel-item {
         min-width: 100%;
+        padding: 0 var(--spacing-sm);
     }
     
     .carousel-container {
-        padding: 0 45px;
+        padding: 0 50px;
+        max-width: 100%;
+    }
+    
+    .carousel-wrapper {
+        padding: 0 var(--spacing-xs);
     }
     
     .carousel-track {
-        gap: 0;
+        gap: var(--spacing-md);
     }
     
     .carousel-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
+        width: 42px;
+        height: 42px;
+        font-size: 0.95rem;
         background: rgba(18, 18, 18, 0.95);
+        border-width: 1.5px;
     }
     
     .carousel-btn-prev {
-        left: 0;
+        left: 5px;
     }
     
     .carousel-btn-next {
-        right: 0;
+        right: 5px;
     }
     
     /* Ajustar cards dentro del carrusel en móvil */
     .carousel-item .camiseta-card {
-        margin: 0 var(--spacing-xs);
+        margin: 0 auto;
+        max-width: 95%;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
     
     /* Asegurar que las cards se vean bien */
     .carousel-item .camiseta-image-wrapper {
-        height: 250px;
+        height: 280px;
+    }
+    
+    .carousel-item .camiseta-content {
+        padding: var(--spacing-md);
     }
     
     .carousel-item .camiseta-price {
-        padding: var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-md);
     }
     
     .carousel-item .price-current {
         font-size: 2rem;
     }
+    
+    .carousel-item .camiseta-name {
+        font-size: 1.1rem;
+    }
 }
 
 @media (max-width: 480px) {
     .carousel-container {
-        padding: 0 35px;
+        padding: 0 40px;
+    }
+    
+    .carousel-item {
+        min-width: 100%;
+        padding: 0;
+    }
+    
+    .carousel-wrapper {
+        padding: 0;
     }
     
     .carousel-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 0.75rem;
+        width: 36px;
+        height: 36px;
+        font-size: 0.8rem;
         opacity: 0.95;
     }
     
@@ -213,7 +241,8 @@
     }
     
     .carousel-indicators {
-        margin-top: var(--spacing-lg);
+        margin-top: var(--spacing-md);
+        gap: var(--spacing-xs);
     }
     
     .carousel-indicator {
@@ -223,31 +252,58 @@
     
     /* Cards más compactas en móviles pequeños */
     .carousel-item .camiseta-card {
-        margin: 0;
+        margin: 0 auto;
+        max-width: 92%;
+        border-radius: var(--radius-md);
     }
     
     .carousel-item .camiseta-image-wrapper {
-        height: 220px;
+        height: 240px;
+        border-radius: var(--radius-md) var(--radius-md) 0 0;
     }
     
     .carousel-item .camiseta-content {
-        padding: var(--spacing-md);
+        padding: var(--spacing-sm) var(--spacing-md);
     }
     
     .carousel-item .camiseta-name {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: var(--spacing-xs);
     }
     
     .carousel-item .camiseta-team span {
+        font-size: 0.85rem;
+    }
+    
+    .carousel-item .camiseta-info {
+        gap: var(--spacing-sm);
+        margin: var(--spacing-sm) 0;
+    }
+    
+    .carousel-item .camiseta-info-item {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .carousel-item .camiseta-price {
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .carousel-item .price-old {
         font-size: 0.9rem;
     }
     
     .carousel-item .price-current {
-        font-size: 1.75rem;
+        font-size: 1.6rem;
     }
     
     .carousel-item .btn-comprar-carousel {
         padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.85rem;
+        width: 100%;
+    }
+    
+    .carousel-item .btn-comprar-carousel i {
         font-size: 0.9rem;
     }
 }
@@ -273,14 +329,23 @@
     animation-play-state: paused;
 }
 
-/* Efecto de desenfoque en items no centrales (opcional) */
-.carousel-item:not(:nth-child(2)) {
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
+/* Efecto de desenfoque en items no centrales (solo desktop) */
+@media (min-width: 769px) {
+    .carousel-item:not(:nth-child(2)) {
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+    }
+
+    .carousel-container:hover .carousel-item {
+        opacity: 1;
+    }
 }
 
-.carousel-container:hover .carousel-item {
-    opacity: 1;
+/* En móvil, todos los items tienen opacidad completa */
+@media (max-width: 768px) {
+    .carousel-item {
+        opacity: 1 !important;
+    }
 }
 
 /* Loading skeleton para items del carrusel */
@@ -301,5 +366,63 @@
     }
     100% {
         background-position: -200% 0;
+    }
+}
+
+/* Mejoras adicionales para móviles muy pequeños */
+@media (max-width: 375px) {
+    .carousel-container {
+        padding: 0 38px;
+    }
+    
+    .carousel-item .camiseta-card {
+        max-width: 90%;
+    }
+    
+    .carousel-item .camiseta-image-wrapper {
+        height: 220px;
+    }
+    
+    .carousel-item .camiseta-content {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .carousel-item .camiseta-name {
+        font-size: 0.9rem;
+    }
+    
+    .carousel-item .price-current {
+        font-size: 1.5rem;
+    }
+    
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Prevenir colapso de cards en carrusel */
+.carousel-item .camiseta-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 450px;
+}
+
+@media (max-width: 768px) {
+    .carousel-item .camiseta-card {
+        min-height: 420px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-item .camiseta-card {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 375px) {
+    .carousel-item .camiseta-card {
+        min-height: 380px;
     }
 }

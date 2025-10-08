@@ -846,7 +846,13 @@ function initCatalogo() {
     const filterSearch = document.getElementById('filter-search');
     
     if (filterLiga) {
-        filterLiga.addEventListener('change', aplicarFiltros);
+        filterLiga.addEventListener('change', () => {
+            actualizarEquipos();
+            aplicarFiltros();
+        });
+    }
+    if (filterEquipo) {
+        filterEquipo.addEventListener('change', aplicarFiltros);
     }
     if (filterEquipacion) {
         filterEquipacion.addEventListener('change', aplicarFiltros);
@@ -854,6 +860,19 @@ function initCatalogo() {
     if (filterSearch) {
         filterSearch.addEventListener('input', aplicarFiltros);
     }
+    
+    // Event listeners para botones de vista
+    const viewButtons = document.querySelectorAll('.view-btn');
+    viewButtons.forEach((btn, index) => {
+        btn.addEventListener('click', () => {
+            // Remover active de todos
+            viewButtons.forEach(b => b.classList.remove('active'));
+            // Añadir active al clickeado
+            btn.classList.add('active');
+            // Cambiar vista
+            cambiarVista(index === 0 ? 'grid' : 'list');
+        });
+    });
 }
 
 function generarCatalogo() {
@@ -972,39 +991,44 @@ function getLogoPath(liga, slug) {
 }
 
 function aplicarFiltros() {
-    const liga = document.getElementById('filter-liga').value.toLowerCase();
-    const equipacion = document.getElementById('filter-equipacion').value.toLowerCase();
-    const searchText = document.getElementById('filter-search').value.toLowerCase();
+    const liga = document.getElementById('filter-liga')?.value.toLowerCase() || '';
+    const equipo = document.getElementById('filter-equipo')?.value.toLowerCase() || '';
+    const equipacion = document.getElementById('filter-equipacion')?.value.toLowerCase() || '';
+    const searchText = document.getElementById('filter-search')?.value.toLowerCase() || '';
     
     const cards = document.querySelectorAll('.camiseta-card');
     let visibleCount = 0;
     
     cards.forEach(card => {
+        // Obtener atributos data
+        const cardLiga = card.getAttribute('data-liga')?.toLowerCase() || '';
+        const cardEquipacion = card.getAttribute('data-equipacion')?.toLowerCase() || '';
+        const cardEquipo = card.getAttribute('data-equipo')?.toLowerCase() || '';
+        
+        // Obtener texto para búsqueda
         const teamElement = card.querySelector('.camiseta-team');
-        const nameElement = card.querySelector('.camiseta-name');
-        const typeElement = card.querySelector('.camiseta-type');
-        
-        if (!teamElement || !nameElement) return;
-        
-        const teamText = teamElement.textContent.toLowerCase();
-        const nameText = nameElement.textContent.toLowerCase();
-        const typeText = typeElement ? typeElement.textContent.toLowerCase() : '';
+        const teamText = teamElement ? teamElement.textContent.toLowerCase() : '';
         
         let showCard = true;
         
-        // Filtrar por búsqueda
-        if (searchText && !teamText.includes(searchText) && !nameText.includes(searchText)) {
+        // Filtrar por liga
+        if (liga && cardLiga !== liga) {
+            showCard = false;
+        }
+        
+        // Filtrar por equipo
+        if (equipo && cardEquipo !== equipo) {
             showCard = false;
         }
         
         // Filtrar por equipación
-        if (equipacion) {
-            if (equipacion === 'local' && !typeText.includes('primera') && !typeText.includes('local')) {
-                showCard = false;
-            }
-            if (equipacion === 'visitante' && !typeText.includes('segunda') && !typeText.includes('visitante')) {
-                showCard = false;
-            }
+        if (equipacion && cardEquipacion !== equipacion) {
+            showCard = false;
+        }
+        
+        // Filtrar por búsqueda (nombre del equipo)
+        if (searchText && !teamText.includes(searchText) && !cardEquipo.includes(searchText)) {
+            showCard = false;
         }
         
         // Mostrar u ocultar tarjeta
@@ -1024,10 +1048,15 @@ function aplicarFiltros() {
 }
 
 function limpiarFiltros() {
-    document.getElementById('filter-liga').value = '';
-    document.getElementById('filter-equipo').value = '';
-    document.getElementById('filter-equipacion').value = '';
-    document.getElementById('filter-search').value = '';
+    const filterLiga = document.getElementById('filter-liga');
+    const filterEquipo = document.getElementById('filter-equipo');
+    const filterEquipacion = document.getElementById('filter-equipacion');
+    const filterSearch = document.getElementById('filter-search');
+    
+    if (filterLiga) filterLiga.value = '';
+    if (filterEquipo) filterEquipo.value = '';
+    if (filterEquipacion) filterEquipacion.value = '';
+    if (filterSearch) filterSearch.value = '';
     
     // Mostrar todas las tarjetas
     const cards = document.querySelectorAll('.camiseta-card');
@@ -1039,6 +1068,59 @@ function limpiarFiltros() {
     const countShowing = document.getElementById('count-showing');
     if (countShowing) {
         countShowing.textContent = cards.length;
+    }
+}
+
+function cambiarVista(vista) {
+    const catalogoGrid = document.getElementById('catalogo-grid');
+    if (!catalogoGrid) return;
+    
+    if (vista === 'list') {
+        catalogoGrid.classList.add('catalogo-list');
+        catalogoGrid.classList.remove('catalogo-grid');
+    } else {
+        catalogoGrid.classList.add('catalogo-grid');
+        catalogoGrid.classList.remove('catalogo-list');
+    }
+}
+
+function actualizarEquipos() {
+    const filterLiga = document.getElementById('filter-liga');
+    const filterEquipo = document.getElementById('filter-equipo');
+    
+    if (!filterLiga || !filterEquipo) return;
+    
+    const ligaSeleccionada = filterLiga.value;
+    
+    // Limpiar opciones actuales excepto la primera
+    filterEquipo.innerHTML = '<option value="">Todos los equipos</option>';
+    
+    if (!ligaSeleccionada) {
+        // Si no hay liga seleccionada, mostrar todos los equipos
+        const todosEquipos = new Set();
+        camisetasDisponibles.forEach(camiseta => {
+            todosEquipos.add(camiseta.equipo);
+        });
+        
+        Array.from(todosEquipos).sort().forEach(equipo => {
+            const option = document.createElement('option');
+            option.value = equipo.toLowerCase();
+            option.textContent = equipo;
+            filterEquipo.appendChild(option);
+        });
+    } else {
+        // Filtrar equipos por liga seleccionada
+        const equiposPorLiga = camisetasDisponibles
+            .filter(camiseta => camiseta.liga === ligaSeleccionada)
+            .map(camiseta => camiseta.equipo)
+            .sort();
+        
+        equiposPorLiga.forEach(equipo => {
+            const option = document.createElement('option');
+            option.value = equipo.toLowerCase();
+            option.textContent = equipo;
+            filterEquipo.appendChild(option);
+        });
     }
 }
 
