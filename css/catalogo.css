@@ -167,6 +167,64 @@
   margin-bottom: var(--spacing-xl);
 }
 
+/* Catalogo list view */
+.catalogo-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.catalogo-list .camiseta-card {
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  gap: var(--spacing-lg);
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+.catalogo-list .camiseta-image-wrapper {
+  height: 180px;
+  margin: 0;
+}
+
+.catalogo-list .camiseta-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+  padding: 0;
+}
+
+.catalogo-list .camiseta-details {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-md);
+}
+
+.catalogo-list .camiseta-price {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin: 0;
+}
+
+.catalogo-list .btn-comprar {
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .catalogo-list .camiseta-card {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+  
+  .catalogo-list .camiseta-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* Empty state */
 .catalogo-empty {
   text-align: center;
