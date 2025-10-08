@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/coupon.css">
+    <link rel="stylesheet" href="./css/direccion.css">
     <link rel="stylesheet" href="./css/footer.css">
     <link rel="stylesheet" href="./css/utils.css">
 </head>
@@ -501,6 +502,159 @@
             <button class="btn btn-primary btn-lg" onclick="closeWelcomePopup()">
                 ¡Empezar a comprar!
             </button>
+        </div>
+    </div>
+    
+    <!-- Modal de Dirección de Envío -->
+    <div class="modal" id="direccion-modal">
+        <div class="modal-content modal-content-md">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Dirección de Envío
+                </h3>
+                <button class="modal-close" onclick="closeModal('direccion-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="direccion-form" class="direccion-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-nombre">
+                                <i class="fas fa-user"></i>
+                                Nombre completo *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-nombre" 
+                                   name="nombre"
+                                   placeholder="Ej: Juan Pérez García"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-telefono">
+                                <i class="fas fa-phone"></i>
+                                Teléfono *
+                            </label>
+                            <input type="tel" 
+                                   id="direccion-telefono" 
+                                   name="telefono"
+                                   placeholder="Ej: +34 600 123 456"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion-email">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </label>
+                            <input type="email" 
+                                   id="direccion-email" 
+                                   name="email"
+                                   placeholder="tu@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="direccion-calle">
+                                <i class="fas fa-road"></i>
+                                Dirección (Calle, número, piso, puerta) *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-calle" 
+                                   name="calle"
+                                   placeholder="Ej: Calle Gran Vía 45, 3º B"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-ciudad">
+                                <i class="fas fa-city"></i>
+                                Ciudad *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-ciudad" 
+                                   name="ciudad"
+                                   placeholder="Ej: Madrid"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion-provincia">
+                                <i class="fas fa-map"></i>
+                                Provincia *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-provincia" 
+                                   name="provincia"
+                                   placeholder="Ej: Madrid"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-cp">
+                                <i class="fas fa-mail-bulk"></i>
+                                Código Postal *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-cp" 
+                                   name="cp"
+                                   placeholder="Ej: 28001"
+                                   maxlength="5"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion-pais">
+                                <i class="fas fa-flag"></i>
+                                País *
+                            </label>
+                            <select id="direccion-pais" name="pais" required>
+                                <option value="España">España</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Francia">Francia</option>
+                                <option value="Italia">Italia</option>
+                                <option value="Alemania">Alemania</option>
+                                <option value="Reino Unido">Reino Unido</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="direccion-notas">
+                                <i class="fas fa-sticky-note"></i>
+                                Notas adicionales (opcional)
+                            </label>
+                            <textarea id="direccion-notas" 
+                                      name="notas"
+                                      placeholder="Información adicional para la entrega (portero automático, horario preferido, etc.)"
+                                      rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Esta información se guardará para futuras compras</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('direccion-modal')">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-whatsapp" onclick="confirmarDireccionYEnviar()">
+                    <i class="fab fa-whatsapp"></i>
+                    Confirmar y Enviar Pedido
+                </button>
+            </div>
         </div>
     </div>
     
