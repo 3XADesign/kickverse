@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Upselling & Cross-selling - Kickverse</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/upsell.css">
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(168, 85, 247, 0.1);
+            border-radius: 1rem;
+            border: 2px solid rgba(168, 85, 247, 0.3);
+        }
+        
+        .demo-header h1 {
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .demo-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+        
+        .demo-section {
+            background: rgba(18, 18, 18, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-section h2 {
+            color: var(--text-primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .demo-section h2 i {
+            color: var(--accent-purple);
+        }
+        
+        .demo-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        
+        .demo-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            color: #fff;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
+        }
+        
+        .code-block {
+            background: #0d1117;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: #c9d1d9;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        
+        .feature-list li {
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-list li i {
+            color: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        
+        <!-- Header -->
+        <div class="demo-header">
+            <h1><i class="fas fa-rocket"></i> Demo - Sistema de Upselling & Cross-selling</h1>
+            <p>Prueba interactiva del sistema implementado en Kickverse</p>
+        </div>
+        
+        <!-- Sección 1: Upsell 3x2 -->
+        <div class="demo-section">
+            <h2><i class="fas fa-gift"></i> 1. Modal de Upsell (Oferta 3x2)</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                Este modal se muestra automáticamente cuando el usuario tiene exactamente 2 camisetas en el carrito.
+            </p>
+            
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Diseño modo oscuro con gradientes</li>
+                <li><i class="fas fa-check-circle"></i> Animaciones suaves (pulse, fadeIn, slideUp)</li>
+                <li><i class="fas fa-check-circle"></i> Iconos Font Awesome (sin emojis)</li>
+                <li><i class="fas fa-check-circle"></i> Dos opciones: Añadir otra camiseta o Finalizar</li>
+            </ul>
+            
+            <div class="demo-buttons">
+                <button class="demo-btn" onclick="mostrarModalUpsell()">
+                    <i class="fas fa-play"></i>
+                    Ver Modal de Upsell
+                </button>
+            </div>
+        </div>
+        
+        <!-- Sección 2: Cross-sell -->
+        <div class="demo-section">
+            <h2><i class="fas fa-shopping-bag"></i> 2. Cross-sell Contextual</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                Muestra productos relacionados según el equipo elegido por el usuario.
+            </p>
+            
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Segunda equipación del mismo equipo (si aplica)</li>
+                <li><i class="fas fa-check-circle"></i> Accesorio oficial (gorra con escudo)</li>
+                <li><i class="fas fa-check-circle"></i> Precios tachados con descuentos destacados</li>
+                <li><i class="fas fa-check-circle"></i> Botón con feedback visual al añadir</li>
+            </ul>
+            
+            <div class="demo-buttons">
+                <button class="demo-btn" onclick="mostrarCrossSellDemo('Real Madrid')">
+                    <i class="fas fa-play"></i>
+                    Ver Cross-sell (Real Madrid)
+                </button>
+                <button class="demo-btn" onclick="mostrarCrossSellDemo('FC Barcelona')">
+                    <i class="fas fa-play"></i>
+                    Ver Cross-sell (FC Barcelona)
+                </button>
+                <button class="demo-btn" onclick="mostrarCrossSellDemo('Atlético de Madrid')">
+                    <i class="fas fa-play"></i>
+                    Ver Cross-sell (Atlético)
+                </button>
+            </div>
+            
+            <!-- Container para cross-sell demo -->
+            <div id="crosssell-demo" style="margin-top: 2rem;"></div>
+        </div>
+        
+        <!-- Sección 3: Integración -->
+        <div class="demo-section">
+            <h2><i class="fas fa-code"></i> 3. Integración con el Formulario</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                El sistema se integra automáticamente en el flujo del formulario de pedido.
+            </p>
+            
+            <div class="code-block">
+                <code>
+Usuario completa formulario → Finalizar pedido<br>
+&nbsp;&nbsp;↓<br>
+¿Tiene 2 camisetas? → SÍ → Modal 3x2<br>
+&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+&nbsp;&nbsp;NO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acepta/Rechaza<br>
+&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;↓<br>
+Cross-sell + Resumen ← ← ← ←<br>
+&nbsp;&nbsp;↓<br>
+Dirección de envío → WhatsApp
+                </code>
+            </div>
+        </div>
+        
+        <!-- Sección 4: Archivos -->
+        <div class="demo-section">
+            <h2><i class="fas fa-folder"></i> 4. Archivos del Sistema</h2>
+            
+            <ul class="feature-list">
+                <li><i class="fas fa-file-code"></i> <strong>css/upsell.css</strong> - Estilos completos (578 líneas)</li>
+                <li><i class="fas fa-file-code"></i> <strong>js/main.js</strong> - 11 funciones nuevas integradas</li>
+                <li><i class="fas fa-file-code"></i> <strong>form.html</strong> - Modal HTML + container dinámico</li>
+                <li><i class="fas fa-file-image"></i> <strong>img/icons/gorra.svg</strong> - Icono de accesorios</li>
+                <li><i class="fas fa-file-alt"></i> <strong>docs/UPSELLING_CROSSSELLING.md</strong> - Documentación completa</li>
+            </ul>
+        </div>
+        
+        <!-- Link al formulario real -->
+        <div class="demo-section" style="text-align: center;">
+            <h2><i class="fas fa-external-link-alt"></i> Probar en el Formulario Real</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                Ve al formulario de pedido personalizado para ver el sistema completo en acción.
+            </p>
+            <a href="form.html" class="demo-btn" style="text-decoration: none; display: inline-flex;">
+                <i class="fas fa-arrow-right"></i>
+                Ir al Formulario
+            </a>
+        </div>
+        
+    </div>
+    
+    <!-- Modal Upsell -->
+    <div class="upsell-modal" id="upsell-modal">
+        <div class="upsell-content">
+            <div class="upsell-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h2 class="upsell-title">¡Te falta 1 para llevarte una GRATIS!</h2>
+            <div class="upsell-badge">OFERTA 3x2</div>
+            <p class="upsell-text">
+                Añade una tercera camiseta ahora y no pagarás nada por ella. 
+                ¡Aprovecha esta oportunidad única!
+            </p>
+            <div class="upsell-actions">
+                <button class="upsell-btn upsell-btn-primary" onclick="cerrarModalUpsell()">
+                    <i class="fas fa-check"></i>
+                    Añadir otra camiseta
+                </button>
+                <button class="upsell-btn upsell-btn-secondary" onclick="cerrarModalUpsell()">
+                    <i class="fas fa-times"></i>
+                    Finalizar pedido
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Funciones demo
+        function mostrarModalUpsell() {
+            const modal = document.getElementById('upsell-modal');
+            if (modal) {
+                modal.classList.add('active');
+            }
+        }
+        
+        function cerrarModalUpsell() {
+            const modal = document.getElementById('upsell-modal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+        
+        function mostrarCrossSellDemo(equipo) {
+            const container = document.getElementById('crosssell-demo');
+            
+            const productos = {
+                'Real Madrid': [
+                    {
+                        nombre: '2.ª Equipación Real Madrid',
+                        descripcion: 'Camiseta negra alternativa temporada 2024/25',
+                        imagen: './img/camisetas/laliga_real-madrid_visitante.png',
+                        precioOriginal: 79.99,
+                        precioOferta: 27.99
+                    },
+                    {
+                        nombre: 'Gorra Real Madrid Blanca',
+                        descripcion: 'Gorra oficial con escudo bordado',
+                        imagen: './img/icons/gorra.svg',
+                        precioOriginal: 19.99,
+                        precioOferta: 7.99
+                    }
+                ],
+                'FC Barcelona': [
+                    {
+                        nombre: '2.ª Equipación FC Barcelona',
+                        descripcion: 'Camiseta azul oscura alternativa temporada 2024/25',
+                        imagen: './img/camisetas/laliga_barcelona_visitante.png',
+                        precioOriginal: 79.99,
+                        precioOferta: 27.99
+                    },
+                    {
+                        nombre: 'Gorra FC Barcelona Azulgrana',
+                        descripcion: 'Gorra oficial con escudo bordado',
+                        imagen: './img/icons/gorra.svg',
+                        precioOriginal: 19.99,
+                        precioOferta: 7.99
+                    }
+                ],
+                'Atlético de Madrid': [
+                    {
+                        nombre: '2.ª Equipación Atlético de Madrid',
+                        descripcion: 'Camiseta azul alternativa temporada 2024/25',
+                        imagen: './img/camisetas/laliga_atletico_visitante.png',
+                        precioOriginal: 79.99,
+                        precioOferta: 27.99
+                    },
+                    {
+                        nombre: 'Gorra Atlético de Madrid',
+                        descripcion: 'Gorra oficial con escudo bordado',
+                        imagen: './img/icons/gorra.svg',
+                        precioOriginal: 19.99,
+                        precioOferta: 7.99
+                    }
+                ]
+            };
+            
+            const items = productos[equipo] || [];
+            
+            let html = `
+                <div class="crosssell-container">
+                    <div class="crosssell-header">
+                        <h3 class="crosssell-title">
+                            <i class="fas fa-plus-circle"></i>
+                            También disponible para ${equipo}
+                        </h3>
+                        <p class="crosssell-subtitle">Completa tu pedido con estos productos especiales</p>
+                    </div>
+                    <div class="crosssell-grid">
+            `;
+            
+            items.forEach(item => {
+                const ahorro = item.precioOriginal - item.precioOferta;
+                const porcentajeDescuento = Math.round((ahorro / item.precioOriginal) * 100);
+                
+                html += `
+                    <div class="crosssell-card">
+                        <span class="crosssell-badge">-${porcentajeDescuento}%</span>
+                        <img src="${item.imagen}" alt="${item.nombre}" class="crosssell-image" onerror="this.src='./img/hero-jersey.png'">
+                        <div class="crosssell-info">
+                            <h4 class="crosssell-name">${item.nombre}</h4>
+                            <p class="crosssell-desc">${item.descripcion}</p>
+                            <div class="crosssell-pricing">
+                                <span class="crosssell-price-old">${item.precioOriginal.toFixed(2)}€</span>
+                                <span class="crosssell-price-new">${item.precioOferta.toFixed(2)}€</span>
+                            </div>
+                            <span class="crosssell-savings">Ahorras ${ahorro.toFixed(2)}€</span>
+                            <button class="crosssell-btn" onclick="demoAñadir(this)">
+                                <i class="fas fa-cart-plus"></i>
+                                Añadir al pedido
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            
+            // Scroll suave
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function demoAñadir(btn) {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Añadido';
+            btn.style.background = 'linear-gradient(135deg, var(--accent-green), #10b981)';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.background = '';
+                btn.disabled = false;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
