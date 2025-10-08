@@ -1073,28 +1073,30 @@ function updateCartBadge() {
 }
 
 function addToCart(item) {
-    // Buscar si ya existe en el carrito
+    // Buscar si ya existe en el carrito (mismo producto con mismas características)
     const existingIndex = cartItems.findIndex(cartItem => 
         cartItem.equipo === item.equipo && 
         cartItem.equipacion === item.equipacion && 
         cartItem.talla === item.talla &&
+        cartItem.parches === item.parches &&
         cartItem.nombre === item.nombre &&
         cartItem.dorsal === item.dorsal
     );
     
     if (existingIndex >= 0) {
-        // Si existe, aumentar cantidad
+        // Si existe exactamente el mismo producto, aumentar cantidad
         cartItems[existingIndex].cantidad++;
     } else {
-        // Si no existe, añadir nuevo item
+        // Si no existe, añadir nuevo item con ID único
         cartItems.push({
             ...item,
             cantidad: 1,
-            id: Date.now() // ID único
+            id: Date.now() + Math.random() // ID único más robusto
         });
     }
     
     saveCartToStorage();
+    renderCart(); // Re-renderizar el carrito para actualizar el contador de promoción
     showCartNotification('Producto añadido al carrito');
 }
 
@@ -1159,14 +1161,14 @@ function renderCart() {
                     ${item.nombre ? `<span class="badge badge-primary badge-sm">${item.nombre} #${item.dorsal}</span>` : ''}
                 </div>
                 <div class="cart-item-quantity">
-                    <button onclick="updateCartItemQuantity(${item.id}, ${item.cantidad - 1})" class="btn-quantity">-</button>
+                    <button onclick="updateCartItemQuantity('${item.id}', ${item.cantidad - 1})" class="btn-quantity">-</button>
                     <span>${item.cantidad}</span>
-                    <button onclick="updateCartItemQuantity(${item.id}, ${item.cantidad + 1})" class="btn-quantity">+</button>
+                    <button onclick="updateCartItemQuantity('${item.id}', ${item.cantidad + 1})" class="btn-quantity">+</button>
                 </div>
                 <div class="cart-item-price">
                     <span>${itemTotal.toFixed(2)}€</span>
                 </div>
-                <button onclick="removeFromCart(${item.id})" class="cart-item-remove">
+                <button onclick="removeFromCart('${item.id}')" class="cart-item-remove">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -1206,12 +1208,31 @@ function renderCart() {
     const promoMessage = document.getElementById('cart-promo-message');
     if (promoMessage) {
         const totalItems = cartItems.reduce((sum, item) => sum + item.cantidad, 0);
-        if (totalItems >= 2 && totalItems < 3) {
-            promoMessage.innerHTML = '<i class="fas fa-gift"></i> ¡Añade 1 más y la tercera es GRATIS!';
+        
+        if (totalItems === 1) {
+            promoMessage.innerHTML = '<i class="fas fa-gift"></i> ¡Añade 2 camisetas más y consigue el 3x2!';
             promoMessage.style.display = 'block';
+            promoMessage.className = 'cart-promo-message info';
+        } else if (totalItems === 2) {
+            promoMessage.innerHTML = '<i class="fas fa-fire"></i> ¡Añade 1 más y la tercera es GRATIS!';
+            promoMessage.style.display = 'block';
+            promoMessage.className = 'cart-promo-message warning';
         } else if (totalItems >= 3) {
-            promoMessage.innerHTML = '<i class="fas fa-check-circle"></i> ¡Promoción 3x2 aplicada!';
+            const grupos3x2 = Math.floor(totalItems / 3);
+            const restantes = totalItems % 3;
+            let mensaje = '<i class="fas fa-check-circle"></i> ¡Promoción 3x2 aplicada!';
+            
+            if (grupos3x2 > 1) {
+                mensaje += ` (${grupos3x2} grupos de 3x2)`;
+            }
+            
+            if (restantes > 0) {
+                mensaje += ` - Añade ${3 - restantes} más para otro 3x2`;
+            }
+            
+            promoMessage.innerHTML = mensaje;
             promoMessage.style.display = 'block';
+            promoMessage.className = 'cart-promo-message success';
         } else {
             promoMessage.style.display = 'none';
         }
