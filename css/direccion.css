@@ -1,0 +1,221 @@
+/* ============================================
+   FORMULARIO DE DIRECCIÓN DE ENVÍO
+   ============================================ */
+
+.direccion-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.form-group-full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.form-group label i {
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.75rem 1rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+    background: var(--card-bg);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-tertiary);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+/* Info box */
+.form-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: var(--radius-md);
+    color: #3b82f6;
+    font-size: 0.875rem;
+    margin-top: var(--spacing-sm);
+}
+
+.form-info i {
+    font-size: 1.1rem;
+}
+
+/* Validación visual */
+.form-group input:invalid:not(:placeholder-shown),
+.form-group select:invalid,
+.form-group textarea:invalid:not(:placeholder-shown) {
+    border-color: #f44336;
+}
+
+.form-group input:valid:not(:placeholder-shown),
+.form-group select:valid {
+    border-color: #4caf50;
+}
+
+/* Modal de dirección específico */
+.modal-content-md {
+    max-width: 700px;
+    width: 95%;
+}
+
+#direccion-modal .modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+}
+
+#direccion-modal .modal-footer {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Animación de entrada del formulario */
+@keyframes formSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.direccion-form .form-row {
+    animation: formSlideIn 0.3s ease-out backwards;
+}
+
+.direccion-form .form-row:nth-child(1) { animation-delay: 0.05s; }
+.direccion-form .form-row:nth-child(2) { animation-delay: 0.1s; }
+.direccion-form .form-row:nth-child(3) { animation-delay: 0.15s; }
+.direccion-form .form-row:nth-child(4) { animation-delay: 0.2s; }
+.direccion-form .form-row:nth-child(5) { animation-delay: 0.25s; }
+.direccion-form .form-row:nth-child(6) { animation-delay: 0.3s; }
+.form-info { animation-delay: 0.35s; }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content-md {
+        width: 98%;
+        max-width: none;
+    }
+    
+    #direccion-modal .modal-body {
+        max-height: 60vh;
+        padding: var(--spacing-md);
+    }
+    
+    #direccion-modal .modal-footer {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    #direccion-modal .modal-footer .btn {
+        width: 100%;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.625rem 0.875rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #direccion-modal .modal-body {
+        max-height: 55vh;
+        padding: var(--spacing-sm);
+    }
+    
+    .form-group label {
+        font-size: 0.85rem;
+    }
+    
+    .form-info {
+        font-size: 0.8rem;
+        padding: var(--spacing-sm);
+    }
+}
+
+/* Scrollbar personalizado para el modal */
+#direccion-modal .modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+#direccion-modal .modal-body::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+    border-radius: 4px;
+}
+
+#direccion-modal .modal-body::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+#direccion-modal .modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}

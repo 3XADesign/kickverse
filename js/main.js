@@ -236,7 +236,6 @@ function closeModal(modal) {
 // ============================================
 
 function comprarWhatsApp(equipo, equipacion, precio) {
-    const telefono = '34614299735';
     const mensaje = `Hola Kickverse!
 
 Quiero comprar:
@@ -246,13 +245,11 @@ Precio: ${precio}
 
 ¿Cuales son los siguientes pasos?`;
     
-    const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-    window.open(urlWhatsApp, '_blank');
+    // Abrir modal de dirección en lugar de ir directo a WhatsApp
+    abrirModalDireccion(mensaje, 'directo');
 }
 
 function generarMensajeWhatsApp(data) {
-    const telefono = '34614299735';
-    
     let mensaje = `Hola Kickverse!
 
 Quiero realizar un pedido:
@@ -272,8 +269,8 @@ Parches: ${data.parches ? 'Si' : 'No'}`;
     
     mensaje += `\n\n¿Cual es el precio final y los pasos a seguir?`;
     
-    const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-    return urlWhatsApp;
+    // Abrir modal de dirección en lugar de ir directo a WhatsApp
+    abrirModalDireccion(mensaje, 'directo');
 }
 
 // ============================================
@@ -682,8 +679,7 @@ function mostrarResumen() {
 }
 
 function finalizarPedidoWhatsApp() {
-    const url = generarMensajeWhatsApp(formData);
-    window.open(url, '_blank');
+    generarMensajeWhatsApp(formData);
 }
 
 function nextStep() {
@@ -1354,7 +1350,6 @@ function finalizarCompraCarrito() {
         return;
     }
     
-    const telefono = '34614299735';
     let mensaje = `Hola Kickverse!\n\nQuiero realizar un pedido:\n\n`;
     
     cartItems.forEach((item, index) => {
@@ -1384,8 +1379,8 @@ function finalizarCompraCarrito() {
     
     mensaje += `¿Cual es el siguiente paso?`;
     
-    const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-    window.open(urlWhatsApp, '_blank');
+    // Abrir modal de dirección en lugar de ir directo a WhatsApp
+    abrirModalDireccion(mensaje, 'carrito');
 }
 
 // ============================================
@@ -1898,4 +1893,117 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', showWelcomePopup);
 } else {
     showWelcomePopup();
+}
+
+// ============================================
+// SISTEMA DE DIRECCIÓN DE ENVÍO
+// ============================================
+
+// Variable temporal para almacenar el mensaje pendiente
+let mensajePendiente = null;
+let tipoPedidoPendiente = null; // 'carrito' o 'directo'
+
+// Cargar dirección guardada
+function cargarDireccionGuardada() {
+    const direccionGuardada = localStorage.getItem('kickverse_direccion');
+    if (!direccionGuardada) return null;
+    
+    try {
+        return JSON.parse(direccionGuardada);
+    } catch (e) {
+        console.error('Error al cargar dirección:', e);
+        return null;
+    }
+}
+
+// Guardar dirección
+function guardarDireccion(direccion) {
+    localStorage.setItem('kickverse_direccion', JSON.stringify(direccion));
+}
+
+// Pre-llenar formulario con dirección guardada
+function preLlenarFormulario() {
+    const direccion = cargarDireccionGuardada();
+    if (!direccion) return;
+    
+    const form = document.getElementById('direccion-form');
+    if (!form) return;
+    
+    Object.keys(direccion).forEach(key => {
+        const input = form.querySelector(`[name="${key}"]`);
+        if (input && direccion[key]) {
+            input.value = direccion[key];
+        }
+    });
+}
+
+// Obtener datos del formulario
+function obtenerDatosDireccion() {
+    const form = document.getElementById('direccion-form');
+    if (!form) return null;
+    
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return null;
+    }
+    
+    const formData = new FormData(form);
+    const direccion = {};
+    
+    formData.forEach((value, key) => {
+        direccion[key] = value;
+    });
+    
+    return direccion;
+}
+
+// Abrir modal de dirección
+function abrirModalDireccion(mensaje, tipoPedido = 'carrito') {
+    mensajePendiente = mensaje;
+    tipoPedidoPendiente = tipoPedido;
+    
+    preLlenarFormulario();
+    openModal('direccion-modal');
+}
+
+// Confirmar dirección y enviar
+function confirmarDireccionYEnviar() {
+    const direccion = obtenerDatosDireccion();
+    if (!direccion) return;
+    
+    // Guardar dirección para futuras compras
+    guardarDireccion(direccion);
+    
+    // Añadir dirección al mensaje
+    let mensajeCompleto = mensajePendiente + `\n\nDIRECCION DE ENVIO:\n`;
+    mensajeCompleto += `Nombre: ${direccion.nombre}\n`;
+    mensajeCompleto += `Telefono: ${direccion.telefono}\n`;
+    if (direccion.email) {
+        mensajeCompleto += `Email: ${direccion.email}\n`;
+    }
+    mensajeCompleto += `Direccion: ${direccion.calle}\n`;
+    mensajeCompleto += `${direccion.ciudad}, ${direccion.provincia}\n`;
+    mensajeCompleto += `CP: ${direccion.cp}\n`;
+    mensajeCompleto += `Pais: ${direccion.pais}\n`;
+    if (direccion.notas) {
+        mensajeCompleto += `Notas: ${direccion.notas}\n`;
+    }
+    
+    // Enviar por WhatsApp
+    const telefono = '34614299735';
+    const urlWhatsApp = `https://wa.me/${telefono}?text=${encodeURIComponent(mensajeCompleto)}`;
+    window.open(urlWhatsApp, '_blank');
+    
+    // Cerrar modal
+    closeModal('direccion-modal');
+    
+    // Si es del carrito, limpiarlo
+    if (tipoPedidoPendiente === 'carrito') {
+        clearCart();
+        closeModal('cart-modal');
+    }
+    
+    // Resetear variables
+    mensajePendiente = null;
+    tipoPedidoPendiente = null;
 }
