@@ -486,7 +486,7 @@ function getStep5Content() {
                 <div class="option-card" onclick="selectParches(true)">
                     <i class="fas fa-check-circle"></i>
                     <h3>Sí, con parches</h3>
-                    <p>+5€</p>
+                    <p>+1,99€</p>
                 </div>
                 <div class="option-card" onclick="selectParches(false)">
                     <i class="fas fa-times-circle"></i>
@@ -517,7 +517,7 @@ function getStep6Content() {
                 <div class="option-card" onclick="selectPersonalizacion(true)">
                     <i class="fas fa-edit"></i>
                     <h3>Sí, personalizar</h3>
-                    <p>+10€</p>
+                    <p>+2,99€</p>
                 </div>
                 <div class="option-card" onclick="selectPersonalizacion(false)">
                     <i class="fas fa-times"></i>
@@ -599,9 +599,9 @@ function guardarPersonalizacion() {
 function mostrarResumen() {
     const stepContainer = document.getElementById('step-content');
     
-    let precioBase = 29.99;
-    let precioParches = formData.parches ? 5 : 0;
-    let precioPersonalizacion = formData.personalizar ? 10 : 0;
+    let precioBase = 24.99;
+    let precioParches = formData.parches ? 1.99 : 0;
+    let precioPersonalizacion = formData.personalizar ? 2.99 : 0;
     let precioTotal = precioBase + precioParches + precioPersonalizacion;
     
     let html = `
@@ -628,7 +628,7 @@ function mostrarResumen() {
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Parches:</span>
-                    <span class="summary-value">${formData.parches ? 'Sí (+5€)' : 'No'}</span>
+                    <span class="summary-value">${formData.parches ? 'Sí (+1,99€)' : 'No'}</span>
                 </div>
     `;
     
@@ -636,7 +636,7 @@ function mostrarResumen() {
         html += `
                 <div class="summary-item">
                     <span class="summary-label">Personalización:</span>
-                    <span class="summary-value">${formData.nombre} #${formData.dorsal} (+10€)</span>
+                    <span class="summary-value">${formData.nombre} #${formData.dorsal} (+2,99€)</span>
                 </div>
         `;
     }
@@ -696,7 +696,7 @@ function finalizarPedidoWhatsApp() {
             personalizar: formData.personalizar,
             nombre: formData.nombre,
             dorsal: formData.dorsal,
-            precio: 27.99,
+            precio: 24.99,
             nombreProducto: `${formData.equipo} - ${formData.equipacion}`
         };
         
@@ -980,10 +980,10 @@ function generarTarjetaCamiseta(camiseta, tipo) {
                 </div>
                 <div class="camiseta-price">
                     <div class="price-old">79.99€</div>
-                    <div class="price-current">29.99€</div>
+                    <div class="price-current">24.99€</div>
                 </div>
                 <button class="btn btn-primary btn-comprar" 
-                        onclick="openPersonalizarModal('${camiseta.equipo}', '${tipoTexto}', 29.99, '${imagenPath}')">
+                        onclick="openPersonalizarModal('${camiseta.equipo}', '${tipoTexto}', 24.99, '${imagenPath}')">
                     <i class="fas fa-shopping-cart"></i>
                     Comprar
                 </button>
@@ -1478,8 +1478,8 @@ function agregarAlCarrito() {
     
     // Calcular precio
     let precioFinal = currentProductForCart.precio;
-    if (parches) precioFinal += 5;
-    if (personalizar) precioFinal += 10;
+    if (parches) precioFinal += 1.99;
+    if (personalizar) precioFinal += 2.99;
     
     const item = {
         ...currentProductForCart,
@@ -1632,12 +1632,12 @@ function generateCarouselItem(jersey, index) {
                     </div>
                     <div class="camiseta-price">
                         <div class="price-old">79.99€</div>
-                        <div class="price-current">29.99€</div>
+                        <div class="price-current">24.99€</div>
                     </div>
                     <button class="btn btn-primary btn-comprar-carousel" 
                             data-equipo="${jersey.equipo}" 
                             data-equipacion="${tipoTexto}" 
-                            data-precio="29.99" 
+                            data-precio="24.99" 
                             data-imagen="${imagenPath}"
                             data-liga="${ligaNombre}">
                         <i class="fas fa-shopping-cart"></i>
@@ -2130,7 +2130,7 @@ function generarCrossSellContextual() {
                 descripcion: 'Camiseta negra alternativa temporada 2024/25',
                 imagen: './img/camisetas/laliga_real-madrid_visitante.png',
                 precioOriginal: 79.99,
-                precioOferta: 27.99,
+                precioOferta: 24.99,
                 tipo: 'camiseta'
             },
             accesorio: {
@@ -2148,7 +2148,7 @@ function generarCrossSellContextual() {
                 descripcion: 'Camiseta azul oscura alternativa temporada 2024/25',
                 imagen: './img/camisetas/laliga_barcelona_visitante.png',
                 precioOriginal: 79.99,
-                precioOferta: 27.99,
+                precioOferta: 24.99,
                 tipo: 'camiseta'
             },
             accesorio: {
@@ -2166,7 +2166,7 @@ function generarCrossSellContextual() {
                 descripcion: 'Camiseta azul alternativa temporada 2024/25',
                 imagen: './img/camisetas/laliga_atletico_visitante.png',
                 precioOriginal: 79.99,
-                precioOferta: 27.99,
+                precioOferta: 24.99,
                 tipo: 'camiseta'
             },
             accesorio: {
@@ -2346,7 +2346,7 @@ function mostrarCrossSellYResumen() {
     // Listar items del carrito
     cartItems.forEach((item, index) => {
         const nombreItem = item.nombreProducto || `${item.equipo} - ${item.equipacion}`;
-        const precioItem = item.precio || 27.99;
+        const precioItem = item.precio || 24.99;
         
         html += `
             <div class="summary-item">
