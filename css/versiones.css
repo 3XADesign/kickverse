@@ -1,0 +1,328 @@
+/* ========================================
+   VERSIONES Y TALLAS - ESTILOS
+   Estilos para selector de versión FAN/PLAYER y botones de tallas
+   ======================================== */
+
+/* ========================================
+   CARDS DE VERSIÓN
+   ======================================== */
+
+.version-card {
+    position: relative;
+    padding: var(--spacing-xl) !important;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.version-card:hover {
+    transform: translateY(-8px);
+}
+
+.version-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: var(--accent-green);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 1;
+}
+
+.version-badge-premium {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(168, 85, 247, 0);
+    }
+}
+
+.version-card .fas {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.version-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.version-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+    flex-grow: 0;
+}
+
+.version-features {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-md) 0;
+    flex-grow: 1;
+}
+
+.version-features li {
+    padding: var(--spacing-sm) 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.version-features li i {
+    color: var(--accent-green);
+    font-size: 1rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.version-features li strong {
+    color: var(--text-primary);
+}
+
+.version-price {
+    margin-top: auto;
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.version-price .price-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.version-price .price-value {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--accent-green);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.version-price-premium .price-value {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.version-price .price-note {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.version-info-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: var(--spacing-md);
+    color: var(--accent-purple);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.version-info-link:hover {
+    color: var(--accent-pink);
+    transform: translateX(3px);
+}
+
+.version-info-link i {
+    font-size: 1rem;
+}
+
+/* ========================================
+   BOTONES DE TALLAS
+   ======================================== */
+
+.tallas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.tallas-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.talla-btn {
+    min-width: 120px;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.talla-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.talla-btn:hover {
+    border-color: var(--accent-purple);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(168, 85, 247, 0.3);
+}
+
+.talla-btn:hover::before {
+    opacity: 0.1;
+}
+
+.talla-btn:active {
+    transform: translateY(-2px);
+}
+
+/* Link a guía de tallas */
+.tallas-guide-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(168, 85, 247, 0.1);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    border-radius: var(--radius-md);
+    color: var(--accent-purple);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tallas-guide-link:hover {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: var(--accent-purple);
+    transform: translateX(3px);
+}
+
+.tallas-guide-link i {
+    font-size: 1.1rem;
+}
+
+/* ========================================
+   RESUMEN - VERSIÓN
+   ======================================== */
+
+.summary-version strong {
+    color: var(--accent-green);
+    font-size: 1.1rem;
+}
+
+.summary-version strong:first-child {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .version-card {
+        min-height: auto;
+        padding: var(--spacing-lg) !important;
+    }
+    
+    .version-card .fas {
+        font-size: 2.5rem;
+    }
+    
+    .version-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .version-description {
+        font-size: 0.9rem;
+    }
+    
+    .version-features li {
+        font-size: 0.85rem;
+    }
+    
+    .version-price .price-value {
+        font-size: 2rem;
+    }
+    
+    .talla-btn {
+        min-width: 100px;
+        padding: var(--spacing-md) var(--spacing-lg);
+        font-size: 1.3rem;
+    }
+    
+    .tallas-buttons {
+        gap: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .version-badge {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.75rem;
+    }
+    
+    .version-card .fas {
+        font-size: 2rem;
+    }
+    
+    .version-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .version-price .price-value {
+        font-size: 1.8rem;
+    }
+    
+    .talla-btn {
+        min-width: 80px;
+        padding: var(--spacing-md);
+        font-size: 1.2rem;
+    }
+    
+    .tallas-guide-link {
+        font-size: 0.85rem;
+    }
+}
