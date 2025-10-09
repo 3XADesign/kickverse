@@ -1439,33 +1439,14 @@ function renderCart() {
         cartTotal.textContent = `${finalTotal.toFixed(2)}€`;
     }
     
-    // Mostrar promoción 3x2
+    // Mostrar promoción descuento primera compra
     const promoMessage = document.getElementById('cart-promo-message');
     if (promoMessage) {
-        const totalItems = cartItems.reduce((sum, item) => sum + item.cantidad, 0);
+        // Verificar si es primera compra (esto se podría mejorar con localStorage o backend)
+        const esPrimeraCompra = !localStorage.getItem('kickverse_compra_realizada');
         
-        if (totalItems === 1) {
-            promoMessage.innerHTML = '<i class="fas fa-gift"></i> ¡Añade 2 camisetas más y consigue el 3x2!';
-            promoMessage.style.display = 'block';
-            promoMessage.className = 'cart-promo-message info';
-        } else if (totalItems === 2) {
-            promoMessage.innerHTML = '<i class="fas fa-fire"></i> ¡Añade 1 más y la tercera es GRATIS!';
-            promoMessage.style.display = 'block';
-            promoMessage.className = 'cart-promo-message warning';
-        } else if (totalItems >= 3) {
-            const grupos3x2 = Math.floor(totalItems / 3);
-            const restantes = totalItems % 3;
-            let mensaje = '<i class="fas fa-check-circle"></i> ¡Promoción 3x2 aplicada!';
-            
-            if (grupos3x2 > 1) {
-                mensaje += ` (${grupos3x2} grupos de 3x2)`;
-            }
-            
-            if (restantes > 0) {
-                mensaje += ` - Añade ${3 - restantes} más para otro 3x2`;
-            }
-            
-            promoMessage.innerHTML = mensaje;
+        if (esPrimeraCompra) {
+            promoMessage.innerHTML = '<i class="fas fa-percent"></i> ¡10% de descuento en tu primera compra aplicado!';
             promoMessage.style.display = 'block';
             promoMessage.className = 'cart-promo-message success';
         } else {
@@ -2137,19 +2118,31 @@ function showAppliedCoupon(code) {
 
 // Calcular descuento
 function calculateDiscount(subtotal) {
-    if (!appliedCoupon) return 0;
-    
     let discount = 0;
     
-    if (appliedCoupon.type === 'fixed') {
-        discount = appliedCoupon.value;
-    } else if (appliedCoupon.type === 'percentage') {
-        discount = (subtotal * appliedCoupon.value) / 100;
+    // Descuento de primera compra (10%)
+    const esPrimeraCompra = !localStorage.getItem('kickverse_compra_realizada');
+    if (esPrimeraCompra) {
+        discount = (subtotal * 10) / 100;
+    }
+    
+    // Si hay cupón aplicado, usar el mayor descuento
+    if (appliedCoupon) {
+        let couponDiscount = 0;
         
-        // Aplicar descuento máximo si existe
-        if (appliedCoupon.maxDiscount && discount > appliedCoupon.maxDiscount) {
-            discount = appliedCoupon.maxDiscount;
+        if (appliedCoupon.type === 'fixed') {
+            couponDiscount = appliedCoupon.value;
+        } else if (appliedCoupon.type === 'percentage') {
+            couponDiscount = (subtotal * appliedCoupon.value) / 100;
+            
+            // Aplicar descuento máximo si existe
+            if (appliedCoupon.maxDiscount && couponDiscount > appliedCoupon.maxDiscount) {
+                couponDiscount = appliedCoupon.maxDiscount;
+            }
         }
+        
+        // Usar el mayor descuento (no se acumulan)
+        discount = Math.max(discount, couponDiscount);
     }
     
     // El descuento no puede ser mayor que el subtotal
@@ -2285,26 +2278,20 @@ let upsellActivado = false;
 let crosssellItems = [];
 
 /**
- * Verificar si se debe mostrar el modal de upsell (3x2)
- * Se activa cuando el usuario ha añadido exactamente 2 camisetas
+ * Verificar si se debe mostrar el modal de promoción primera compra
+ * Ahora solo se muestra si es primera compra (sin lógica de 3x2)
  */
 function verificarUpsell() {
-    // Contar camisetas en el carrito
-    const numCamisetas = cartItems.length;
-    
-    // Si tiene exactamente 2 camisetas y no ha visto el upsell, mostrarlo
-    if (numCamisetas === 2 && !upsellActivado) {
-        mostrarModalUpsell();
-        return true;
-    }
-    
+    // Ya no se usa el modal de upsell para 3x2
+    // El descuento de primera compra se aplica automáticamente
     return false;
 }
 
 /**
- * Mostrar el modal de upsell 3x2
+ * Mostrar el modal de promoción (ya no se usa para upsell 3x2)
  */
 function mostrarModalUpsell() {
+    // Función mantenida para compatibilidad pero ya no se activa
     const modal = document.getElementById('upsell-modal');
     if (modal) {
         modal.classList.add('active');
