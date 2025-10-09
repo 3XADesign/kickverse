@@ -42,6 +42,7 @@
     <link rel="stylesheet" href="./css/catalogo.css">
     <link rel="stylesheet" href="./css/camiseta-card.css">
     <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/versiones.css">
     <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/coupon.css">
     <link rel="stylesheet" href="./css/direccion.css">
@@ -123,8 +124,8 @@
                 
                 <!-- Promo Banner -->
                 <div class="catalogo-promo">
-                    <h3><i class="fas fa-gift"></i> ¡Promoción 3x2!</h3>
-                    <p>La tercera camiseta es completamente GRATIS</p>
+                    <h3><i class="fas fa-percent"></i> ¡10% Descuento Primera Compra!</h3>
+                    <p>Descuento especial para nuevos clientes en toda la tienda</p>
                 </div>
                 
                 <!-- Filters -->
@@ -338,29 +339,73 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Selector de Versión -->
                 <div class="form-group">
-                    <label for="personalizar-talla">
-                        <i class="fas fa-ruler"></i> Talla *
+                    <label class="form-label-main">
+                        <i class="fas fa-star"></i>
+                        Elige tu versión *
                     </label>
-                    <select id="personalizar-talla" required>
-                        <option value="">Selecciona una talla</option>
-                        <option value="XS">XS</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                        <option value="XXL">XXL</option>
-                    </select>
+                    <div class="version-cards-modal">
+                        <div class="version-card-modal" onclick="selectModalVersion('fan')" data-version="fan">
+                            <div class="version-badge-modal">MÁS POPULAR</div>
+                            <i class="fas fa-users"></i>
+                            <h4>Versión FAN</h4>
+                            <p class="version-desc-modal">La camiseta oficial de aficionado.</p>
+                            <p class="version-detail-modal">Personalización opcional.</p>
+                            <div class="version-price-modal">
+                                <span class="price-label-modal">DESDE</span>
+                                <span class="price-value-modal">24,99€</span>
+                            </div>
+                        </div>
+                        
+                        <div class="version-card-modal version-card-premium" onclick="selectModalVersion('player')" data-version="player">
+                            <div class="version-badge-modal version-badge-premium-modal">CALIDAD PREMIUM</div>
+                            <i class="fas fa-trophy"></i>
+                            <h4>Versión PLAYER</h4>
+                            <p class="version-desc-modal">Calidad profesional con</p>
+                            <p class="version-detail-modal">todos los extras incluidos.</p>
+                            <div class="version-price-modal version-price-premium-modal">
+                                <span class="price-label-modal">PRECIO FIJO</span>
+                                <span class="price-value-modal">34,99€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="modal-version-selected" value="fan">
+                    <small class="form-help">
+                        <i class="fas fa-info-circle"></i>
+                        <a href="tallas.html" target="_blank">Ver guía de tallas y diferencias</a>
+                    </small>
+                </div>
+
+                <!-- Selector de Talla con Botones -->
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
+                        <i class="fas fa-ruler"></i> Selecciona tu talla *
+                    </label>
+                    <div class="tallas-buttons-modal">
+                        <button type="button" class="talla-btn" onclick="selectModalTalla('XS')">XS</button>
+                        <button type="button" class="talla-btn" onclick="selectModalTalla('S')">S</button>
+                        <button type="button" class="talla-btn" onclick="selectModalTalla('M')">M</button>
+                        <button type="button" class="talla-btn" onclick="selectModalTalla('L')">L</button>
+                        <button type="button" class="talla-btn" onclick="selectModalTalla('XL')">XL</button>
+                        <button type="button" class="talla-btn" onclick="selectModalTalla('XXL')">XXL</button>
+                    </div>
+                    <input type="hidden" id="personalizar-talla">
+                    <a href="tallas.html" target="_blank" class="tallas-guide-link" style="display: block; text-align: center; margin-top: 0.5rem;">
+                        <i class="fas fa-info-circle"></i> Ver guía de tallas
+                    </a>
                 </div>
                 
-                <div class="form-group">
+                <!-- Parches (oculto si es PLAYER) -->
+                <div class="form-group" id="modal-parches-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="personalizar-parches">
                         <span>Añadir parches oficiales (+1,99€)</span>
                     </label>
                 </div>
                 
-                <div class="form-group">
+                <!-- Personalización (oculta si es PLAYER) -->
+                <div class="form-group" id="modal-personalizacion-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="personalizar-custom" onchange="toggleCustomFields()">
                         <span>Personalizar con nombre y dorsal (+2,99€)</span>

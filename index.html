@@ -21,9 +21,9 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kickverse - Tu tienda online de camisetas de fútbol. Encuentra las mejores equipaciones de clubes y selecciones con precios increíbles. ¡3x2 en toda la web!">
-    <meta name="keywords" content="camisetas fútbol, equipaciones, Real Madrid, Barcelona, camisetas deportivas">
-    <title>Kickverse - Camisetas de Fútbol | 3x2 Oferta Especial</title>
+    <meta name="description" content="Kickverse - Tu tienda online de camisetas de fútbol. Encuentra las mejores equipaciones de clubes y selecciones con precios increíbles. ¡10% descuento en tu primera compra!">
+    <meta name="keywords" content="camisetas fútbol, equipaciones, Real Madrid, Barcelona, camisetas deportivas, descuento">
+    <title>Kickverse - Camisetas de Fútbol | 10% Descuento Primera Compra</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./img/logo.png">
@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="./css/camiseta-card.css">
     <link rel="stylesheet" href="./css/carousel.css">
     <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/versiones.css">
     <link rel="stylesheet" href="./css/cart.css">
     <link rel="stylesheet" href="./css/coupon.css">
     <link rel="stylesheet" href="./css/direccion.css">
@@ -118,8 +119,8 @@
             <div class="hero-container">
                 <div class="hero-content">
                     <div class="hero-badge">
-                        <i class="fas fa-fire"></i>
-                        ¡Promoción 3x2 Activa!
+                        <i class="fas fa-percent"></i>
+                        ¡10% Descuento Primera Compra!
                     </div>
                     <h1 class="hero-title">
                         Tu Pasión<br>Tu Camiseta
@@ -161,22 +162,22 @@
             </div>
         </section>
         
-        <!-- Promoción 3x2 -->
+        <!-- Descuento Primera Compra -->
         <section class="section-dark">
             <div class="container">
                 <div class="card" style="background: var(--gradient-primary); text-align: center; padding: var(--spacing-xl);">
-                    <i class="fas fa-gift" style="font-size: 3rem; margin-bottom: var(--spacing-md);"></i>
-                    <h2 style="margin-bottom: var(--spacing-sm);">¡PROMOCIÓN ESPECIAL!</h2>
+                    <i class="fas fa-percent" style="font-size: 3rem; margin-bottom: var(--spacing-md);"></i>
+                    <h2 style="margin-bottom: var(--spacing-sm);">¡DESCUENTO ESPECIAL!</h2>
                     <p style="font-size: 1.5rem; font-weight: var(--font-weight-bold); margin-bottom: var(--spacing-sm);">
-                        LA TERCERA CAMISETA ES GRATIS
+                        10% DE DESCUENTO EN TU PRIMERA COMPRA
                     </p>
                     <p style="color: var(--color-text-primary); opacity: 0.9;">
-                        Compra 2 camisetas y llévate la 3ª completamente gratis. 
-                        Válido en toda nuestra colección.
+                        Estrena tu colección con un descuento especial. 
+                        Válido en toda nuestra tienda para nuevos clientes.
                     </p>
                     <a href="form.html" class="btn btn-secondary btn-lg mt-md">
                         <i class="fas fa-arrow-right"></i>
-                        Aprovechar Oferta
+                        Aprovechar Descuento
                     </a>
                 </div>
             </div>
@@ -520,7 +521,7 @@
     
     <!-- Modal Personalizar -->
     <div class="modal" id="personalizar-modal">
-        <div class="modal-content">
+        <div class="modal-content modal-personalizar">
             <div class="modal-header">
                 <h3 class="modal-title">
                     <i class="fas fa-edit"></i>
@@ -531,28 +532,68 @@
                 </button>
             </div>
             <div class="modal-body">
+                
+                <!-- Selector de Versión -->
                 <div class="form-group">
-                    <label for="personalizar-talla">
+                    <label class="form-label-main">
+                        <i class="fas fa-star"></i>
+                        Elige tu versión *
+                    </label>
+                    <div class="version-cards-modal">
+                        <div class="version-card-modal" onclick="selectModalVersion('fan')" data-version="fan">
+                            <div class="version-badge-modal">MÁS POPULAR</div>
+                            <i class="fas fa-users"></i>
+                            <h4>Versión FAN</h4>
+                            <p class="version-desc-modal">La camiseta oficial de aficionado.</p>
+                            <p class="version-detail-modal">Personalización opcional.</p>
+                            <div class="version-price-modal">
+                                <span class="price-label-modal">DESDE</span>
+                                <span class="price-value-modal">24,99€</span>
+                            </div>
+                        </div>
+                        
+                        <div class="version-card-modal version-card-premium" onclick="selectModalVersion('player')" data-version="player">
+                            <div class="version-badge-modal version-badge-premium-modal">CALIDAD PREMIUM</div>
+                            <i class="fas fa-trophy"></i>
+                            <h4>Versión PLAYER</h4>
+                            <p class="version-desc-modal">Calidad profesional con</p>
+                            <p class="version-detail-modal">todos los extras incluidos.</p>
+                            <div class="version-price-modal version-price-premium-modal">
+                                <span class="price-label-modal">PRECIO FIJO</span>
+                                <span class="price-value-modal">34,99€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="modal-version-selected" value="fan">
+                    <small class="form-help">
+                        <i class="fas fa-info-circle"></i>
+                        <a href="tallas.html" target="_blank">Ver guía de tallas y diferencias</a>
+                    </small>
+                </div>
+
+                <!-- Botones de Tallas -->
+                <div class="form-group">
+                    <label class="form-label-main">
                         <i class="fas fa-ruler"></i>
                         Selecciona tu talla *
                     </label>
-                    <select id="personalizar-talla" required>
-                        <option value="">Selecciona una talla</option>
-                        <option value="XS">XS</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                        <option value="XXL">XXL</option>
-                        <option value="XXXL">XXXL</option>
-                    </select>
+                    <div class="tallas-buttons-modal" id="tallas-buttons-modal">
+                        <button type="button" class="talla-btn-modal" data-talla="XS" onclick="selectModalTalla('XS')">XS</button>
+                        <button type="button" class="talla-btn-modal" data-talla="S" onclick="selectModalTalla('S')">S</button>
+                        <button type="button" class="talla-btn-modal" data-talla="M" onclick="selectModalTalla('M')">M</button>
+                        <button type="button" class="talla-btn-modal" data-talla="L" onclick="selectModalTalla('L')">L</button>
+                        <button type="button" class="talla-btn-modal" data-talla="XL" onclick="selectModalTalla('XL')">XL</button>
+                        <button type="button" class="talla-btn-modal" data-talla="XXL" onclick="selectModalTalla('XXL')">XXL</button>
+                    </div>
+                    <input type="hidden" id="personalizar-talla" value="">
                     <small class="form-help">
                         <i class="fas fa-info-circle"></i>
                         ¿No sabes tu talla? <a href="tallas.html" target="_blank">Ver guía de tallas</a>
                     </small>
                 </div>
 
-                <div class="form-group">
+                <!-- Parches (solo visible en versión FAN) -->
+                <div class="form-group" id="modal-parches-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="personalizar-parches">
                         <span class="checkbox-custom"></span>
@@ -566,7 +607,8 @@
                     </small>
                 </div>
 
-                <div class="form-group">
+                <!-- Personalización (solo visible en versión FAN) -->
+                <div class="form-group" id="modal-personalizacion-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="personalizar-custom" onchange="toggleCustomFields()">
                         <span class="checkbox-custom"></span>

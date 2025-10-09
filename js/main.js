@@ -8,6 +8,7 @@ let formData = {
     liga: '',
     equipo: '',
     equipacion: '',
+    version: '', // 'fan' o 'player'
     talla: '',
     parches: false,
     personalizar: false,
@@ -301,16 +302,19 @@ function loadStepContent(step) {
             content = getStep3Content();
             break;
         case 4:
-            content = getStep4Content();
+            content = getStep4Content(); // Versión FAN/PLAYER
             break;
         case 5:
-            content = getStep5Content();
+            content = getStep5Content(); // Talla
             break;
         case 6:
-            content = getStep6Content();
+            content = getStep6Content(); // Parches
             break;
         case 7:
-            content = getStep7Content();
+            content = getStep7Content(); // Personalización
+            break;
+        case 8:
+            content = getStep8Content(); // Resumen
             break;
     }
     
@@ -441,22 +445,91 @@ function selectEquipacion(equipacion) {
 }
 
 function getStep4Content() {
+    return `
+        <div class="form-step">
+            <h2>Paso 4: Elige la Versión</h2>
+            <p class="text-secondary mb-lg">Selecciona el tipo de camiseta que prefieres</p>
+            
+            <div class="grid grid-2">
+                <div class="option-card version-card" onclick="selectVersion('fan')">
+                    <div class="version-badge">MÁS POPULAR</div>
+                    <i class="fas fa-users"></i>
+                    <h3>Versión FAN</h3>
+                    <p class="version-description">Ideal para uso casual y aficionados. Mismo diseño oficial, fabricación standard.</p>
+                    <ul class="version-features">
+                        <li><i class="fas fa-check"></i> Diseño oficial del equipo</li>
+                        <li><i class="fas fa-check"></i> Telas ligeras y cómodas</li>
+                        <li><i class="fas fa-check"></i> Perfecto para el día a día</li>
+                    </ul>
+                    <div class="version-price">
+                        <span class="price-label">Desde</span>
+                        <span class="price-value">24,99€</span>
+                    </div>
+                    <a href="tallas.html" class="version-info-link" target="_blank" onclick="event.stopPropagation()">
+                        <i class="fas fa-info-circle"></i> Ver guía de tallas
+                    </a>
+                </div>
+                
+                <div class="option-card version-card version-player" onclick="selectVersion('player')">
+                    <div class="version-badge version-badge-premium">CALIDAD PREMIUM</div>
+                    <i class="fas fa-trophy"></i>
+                    <h3>Versión PLAYER</h3>
+                    <p class="version-description">Calidad profesional idéntica a la que usan los jugadores en el campo.</p>
+                    <ul class="version-features">
+                        <li><i class="fas fa-check"></i> Calidad profesional</li>
+                        <li><i class="fas fa-check"></i> Tecnología Dri-FIT</li>
+                        <li><i class="fas fa-check"></i> Ajuste ergonómico</li>
+                        <li><i class="fas fa-check"></i> <strong>Parches y personalización INCLUIDOS</strong></li>
+                    </ul>
+                    <div class="version-price version-price-premium">
+                        <span class="price-label">Precio fijo</span>
+                        <span class="price-value">34,99€</span>
+                        <span class="price-note">Todo incluido</span>
+                    </div>
+                    <a href="tallas.html" class="version-info-link" target="_blank" onclick="event.stopPropagation()">
+                        <i class="fas fa-info-circle"></i> Ver guía de tallas
+                    </a>
+                </div>
+            </div>
+            
+            <button class="btn btn-secondary mt-lg" onclick="previousStep()">
+                <i class="fas fa-arrow-left"></i> Volver
+            </button>
+        </div>
+    `;
+}
+
+function selectVersion(version) {
+    formData.version = version;
+    
+    // Si es PLAYER, activar automáticamente parches y personalización
+    if (version === 'player') {
+        formData.parches = true;
+        formData.personalizar = true;
+    }
+    
+    nextStep();
+}
+
+function getStep5Content() {
     const tallas = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
     
     let html = `
         <div class="form-step">
-            <h2>Paso 4: Elige tu Talla</h2>
-            <p class="text-secondary mb-lg">Selecciona la talla que mejor te quede</p>
+            <h2>Paso 5: Elige tu Talla</h2>
+            <p class="text-secondary mb-md">Versión: <strong>${formData.version === 'fan' ? 'FAN' : 'PLAYER'}</strong></p>
+            <a href="tallas.html" target="_blank" class="tallas-guide-link">
+                <i class="fas fa-info-circle"></i> Consultar guía de tallas
+            </a>
             
-            <div class="grid grid-3">
+            <div class="tallas-buttons">
     `;
     
     tallas.forEach(talla => {
         html += `
-            <div class="option-card" onclick="selectTalla('${talla}')">
-                <i class="fas fa-ruler"></i>
-                <h3>${talla}</h3>
-            </div>
+            <button class="talla-btn" onclick="selectTalla('${talla}')">
+                ${talla}
+            </button>
         `;
     });
     
@@ -476,10 +549,17 @@ function selectTalla(talla) {
     nextStep();
 }
 
-function getStep5Content() {
+function getStep6Content() {
+    // Si es versión PLAYER, saltar este paso (parches incluidos)
+    if (formData.version === 'player') {
+        formData.parches = true;
+        nextStep();
+        return '';
+    }
+    
     return `
         <div class="form-step">
-            <h2>Paso 5: ¿Quieres añadir parches?</h2>
+            <h2>Paso 6: ¿Quieres añadir parches?</h2>
             <p class="text-secondary mb-lg">Parches oficiales de liga (recomendado)</p>
             
             <div class="grid grid-2">
@@ -507,10 +587,17 @@ function selectParches(conParches) {
     nextStep();
 }
 
-function getStep6Content() {
+function getStep7Content() {
+    // Si es versión PLAYER, saltar este paso (personalización incluida)
+    if (formData.version === 'player') {
+        formData.personalizar = true;
+        mostrarResumen();
+        return '';
+    }
+    
     return `
         <div class="form-step">
-            <h2>Paso 6: ¿Quieres personalizarla?</h2>
+            <h2>Paso 7: ¿Quieres personalizarla?</h2>
             <p class="text-secondary mb-lg">Añade nombre y dorsal a tu camiseta</p>
             
             <div class="grid grid-2">
@@ -544,10 +631,10 @@ function selectPersonalizacion(personalizar) {
     }
 }
 
-function getStep7Content() {
+function getStep8Content() {
     return `
         <div class="form-step">
-            <h2>Paso 7: Datos de personalización</h2>
+            <h2>Paso 8: Datos de personalización</h2>
             <p class="text-secondary mb-lg">Introduce el nombre y dorsal</p>
             
             <div class="form-group">
@@ -599,10 +686,23 @@ function guardarPersonalizacion() {
 function mostrarResumen() {
     const stepContainer = document.getElementById('step-content');
     
-    let precioBase = 24.99;
-    let precioParches = formData.parches ? 1.99 : 0;
-    let precioPersonalizacion = formData.personalizar ? 2.99 : 0;
-    let precioTotal = precioBase + precioParches + precioPersonalizacion;
+    // Calcular precio según versión
+    let precioBase = 0;
+    let precioParches = 0;
+    let precioPersonalizacion = 0;
+    let precioTotal = 0;
+    
+    if (formData.version === 'player') {
+        // Versión PLAYER: precio fijo de 34,99€ (todo incluido)
+        precioBase = 34.99;
+        precioTotal = 34.99;
+    } else {
+        // Versión FAN: 24,99€ + extras
+        precioBase = 24.99;
+        precioParches = formData.parches ? 1.99 : 0;
+        precioPersonalizacion = formData.personalizar ? 2.99 : 0;
+        precioTotal = precioBase + precioParches + precioPersonalizacion;
+    }
     
     let html = `
         <div class="form-step">
@@ -623,12 +723,22 @@ function mostrarResumen() {
                     <span class="summary-value">${formData.equipacion}</span>
                 </div>
                 <div class="summary-item">
+                    <span class="summary-label">Versión:</span>
+                    <span class="summary-value summary-version">
+                        ${formData.version === 'player' ? 
+                            '<strong>PLAYER</strong> (Calidad Premium)' : 
+                            '<strong>FAN</strong>'}
+                    </span>
+                </div>
+                <div class="summary-item">
                     <span class="summary-label">Talla:</span>
                     <span class="summary-value">${formData.talla}</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Parches:</span>
-                    <span class="summary-value">${formData.parches ? 'Sí (+1,99€)' : 'No'}</span>
+                    <span class="summary-value">${formData.parches ? 
+                        (formData.version === 'player' ? 'Sí (Incluido)' : 'Sí (+1,99€)') : 
+                        'No'}</span>
                 </div>
     `;
     
@@ -636,7 +746,9 @@ function mostrarResumen() {
         html += `
                 <div class="summary-item">
                     <span class="summary-label">Personalización:</span>
-                    <span class="summary-value">${formData.nombre} #${formData.dorsal} (+2,99€)</span>
+                    <span class="summary-value">${formData.nombre} #${formData.dorsal} ${
+                        formData.version === 'player' ? '(Incluido)' : '(+2,99€)'
+                    }</span>
                 </div>
         `;
     }
@@ -674,7 +786,7 @@ function mostrarResumen() {
     `;
     
     stepContainer.innerHTML = html;
-    currentStep = 7;
+    currentStep = 8;
     updateProgressBar();
 }
 
@@ -687,17 +799,28 @@ function finalizarPedidoWhatsApp() {
         item.nombre === formData.nombre &&
         item.dorsal === formData.dorsal
     )) {
+        // Calcular precio según versión
+        let precioFinal = 0;
+        if (formData.version === 'player') {
+            precioFinal = 34.99; // Precio fijo PLAYER
+        } else {
+            precioFinal = 24.99; // Base FAN
+            if (formData.parches) precioFinal += 1.99;
+            if (formData.personalizar) precioFinal += 2.99;
+        }
+        
         const producto = {
             liga: formData.liga,
             equipo: formData.equipo,
             equipacion: formData.equipacion,
+            version: formData.version,
             talla: formData.talla,
             parches: formData.parches,
             personalizar: formData.personalizar,
             nombre: formData.nombre,
             dorsal: formData.dorsal,
-            precio: 24.99,
-            nombreProducto: `${formData.equipo} - ${formData.equipacion}`
+            precio: precioFinal,
+            nombreProducto: `${formData.equipo} - ${formData.equipacion} (${formData.version === 'player' ? 'PLAYER' : 'FAN'})`
         };
         
         cartItems.push(producto);
@@ -716,7 +839,7 @@ function finalizarPedidoWhatsApp() {
 }
 
 function nextStep() {
-    if (currentStep < 7) {
+    if (currentStep < 8) {
         loadStepContent(currentStep + 1);
     }
 }
@@ -732,6 +855,7 @@ function resetForm() {
         liga: '',
         equipo: '',
         equipacion: '',
+        version: '',
         talla: '',
         parches: false,
         personalizar: false,
@@ -746,9 +870,9 @@ function updateProgressBar() {
     const progressText = document.getElementById('progress-text');
     
     if (progressBar && progressText) {
-        const progress = (currentStep / 7) * 100;
+        const progress = (currentStep / 8) * 100;
         progressBar.style.width = `${progress}%`;
-        progressText.textContent = `Paso ${currentStep} de 7`;
+        progressText.textContent = `Paso ${currentStep} de 8`;
     }
 }
 
@@ -1315,33 +1439,14 @@ function renderCart() {
         cartTotal.textContent = `${finalTotal.toFixed(2)}€`;
     }
     
-    // Mostrar promoción 3x2
+    // Mostrar promoción descuento primera compra
     const promoMessage = document.getElementById('cart-promo-message');
     if (promoMessage) {
-        const totalItems = cartItems.reduce((sum, item) => sum + item.cantidad, 0);
+        // Verificar si es primera compra (esto se podría mejorar con localStorage o backend)
+        const esPrimeraCompra = !localStorage.getItem('kickverse_compra_realizada');
         
-        if (totalItems === 1) {
-            promoMessage.innerHTML = '<i class="fas fa-gift"></i> ¡Añade 2 camisetas más y consigue el 3x2!';
-            promoMessage.style.display = 'block';
-            promoMessage.className = 'cart-promo-message info';
-        } else if (totalItems === 2) {
-            promoMessage.innerHTML = '<i class="fas fa-fire"></i> ¡Añade 1 más y la tercera es GRATIS!';
-            promoMessage.style.display = 'block';
-            promoMessage.className = 'cart-promo-message warning';
-        } else if (totalItems >= 3) {
-            const grupos3x2 = Math.floor(totalItems / 3);
-            const restantes = totalItems % 3;
-            let mensaje = '<i class="fas fa-check-circle"></i> ¡Promoción 3x2 aplicada!';
-            
-            if (grupos3x2 > 1) {
-                mensaje += ` (${grupos3x2} grupos de 3x2)`;
-            }
-            
-            if (restantes > 0) {
-                mensaje += ` - Añade ${3 - restantes} más para otro 3x2`;
-            }
-            
-            promoMessage.innerHTML = mensaje;
+        if (esPrimeraCompra) {
+            promoMessage.innerHTML = '<i class="fas fa-percent"></i> ¡10% de descuento en tu primera compra aplicado!';
             promoMessage.style.display = 'block';
             promoMessage.className = 'cart-promo-message success';
         } else {
@@ -1437,6 +1542,32 @@ function openPersonalizarModal(equipo, equipacion, precio, imagenSrc) {
     document.getElementById('personalizar-dorsal').value = '';
     document.getElementById('custom-fields').style.display = 'none';
     
+    // Resetear versión a FAN por defecto
+    const versionInput = document.getElementById('modal-version-selected');
+    if (versionInput) {
+        versionInput.value = 'fan';
+    }
+    
+    // Marcar card FAN como seleccionada por defecto
+    const cards = document.querySelectorAll('.version-card-modal');
+    cards.forEach(card => {
+        if (card.getAttribute('data-version') === 'fan') {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    });
+    
+    // Resetear estado de tallas
+    const tallaButtons = document.querySelectorAll('.tallas-buttons-modal .talla-btn');
+    tallaButtons.forEach(btn => btn.classList.remove('selected'));
+    
+    // Mostrar grupos de parches y personalización (para FAN por defecto)
+    const modalParchesGroup = document.getElementById('modal-parches-group');
+    const modalPersonalizacionGroup = document.getElementById('modal-personalizacion-group');
+    if (modalParchesGroup) modalParchesGroup.style.display = 'block';
+    if (modalPersonalizacionGroup) modalPersonalizacionGroup.style.display = 'block';
+    
     // Actualizar título del modal
     const modalTitle = document.querySelector('#personalizar-modal .modal-title');
     if (modalTitle) {
@@ -1444,6 +1575,74 @@ function openPersonalizarModal(equipo, equipacion, precio, imagenSrc) {
     }
     
     openModal('personalizar-modal');
+}
+
+function selectModalVersion(version) {
+    // Actualizar el input oculto
+    const versionInput = document.getElementById('modal-version-selected');
+    if (versionInput) {
+        versionInput.value = version;
+    }
+    
+    // Actualizar estado visual de las cards
+    const cards = document.querySelectorAll('.version-card-modal');
+    cards.forEach(card => {
+        if (card.getAttribute('data-version') === version) {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    });
+    
+    // Obtener los elementos
+    const modalParchesGroup = document.getElementById('modal-parches-group');
+    const modalPersonalizacionGroup = document.getElementById('modal-personalizacion-group');
+    
+    if (version === 'player') {
+        // PLAYER: Ocultar opciones de parches y personalización (ya incluidos)
+        if (modalParchesGroup) modalParchesGroup.style.display = 'none';
+        if (modalPersonalizacionGroup) modalPersonalizacionGroup.style.display = 'none';
+        
+        // Auto-activar parches y personalización para PLAYER
+        const parchesCheckbox = document.getElementById('personalizar-parches');
+        const customCheckbox = document.getElementById('personalizar-custom');
+        if (parchesCheckbox) parchesCheckbox.checked = true;
+        if (customCheckbox) {
+            customCheckbox.checked = true;
+            toggleCustomFields(); // Mostrar campos de personalización
+        }
+    } else {
+        // FAN: Mostrar opciones opcionales
+        if (modalParchesGroup) modalParchesGroup.style.display = 'block';
+        if (modalPersonalizacionGroup) modalPersonalizacionGroup.style.display = 'block';
+        
+        // Desactivar por defecto
+        const parchesCheckbox = document.getElementById('personalizar-parches');
+        const customCheckbox = document.getElementById('personalizar-custom');
+        if (parchesCheckbox) parchesCheckbox.checked = false;
+        if (customCheckbox) {
+            customCheckbox.checked = false;
+            toggleCustomFields(); // Ocultar campos
+        }
+    }
+}
+
+function selectModalTalla(talla) {
+    // Actualizar el input oculto
+    const tallaInput = document.getElementById('personalizar-talla');
+    if (tallaInput) {
+        tallaInput.value = talla;
+    }
+    
+    // Actualizar estado visual de los botones
+    const buttons = document.querySelectorAll('.tallas-buttons-modal .talla-btn');
+    buttons.forEach(btn => {
+        if (btn.textContent.trim() === talla) {
+            btn.classList.add('selected');
+        } else {
+            btn.classList.remove('selected');
+        }
+    });
 }
 
 function toggleCustomFields() {
@@ -1460,11 +1659,20 @@ function toggleCustomFields() {
 }
 
 function agregarAlCarrito() {
+    // Obtener versión seleccionada desde el input oculto
+    const versionInput = document.getElementById('modal-version-selected');
+    const version = versionInput ? versionInput.value : 'fan';
+    
     const talla = document.getElementById('personalizar-talla').value;
     const parches = document.getElementById('personalizar-parches').checked;
     const personalizar = document.getElementById('personalizar-custom').checked;
     const nombre = document.getElementById('personalizar-nombre').value.trim().toUpperCase();
     const dorsal = document.getElementById('personalizar-dorsal').value.trim();
+    
+    if (!version) {
+        alert('Por favor selecciona una versión (FAN o PLAYER)');
+        return;
+    }
     
     if (!talla) {
         alert('Por favor selecciona una talla');
@@ -1476,13 +1684,21 @@ function agregarAlCarrito() {
         return;
     }
     
-    // Calcular precio
-    let precioFinal = currentProductForCart.precio;
-    if (parches) precioFinal += 1.99;
-    if (personalizar) precioFinal += 2.99;
+    // Calcular precio según versión
+    let precioFinal;
+    if (version === 'player') {
+        // PLAYER: Precio fijo 34.99€ (todo incluido)
+        precioFinal = 34.99;
+    } else {
+        // FAN: Precio base 24.99€ + extras opcionales
+        precioFinal = 24.99;
+        if (parches) precioFinal += 1.99;
+        if (personalizar) precioFinal += 2.99;
+    }
     
     const item = {
         ...currentProductForCart,
+        version: version,
         talla: talla,
         parches: parches,
         nombre: personalizar ? nombre : '',
@@ -1902,19 +2118,31 @@ function showAppliedCoupon(code) {
 
 // Calcular descuento
 function calculateDiscount(subtotal) {
-    if (!appliedCoupon) return 0;
-    
     let discount = 0;
     
-    if (appliedCoupon.type === 'fixed') {
-        discount = appliedCoupon.value;
-    } else if (appliedCoupon.type === 'percentage') {
-        discount = (subtotal * appliedCoupon.value) / 100;
+    // Descuento de primera compra (10%)
+    const esPrimeraCompra = !localStorage.getItem('kickverse_compra_realizada');
+    if (esPrimeraCompra) {
+        discount = (subtotal * 10) / 100;
+    }
+    
+    // Si hay cupón aplicado, usar el mayor descuento
+    if (appliedCoupon) {
+        let couponDiscount = 0;
         
-        // Aplicar descuento máximo si existe
-        if (appliedCoupon.maxDiscount && discount > appliedCoupon.maxDiscount) {
-            discount = appliedCoupon.maxDiscount;
+        if (appliedCoupon.type === 'fixed') {
+            couponDiscount = appliedCoupon.value;
+        } else if (appliedCoupon.type === 'percentage') {
+            couponDiscount = (subtotal * appliedCoupon.value) / 100;
+            
+            // Aplicar descuento máximo si existe
+            if (appliedCoupon.maxDiscount && couponDiscount > appliedCoupon.maxDiscount) {
+                couponDiscount = appliedCoupon.maxDiscount;
+            }
         }
+        
+        // Usar el mayor descuento (no se acumulan)
+        discount = Math.max(discount, couponDiscount);
     }
     
     // El descuento no puede ser mayor que el subtotal
@@ -2050,26 +2278,20 @@ let upsellActivado = false;
 let crosssellItems = [];
 
 /**
- * Verificar si se debe mostrar el modal de upsell (3x2)
- * Se activa cuando el usuario ha añadido exactamente 2 camisetas
+ * Verificar si se debe mostrar el modal de promoción primera compra
+ * Ahora solo se muestra si es primera compra (sin lógica de 3x2)
  */
 function verificarUpsell() {
-    // Contar camisetas en el carrito
-    const numCamisetas = cartItems.length;
-    
-    // Si tiene exactamente 2 camisetas y no ha visto el upsell, mostrarlo
-    if (numCamisetas === 2 && !upsellActivado) {
-        mostrarModalUpsell();
-        return true;
-    }
-    
+    // Ya no se usa el modal de upsell para 3x2
+    // El descuento de primera compra se aplica automáticamente
     return false;
 }
 
 /**
- * Mostrar el modal de upsell 3x2
+ * Mostrar el modal de promoción (ya no se usa para upsell 3x2)
  */
 function mostrarModalUpsell() {
+    // Función mantenida para compatibilidad pero ya no se activa
     const modal = document.getElementById('upsell-modal');
     if (modal) {
         modal.classList.add('active');
