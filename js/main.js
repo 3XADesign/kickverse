@@ -1561,6 +1561,32 @@ function openPersonalizarModal(equipo, equipacion, precio, imagenSrc) {
     document.getElementById('personalizar-dorsal').value = '';
     document.getElementById('custom-fields').style.display = 'none';
     
+    // Resetear versión a FAN por defecto
+    const versionInput = document.getElementById('modal-version-selected');
+    if (versionInput) {
+        versionInput.value = 'fan';
+    }
+    
+    // Marcar card FAN como seleccionada por defecto
+    const cards = document.querySelectorAll('.version-card-modal');
+    cards.forEach(card => {
+        if (card.getAttribute('data-version') === 'fan') {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    });
+    
+    // Resetear estado de tallas
+    const tallaButtons = document.querySelectorAll('.tallas-buttons-modal .talla-btn');
+    tallaButtons.forEach(btn => btn.classList.remove('selected'));
+    
+    // Mostrar grupos de parches y personalización (para FAN por defecto)
+    const modalParchesGroup = document.getElementById('modal-parches-group');
+    const modalPersonalizacionGroup = document.getElementById('modal-personalizacion-group');
+    if (modalParchesGroup) modalParchesGroup.style.display = 'block';
+    if (modalPersonalizacionGroup) modalPersonalizacionGroup.style.display = 'block';
+    
     // Actualizar título del modal
     const modalTitle = document.querySelector('#personalizar-modal .modal-title');
     if (modalTitle) {
@@ -1568,6 +1594,74 @@ function openPersonalizarModal(equipo, equipacion, precio, imagenSrc) {
     }
     
     openModal('personalizar-modal');
+}
+
+function selectModalVersion(version) {
+    // Actualizar el input oculto
+    const versionInput = document.getElementById('modal-version-selected');
+    if (versionInput) {
+        versionInput.value = version;
+    }
+    
+    // Actualizar estado visual de las cards
+    const cards = document.querySelectorAll('.version-card-modal');
+    cards.forEach(card => {
+        if (card.getAttribute('data-version') === version) {
+            card.classList.add('selected');
+        } else {
+            card.classList.remove('selected');
+        }
+    });
+    
+    // Obtener los elementos
+    const modalParchesGroup = document.getElementById('modal-parches-group');
+    const modalPersonalizacionGroup = document.getElementById('modal-personalizacion-group');
+    
+    if (version === 'player') {
+        // PLAYER: Ocultar opciones de parches y personalización (ya incluidos)
+        if (modalParchesGroup) modalParchesGroup.style.display = 'none';
+        if (modalPersonalizacionGroup) modalPersonalizacionGroup.style.display = 'none';
+        
+        // Auto-activar parches y personalización para PLAYER
+        const parchesCheckbox = document.getElementById('personalizar-parches');
+        const customCheckbox = document.getElementById('personalizar-custom');
+        if (parchesCheckbox) parchesCheckbox.checked = true;
+        if (customCheckbox) {
+            customCheckbox.checked = true;
+            toggleCustomFields(); // Mostrar campos de personalización
+        }
+    } else {
+        // FAN: Mostrar opciones opcionales
+        if (modalParchesGroup) modalParchesGroup.style.display = 'block';
+        if (modalPersonalizacionGroup) modalPersonalizacionGroup.style.display = 'block';
+        
+        // Desactivar por defecto
+        const parchesCheckbox = document.getElementById('personalizar-parches');
+        const customCheckbox = document.getElementById('personalizar-custom');
+        if (parchesCheckbox) parchesCheckbox.checked = false;
+        if (customCheckbox) {
+            customCheckbox.checked = false;
+            toggleCustomFields(); // Ocultar campos
+        }
+    }
+}
+
+function selectModalTalla(talla) {
+    // Actualizar el input oculto
+    const tallaInput = document.getElementById('personalizar-talla');
+    if (tallaInput) {
+        tallaInput.value = talla;
+    }
+    
+    // Actualizar estado visual de los botones
+    const buttons = document.querySelectorAll('.tallas-buttons-modal .talla-btn');
+    buttons.forEach(btn => {
+        if (btn.textContent.trim() === talla) {
+            btn.classList.add('selected');
+        } else {
+            btn.classList.remove('selected');
+        }
+    });
 }
 
 function toggleCustomFields() {
@@ -1584,11 +1678,20 @@ function toggleCustomFields() {
 }
 
 function agregarAlCarrito() {
+    // Obtener versión seleccionada desde el input oculto
+    const versionInput = document.getElementById('modal-version-selected');
+    const version = versionInput ? versionInput.value : 'fan';
+    
     const talla = document.getElementById('personalizar-talla').value;
     const parches = document.getElementById('personalizar-parches').checked;
     const personalizar = document.getElementById('personalizar-custom').checked;
     const nombre = document.getElementById('personalizar-nombre').value.trim().toUpperCase();
     const dorsal = document.getElementById('personalizar-dorsal').value.trim();
+    
+    if (!version) {
+        alert('Por favor selecciona una versión (FAN o PLAYER)');
+        return;
+    }
     
     if (!talla) {
         alert('Por favor selecciona una talla');
@@ -1600,13 +1703,21 @@ function agregarAlCarrito() {
         return;
     }
     
-    // Calcular precio
-    let precioFinal = currentProductForCart.precio;
-    if (parches) precioFinal += 1.99;
-    if (personalizar) precioFinal += 2.99;
+    // Calcular precio según versión
+    let precioFinal;
+    if (version === 'player') {
+        // PLAYER: Precio fijo 34.99€ (todo incluido)
+        precioFinal = 34.99;
+    } else {
+        // FAN: Precio base 24.99€ + extras opcionales
+        precioFinal = 24.99;
+        if (parches) precioFinal += 1.99;
+        if (personalizar) precioFinal += 2.99;
+    }
     
     const item = {
         ...currentProductForCart,
+        version: version,
         talla: talla,
         parches: parches,
         nombre: personalizar ? nombre : '',
