@@ -1337,14 +1337,18 @@ function addToCart(item) {
 
 function removeFromCart(itemId) {
     console.log('Eliminando producto:', itemId);
-    cartItems = cartItems.filter(item => item.id !== itemId);
+    // Convertir ambos a string para comparación consistente
+    const idToRemove = String(itemId);
+    cartItems = cartItems.filter(item => String(item.id) !== idToRemove);
     saveCartToStorage();
     renderCart();
     showCartNotification('Producto eliminado del carrito');
 }
 
 function updateCartItemQuantity(itemId, newQuantity) {
-    const item = cartItems.find(item => item.id === itemId);
+    // Convertir a string para comparación consistente
+    const idToFind = String(itemId);
+    const item = cartItems.find(item => String(item.id) === idToFind);
     if (item) {
         if (newQuantity <= 0) {
             removeFromCart(itemId);
@@ -1391,11 +1395,12 @@ function renderCart() {
         const itemTotal = item.precio * item.cantidad;
         total += itemTotal;
         
-        // Escapar ID para uso seguro en atributos
-        const safeId = item.id.replace(/'/g, "\\'");
+        // Convertir ID a string y escapar para uso seguro en atributos
+        const itemId = String(item.id);
+        const safeId = itemId.replace(/'/g, "\\'");
         
         html += `
-            <div class="cart-item" data-id="${item.id}">
+            <div class="cart-item" data-id="${itemId}">
                 <div class="cart-item-image">
                     <img src="${item.imagen}" alt="${item.equipo}">
                 </div>
