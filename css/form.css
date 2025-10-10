@@ -182,6 +182,86 @@
   gap: var(--spacing-md);
 }
 
+/* Resumen Preview */
+.resumen-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-xl);
+  background: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(168, 85, 247, 0.2);
+  box-shadow: var(--shadow-lg);
+}
+
+.resumen-image-container {
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.resumen-camiseta-image {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(168, 85, 247, 0.4));
+  transition: transform var(--transition-normal);
+}
+
+.resumen-camiseta-image:hover {
+  transform: scale(1.05);
+}
+
+.resumen-personalizacion {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.resumen-nombre {
+  display: block;
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-weight: var(--font-weight-bold);
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 
+    -2px -2px 0 #000,
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    0 0 15px rgba(168, 85, 247, 0.8),
+    0 0 30px rgba(168, 85, 247, 0.5);
+  margin-bottom: var(--spacing-xs);
+  line-height: 1.2;
+  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.8));
+}
+
+.resumen-dorsal {
+  display: block;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  color: #ffffff;
+  text-shadow: 
+    -3px -3px 0 #000,
+    3px -3px 0 #000,
+    -3px 3px 0 #000,
+    3px 3px 0 #000,
+    0 0 20px rgba(236, 72, 153, 0.9),
+    0 0 40px rgba(236, 72, 153, 0.6);
+  line-height: 1;
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.9));
+}
+
 /* Summary items */
 .summary-item {
   display: flex;
@@ -283,6 +363,23 @@
   
   .option-card h3 {
     font-size: 1.1rem;
+  }
+  
+  .resumen-preview {
+    padding: var(--spacing-lg);
+  }
+  
+  .resumen-image-container {
+    max-width: 300px;
+  }
+  
+  .resumen-nombre {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+  
+  .resumen-dorsal {
+    font-size: 1.8rem;
   }
 }
 

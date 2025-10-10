@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Cookies - Kickverse</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/cookies.css">
+    <link rel="stylesheet" href="css/utils.css">
+    
+    <style>
+        .politica-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--color-bg-card, #1e1e1e);
+            border-radius: var(--radius-lg, 1.5rem);
+            box-shadow: var(--shadow-xl, 0 12px 24px rgba(0, 0, 0, 0.8)), 0 0 40px rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .politica-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid transparent;
+            border-image: var(--gradient-primary, linear-gradient(135deg, #a855f7 0%, #ec4899 100%)) 1;
+        }
+        
+        .politica-header h1 {
+            font-size: 2.5rem;
+            color: var(--color-text-primary, #ffffff);
+            margin-bottom: 0.5rem;
+            font-weight: var(--font-weight-bold, 700);
+        }
+        
+        .politica-header .fecha {
+            color: var(--color-text-secondary, #b3b3b3);
+            font-size: 0.9rem;
+        }
+        
+        .politica-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .politica-section h2 {
+            font-size: 1.5rem;
+            background: var(--gradient-primary, linear-gradient(135deg, #a855f7 0%, #ec4899 100%));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .politica-section h3 {
+            font-size: 1.2rem;
+            color: var(--color-text-primary, #ffffff);
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: var(--font-weight-semibold, 600);
+        }
+        
+        .politica-section p {
+            line-height: 1.8;
+            color: var(--color-text-secondary, #b3b3b3);
+            margin-bottom: 1rem;
+        }
+        
+        .politica-section ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            list-style: disc;
+        }
+        
+        .politica-section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            color: var(--color-text-secondary, #b3b3b3);
+        }
+        
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.6));
+            border-radius: var(--radius-sm, 0.5rem);
+            overflow: hidden;
+        }
+        
+        .cookie-table th,
+        .cookie-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        
+        .cookie-table th {
+            background: var(--gradient-primary, linear-gradient(135deg, #a855f7 0%, #ec4899 100%));
+            color: var(--color-text-primary, #ffffff);
+            font-weight: 600;
+        }
+        
+        .cookie-table td {
+            color: var(--color-text-secondary, #b3b3b3);
+        }
+        
+        .cookie-table tr:hover {
+            background: rgba(168, 85, 247, 0.1);
+        }
+        
+        .btn-configurar {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--gradient-primary, linear-gradient(135deg, #a855f7 0%, #ec4899 100%));
+            color: var(--color-text-primary, #ffffff);
+            text-decoration: none;
+            border-radius: var(--radius-sm, 0.5rem);
+            font-weight: 600;
+            transition: all var(--transition-normal, 0.3s ease-in-out);
+            margin-top: 1rem;
+            box-shadow: var(--shadow-md, 0 4px 8px rgba(0, 0, 0, 0.6));
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-configurar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(168, 85, 247, 0.5);
+            box-shadow: 0 4px 12px rgba(255, 107, 0, 0.3);
+        }
+        
+        .highlight-box {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse Logo">
+            </a>
+            <nav class="header-nav">
+                <a href="index.html">Inicio</a>
+                <a href="catalogo.html">Catálogo</a>
+                <a href="tallas.html">Guía de Tallas</a>
+                <a href="form.html">Pedido Personalizado</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="politica-container">
+        <div class="politica-header">
+            <h1>🍪 Política de Cookies</h1>
+            <p class="fecha">Última actualización: 10 de octubre de 2025</p>
+        </div>
+
+        <div class="politica-section">
+            <h2><i class="fas fa-info-circle"></i> ¿Qué son las cookies?</h2>
+            <p>
+                Las cookies son pequeños archivos de texto que los sitios web guardan en tu dispositivo cuando los visitas. 
+                Se utilizan ampliamente para hacer que los sitios web funcionen de manera más eficiente, así como para 
+                proporcionar información a los propietarios del sitio.
+            </p>
+        </div>
+
+        <div class="politica-section">
+            <h2><i class="fas fa-cookie-bite"></i> ¿Cómo utilizamos las cookies?</h2>
+            <p>
+                En Kickverse utilizamos cookies para mejorar tu experiencia de navegación, analizar el tráfico del sitio 
+                y personalizar el contenido. A continuación, te explicamos los diferentes tipos de cookies que utilizamos:
+            </p>
+
+            <h3>1. Cookies Necesarias (Obligatorias)</h3>
+            <p>
+                Estas cookies son esenciales para que puedas navegar por nuestro sitio web y utilizar sus funciones. 
+                Sin estas cookies, los servicios que has solicitado no se pueden proporcionar.
+            </p>
+            <ul>
+                <li><strong>Gestión de sesiones:</strong> Mantienen tu sesión activa mientras navegas</li>
+                <li><strong>Seguridad:</strong> Ayudan a proteger tu información</li>
+                <li><strong>Carrito de compra:</strong> Recuerdan los productos que has añadido</li>
+            </ul>
+
+            <h3>2. Cookies Analíticas</h3>
+            <p>
+                Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web, recopilando y 
+                transmitiendo información de forma anónima.
+            </p>
+            <ul>
+                <li><strong>Google Analytics:</strong> Análisis de tráfico y comportamiento del usuario</li>
+                <li><strong>Métricas de rendimiento:</strong> Velocidad de carga y errores técnicos</li>
+                <li><strong>Mapas de calor:</strong> Patrones de navegación y clicks</li>
+            </ul>
+
+            <h3>3. Cookies de Marketing</h3>
+            <p>
+                Se utilizan para rastrear a los visitantes en los sitios web con el fin de mostrar anuncios 
+                que sean relevantes y atractivos para el usuario individual.
+            </p>
+            <ul>
+                <li><strong>Google Ads:</strong> Publicidad personalizada</li>
+                <li><strong>Remarketing:</strong> Anuncios basados en tu navegación</li>
+                <li><strong>Redes sociales:</strong> Integración con Facebook, Instagram, etc.</li>
+            </ul>
+
+            <h3>4. Cookies de Preferencias</h3>
+            <p>
+                Permiten que el sitio web recuerde información que cambia la forma en que el sitio web se 
+                comporta o se ve, como tu idioma preferido o la región en la que te encuentras.
+            </p>
+            <ul>
+                <li><strong>Idioma:</strong> Recordar tu idioma preferido</li>
+                <li><strong>Región:</strong> Moneda y disponibilidad de productos</li>
+                <li><strong>Tema visual:</strong> Preferencias de visualización</li>
+            </ul>
+        </div>
+
+        <div class="politica-section">
+            <h2><i class="fas fa-table"></i> Cookies que utilizamos</h2>
+            <table class="cookie-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Duración</th>
+                        <th>Propósito</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>kickverse_cookie_consent</td>
+                        <td>Necesaria</td>
+                        <td>1 año</td>
+                        <td>Guarda tus preferencias de cookies</td>
+                    </tr>
+                    <tr>
+                        <td>_ga</td>
+                        <td>Analítica</td>
+                        <td>2 años</td>
+                        <td>Google Analytics - Distingue usuarios</td>
+                    </tr>
+                    <tr>
+                        <td>_gid</td>
+                        <td>Analítica</td>
+                        <td>24 horas</td>
+                        <td>Google Analytics - Distingue usuarios</td>
+                    </tr>
+                    <tr>
+                        <td>_gat</td>
+                        <td>Analítica</td>
+                        <td>1 minuto</td>
+                        <td>Google Analytics - Limita peticiones</td>
+                    </tr>
+                    <tr>
+                        <td>cart_items</td>
+                        <td>Necesaria</td>
+                        <td>30 días</td>
+                        <td>Almacena productos del carrito</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="politica-section">
+            <h2><i class="fas fa-cog"></i> ¿Cómo puedes gestionar las cookies?</h2>
+            <p>
+                Tienes el control total sobre las cookies que aceptas. Puedes configurar tus preferencias en cualquier momento:
+            </p>
+            
+            <div class="highlight-box">
+                <p><strong>Configura tus preferencias ahora:</strong></p>
+                <button onclick="window.cookieConsent.openSettings()" class="btn-configurar">
+                    <i class="fas fa-cog"></i> Configurar Cookies
+                </button>
+            </div>
+
+            <h3>Gestión desde tu navegador</h3>
+            <p>También puedes gestionar las cookies directamente desde la configuración de tu navegador:</p>
+            <ul>
+                <li><strong>Chrome:</strong> Configuración → Privacidad y seguridad → Cookies</li>
+                <li><strong>Firefox:</strong> Opciones → Privacidad y seguridad → Cookies</li>
+                <li><strong>Safari:</strong> Preferencias → Privacidad → Cookies</li>
+                <li><strong>Edge:</strong> Configuración → Privacidad → Cookies</li>
+            </ul>
+            
+            <div class="highlight-box">
+                <p><i class="fas fa-exclamation-triangle"></i> <strong>Nota importante:</strong> 
+                Si desactivas las cookies necesarias, algunas funciones del sitio web pueden no funcionar correctamente.</p>
+            </div>
+        </div>
+
+        <div class="politica-section">
+            <h2><i class="fas fa-shield-alt"></i> Normativa GDPR</h2>
+            <p>
+                Cumplimos con el Reglamento General de Protección de Datos (GDPR) de la Unión Europea. 
+                Esto significa que:
+            </p>
+            <ul>
+                <li>Solo usamos cookies estrictamente necesarias sin tu consentimiento previo</li>
+                <li>Te pedimos permiso explícito para cookies analíticas y de marketing</li>
+                <li>Te permitimos retirar tu consentimiento en cualquier momento</li>
+                <li>Te informamos claramente sobre qué cookies utilizamos y por qué</li>
+                <li>No compartimos tus datos con terceros sin tu autorización</li>
+            </ul>
+        </div>
+
+        <div class="politica-section">
+            <h2><i class="fas fa-question-circle"></i> Preguntas frecuentes</h2>
+            
+            <h3>¿Las cookies contienen información personal?</h3>
+            <p>
+                Las cookies en sí mismas no contienen información personal identificable. Sin embargo, 
+                la información que recopilamos puede estar vinculada a información personal que nos proporcionas.
+            </p>
+
+            <h3>¿Puedo rechazar todas las cookies?</h3>
+            <p>
+                Sí, puedes rechazar todas las cookies excepto las estrictamente necesarias para el 
+                funcionamiento del sitio web.
+            </p>
+
+            <h3>¿Con qué frecuencia debo revisar mis preferencias?</h3>
+            <p>
+                Te recomendamos revisar tus preferencias de cookies periódicamente, especialmente 
+                cuando actualicemos nuestra política de cookies.
+            </p>
+        </div>
+
+        <div class="politica-section">
+            <h2><i class="fas fa-envelope"></i> Contacto</h2>
+            <p>
+                Si tienes alguna pregunta sobre nuestra política de cookies, puedes contactarnos en:
+            </p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:contacto@kickverse.com">contacto@kickverse.com</a></li>
+                <li><strong>WhatsApp:</strong> +34 XXX XXX XXX</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Kickverse</h4>
+                    <p class="footer-section-description">
+                        Tu tienda online de confianza para camisetas de fútbol. 
+                        Las mejores equipaciones al mejor precio.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Enlaces Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="tallas.html">Guía de Tallas</a></li>
+                        <li><a href="form.html">Pedido Personalizado</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="terminos.html">Términos y Condiciones</a></li>
+                        <li><a href="politica-cookies.html">Política de Cookies</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); window.cookieConsent.openSettings();">Configurar Cookies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-section-title">Contacto</h4>
+                    <div class="footer-contact">
+                        <div class="footer-contact-info">
+                            <div class="footer-contact-label">Email</div>
+                            <a href="mailto:contacto@kickverse.com" class="footer-contact-value">contacto@kickverse.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-text">
+                <h3>Usamos Cookies</h3>
+                <p>
+                    Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar el contenido. 
+                    Puedes aceptar todas, rechazarlas o configurar tus preferencias. 
+                    <a href="#" onclick="event.preventDefault(); window.cookieConsent.openSettings();">Más información</a>
+                </p>
+            </div>
+            <div class="cookie-consent-actions">
+                <button id="acceptCookies" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-check"></i> Aceptar Todo
+                </button>
+                <button id="rejectCookies" class="cookie-btn cookie-btn-reject">
+                    <i class="fas fa-times"></i> Rechazar
+                </button>
+                <button id="cookieSettings" class="cookie-btn cookie-btn-settings">
+                    <i class="fas fa-cog"></i> Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettingsModal" class="cookie-settings-modal">
+        <div class="cookie-settings-content">
+            <div class="cookie-settings-header">
+                <h2>Configuración de Cookies</h2>
+                <button id="closeSettings" class="cookie-settings-close" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cookie-settings-body">
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🔒 Cookies Necesarias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-necessary" checked disabled>
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Estas cookies son esenciales para el funcionamiento del sitio web. 
+                        Permiten funciones básicas como la navegación y el acceso a áreas seguras. 
+                        No se pueden desactivar.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>📊 Cookies Analíticas</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-analytics">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Nos ayudan a entender cómo los visitantes interactúan con el sitio web, 
+                        recopilando información de forma anónima. Utilizamos Google Analytics para mejorar la experiencia.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🎯 Cookies de Marketing</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-marketing">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Se utilizan para rastrear a los visitantes en diferentes sitios web con el fin de 
+                        mostrar anuncios relevantes y personalizados según sus intereses.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>⚙️ Cookies de Preferencias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-preferences">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Permiten al sitio web recordar tus elecciones (como tu idioma preferido o región) 
+                        para proporcionar una experiencia más personalizada.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-settings-footer">
+                <button id="savePreferences" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-save"></i> Guardar Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cookies.js"></script>
+</body>
+</html>

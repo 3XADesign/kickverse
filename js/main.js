@@ -321,6 +321,12 @@ function loadStepContent(step) {
     stepContainer.innerHTML = content;
     updateProgressBar();
     
+    // Si es paso 7 y versión PLAYER, llamar directamente a mostrarResumen
+    if (step === 7 && formData.version === 'player') {
+        formData.personalizar = true;
+        mostrarResumen();
+    }
+    
     // Scroll to top suavemente
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -368,23 +374,25 @@ function getStep1Content() {
 }
 
 function selectLiga(liga) {
-    formData.liga = liga;
+    // Guardar tanto el nombre de display como la versión normalizada
+    formData.ligaDisplay = liga; // Ej: "Premier League"
+    formData.liga = normalizarNombreLiga(liga); // Ej: "premier"
     nextStep();
 }
 
 function getStep2Content() {
-    const equipos = getEquiposPorLiga(formData.liga);
+    const equipos = getEquiposPorLiga(formData.ligaDisplay || formData.liga);
     
     let html = `
         <div class="form-step">
             <h2>Paso 2: Elige tu Equipo</h2>
-            <p class="text-secondary mb-md">Liga: ${formData.liga}</p>
+            <p class="text-secondary mb-md">Liga: ${formData.ligaDisplay || formData.liga}</p>
             
             <div class="grid grid-3">
     `;
     
     equipos.forEach(equipo => {
-        const logoPath = getEquipoLogo(formData.liga, equipo.nombre);
+        const logoPath = getEquipoLogo(formData.ligaDisplay || formData.liga, equipo.nombre);
         html += `
             <div class="option-card" onclick="selectEquipo('${equipo.nombre}')">
                 <img src="${logoPath}" 
@@ -588,10 +596,8 @@ function selectParches(conParches) {
 }
 
 function getStep7Content() {
-    // Si es versión PLAYER, saltar este paso (personalización incluida)
+    // Si es versión PLAYER, devolver vacío (loadStepContent llamará a mostrarResumen)
     if (formData.version === 'player') {
-        formData.personalizar = true;
-        mostrarResumen();
         return '';
     }
     
@@ -684,7 +690,11 @@ function guardarPersonalizacion() {
 }
 
 function mostrarResumen() {
+    console.log('🎯 mostrarResumen() iniciado');
+    
     const stepContainer = document.getElementById('step-content');
+    console.log('📦 stepContainer encontrado:', !!stepContainer);
+    console.log('📊 formData completo:', JSON.stringify(formData, null, 2));
     
     // Calcular precio según versión
     let precioBase = 0;
@@ -704,51 +714,98 @@ function mostrarResumen() {
         precioTotal = precioBase + precioParches + precioPersonalizacion;
     }
     
+    console.log('Precios calculados:', { precioBase, precioParches, precioPersonalizacion, precioTotal });
+    
+    // Obtener la imagen de la camiseta
+    // formData.liga ya está normalizada desde selectLiga()
+    const equipoSlug = obtenerSlugEquipo(formData.liga, formData.equipo);
+    const tipoEquipacion = formData.equipacion.toLowerCase().includes('primera') || formData.equipacion.toLowerCase().includes('local') ? 'local' : 'visitante';
+    const imagenPath = `./img/camisetas/${formData.liga}_${equipoSlug}_${tipoEquipacion}.png`;
+    
+    // Debug: mostrar en consola
+    console.log('Datos para imagen:', {
+        ligaDisplay: formData.ligaDisplay,
+        ligaNormalizada: formData.liga,
+        equipo: formData.equipo,
+        equipoSlug,
+        tipoEquipacion,
+        imagenPath
+    });
+    
     let html = `
         <div class="form-step">
             <h2>Resumen de tu Pedido</h2>
             <p class="text-secondary mb-xl">Revisa los detalles antes de continuar</p>
             
+            <div class="resumen-preview mb-lg">
+                <div class="resumen-image-container">
+                    <img src="${imagenPath}" 
+                         alt="${formData.equipo} - ${formData.equipacion}" 
+                         class="resumen-camiseta-image"
+                         onerror="this.src='./img/hero-jersey.png'">`;
+    
+    if (formData.personalizar) {
+        html += `
+                    <div class="resumen-personalizacion">
+                        <span class="resumen-nombre">${formData.nombre || ''}</span>
+                        <span class="resumen-dorsal">${formData.dorsal || ''}</span>
+                    </div>`;
+    }
+    
+    html += `
+                </div>
+            </div>
+            
             <div class="card mb-lg">
                 <div class="summary-item">
                     <span class="summary-label">Liga:</span>
-                    <span class="summary-value">${formData.liga}</span>
+                    <span class="summary-value">${formData.ligaDisplay || formData.liga || 'N/A'}</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Equipo:</span>
-                    <span class="summary-value">${formData.equipo}</span>
+                    <span class="summary-value">${formData.equipo || 'N/A'}</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Equipación:</span>
-                    <span class="summary-value">${formData.equipacion}</span>
+                    <span class="summary-value">${formData.equipacion || 'N/A'}</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Versión:</span>
-                    <span class="summary-value summary-version">
-                        ${formData.version === 'player' ? 
-                            '<strong>PLAYER</strong> (Calidad Premium)' : 
-                            '<strong>FAN</strong>'}
+                    <span class="summary-value summary-version">`;
+    
+    if (formData.version === 'player') {
+        html += '<strong>PLAYER</strong> (Calidad Premium)';
+    } else {
+        html += '<strong>FAN</strong>';
+    }
+    
+    html += `
                     </span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Talla:</span>
-                    <span class="summary-value">${formData.talla}</span>
+                    <span class="summary-value">${formData.talla || 'N/A'}</span>
                 </div>
                 <div class="summary-item">
                     <span class="summary-label">Parches:</span>
-                    <span class="summary-value">${formData.parches ? 
-                        (formData.version === 'player' ? 'Sí (Incluido)' : 'Sí (+1,99€)') : 
-                        'No'}</span>
+                    <span class="summary-value">`;
+    
+    if (formData.parches) {
+        html += formData.version === 'player' ? 'Sí (Incluido)' : 'Sí (+1,99€)';
+    } else {
+        html += 'No';
+    }
+    
+    html += `</span>
                 </div>
     `;
     
     if (formData.personalizar) {
+        const precioPersonalizacionTexto = formData.version === 'player' ? '(Incluido)' : '(+2,99€)';
         html += `
                 <div class="summary-item">
                     <span class="summary-label">Personalización:</span>
-                    <span class="summary-value">${formData.nombre} #${formData.dorsal} ${
-                        formData.version === 'player' ? '(Incluido)' : '(+2,99€)'
-                    }</span>
+                    <span class="summary-value">${formData.nombre || ''} ${formData.dorsal || ''} ${precioPersonalizacionTexto}</span>
                 </div>
         `;
     }
@@ -785,9 +842,30 @@ function mostrarResumen() {
         </div>
     `;
     
-    stepContainer.innerHTML = html;
-    currentStep = 8;
-    updateProgressBar();
+    console.log('stepContainer:', stepContainer);
+    console.log('HTML length:', html.length);
+    console.log('HTML preview:', html.substring(0, 200));
+    
+    if (!stepContainer) {
+        console.error('❌ stepContainer no encontrado!');
+        alert('Error: No se encontró el contenedor del formulario');
+        return;
+    }
+    
+    try {
+        stepContainer.innerHTML = html;
+        console.log('✅ HTML insertado correctamente');
+        console.log('📏 Contenido innerHTML length:', stepContainer.innerHTML.length);
+        
+        currentStep = 8;
+        updateProgressBar();
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+        console.error('❌ Error al insertar HTML:', error);
+        alert('Error al mostrar el resumen: ' + error.message);
+    }
 }
 
 function finalizarPedidoWhatsApp() {
@@ -838,6 +916,68 @@ function finalizarPedidoWhatsApp() {
     mostrarCrossSellYResumen();
 }
 
+function normalizarNombreLiga(ligaNombre) {
+    // Convertir el nombre de la liga del formulario al formato interno
+    const mapeoLigas = {
+        'La Liga': 'laliga',
+        'Premier League': 'premier',
+        'Serie A': 'seriea',
+        'Bundesliga': 'bundesliga',
+        'Ligue 1': 'ligue1',
+        'Selecciones': 'selecciones'
+    };
+    return mapeoLigas[ligaNombre] || ligaNombre.toLowerCase().replace(/\s+/g, '');
+}
+
+function obtenerSlugEquipo(liga, equipo) {
+    // Primero buscar coincidencia exacta
+    let camiseta = camisetasDisponibles.find(c => 
+        c.liga === liga && c.equipo === equipo
+    );
+    
+    // Si no encuentra, buscar coincidencia parcial (para casos como "FC Barcelona" vs "Barcelona")
+    if (!camiseta) {
+        const equipoLimpio = equipo.replace(/^(FC|CF|RCD|CA|SSC|AS|AC)\s+/i, '').trim();
+        camiseta = camisetasDisponibles.find(c => 
+            c.liga === liga && 
+            (c.equipo.includes(equipoLimpio) || equipoLimpio.includes(c.equipo))
+        );
+    }
+    
+    // Si aún no encuentra, intentar con los equipos del formulario
+    if (!camiseta) {
+        // Buscar en getEquiposPorLiga usando el nombre del equipo directamente
+        // getEquiposPorLiga ya devuelve los slugs correctos
+        const mapeoLigasInverso = {
+            'laliga': 'La Liga',
+            'premier': 'Premier League',
+            'seriea': 'Serie A',
+            'bundesliga': 'Bundesliga',
+            'ligue1': 'Ligue 1',
+            'selecciones': 'Selecciones'
+        };
+        const ligaDisplay = mapeoLigasInverso[liga] || liga;
+        const equiposLiga = getEquiposPorLiga(ligaDisplay);
+        const equipoForm = equiposLiga.find(e => e.nombre === equipo || e.display === equipo);
+        
+        if (equipoForm) {
+            // Buscar por el slug del formulario
+            camiseta = camisetasDisponibles.find(c => 
+                c.liga === liga && c.slug === equipoForm.slug
+            );
+        }
+    }
+    
+    console.log('🔍 Búsqueda de slug:', {
+        ligaBuscada: liga,
+        equipoBuscado: equipo,
+        camisetaEncontrada: camiseta,
+        slugResultado: camiseta ? camiseta.slug : 'NO ENCONTRADO'
+    });
+    
+    return camiseta ? camiseta.slug : equipo.toLowerCase().replace(/\s+/g, '');
+}
+
 function nextStep() {
     if (currentStep < 8) {
         loadStepContent(currentStep + 1);
@@ -883,71 +1023,136 @@ function updateProgressBar() {
 function getEquiposPorLiga(liga) {
     const equipos = {
         'La Liga': [
-            { nombre: 'Real Madrid', display: 'Real Madrid', slug: 'realmadrid' },
-            { nombre: 'FC Barcelona', display: 'FC Barcelona', slug: 'barcelona' },
-            { nombre: 'Atlético de Madrid', display: 'Atlético de Madrid', slug: 'atlmadrid' },
-            { nombre: 'Sevilla FC', display: 'Sevilla FC', slug: 'sevilla' },
-            { nombre: 'Valencia CF', display: 'Valencia CF', slug: 'valencia' },
+            { nombre: 'Real Madrid', display: 'Real Madrid', slug: 'madrid' },
+            { nombre: 'Barcelona', display: 'FC Barcelona', slug: 'barcelona' },
+            { nombre: 'Atlético Madrid', display: 'Atlético Madrid', slug: 'atletico' },
+            { nombre: 'Sevilla', display: 'Sevilla FC', slug: 'sevilla' },
+            { nombre: 'Valencia', display: 'Valencia CF', slug: 'valencia' },
             { nombre: 'Real Betis', display: 'Real Betis', slug: 'betis' },
-            { nombre: 'Athletic Bilbao', display: 'Athletic Bilbao', slug: 'athletic' },
+            { nombre: 'Athletic Bilbao', display: 'Athletic Bilbao', slug: 'bilbao' },
             { nombre: 'Real Sociedad', display: 'Real Sociedad', slug: 'realsociedad' },
-            { nombre: 'Villarreal CF', display: 'Villarreal CF', slug: 'villarreal' },
+            { nombre: 'Villarreal', display: 'Villarreal CF', slug: 'villareal' },
             { nombre: 'Celta de Vigo', display: 'Celta de Vigo', slug: 'celta' },
-            { nombre: 'RCD Espanyol', display: 'RCD Espanyol', slug: 'espanyol' },
-            { nombre: 'Getafe CF', display: 'Getafe CF', slug: 'getafe' },
-            { nombre: 'CA Osasuna', display: 'CA Osasuna', slug: 'osasuna' },
-            { nombre: 'Rayo Vallecano', display: 'Rayo Vallecano', slug: 'rayovallecano' },
-            { nombre: 'Deportivo Alavés', display: 'Deportivo Alavés', slug: 'alaves' },
-            { nombre: 'RCD Mallorca', display: 'RCD Mallorca', slug: 'mallorca' },
-            { nombre: 'Girona FC', display: 'Girona FC', slug: 'girona' }
+            { nombre: 'Espanyol', display: 'RCD Espanyol', slug: 'espanyol' },
+            { nombre: 'Getafe', display: 'Getafe CF', slug: 'getafe' },
+            { nombre: 'Osasuna', display: 'CA Osasuna', slug: 'osasuna' },
+            { nombre: 'Rayo Vallecano', display: 'Rayo Vallecano', slug: 'rayo' },
+            { nombre: 'Alavés', display: 'Deportivo Alavés', slug: 'alaves' },
+            { nombre: 'Mallorca', display: 'RCD Mallorca', slug: 'mallorca' },
+            { nombre: 'Girona', display: 'Girona FC', slug: 'girona' },
+            { nombre: 'Real Oviedo', display: 'Real Oviedo', slug: 'oviedo' },
+            { nombre: 'Elche', display: 'Elche CF', slug: 'elche' },
+            { nombre: 'Levante', display: 'Levante UD', slug: 'levante' }
         ],
         'Premier League': [
             { nombre: 'Manchester United', display: 'Manchester United', slug: 'manchesterunited' },
             { nombre: 'Manchester City', display: 'Manchester City', slug: 'manchestercity' },
-            { nombre: 'Liverpool FC', display: 'Liverpool FC', slug: 'liverpool' },
-            { nombre: 'Chelsea FC', display: 'Chelsea FC', slug: 'chelsea' },
-            { nombre: 'Arsenal FC', display: 'Arsenal FC', slug: 'arsenal' },
+            { nombre: 'Liverpool', display: 'Liverpool FC', slug: 'liverpool' },
+            { nombre: 'Chelsea', display: 'Chelsea FC', slug: 'chelsea' },
+            { nombre: 'Arsenal', display: 'Arsenal FC', slug: 'arsenal' },
             { nombre: 'Tottenham', display: 'Tottenham', slug: 'tottenham' },
-            { nombre: 'Newcastle United', display: 'Newcastle United', slug: 'newcastle' },
+            { nombre: 'Newcastle', display: 'Newcastle United', slug: 'newscastle' },
             { nombre: 'West Ham', display: 'West Ham', slug: 'westham' },
-            { nombre: 'Aston Villa', display: 'Aston Villa', slug: 'astonvilla' }
+            { nombre: 'Aston Villa', display: 'Aston Villa', slug: 'astonvilla' },
+            { nombre: 'Everton', display: 'Everton FC', slug: 'everton' },
+            { nombre: 'Crystal Palace', display: 'Crystal Palace', slug: 'crystalpalace' }
         ],
         'Serie A': [
             { nombre: 'Juventus', display: 'Juventus', slug: 'juventus' },
-            { nombre: 'AC Milan', display: 'AC Milan', slug: 'milan' },
-            { nombre: 'Inter de Milán', display: 'Inter de Milán', slug: 'inter' },
-            { nombre: 'AS Roma', display: 'AS Roma', slug: 'roma' },
-            { nombre: 'SSC Napoli', display: 'SSC Napoli', slug: 'napoli' },
-            { nombre: 'Lazio', display: 'Lazio', slug: 'lazio' }
+            { nombre: 'Milan', display: 'AC Milan', slug: 'milan' },
+            { nombre: 'Inter', display: 'Inter de Milán', slug: 'inter' },
+            { nombre: 'Roma', display: 'AS Roma', slug: 'roma' },
+            { nombre: 'Napoli', display: 'SSC Napoli', slug: 'napoli' },
+            { nombre: 'Lazio', display: 'Lazio', slug: 'lazio' },
+            { nombre: 'Atalanta', display: 'Atalanta', slug: 'atalanta' },
+            { nombre: 'Fiorentina', display: 'Fiorentina', slug: 'fiorentina' },
+            { nombre: 'Bologna', display: 'Bologna FC', slug: 'bologna' },
+            { nombre: 'Torino', display: 'Torino FC', slug: 'torino' }
         ],
         'Bundesliga': [
-            { nombre: 'Bayern Múnich', display: 'Bayern Múnich', slug: 'bayern' },
+            { nombre: 'Bayern München', display: 'Bayern Múnich', slug: 'bayern' },
             { nombre: 'Borussia Dortmund', display: 'Borussia Dortmund', slug: 'dortmund' },
-            { nombre: 'RB Leipzig', display: 'RB Leipzig', slug: 'leipzig' },
+            { nombre: 'RB Leipzig', display: 'RB Leipzig', slug: 'Leipzig' },
             { nombre: 'Bayer Leverkusen', display: 'Bayer Leverkusen', slug: 'leverkusen' },
-            { nombre: 'Eintracht Frankfurt', display: 'Eintracht Frankfurt', slug: 'frankfurt' }
+            { nombre: 'Eintracht Frankfurt', display: 'Eintracht Frankfurt', slug: 'Eintracht' },
+            { nombre: 'Werder Bremen', display: 'Werder Bremen', slug: 'bremen' },
+            { nombre: 'VfL Wolfsburg', display: 'VfL Wolfsburg', slug: 'wolfburg' },
+            { nombre: 'SC Freiburg', display: 'SC Freiburg', slug: 'Freiburg' },
+            { nombre: 'VfB Stuttgart', display: 'VfB Stuttgart', slug: 'Stuttgart' },
+            { nombre: 'Borussia Mönchengladbach', display: 'Borussia Mönchengladbach', slug: 'Mönchengladbach' },
+            { nombre: 'Union Berlin', display: 'Union Berlin', slug: 'UnionBerlin' },
+            { nombre: 'FC Köln', display: 'FC Köln', slug: 'Köln' },
+            { nombre: 'Hoffenheim', display: 'Hoffenheim', slug: 'Hoffenheim' },
+            { nombre: 'Mainz 05', display: 'Mainz 05', slug: 'Mainz05' },
+            { nombre: 'Augsburg', display: 'Augsburg', slug: 'Augsburg' },
+            { nombre: 'Heidenheim', display: 'Heidenheim', slug: 'Heidenheim' },
+            { nombre: 'St. Pauli', display: 'St. Pauli', slug: 'St.Pauli' },
+            { nombre: 'Hamburger SV', display: 'Hamburger SV', slug: 'Hamburger' }
         ],
         'Ligue 1': [
             { nombre: 'Paris Saint-Germain', display: 'Paris Saint-Germain', slug: 'psg' },
-            { nombre: 'Olympique de Marsella', display: 'Olympique de Marsella', slug: 'olimpiquemarsella' },
+            { nombre: 'Olympique Marseille', display: 'Olympique de Marsella', slug: 'marsella' },
             { nombre: 'AS Monaco', display: 'AS Monaco', slug: 'monaco' },
-            { nombre: 'Olympique de Lyon', display: 'Olympique de Lyon', slug: 'olympiquelyon' },
-            { nombre: 'Lille OSC', display: 'Lille OSC', slug: 'lille' }
+            { nombre: 'Olympique Lyon', display: 'Olympique de Lyon', slug: 'lyon' }
         ],
         'Selecciones': [
-            { nombre: 'España', display: 'España', slug: 'espana' },
-            { nombre: 'Brasil', display: 'Brasil', slug: 'brasil' },
             { nombre: 'Argentina', display: 'Argentina', slug: 'argentina' },
-            { nombre: 'Francia', display: 'Francia', slug: 'francia' },
-            { nombre: 'Alemania', display: 'Alemania', slug: 'alemania' },
-            { nombre: 'Italia', display: 'Italia', slug: 'italia' },
-            { nombre: 'Portugal', display: 'Portugal', slug: 'portugal' },
-            { nombre: 'Inglaterra', display: 'Inglaterra', slug: 'inglaterra' },
-            { nombre: 'Países Bajos', display: 'Países Bajos', slug: 'paisesbajos' }
+            { nombre: 'Colombia', display: 'Colombia', slug: 'colombia' },
+            { nombre: 'Japón', display: 'Japón', slug: 'japon' },
+            { nombre: 'Uruguay', display: 'Uruguay', slug: 'uruguay' }
         ]
     };
     
     return equipos[liga] || [];
+}
+
+// Función para mapear slugs de camisetas a slugs de clubs
+function mapSlugCamisetaToClub(liga, slugCamiseta) {
+    const mapping = {
+        'laliga': {
+            'madrid': 'realmadrid',
+            'atletico': 'atlmadrid',
+            'bilbao': 'athletic',
+            'villareal': 'villarreal',
+            'rayo': 'rayovallecano',
+            'oviedo': 'realoviedo'
+        },
+        'premier': {
+            'newscastle': 'newcastle'
+        },
+        'bundesliga': {
+            'bayern': 'bayernmunchen',
+            'dortmund': 'borussiadortmund',
+            'Leipzig': 'rbleipzig',
+            'leverkusen': 'bayerleverkusen',
+            'Eintracht': 'eintrachtfrankfurt',
+            'bremen': 'werderbremen',
+            'wolfburg': 'wolfsburg',
+            'Freiburg': 'freiburg',
+            'Stuttgart': 'stuttgart',
+            'Mönchengladbach': 'bmonchengladbach',
+            'UnionBerlin': 'unionberlin',
+            'Köln': 'koln',
+            'Hoffenheim': 'hoffenheim',
+            'Mainz05': 'mainz05',
+            'Augsburg': 'augsburgo',
+            'Heidenheim': 'heidenheim',
+            'St.Pauli': 'st_pauli',
+            'Hamburger': 'hamburgo'
+        },
+        'ligue1': {
+            'lyon': 'olympiquelyon',
+            'marsella': 'olimpiquemarsella'
+        }
+    };
+    
+    // Si existe un mapeo para esta liga y slug, úsalo
+    if (mapping[liga] && mapping[liga][slugCamiseta]) {
+        return mapping[liga][slugCamiseta];
+    }
+    
+    // Si no, devuelve el slug original
+    return slugCamiseta;
 }
 
 // Función auxiliar para obtener el logo del equipo
@@ -979,7 +1184,10 @@ function getEquipoLogo(liga, equipoNombre) {
             break;
     }
     
-    return `./img/clubs/${prefix}_${equipo.slug}.png`;
+    // Mapear el slug de camiseta al slug de club
+    const slugClub = mapSlugCamisetaToClub(prefix, equipo.slug);
+    
+    return `./img/clubs/${prefix}_${slugClub}.png`;
 }
 
 // ============================================
@@ -1140,7 +1348,10 @@ function getLogoPath(liga, slug) {
             break;
     }
     
-    return `./img/clubs/${prefix}_${slug}.png`;
+    // Mapear el slug de camiseta al slug de club
+    const slugClub = mapSlugCamisetaToClub(prefix, slug);
+    
+    return `./img/clubs/${prefix}_${slugClub}.png`;
 }
 
 function aplicarFiltros() {

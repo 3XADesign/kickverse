@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="./css/coupon.css">
     <link rel="stylesheet" href="./css/direccion.css">
     <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/cookies.css">
     <link rel="stylesheet" href="./css/utils.css">
 </head>
 <body>
@@ -202,9 +203,9 @@
                         <div class="camiseta-badge badge-discount">-60%</div>
                         <div class="camiseta-image-wrapper">
                             <div class="camiseta-league">
-                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
+                                <img src="./img/leagues/laliga.svg" alt="La Liga" onerror="this.style.display='none'">
                             </div>
-                            <img src="./img/camisetas/laliga_real-madrid_local.png" 
+                            <img src="./img/camisetas/laliga_madrid_local.png" 
                                  alt="Camiseta Real Madrid Local" 
                                  class="camiseta-image"
                                  onerror="this.src='./img/hero-jersey.png'">
@@ -252,7 +253,7 @@
                         <div class="camiseta-badge badge-discount">-60%</div>
                         <div class="camiseta-image-wrapper">
                             <div class="camiseta-league">
-                                <img src="./img/leagues/laliga.png" alt="La Liga" onerror="this.style.display='none'">
+                                <img src="./img/leagues/laliga.svg" alt="La Liga" onerror="this.style.display='none'">
                             </div>
                             <img src="./img/camisetas/laliga_barcelona_local.png" 
                                  alt="Camiseta Barcelona Local" 
@@ -297,24 +298,24 @@
                         </div>
                     </div>
                     
-                    <!-- Camiseta 3 - España -->
+                    <!-- Camiseta 3 - Argentina -->
                     <div class="camiseta-card">
                         <div class="camiseta-badge">SELECCIÓN</div>
                         <div class="camiseta-image-wrapper">
-                            <img src="./img/camisetas/selecciones_espana.png" 
-                                 alt="Camiseta España" 
+                            <img src="./img/camisetas/selecciones_argentina_local.png" 
+                                 alt="Camiseta Argentina" 
                                  class="camiseta-image"
                                  onerror="this.src='./img/hero-jersey.png'">
                         </div>
                         <div class="camiseta-content">
                             <div class="camiseta-team">
                                 <i class="fas fa-flag"></i>
-                                Selección Española
+                                Selección Argentina
                             </div>
-                            <h3 class="camiseta-name">España 2024</h3>
+                            <h3 class="camiseta-name">Argentina 2024</h3>
                             <div class="camiseta-type">
                                 <i class="fas fa-star"></i>
-                                Campeones de Europa
+                                Campeones del Mundo
                             </div>
                             <div class="camiseta-features">
                                 <span class="camiseta-feature">
@@ -323,7 +324,7 @@
                                 </span>
                                 <span class="camiseta-feature">
                                     <i class="fas fa-check-circle"></i>
-                                    Parches Euro 2024
+                                    Parches Mundial 2022
                                 </span>
                             </div>
                             <div class="camiseta-price-wrapper">
@@ -336,7 +337,7 @@
                             </div>
                             <div class="camiseta-actions">
                                 <button class="camiseta-btn camiseta-btn-whatsapp" 
-                                        onclick="comprarWhatsApp('España', 'Local', '24.99€')">
+                                        onclick="comprarWhatsApp('Argentina', 'Local', '24.99€')">
                                     <i class="fab fa-whatsapp"></i>
                                     Comprar
                                 </button>
@@ -449,6 +450,7 @@
                         <a href="form.html" class="footer-link">Pedido Personalizado</a>
                         <a href="catalogo.html" class="footer-link">Catálogo</a>
                         <a href="tallas.html" class="footer-link">Guía de Tallas</a>
+                        <a href="politica-cookies.html" class="footer-link">Política de Cookies</a>
                         <a href="#beneficios" class="footer-link">¿Por qué nosotros?</a>
                     </nav>
                 </div>
@@ -488,7 +490,7 @@
             <!-- Footer Bottom -->
             <div class="footer-bottom">
                 <div class="footer-copyright">
-                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados. Desarrollado por <a href="#">3XA Design</a></p>
+                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados.</p>
                 </div>
                 <div class="footer-payment">
                     <span class="footer-payment-text">Métodos de pago:</span>
@@ -923,8 +925,109 @@
             </div>
         </div>
     </div>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-text">
+                <h3>Usamos Cookies</h3>
+                <p>
+                    Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar el contenido. 
+                    Puedes aceptar todas, rechazarlas o configurar tus preferencias. 
+                    <a href="#" onclick="event.preventDefault(); window.cookieConsent.openSettings();">Más información</a>
+                </p>
+            </div>
+            <div class="cookie-consent-actions">
+                <button id="acceptCookies" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-check"></i> Aceptar Todo
+                </button>
+                <button id="rejectCookies" class="cookie-btn cookie-btn-reject">
+                    <i class="fas fa-times"></i> Rechazar
+                </button>
+                <button id="cookieSettings" class="cookie-btn cookie-btn-settings">
+                    <i class="fas fa-cog"></i> Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettingsModal" class="cookie-settings-modal">
+        <div class="cookie-settings-content">
+            <div class="cookie-settings-header">
+                <h2>Configuración de Cookies</h2>
+                <button id="closeSettings" class="cookie-settings-close" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cookie-settings-body">
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🔒 Cookies Necesarias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-necessary" checked disabled>
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Estas cookies son esenciales para el funcionamiento del sitio web. 
+                        Permiten funciones básicas como la navegación y el acceso a áreas seguras. 
+                        No se pueden desactivar.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>📊 Cookies Analíticas</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-analytics">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Nos ayudan a entender cómo los visitantes interactúan con el sitio web, 
+                        recopilando información de forma anónima. Utilizamos Google Analytics para mejorar la experiencia.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🎯 Cookies de Marketing</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-marketing">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Se utilizan para rastrear a los visitantes en diferentes sitios web con el fin de 
+                        mostrar anuncios relevantes y personalizados según sus intereses.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>⚙️ Cookies de Preferencias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-preferences">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Permiten al sitio web recordar tus elecciones (como tu idioma preferido o región) 
+                        para proporcionar una experiencia más personalizada.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-settings-footer">
+                <button id="savePreferences" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-save"></i> Guardar Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- JavaScript -->
+    <script src="./js/cookies.js"></script>
     <script src="./js/main.js"></script>
     
 </body>

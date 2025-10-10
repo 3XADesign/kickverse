@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/cookies.css">
     <link rel="stylesheet" href="css/utils.css">
     
     <style>
@@ -909,7 +910,7 @@
             <!-- Footer Bottom -->
             <div class="footer-bottom">
                 <div class="footer-copyright">
-                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados. Desarrollado por <a href="#">3XA Design</a></p>
+                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados.</p>
                 </div>
                 <div class="footer-payment">
                     <span class="footer-payment-text">Métodos de pago:</span>
@@ -980,5 +981,107 @@
             });
         });
     </script>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-text">
+                <h3>Usamos Cookies</h3>
+                <p>
+                    Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar el contenido. 
+                    Puedes aceptar todas, rechazarlas o configurar tus preferencias. 
+                    <a href="#" onclick="event.preventDefault(); window.cookieConsent.openSettings();">Más información</a>
+                </p>
+            </div>
+            <div class="cookie-consent-actions">
+                <button id="acceptCookies" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-check"></i> Aceptar Todo
+                </button>
+                <button id="rejectCookies" class="cookie-btn cookie-btn-reject">
+                    <i class="fas fa-times"></i> Rechazar
+                </button>
+                <button id="cookieSettings" class="cookie-btn cookie-btn-settings">
+                    <i class="fas fa-cog"></i> Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettingsModal" class="cookie-settings-modal">
+        <div class="cookie-settings-content">
+            <div class="cookie-settings-header">
+                <h2>Configuración de Cookies</h2>
+                <button id="closeSettings" class="cookie-settings-close" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cookie-settings-body">
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🔒 Cookies Necesarias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-necessary" checked disabled>
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Estas cookies son esenciales para el funcionamiento del sitio web. 
+                        Permiten funciones básicas como la navegación y el acceso a áreas seguras. 
+                        No se pueden desactivar.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>📊 Cookies Analíticas</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-analytics">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Nos ayudan a entender cómo los visitantes interactúan con el sitio web, 
+                        recopilando información de forma anónima. Utilizamos Google Analytics para mejorar la experiencia.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🎯 Cookies de Marketing</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-marketing">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Se utilizan para rastrear a los visitantes en diferentes sitios web con el fin de 
+                        mostrar anuncios relevantes y personalizados según sus intereses.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>⚙️ Cookies de Preferencias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-preferences">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Permiten al sitio web recordar tus elecciones (como tu idioma preferido o región) 
+                        para proporcionar una experiencia más personalizada.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-settings-footer">
+                <button id="savePreferences" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-save"></i> Guardar Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/cookies.js"></script>
 </body>
 </html>

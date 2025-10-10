@@ -36,7 +36,7 @@
 }
 
 .version-badge-premium {
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    background: var(--accent-purple);
     animation: badgePulse 2s ease-in-out infinite;
 }
 
@@ -480,7 +480,7 @@
 }
 
 .version-badge-premium-modal {
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+    background: var(--accent-purple);
 }
 
 .version-card-modal .fas {
