@@ -333,12 +333,14 @@
     color: var(--text-secondary);
 }
 
+.cart-summary-row span:last-child {
+    color: white;
+}
+
 .cart-total-price {
     font-size: 1.5rem;
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white !important;
+    font-weight: 700;
 }
 
 /* Notificación del carrito */

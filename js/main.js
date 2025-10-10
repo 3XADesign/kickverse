@@ -1336,9 +1336,11 @@ function addToCart(item) {
 }
 
 function removeFromCart(itemId) {
+    console.log('Eliminando producto:', itemId);
     cartItems = cartItems.filter(item => item.id !== itemId);
     saveCartToStorage();
     renderCart();
+    showCartNotification('Producto eliminado del carrito');
 }
 
 function updateCartItemQuantity(itemId, newQuantity) {
@@ -1359,6 +1361,11 @@ function clearCart() {
     saveCartToStorage();
     renderCart();
 }
+
+// Hacer las funciones accesibles globalmente para onclick
+window.removeFromCart = removeFromCart;
+window.updateCartItemQuantity = updateCartItemQuantity;
+window.clearCart = clearCart;
 
 function renderCart() {
     const cartContainer = document.getElementById('cart-items-container');
@@ -1384,6 +1391,9 @@ function renderCart() {
         const itemTotal = item.precio * item.cantidad;
         total += itemTotal;
         
+        // Escapar ID para uso seguro en atributos
+        const safeId = item.id.replace(/'/g, "\\'");
+        
         html += `
             <div class="cart-item" data-id="${item.id}">
                 <div class="cart-item-image">
@@ -1396,14 +1406,14 @@ function renderCart() {
                     ${item.nombre ? `<span class="badge badge-primary badge-sm">${item.nombre} #${item.dorsal}</span>` : ''}
                 </div>
                 <div class="cart-item-quantity">
-                    <button onclick="updateCartItemQuantity('${item.id}', ${item.cantidad - 1})" class="btn-quantity">-</button>
+                    <button type="button" onclick="updateCartItemQuantity('${safeId}', ${item.cantidad - 1})" class="btn-quantity">-</button>
                     <span>${item.cantidad}</span>
-                    <button onclick="updateCartItemQuantity('${item.id}', ${item.cantidad + 1})" class="btn-quantity">+</button>
+                    <button type="button" onclick="updateCartItemQuantity('${safeId}', ${item.cantidad + 1})" class="btn-quantity">+</button>
                 </div>
                 <div class="cart-item-price">
                     <span>${itemTotal.toFixed(2)}€</span>
                 </div>
-                <button onclick="removeFromCart('${item.id}')" class="cart-item-remove">
+                <button type="button" onclick="removeFromCart('${safeId}')" class="cart-item-remove" aria-label="Eliminar producto">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
