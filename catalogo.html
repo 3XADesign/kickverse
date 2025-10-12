@@ -337,6 +337,14 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Vista Previa de la Camiseta -->
+                <div class="modal-preview-section">
+                    <div class="modal-jersey-preview">
+                        <img id="modal-jersey-image" src="" alt="Vista previa" class="modal-jersey-img">
+                        <div id="modal-version-badge" class="modal-version-badge fan">FAN</div>
+                    </div>
+                </div>
+                
                 <!-- Selector de Versión -->
                 <div class="form-group">
                     <label class="form-label-main">
@@ -344,7 +352,7 @@
                         Elige tu versión *
                     </label>
                     <div class="version-cards-modal">
-                        <div class="version-card-modal" onclick="selectModalVersion('fan')" data-version="fan">
+                        <div class="version-card-modal selected" onclick="selectModalVersion('fan')" data-version="fan">
                             <div class="version-badge-modal">MÁS POPULAR</div>
                             <i class="fas fa-users"></i>
                             <h4>Versión FAN</h4>

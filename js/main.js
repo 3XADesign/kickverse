@@ -6,6 +6,7 @@
 let currentStep = 1;
 let formData = {
     liga: '',
+    ligaDisplay: '',
     equipo: '',
     equipacion: '',
     version: '', // 'fan' o 'player'
@@ -287,9 +288,14 @@ function loadStepContent(step) {
     currentStep = step;
     const stepContainer = document.getElementById('step-content');
     
-    if (!stepContainer) return;
+    if (!stepContainer) {
+        console.error('❌ No se encontró step-content');
+        return;
+    }
     
     let content = '';
+    
+    console.log('🔄 Cargando paso:', step, 'Version:', formData.version);
     
     switch(step) {
         case 1:
@@ -312,20 +318,31 @@ function loadStepContent(step) {
             break;
         case 7:
             content = getStep7Content(); // Personalización
+            console.log('✅ HTML generado para paso 7, longitud:', content.length);
             break;
         case 8:
-            content = getStep8Content(); // Resumen
+            // Solo FAN con personalización llega aquí
+            if (formData.version === 'fan' && formData.personalizar) {
+                content = getStep8Content();
+            } else {
+                content = '<p>Error: Paso 8 no disponible</p>';
+            }
             break;
     }
     
     stepContainer.innerHTML = content;
-    updateProgressBar();
-    
-    // Si es paso 7 y versión PLAYER, llamar directamente a mostrarResumen
-    if (step === 7 && formData.version === 'player') {
-        formData.personalizar = true;
-        mostrarResumen();
+
+    if (!stepContainer.innerHTML.trim()) {
+        console.warn('⚠️ El contenido del paso quedó vacío. Renderizando mensaje de diagnóstico.');
+        stepContainer.innerHTML = `
+            <div class="form-step">
+                <h2 style="color: #fff;">No se pudo cargar el paso ${step}</h2>
+                <p class="text-secondary">Revisa la consola del navegador para más detalles.</p>
+            </div>
+        `;
     }
+    console.log('📝 HTML insertado en step-content:', stepContainer.innerHTML.substring(0, 120));
+    updateProgressBar();
     
     // Scroll to top suavemente
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -514,6 +531,14 @@ function selectVersion(version) {
     if (version === 'player') {
         formData.parches = true;
         formData.personalizar = true;
+        formData.nombre = '';
+        formData.dorsal = '';
+    } else {
+        // Resetear valores adicionales para FAN
+        formData.parches = false;
+        formData.personalizar = false;
+        formData.nombre = '';
+        formData.dorsal = '';
     }
     
     nextStep();
@@ -558,11 +583,32 @@ function selectTalla(talla) {
 }
 
 function getStep6Content() {
-    // Si es versión PLAYER, saltar este paso (parches incluidos)
+    // Versión PLAYER: mostrar confirmación de que los parches están incluidos
     if (formData.version === 'player') {
         formData.parches = true;
-        nextStep();
-        return '';
+        return `
+            <div class="form-step">
+                <h2>Paso 6: Parches y Detalles Premium</h2>
+                <p class="text-secondary mb-lg">La versión PLAYER incluye todos los extras sin coste adicional.</p>
+                
+                <div class="card mb-lg">
+                    <ul class="version-features">
+                        <li><i class="fas fa-check"></i> Parches oficiales de liga incluidos</li>
+                        <li><i class="fas fa-check"></i> Personalización incluida (nombre y dorsal)</li>
+                        <li><i class="fas fa-check"></i> Acabados premium idénticos a los jugadores</li>
+                    </ul>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="previousStep()">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        <i class="fas fa-arrow-right"></i> Continuar
+                    </button>
+                </div>
+            </div>
+        `;
     }
     
     return `
@@ -596,11 +642,53 @@ function selectParches(conParches) {
 }
 
 function getStep7Content() {
-    // Si es versión PLAYER, devolver vacío (loadStepContent llamará a mostrarResumen)
+    // PASO 7 para PLAYER: Formulario de personalización (obligatorio)
     if (formData.version === 'player') {
-        return '';
+        return `
+            <div class="form-step">
+                <h2>Paso 7: Personaliza tu Camiseta</h2>
+                <p class="text-secondary mb-lg">✨ Personalización incluida en versión PLAYER</p>
+                
+                <div class="card mb-lg">
+                    <div class="form-group mb-lg">
+                        <label for="nombre-player" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Nombre (máximo 12 caracteres) *
+                        </label>
+                        <input type="text" 
+                               id="nombre-player" 
+                               class="form-control"
+                               placeholder="Ej: MESSI"
+                               maxlength="12">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dorsal-player" class="form-label">
+                            <i class="fas fa-hashtag"></i>
+                            Dorsal (0-99) *
+                        </label>
+                        <input type="number" 
+                               id="dorsal-player" 
+                               class="form-control"
+                               placeholder="Ej: 10"
+                               min="0" 
+                               max="99">
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="previousStep()">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </button>
+                    <button class="btn btn-primary" onclick="finalizarYAgregarAlCarrito()">
+                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                    </button>
+                </div>
+            </div>
+        `;
     }
     
+    // PASO 7 para FAN: Pregunta si quiere personalizar
     return `
         <div class="form-step">
             <h2>Paso 7: ¿Quieres personalizarla?</h2>
@@ -628,53 +716,69 @@ function getStep7Content() {
 
 function selectPersonalizacion(personalizar) {
     formData.personalizar = personalizar;
+    if (!personalizar) {
+        formData.nombre = '';
+        formData.dorsal = '';
+    }
     
     if (personalizar) {
+        // Si quiere personalizar, ir al paso 8 (formulario)
         nextStep();
     } else {
-        // Si no quiere personalizar, mostramos resumen
-        mostrarResumen();
+        // Si NO quiere personalizar, añadir directamente al carrito
+        finalizarYAgregarAlCarrito();
     }
 }
 
 function getStep8Content() {
+    // PASO 8 solo para FAN que eligió personalizar
     return `
         <div class="form-step">
-            <h2>Paso 8: Datos de personalización</h2>
+            <h2>Paso 8: Datos de Personalización</h2>
             <p class="text-secondary mb-lg">Introduce el nombre y dorsal</p>
             
-            <div class="form-group">
-                <label for="nombre-input">Nombre</label>
-                <input type="text" 
-                       id="nombre-input" 
-                       placeholder="Ej: RODRÍGUEZ" 
-                       maxlength="12"
-                       value="${formData.nombre}">
+            <div class="card mb-lg">
+                <div class="form-group mb-lg">
+                    <label for="nombre-input" class="form-label">
+                        <i class="fas fa-user"></i>
+                        Nombre (máximo 12 caracteres) *
+                    </label>
+                    <input type="text" 
+                           id="nombre-input" 
+                           class="form-control"
+                           placeholder="Ej: RODRÍGUEZ" 
+                           maxlength="12"
+                           value="${formData.nombre || ''}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dorsal-input" class="form-label">
+                        <i class="fas fa-hashtag"></i>
+                        Dorsal (0-99) *
+                    </label>
+                    <input type="number" 
+                           id="dorsal-input" 
+                           class="form-control"
+                           placeholder="Ej: 10" 
+                           min="0" 
+                           max="99"
+                           value="${formData.dorsal || ''}">
+                </div>
             </div>
             
-            <div class="form-group">
-                <label for="dorsal-input">Dorsal</label>
-                <input type="number" 
-                       id="dorsal-input" 
-                       placeholder="Ej: 10" 
-                       min="1" 
-                       max="99"
-                       value="${formData.dorsal}">
-            </div>
-            
-            <div class="flex gap-md mt-lg">
+            <div class="btn-group">
                 <button class="btn btn-secondary" onclick="previousStep()">
                     <i class="fas fa-arrow-left"></i> Volver
                 </button>
-                <button class="btn btn-primary" onclick="guardarPersonalizacion()">
-                    <i class="fas fa-check"></i> Continuar
+                <button class="btn btn-primary" onclick="guardarYAgregarAlCarrito()">
+                    <i class="fas fa-shopping-cart"></i> Añadir al Carrito
                 </button>
             </div>
         </div>
     `;
 }
 
-function guardarPersonalizacion() {
+function guardarYAgregarAlCarrito() {
     const nombre = document.getElementById('nombre-input').value.trim();
     const dorsal = document.getElementById('dorsal-input').value.trim();
     
@@ -686,7 +790,83 @@ function guardarPersonalizacion() {
     formData.nombre = nombre.toUpperCase();
     formData.dorsal = dorsal;
     
-    mostrarResumen();
+    finalizarYAgregarAlCarrito();
+}
+
+function finalizarYAgregarAlCarrito() {
+    console.log('🛒 Finalizando y agregando al carrito...');
+    
+    // Para PLAYER: capturar datos del formulario si existen
+    if (formData.version === 'player') {
+        const nombreInput = document.getElementById('nombre-player');
+        const dorsalInput = document.getElementById('dorsal-player');
+        
+        if (nombreInput && dorsalInput) {
+            const nombre = nombreInput.value.trim();
+            const dorsal = dorsalInput.value.trim();
+            
+            if (!nombre || !dorsal) {
+                alert('⚠️ Por favor, completa el nombre y el dorsal');
+                return;
+            }
+            
+            formData.nombre = nombre.toUpperCase();
+            formData.dorsal = dorsal;
+            console.log('✅ Datos PLAYER capturados:', formData.nombre, formData.dorsal);
+        }
+    }
+    
+    // Validar datos mínimos
+    if (!formData.liga || !formData.equipo || !formData.equipacion || !formData.talla) {
+        alert('⚠️ Faltan datos. Por favor, completa todos los pasos.');
+        return;
+    }
+    
+    // Calcular precio final
+    let precioFinal = 0;
+    if (formData.version === 'player') {
+        precioFinal = 34.99; // Todo incluido
+    } else {
+        precioFinal = 24.99;
+        if (formData.parches) precioFinal += 1.99;
+        if (formData.personalizar) precioFinal += 2.99;
+    }
+    
+    console.log('💰 Precio calculado:', precioFinal);
+    
+    // Construir objeto del item
+    const equipoSlug = obtenerSlugEquipo(formData.liga, formData.equipo);
+    const tipoEquipacion = formData.equipacion.toLowerCase().includes('primera') || formData.equipacion.toLowerCase().includes('local') ? 'local' : 'visitante';
+    const imagenPath = `./img/camisetas/${formData.liga}_${equipoSlug}_${tipoEquipacion}.png`;
+    
+    const item = {
+        liga: formData.ligaDisplay || formData.liga,
+        equipo: formData.equipo,
+        equipacion: formData.equipacion,
+        version: formData.version,
+        talla: formData.talla,
+        parches: formData.parches,
+        nombre: formData.nombre || '',
+        dorsal: formData.dorsal || '',
+        precio: precioFinal,
+        imagen: imagenPath,
+        nombreProducto: `${formData.equipo} - ${formData.equipacion} (${formData.version === 'player' ? 'PLAYER' : 'FAN'})`
+    };
+    
+    console.log('📦 Item construido:', item);
+    
+    // Añadir al carrito
+    addToCart(item);
+    console.log('✅ Producto añadido al carrito');
+    
+    // Resetear formulario
+    resetForm();
+    
+    // Mostrar mensaje de éxito
+    alert('✅ Producto añadido al carrito correctamente');
+    
+    // Abrir carrito
+    openCart();
 }
 
 function mostrarResumen() {
@@ -716,14 +896,26 @@ function mostrarResumen() {
     
     console.log('Precios calculados:', { precioBase, precioParches, precioPersonalizacion, precioTotal });
     
+    // Validar que tenemos los datos necesarios
+    if (!formData.liga || !formData.equipo || !formData.equipacion) {
+        console.error('❌ Faltan datos en formData:', formData);
+        alert('Error: Faltan datos del pedido. Por favor, completa todos los pasos.');
+        return;
+    }
+    
     // Obtener la imagen de la camiseta
     // formData.liga ya está normalizada desde selectLiga()
     const equipoSlug = obtenerSlugEquipo(formData.liga, formData.equipo);
+    
+    if (!equipoSlug) {
+        console.error('❌ No se pudo obtener el slug del equipo:', formData.equipo);
+    }
+    
     const tipoEquipacion = formData.equipacion.toLowerCase().includes('primera') || formData.equipacion.toLowerCase().includes('local') ? 'local' : 'visitante';
     const imagenPath = `./img/camisetas/${formData.liga}_${equipoSlug}_${tipoEquipacion}.png`;
     
     // Debug: mostrar en consola
-    console.log('Datos para imagen:', {
+    console.log('✅ Datos para imagen:', {
         ligaDisplay: formData.ligaDisplay,
         ligaNormalizada: formData.liga,
         equipo: formData.equipo,
@@ -735,86 +927,77 @@ function mostrarResumen() {
     let html = `
         <div class="form-step">
             <h2>Resumen de tu Pedido</h2>
-            <p class="text-secondary mb-xl">Revisa los detalles antes de continuar</p>
+            <p class="text-secondary mb-lg">Revisa los detalles antes de continuar</p>
             
-            <div class="resumen-preview mb-lg">
-                <div class="resumen-image-container">
-                    <img src="${imagenPath}" 
-                         alt="${formData.equipo} - ${formData.equipacion}" 
-                         class="resumen-camiseta-image"
-                         onerror="this.src='./img/hero-jersey.png'">`;
+            <div class="resumen-container">
+                <div class="resumen-preview">
+                    <div class="resumen-image-container">
+                        <img src="${imagenPath}" 
+                             alt="${formData.equipo} - ${formData.equipacion}" 
+                             class="resumen-camiseta-image"
+                             onerror="this.src='./img/hero-jersey.png'">`;
     
     if (formData.personalizar) {
         html += `
-                    <div class="resumen-personalizacion">
-                        <span class="resumen-nombre">${formData.nombre || ''}</span>
-                        <span class="resumen-dorsal">${formData.dorsal || ''}</span>
-                    </div>`;
+                        <div class="resumen-personalizacion">
+                            <span class="resumen-nombre">${formData.nombre || ''}</span>
+                            <span class="resumen-dorsal">${formData.dorsal || ''}</span>
+                        </div>`;
     }
     
     html += `
+                    </div>
+                    
+                    <div class="resumen-version-badge ${formData.version}">
+                        ${formData.version === 'player' ? 'PLAYER' : 'FAN'}
+                    </div>
                 </div>
-            </div>
-            
-            <div class="card mb-lg">
-                <div class="summary-item">
-                    <span class="summary-label">Liga:</span>
-                    <span class="summary-value">${formData.ligaDisplay || formData.liga || 'N/A'}</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">Equipo:</span>
-                    <span class="summary-value">${formData.equipo || 'N/A'}</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">Equipación:</span>
-                    <span class="summary-value">${formData.equipacion || 'N/A'}</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">Versión:</span>
-                    <span class="summary-value summary-version">`;
-    
-    if (formData.version === 'player') {
-        html += '<strong>PLAYER</strong> (Calidad Premium)';
-    } else {
-        html += '<strong>FAN</strong>';
-    }
-    
-    html += `
-                    </span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">Talla:</span>
-                    <span class="summary-value">${formData.talla || 'N/A'}</span>
-                </div>
-                <div class="summary-item">
-                    <span class="summary-label">Parches:</span>
-                    <span class="summary-value">`;
-    
-    if (formData.parches) {
-        html += formData.version === 'player' ? 'Sí (Incluido)' : 'Sí (+1,99€)';
-    } else {
-        html += 'No';
-    }
-    
-    html += `</span>
-                </div>
-    `;
+                
+                <div class="resumen-details">
+                    <div class="card">
+                        <div class="summary-grid">
+                            <div class="summary-item-compact">
+                                <span class="summary-label">Liga:</span>
+                                <span class="summary-value">${formData.ligaDisplay || formData.liga || 'N/A'}</span>
+                            </div>
+                            <div class="summary-item-compact">
+                                <span class="summary-label">Equipo:</span>
+                                <span class="summary-value">${formData.equipo || 'N/A'}</span>
+                            </div>
+                            <div class="summary-item-compact">
+                                <span class="summary-label">Equipación:</span>
+                                <span class="summary-value">${formData.equipacion || 'N/A'}</span>
+                            </div>
+                            <div class="summary-item-compact">
+                                <span class="summary-label">Talla:</span>
+                                <span class="summary-value">${formData.talla || 'N/A'}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="summary-divider"></div>
+                        
+                        <div class="summary-extras">
+                            <div class="summary-extra-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Parches: ${formData.parches ? (formData.version === 'player' ? 'Incluido' : '+1,99€') : 'No'}</span>
+                            </div>`;
     
     if (formData.personalizar) {
-        const precioPersonalizacionTexto = formData.version === 'player' ? '(Incluido)' : '(+2,99€)';
+        const precioPersonalizacionTexto = formData.version === 'player' ? 'Incluido' : '+2,99€';
         html += `
-                <div class="summary-item">
-                    <span class="summary-label">Personalización:</span>
-                    <span class="summary-value">${formData.nombre || ''} ${formData.dorsal || ''} ${precioPersonalizacionTexto}</span>
-                </div>
-        `;
+                            <div class="summary-extra-item">
+                                <i class="fas fa-font"></i>
+                                <span>${formData.nombre || ''} ${formData.dorsal || ''} (${precioPersonalizacionTexto})</span>
+                            </div>`;
     }
     
     html += `
-                <div class="summary-total">
-                    <div class="summary-item" style="border: none;">
-                        <span class="summary-label">TOTAL:</span>
-                        <span class="summary-value">${precioTotal.toFixed(2)}€</span>
+                        </div>
+                        
+                        <div class="summary-total">
+                            <span class="summary-total-label">TOTAL:</span>
+                            <span class="summary-total-value">${precioTotal.toFixed(2)}€</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -978,21 +1161,25 @@ function obtenerSlugEquipo(liga, equipo) {
     return camiseta ? camiseta.slug : equipo.toLowerCase().replace(/\s+/g, '');
 }
 
+function getTotalSteps() {
+    return formData.version === 'player' ? 7 : 8;
+}
+
 function nextStep() {
-    if (currentStep < 8) {
-        loadStepContent(currentStep + 1);
-    }
+    const totalSteps = getTotalSteps();
+    const targetStep = Math.min(currentStep + 1, totalSteps);
+    loadStepContent(targetStep);
 }
 
 function previousStep() {
-    if (currentStep > 1) {
-        loadStepContent(currentStep - 1);
-    }
+    const targetStep = Math.max(currentStep - 1, 1);
+    loadStepContent(targetStep);
 }
 
 function resetForm() {
     formData = {
         liga: '',
+        ligaDisplay: '',
         equipo: '',
         equipacion: '',
         version: '',
@@ -1010,9 +1197,10 @@ function updateProgressBar() {
     const progressText = document.getElementById('progress-text');
     
     if (progressBar && progressText) {
-        const progress = (currentStep / 8) * 100;
+        const totalSteps = getTotalSteps();
+        const progress = (currentStep / totalSteps) * 100;
         progressBar.style.width = `${progress}%`;
-        progressText.textContent = `Paso ${currentStep} de 8`;
+        progressText.textContent = `Paso ${currentStep} de ${totalSteps}`;
     }
 }
 
@@ -1760,6 +1948,22 @@ function openPersonalizarModal(equipo, equipacion, precio, imagenSrc) {
         liga: 'La Liga' // Default, se puede mejorar
     };
     
+    // Mostrar imagen de la camiseta
+    const modalJerseyImage = document.getElementById('modal-jersey-image');
+    if (modalJerseyImage) {
+        modalJerseyImage.src = imagenSrc;
+        modalJerseyImage.onerror = function() {
+            this.src = './img/hero-jersey.png';
+        };
+    }
+    
+    // Resetear badge a FAN
+    const modalVersionBadge = document.getElementById('modal-version-badge');
+    if (modalVersionBadge) {
+        modalVersionBadge.className = 'modal-version-badge fan';
+        modalVersionBadge.textContent = 'FAN';
+    }
+    
     // Resetear formulario
     document.getElementById('personalizar-talla').value = '';
     document.getElementById('personalizar-parches').checked = false;
@@ -1785,7 +1989,7 @@ function openPersonalizarModal(equipo, equipacion, precio, imagenSrc) {
     });
     
     // Resetear estado de tallas
-    const tallaButtons = document.querySelectorAll('.tallas-buttons-modal .talla-btn');
+    const tallaButtons = document.querySelectorAll('.tallas-buttons-modal .talla-btn-modal');
     tallaButtons.forEach(btn => btn.classList.remove('selected'));
     
     // Mostrar grupos de parches y personalización (para FAN por defecto)
@@ -1808,6 +2012,13 @@ function selectModalVersion(version) {
     const versionInput = document.getElementById('modal-version-selected');
     if (versionInput) {
         versionInput.value = version;
+    }
+    
+    // Actualizar badge de versión
+    const modalVersionBadge = document.getElementById('modal-version-badge');
+    if (modalVersionBadge) {
+        modalVersionBadge.className = `modal-version-badge ${version}`;
+        modalVersionBadge.textContent = version === 'player' ? 'PLAYER' : 'FAN';
     }
     
     // Actualizar estado visual de las cards

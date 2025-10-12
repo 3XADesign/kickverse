@@ -379,3 +379,60 @@
     max-height: 200px;
   }
 }
+
+/* Vista previa de camiseta en modal */
+.modal-preview-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.modal-jersey-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.modal-jersey-img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+}
+
+.modal-version-badge {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-bold);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.modal-version-badge.player {
+  background: var(--accent-purple);
+  color: white;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.4);
+}
+
+.modal-version-badge.fan {
+  background: var(--accent-pink);
+  color: white;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+}
+
+@media (max-width: 767px) {
+  .modal-jersey-preview {
+    padding: var(--spacing-lg);
+  }
+  
+  .modal-jersey-img {
+    max-width: 160px;
+  }
+}
