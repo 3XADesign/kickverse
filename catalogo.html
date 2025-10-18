@@ -314,9 +314,14 @@
                 <span>Kickverse</span>
             </a>
             <nav class="header-nav">
-                <a href="catalogo.html" style="color: var(--color-accent);">Catálogo</a>
-                <a href="mystery-box.html">Mystery Box</a>
+                <a href="catalogo.html" style="color: var(--color-accent);"><span data-lang="es">Catálogo</span><span data-lang="en">Catalog</span></a>
+                <a href="mystery-box.html"><span data-lang="es">Mystery Box</span><span data-lang="en">Mystery Box</span></a>
             </nav>
+
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="es" aria-label="Español" aria-pressed="true">ES</button>
+                <button class="lang-btn" data-lang="en" aria-label="English" aria-pressed="false">EN</button>
+            </div>
             <a href="https://t.me/esKickverse" target="_blank" rel="noopener" class="header-contact">
                 <i class="fab fa-telegram"></i>
                 @esKickverse
@@ -332,7 +337,7 @@
                         <i class="fas fa-th"></i>
                         Catálogo Completo
                     </div>
-                    <h1>Explora Nuestro Catálogo</h1>
+                    <h1><span data-lang="es">Explora Nuestro Catálogo</span><span data-lang="en">Explore Our Catalog</span></h1>
                     <p class="hero-subtitle">
                         Más de 500 camisetas de fútbol disponibles. Equipaciones de los mejores clubes y selecciones. Pedidos bajo demanda.
                     </p>
@@ -346,15 +351,15 @@
                     <div class="catalog-notice-icon">
                         <i class="fas fa-info-circle"></i>
                     </div>
-                    <h3>Pedidos Bajo Demanda</h3>
+                    <h3><span data-lang="es">Pedidos Bajo Demanda</span><span data-lang="en">Orders on Demand</span></h3>
                     <p>
                         Todas las camisetas están sujetas a disponibilidad y stock. 
                         Los pedidos se gestionan de forma personalizada a través de Telegram.
-                        <br><strong>Contáctanos para consultar disponibilidad y precios.</strong>
+                        <br><strong><span data-lang="es">Contáctanos para consultar disponibilidad y precios.</span><span data-lang="en">Contact us to check availability and prices.</span></strong>
                     </p>
                     <a href="https://t.me/esKickverse?text=Hola!%20Quiero%20consultar%20el%20catálogo" target="_blank" rel="noopener" class="hero-cta">
                         <i class="fab fa-telegram"></i>
-                        <span>Contactar por Telegram</span>
+                        <span><span data-lang="es">Contactar por Telegram</span><span data-lang="en">Contact via Telegram</span></span>
                     </a>
                 </div>
 
@@ -362,34 +367,34 @@
                 <div class="league-tabs">
                     <div class="league-tab active" onclick="filterByLeague('laliga')" data-league="laliga">
                         <img src="./img/leagues/laliga.svg" alt="LaLiga">
-                        <span>LaLiga</span>
+                        <span><span data-lang="es">LaLiga</span><span data-lang="en">LaLiga</span></span>
                     </div>
                     <div class="league-tab" onclick="filterByLeague('premier')" data-league="premier">
                         <img src="./img/leagues/premier.svg" alt="Premier League">
-                        <span>Premier League</span>
+                        <span><span data-lang="es">Premier League</span><span data-lang="en">Premier League</span></span>
                     </div>
                     <div class="league-tab" onclick="filterByLeague('seriea')" data-league="seriea">
                         <img src="./img/leagues/seriea.svg" alt="Serie A">
-                        <span>Serie A</span>
+                        <span><span data-lang="es">Serie A</span><span data-lang="en">Serie A</span></span>
                     </div>
                     <div class="league-tab" onclick="filterByLeague('bundesliga')" data-league="bundesliga">
                         <img src="./img/leagues/bundesliga.svg" alt="Bundesliga">
-                        <span>Bundesliga</span>
+                        <span><span data-lang="es">Bundesliga</span><span data-lang="en">Bundesliga</span></span>
                     </div>
                     <div class="league-tab" onclick="filterByLeague('ligue1')" data-league="ligue1">
                         <img src="./img/leagues/ligue1.svg" alt="Ligue 1">
-                        <span>Ligue 1</span>
+                        <span><span data-lang="es">Ligue 1</span><span data-lang="en">Ligue 1</span></span>
                     </div>
                     <div class="league-tab" onclick="filterByLeague('selecciones')" data-league="selecciones">
                         <i class="fas fa-flag" style="font-size: 1.5rem; color: var(--color-accent);"></i>
-                        <span>Selecciones</span>
+                        <span><span data-lang="es">Selecciones</span><span data-lang="en">National Teams</span></span>
                     </div>
                 </div>
 
                 <!-- Buscador -->
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Buscar equipo...">
+                    <input type="text" id="search-input" placeholder="Buscar equipo..." data-placeholder-en="Search team...">
                 </div>
 
                 <!-- Estadísticas -->
@@ -404,8 +409,8 @@
 
                 <div id="empty-state" class="empty-state" style="display: none;">
                     <i class="fas fa-search"></i>
-                    <h3>No se encontraron resultados</h3>
-                    <p>Prueba con otro término de búsqueda o selecciona otra liga</p>
+                    <h3><span data-lang="es">No se encontraron resultados</span><span data-lang="en">No results found</span></h3>
+                    <p><span data-lang="es">Prueba con otro término de búsqueda o selecciona otra liga</span><span data-lang="en">Try another search term or select another league</span></p>
                 </div>
 
                 <div style="text-align: center; margin-top: var(--spacing-xl);">
@@ -414,7 +419,7 @@
                     </p>
                     <a href="https://t.me/esKickverse?text=Hola!%20Busco%20una%20camiseta%20específica" target="_blank" rel="noopener" class="hero-cta">
                         <i class="fab fa-telegram"></i>
-                        <span>Pregúntanos por Telegram</span>
+                        <span><span data-lang="es">Pregúntanos por Telegram</span><span data-lang="en">Ask us on Telegram</span></span>
                     </a>
                 </div>
             </div>
@@ -449,37 +454,37 @@
                 </div>
 
                 <div class="footer-section">
-                    <h4>Productos</h4>
+                    <h4><span data-lang="es">Productos</span><span data-lang="en">Products</span></h4>
                     <ul class="footer-links">
-                        <li><a href="index.html">Suscripciones</a></li>
-                        <li><a href="mystery-box.html">Mystery Box</a></li>
-                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="index.html"><span data-lang="es">Suscripciones</span><span data-lang="en">Subscriptions</span></a></li>
+                        <li><a href="mystery-box.html"><span data-lang="es">Mystery Box</span><span data-lang="en">Mystery Box</span></a></li>
+                        <li><a href="catalogo.html"><span data-lang="es">Catálogo</span><span data-lang="en">Catalog</span></a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h4>Legal</h4>
+                    <h4><span data-lang="es">Legal</span><span data-lang="en">Legal</span></h4>
                     <ul class="footer-links">
-                        <li><a href="terminos.html">Términos y Condiciones</a></li>
-                        <li><a href="#">Política de Privacidad</a></li>
-                        <li><a href="#">Política de Envíos</a></li>
-                        <li><a href="#">Devoluciones</a></li>
+                        <li><a href="terminos.html"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms and Conditions</span></a></li>
+                        <li><a href="#"><span data-lang="es">Política de Privacidad</span><span data-lang="en">Privacy Policy</span></a></li>
+                        <li><a href="#"><span data-lang="es">Política de Envíos</span><span data-lang="en">Shipping Policy</span></a></li>
+                        <li><a href="#"><span data-lang="es">Devoluciones</span><span data-lang="en">Returns</span></a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h4>Contacto</h4>
+                    <h4><span data-lang="es">Contacto</span><span data-lang="en">Contact</span></h4>
                     <div class="footer-contact-item">
                         <i class="fab fa-telegram"></i>
                         <div>
-                            <div>Telegram</div>
+                            <div><span data-lang="es">Telegram</span><span data-lang="en">Telegram</span></div>
                             <a href="https://t.me/esKickverse" target="_blank" rel="noopener" class="footer-contact-value">@esKickverse</a>
                         </div>
                     </div>
                     <div class="footer-contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
-                            <div>Email</div>
+                            <div><span data-lang="es">Email</span><span data-lang="en">Email</span></div>
                             <a href="mailto:hola@kickverse.es" class="footer-contact-value">hola@kickverse.es</a>
                         </div>
                     </div>
@@ -612,13 +617,13 @@
                         ${team.local ? `
                             <div class="jersey-item">
                                 <img src="./img/camisetas/${team.local}" alt="${team.name} Local" class="jersey-img" onerror="this.style.display='none'">
-                                <div class="jersey-label">Local</div>
+                                <div class="jersey-label"><span data-lang="es">Local</span><span data-lang="en">Home</span></div>
                             </div>
                         ` : ''}
                         ${team.visitante ? `
                             <div class="jersey-item">
                                 <img src="./img/camisetas/${team.visitante}" alt="${team.name} Visitante" class="jersey-img" onerror="this.style.display='none'">
-                                <div class="jersey-label">Visitante</div>
+                                <div class="jersey-label"><span data-lang="es">Visitante</span><span data-lang="en">Away</span></div>
                             </div>
                         ` : ''}
                     </div>
@@ -667,5 +672,6 @@
         // Renderizar inicial
         renderTeams();
     </script>
+    <script src="./js/lang.js"></script>
 </body>
 </html>
