@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SD9ETEJ9TG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-SD9ETEJ9TG');
+    </script>
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MQFTT34L');</script>
+    <!-- End Google Tag Manager -->
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kickverse - Tu tienda online de camisetas de fútbol. Encuentra las mejores equipaciones de clubes y selecciones con precios increíbles. ¡10% descuento en tu primera compra!">
+    <meta name="keywords" content="camisetas fútbol, equipaciones, Real Madrid, Barcelona, camisetas deportivas, descuento">
+    <title>Kickverse - Camisetas de Fútbol | 10% Descuento Primera Compra</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./img/logo.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/hero.css">
+    <link rel="stylesheet" href="./css/camiseta-card.css">
+    <link rel="stylesheet" href="./css/carousel.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/versiones.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/coupon.css">
+    <link rel="stylesheet" href="./css/direccion.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/cookies.css">
+    <link rel="stylesheet" href="./css/utils.css">
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQFTT34L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <!-- Header/Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse Logo">
+                <span>Kickverse</span>
+            </a>
+            
+            <nav class="header-nav">
+                <ul class="header-nav-list">
+                    <li><a href="index.html" class="header-nav-link active">Inicio</a></li>
+                    <li><a href="form.html" class="header-nav-link">Pedido Personalizado</a></li>
+                    <li><a href="catalogo.html" class="header-nav-link">Catálogo</a></li>
+                    <li><a href="mystery-box.html" class="header-nav-link">Mystery Box</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="btn-cart" onclick="openCart()" aria-label="Abrir carrito">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <span class="header-logo">
+                <img src="./img/logo.png" alt="Kickverse">
+                Kickverse
+            </span>
+            <button class="mobile-menu-close" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-menu-nav">
+            <ul class="mobile-menu-list">
+                <li><a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="form.html" class="mobile-menu-link"><i class="fas fa-shirt"></i> Pedido Personalizado</a></li>
+                <li><a href="catalogo.html" class="mobile-menu-link"><i class="fas fa-th"></i> Catálogo</a></li>
+                <li><a href="mystery-box.html" class="mobile-menu-link"><i class="fas fa-box"></i> Mystery Box</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="menu-overlay"></div>
+    
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-percent"></i>
+                        ¡10% Descuento Primera Compra!
+                    </div>
+                    <h1 class="hero-title">
+                        Tu Pasión<br>Tu Camiseta
+                    </h1>
+                    <p class="hero-subtitle">
+                        Encuentra las mejores camisetas de fútbol de clubes y selecciones. 
+                        Calidad premium, envío rápido y precios increíbles.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="form.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-rocket"></i>
+                            Empezar Pedido Personalizado
+                        </a>
+                        <a href="catalogo.html" class="btn btn-outline btn-lg">
+                            <i class="fas fa-th-large"></i>
+                            Ver Catálogo
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="hero-stat-value">500+</span>
+                            <span class="hero-stat-label">Camisetas</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-value">24.99€</span>
+                            <span class="hero-stat-label">Desde</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-value">5★</span>
+                            <span class="hero-stat-label">Valoración</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-image-wrapper">
+                        <img src="./img/hero-jersey.png" alt="Camiseta destacada" class="hero-jersey">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Descuento Primera Compra -->
+        <section class="section-dark">
+            <div class="container">
+                <div class="card" style="background: var(--gradient-primary); text-align: center; padding: var(--spacing-xl);">
+                    <i class="fas fa-percent" style="font-size: 3rem; margin-bottom: var(--spacing-md);"></i>
+                    <h2 style="margin-bottom: var(--spacing-sm);">¡DESCUENTO ESPECIAL!</h2>
+                    <p style="font-size: 1.5rem; font-weight: var(--font-weight-bold); margin-bottom: var(--spacing-sm);">
+                        10% DE DESCUENTO EN TU PRIMERA COMPRA
+                    </p>
+                    <p style="color: var(--color-text-primary); opacity: 0.9;">
+                        Estrena tu colección con un descuento especial. 
+                        Válido en toda nuestra tienda para nuevos clientes.
+                    </p>
+                    <a href="form.html" class="btn btn-secondary btn-lg mt-md">
+                        <i class="fas fa-arrow-right"></i>
+                        Aprovechar Descuento
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Camisetas Destacadas - Carrusel -->
+        <section>
+            <div class="container">
+                <div class="text-center mb-xl">
+                    <h2 class="gradient-text">Camisetas Más Vendidas</h2>
+                    <p class="text-secondary">Las equipaciones favoritas de nuestros clientes</p>
+                </div>
+                
+                <!-- Carrusel Container -->
+                <div class="carousel-container">
+                    <button class="carousel-btn carousel-btn-prev" onclick="moveCarousel(-1)" aria-label="Anterior">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="carousel-wrapper">
+                        <div class="carousel-track" id="carousel-track">
+                    
+                    <!-- Camiseta 1 - Real Madrid -->
+                    <div class="camiseta-card">
+                        <div class="camiseta-badge badge-discount">-60%</div>
+                        <div class="camiseta-image-wrapper">
+                            <div class="camiseta-league">
+                                <img src="./img/leagues/laliga.svg" alt="La Liga" onerror="this.style.display='none'">
+                            </div>
+                            <img src="./img/camisetas/laliga_madrid_local.png" 
+                                 alt="Camiseta Real Madrid Local" 
+                                 class="camiseta-image"
+                                 onerror="this.src='./img/hero-jersey.png'">
+                        </div>
+                        <div class="camiseta-content">
+                            <div class="camiseta-team">
+                                <i class="fas fa-shield-halved"></i>
+                                Real Madrid
+                            </div>
+                            <h3 class="camiseta-name">Real Madrid 24/25</h3>
+                            <div class="camiseta-type">
+                                <i class="fas fa-home"></i>
+                                Primera Equipación
+                            </div>
+                            <div class="camiseta-features">
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Tecnología Dri-FIT
+                                </span>
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Parches Oficiales
+                                </span>
+                            </div>
+                            <div class="camiseta-price-wrapper">
+                                <div class="camiseta-price-group">
+                                    <span class="camiseta-price-old">79.99€</span>
+                                    <span class="camiseta-price">
+                                        24.99<span class="camiseta-price-currency">€</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="camiseta-actions">
+                                <button class="camiseta-btn camiseta-btn-whatsapp" 
+                                        onclick="comprarWhatsApp('Real Madrid', 'Local', '24.99€')">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Camiseta 2 - Barcelona -->
+                    <div class="camiseta-card">
+                        <div class="camiseta-badge badge-discount">-60%</div>
+                        <div class="camiseta-image-wrapper">
+                            <div class="camiseta-league">
+                                <img src="./img/leagues/laliga.svg" alt="La Liga" onerror="this.style.display='none'">
+                            </div>
+                            <img src="./img/camisetas/laliga_barcelona_local.png" 
+                                 alt="Camiseta Barcelona Local" 
+                                 class="camiseta-image"
+                                 onerror="this.src='./img/hero-jersey.png'">
+                        </div>
+                        <div class="camiseta-content">
+                            <div class="camiseta-team">
+                                <i class="fas fa-shield-halved"></i>
+                                FC Barcelona
+                            </div>
+                            <h3 class="camiseta-name">Barcelona 24/25</h3>
+                            <div class="camiseta-type">
+                                <i class="fas fa-home"></i>
+                                Primera Equipación
+                            </div>
+                            <div class="camiseta-features">
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Tecnología Dri-FIT
+                                </span>
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Parches Oficiales
+                                </span>
+                            </div>
+                            <div class="camiseta-price-wrapper">
+                                <div class="camiseta-price-group">
+                                    <span class="camiseta-price-old">79.99€</span>
+                                    <span class="camiseta-price">
+                                        24.99<span class="camiseta-price-currency">€</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="camiseta-actions">
+                                <button class="camiseta-btn camiseta-btn-whatsapp" 
+                                        onclick="comprarWhatsApp('FC Barcelona', 'Local', '24.99€')">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Camiseta 3 - Argentina -->
+                    <div class="camiseta-card">
+                        <div class="camiseta-badge">SELECCIÓN</div>
+                        <div class="camiseta-image-wrapper">
+                            <img src="./img/camisetas/selecciones_argentina_local.png" 
+                                 alt="Camiseta Argentina" 
+                                 class="camiseta-image"
+                                 onerror="this.src='./img/hero-jersey.png'">
+                        </div>
+                        <div class="camiseta-content">
+                            <div class="camiseta-team">
+                                <i class="fas fa-flag"></i>
+                                Selección Argentina
+                            </div>
+                            <h3 class="camiseta-name">Argentina 2024</h3>
+                            <div class="camiseta-type">
+                                <i class="fas fa-star"></i>
+                                Campeones del Mundo
+                            </div>
+                            <div class="camiseta-features">
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Edición Especial
+                                </span>
+                                <span class="camiseta-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    Parches Mundial 2022
+                                </span>
+                            </div>
+                            <div class="camiseta-price-wrapper">
+                                <div class="camiseta-price-group">
+                                    <span class="camiseta-price-old">79.99€</span>
+                                    <span class="camiseta-price">
+                                        24.99<span class="camiseta-price-currency">€</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="camiseta-actions">
+                                <button class="camiseta-btn camiseta-btn-whatsapp" 
+                                        onclick="comprarWhatsApp('Argentina', 'Local', '24.99€')">
+                                    <i class="fab fa-whatsapp"></i>
+                                    Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    
+                    <button class="carousel-btn carousel-btn-next" onclick="moveCarousel(1)" aria-label="Siguiente">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Indicadores del carrusel -->
+                <div class="carousel-indicators" id="carousel-indicators"></div>
+                
+                <div class="text-center mt-xl">
+                    <a href="catalogo.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-th-large"></i>
+                        Ver Todas las Camisetas
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Beneficios -->
+        <section class="section-dark" id="beneficios">
+            <div class="container">
+                <div class="text-center mb-xl">
+                    <h2 class="gradient-text">¿Por Qué Elegir Kickverse?</h2>
+                    <p class="text-secondary">Lo que nos hace diferentes</p>
+                </div>
+                
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="icon icon-lg mb-md">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h3>Calidad Premium</h3>
+                        <p>Camisetas de alta calidad con tecnología deportiva avanzada y materiales duraderos.</p>
+                    </div>
+                    
+                    
+                    <div class="card">
+                        <div class="icon icon-lg mb-md">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h3>Personalización</h3>
+                        <p>Añade nombre y dorsal a tu camiseta. ¡Hazla única y 100% tuya!</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon icon-lg mb-md">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Compra Segura</h3>
+                        <p>Pago seguro y protección del comprador. Tu seguridad es nuestra prioridad.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="icon icon-lg mb-md">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>Atención 24/7</h3>
+                        <p>Soporte por WhatsApp disponible las 24 horas. Estamos aquí para ayudarte.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" id="contacto">
+        <div class="footer-container">
+            <div class="footer-content">
+                
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="./img/logo.png" alt="Kickverse">
+                        <span>Kickverse</span>
+                    </div>
+                    <p class="footer-description">
+                        Tu tienda online de confianza para camisetas de fútbol. 
+                        Encuentra las mejores equipaciones de clubes y selecciones al mejor precio.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/kickverse.es/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://x.com/kickverse_es" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="X (Twitter)">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="https://www.tiktok.com/@kickverse_es" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://t.me/kickverse_es" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Enlaces</h4>
+                    <nav class="footer-links">
+                        <a href="index.html" class="footer-link">Inicio</a>
+                        <a href="form.html" class="footer-link">Pedido Personalizado</a>
+                        <a href="catalogo.html" class="footer-link">Catálogo</a>
+                        <a href="tallas.html" class="footer-link">Guía de Tallas</a>
+                        <a href="politica-cookies.html" class="footer-link">Política de Cookies</a>
+                        <a href="#beneficios" class="footer-link">¿Por qué nosotros?</a>
+                    </nav>
+                </div>
+                
+                <!-- Información -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal</h4>
+                    <nav class="footer-links">
+                        <a href="terminos.html" class="footer-link">Términos y Condiciones</a>
+                        <a href="#" class="footer-link">Política de Privacidad</a>
+                        <a href="#" class="footer-link">Política de Envíos</a>
+                        <a href="#" class="footer-link">Devoluciones</a>
+                    </nav>
+                </div>
+                
+                <!-- Contacto -->
+                <div class="footer-section">
+                    <h4 class="footer-title">Contacto</h4>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div class="footer-contact-info">
+                            <div class="footer-contact-label">WhatsApp</div>
+                            <a href="https://wa.me/34614299735" class="footer-contact-value">+34 614 299 735</a>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="footer-contact-info">
+                            <div class="footer-contact-label">Email</div>
+                            <a href="mailto:contacto@kickverse.com" class="footer-contact-value">contacto@kickverse.com</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados.</p>
+                </div>
+                <div class="footer-payment">
+                    <span class="footer-payment-text">Métodos de pago:</span>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-visa" style="font-size: 1.5rem; color: #1A1F71;"></i>
+                    </div>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-mastercard" style="font-size: 1.5rem; color: #EB001B;"></i>
+                    </div>
+                    <div class="footer-payment-icon">
+                        <i class="fab fa-cc-paypal" style="font-size: 1.5rem; color: #003087;"></i>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
+    
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/34614299735?text=Hola%20Kickverse!%20Quiero%20información" 
+       class="whatsapp-float" 
+       target="_blank" 
+       rel="noopener noreferrer"
+       aria-label="Contactar por WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Modal Personalizar -->
+    <div class="modal" id="personalizar-modal">
+        <div class="modal-content modal-personalizar">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-edit"></i>
+                    Personalizar Camiseta
+                </h3>
+                <button class="modal-close" onclick="closeModal('personalizar-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <!-- Vista Previa de la Camiseta -->
+                <div class="modal-preview-section">
+                    <div class="modal-jersey-preview">
+                        <img id="modal-jersey-image" src="" alt="Vista previa" class="modal-jersey-img">
+                        <div id="modal-version-badge" class="modal-version-badge fan">FAN</div>
+                    </div>
+                </div>
+                
+                <!-- Selector de Versión -->
+                <div class="form-group">
+                    <label class="form-label-main">
+                        <i class="fas fa-star"></i>
+                        Elige tu versión *
+                    </label>
+                    <div class="version-cards-modal">
+                        <div class="version-card-modal selected" onclick="selectModalVersion('fan')" data-version="fan">
+                            <div class="version-badge-modal">MÁS POPULAR</div>
+                            <i class="fas fa-users"></i>
+                            <h4>Versión FAN</h4>
+                            <p class="version-desc-modal">La camiseta oficial de aficionado.</p>
+                            <p class="version-detail-modal">Personalización opcional.</p>
+                            <div class="version-price-modal">
+                                <span class="price-label-modal">DESDE</span>
+                                <span class="price-value-modal">24,99€</span>
+                            </div>
+                        </div>
+                        
+                        <div class="version-card-modal version-card-premium" onclick="selectModalVersion('player')" data-version="player">
+                            <div class="version-badge-modal version-badge-premium-modal">CALIDAD PREMIUM</div>
+                            <i class="fas fa-trophy"></i>
+                            <h4>Versión PLAYER</h4>
+                            <p class="version-desc-modal">Calidad profesional con</p>
+                            <p class="version-detail-modal">todos los extras incluidos.</p>
+                            <div class="version-price-modal version-price-premium-modal">
+                                <span class="price-label-modal">PRECIO FIJO</span>
+                                <span class="price-value-modal">34,99€</span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="modal-version-selected" value="fan">
+                    <small class="form-help">
+                        <i class="fas fa-info-circle"></i>
+                        <a href="tallas.html" target="_blank">Ver guía de tallas y diferencias</a>
+                    </small>
+                </div>
+
+                <!-- Botones de Tallas -->
+                <div class="form-group">
+                    <label class="form-label-main">
+                        <i class="fas fa-ruler"></i>
+                        Selecciona tu talla *
+                    </label>
+                    <div class="tallas-buttons-modal" id="tallas-buttons-modal">
+                        <button type="button" class="talla-btn-modal" data-talla="XS" onclick="selectModalTalla('XS')">XS</button>
+                        <button type="button" class="talla-btn-modal" data-talla="S" onclick="selectModalTalla('S')">S</button>
+                        <button type="button" class="talla-btn-modal" data-talla="M" onclick="selectModalTalla('M')">M</button>
+                        <button type="button" class="talla-btn-modal" data-talla="L" onclick="selectModalTalla('L')">L</button>
+                        <button type="button" class="talla-btn-modal" data-talla="XL" onclick="selectModalTalla('XL')">XL</button>
+                        <button type="button" class="talla-btn-modal" data-talla="XXL" onclick="selectModalTalla('XXL')">XXL</button>
+                    </div>
+                    <input type="hidden" id="personalizar-talla" value="">
+                    <small class="form-help">
+                        <i class="fas fa-info-circle"></i>
+                        ¿No sabes tu talla? <a href="tallas.html" target="_blank">Ver guía de tallas</a>
+                    </small>
+                </div>
+
+                <!-- Parches (solo visible en versión FAN) -->
+                <div class="form-group" id="modal-parches-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="personalizar-parches">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">
+                            <i class="fas fa-award"></i>
+                            Añadir parches oficiales (+1,99€)
+                        </span>
+                    </label>
+                    <small class="form-help">
+                        Incluye: Parches de liga, campeón, etc.
+                    </small>
+                </div>
+
+                <!-- Personalización (solo visible en versión FAN) -->
+                <div class="form-group" id="modal-personalizacion-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="personalizar-custom" onchange="toggleCustomFields()">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">
+                            <i class="fas fa-signature"></i>
+                            Personalizar nombre y dorsal (+2,99€)
+                        </span>
+                    </label>
+                </div>
+
+                <div id="custom-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="personalizar-nombre">
+                            <i class="fas fa-user"></i>
+                            Nombre
+                        </label>
+                        <input type="text" 
+                               id="personalizar-nombre" 
+                               placeholder="Ej: MESSI"
+                               maxlength="12">
+                        <small class="form-help">Máximo 12 caracteres</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personalizar-dorsal">
+                            <i class="fas fa-hashtag"></i>
+                            Dorsal
+                        </label>
+                        <input type="number" 
+                               id="personalizar-dorsal" 
+                               placeholder="Ej: 10"
+                               min="0" 
+                               max="99">
+                        <small class="form-help">Entre 0 y 99</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('personalizar-modal')">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-primary" onclick="agregarAlCarrito()">
+                    <i class="fas fa-cart-plus"></i>
+                    Añadir al Carrito
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Carrito -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content modal-cart">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    Carrito de Compras
+                </h3>
+                <button class="modal-close" onclick="closeModal('cart-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-empty" class="cart-empty" style="display: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Tu carrito está vacío</h4>
+                    <p>Añade productos para comenzar tu compra</p>
+                    <a href="catalogo.html" class="btn btn-primary mt-md">
+                        <i class="fas fa-th"></i>
+                        Ver Catálogo
+                    </a>
+                </div>
+                
+                <div id="cart-content">
+                    <div id="cart-items-container"></div>
+                    
+                    <div id="cart-promo-message" class="cart-promo-message" style="display: none;"></div>
+                    
+                    <!-- Cupón de descuento -->
+                    <div class="cart-coupon-section">
+                        <div class="cart-coupon-header">
+                            <i class="fas fa-tag"></i>
+                            <span>¿Tienes un cupón de descuento?</span>
+                        </div>
+                        <div class="cart-coupon-input-group">
+                            <input type="text" id="coupon-input" placeholder="Introduce tu código" maxlength="15">
+                            <button class="btn btn-primary btn-sm" onclick="applyCoupon()">Aplicar</button>
+                        </div>
+                        <div id="coupon-message" class="coupon-message"></div>
+                        <div id="applied-coupon" class="applied-coupon" style="display: none;">
+                            <div class="applied-coupon-info">
+                                <i class="fas fa-check-circle"></i>
+                                <span id="applied-coupon-code"></span>
+                            </div>
+                            <button class="btn-remove-coupon" onclick="removeCoupon()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <div class="cart-summary-row">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal">0.00€</span>
+                        </div>
+                        <div class="cart-summary-row" id="discount-row" style="display: none;">
+                            <span class="discount-label">
+                                <i class="fas fa-tag"></i>
+                                Descuento:
+                            </span>
+                            <span class="discount-amount" id="cart-discount">-0.00€</span>
+                        </div>
+                        <div class="cart-summary-row cart-summary-total">
+                            <span>Total:</span>
+                            <span class="cart-total-price" id="cart-total">0.00€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" id="cart-footer">
+                <button class="btn btn-secondary" onclick="clearCart()">
+                    <i class="fas fa-trash"></i>
+                    Vaciar Carrito
+                </button>
+                <button class="btn btn-whatsapp" onclick="finalizarCompraCarrito()">
+                    <i class="fab fa-whatsapp"></i>
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Popup de Bienvenida con Descuento -->
+    <div id="welcome-popup" class="welcome-popup">
+        <div class="welcome-popup-content">
+            <button class="welcome-popup-close" onclick="closeWelcomePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="welcome-popup-icon">
+                <i class="fas fa-gift"></i>
+            </div>
+            <h2>¡Bienvenido a Kickverse!</h2>
+            <p class="welcome-popup-subtitle">Consigue tu primer descuento</p>
+            <div class="welcome-popup-offer">
+                <div class="welcome-popup-amount">5€</div>
+                <div class="welcome-popup-text">de descuento en tu primera compra</div>
+            </div>
+            <div class="welcome-popup-conditions">
+                <i class="fas fa-info-circle"></i>
+                <span>Válido para compras superiores a 60€</span>
+            </div>
+            <div class="welcome-popup-coupon">
+                <div class="welcome-popup-coupon-label">Tu código:</div>
+                <div class="welcome-popup-coupon-code" id="welcome-coupon-code">WELCOME5</div>
+                <button class="btn btn-copy" onclick="copyCouponCode('WELCOME5')">
+                    <i class="fas fa-copy"></i>
+                    Copiar código
+                </button>
+            </div>
+            <button class="btn btn-primary btn-lg" onclick="closeWelcomePopup()">
+                ¡Empezar a comprar!
+            </button>
+        </div>
+    </div>
+    
+    <!-- Modal de Dirección de Envío -->
+    <div class="modal" id="direccion-modal">
+        <div class="modal-content modal-content-md">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Dirección de Envío
+                </h3>
+                <button class="modal-close" onclick="closeModal('direccion-modal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="direccion-form" class="direccion-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-nombre">
+                                <i class="fas fa-user"></i>
+                                Nombre completo *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-nombre" 
+                                   name="nombre"
+                                   placeholder="Ej: Juan Pérez García"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-telefono">
+                                <i class="fas fa-phone"></i>
+                                Teléfono *
+                            </label>
+                            <input type="tel" 
+                                   id="direccion-telefono" 
+                                   name="telefono"
+                                   placeholder="Ej: +34 600 123 456"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion-email">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </label>
+                            <input type="email" 
+                                   id="direccion-email" 
+                                   name="email"
+                                   placeholder="tu@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="direccion-calle">
+                                <i class="fas fa-road"></i>
+                                Dirección (Calle, número, piso, puerta) *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-calle" 
+                                   name="calle"
+                                   placeholder="Ej: Calle Gran Vía 45, 3º B"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-ciudad">
+                                <i class="fas fa-city"></i>
+                                Ciudad *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-ciudad" 
+                                   name="ciudad"
+                                   placeholder="Ej: Madrid"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion-provincia">
+                                <i class="fas fa-map"></i>
+                                Provincia *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-provincia" 
+                                   name="provincia"
+                                   placeholder="Ej: Madrid"
+                                   required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="direccion-cp">
+                                <i class="fas fa-mail-bulk"></i>
+                                Código Postal *
+                            </label>
+                            <input type="text" 
+                                   id="direccion-cp" 
+                                   name="cp"
+                                   placeholder="Ej: 28001"
+                                   maxlength="5"
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion-pais">
+                                <i class="fas fa-flag"></i>
+                                País *
+                            </label>
+                            <select id="direccion-pais" name="pais" required>
+                                <option value="España">España</option>
+                                <option value="Portugal">Portugal</option>
+                                <option value="Francia">Francia</option>
+                                <option value="Italia">Italia</option>
+                                <option value="Alemania">Alemania</option>
+                                <option value="Reino Unido">Reino Unido</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="direccion-notas">
+                                <i class="fas fa-sticky-note"></i>
+                                Notas adicionales (opcional)
+                            </label>
+                            <textarea id="direccion-notas" 
+                                      name="notas"
+                                      placeholder="Información adicional para la entrega (portero automático, horario preferido, etc.)"
+                                      rows="3"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Esta información se guardará para futuras compras</span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('direccion-modal')">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button class="btn btn-whatsapp" onclick="confirmarDireccionYEnviar()">
+                    <i class="fab fa-whatsapp"></i>
+                    Confirmar y Enviar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="cookie-consent">
+        <div class="cookie-consent-content">
+            <div class="cookie-consent-text">
+                <h3>Usamos Cookies</h3>
+                <p>
+                    Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar el contenido. 
+                    Puedes aceptar todas, rechazarlas o configurar tus preferencias. 
+                    <a href="#" onclick="event.preventDefault(); window.cookieConsent.openSettings();">Más información</a>
+                </p>
+            </div>
+            <div class="cookie-consent-actions">
+                <button id="acceptCookies" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-check"></i> Aceptar Todo
+                </button>
+                <button id="rejectCookies" class="cookie-btn cookie-btn-reject">
+                    <i class="fas fa-times"></i> Rechazar
+                </button>
+                <button id="cookieSettings" class="cookie-btn cookie-btn-settings">
+                    <i class="fas fa-cog"></i> Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettingsModal" class="cookie-settings-modal">
+        <div class="cookie-settings-content">
+            <div class="cookie-settings-header">
+                <h2>Configuración de Cookies</h2>
+                <button id="closeSettings" class="cookie-settings-close" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cookie-settings-body">
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🔒 Cookies Necesarias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-necessary" checked disabled>
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Estas cookies son esenciales para el funcionamiento del sitio web. 
+                        Permiten funciones básicas como la navegación y el acceso a áreas seguras. 
+                        No se pueden desactivar.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>📊 Cookies Analíticas</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-analytics">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Nos ayudan a entender cómo los visitantes interactúan con el sitio web, 
+                        recopilando información de forma anónima. Utilizamos Google Analytics para mejorar la experiencia.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>🎯 Cookies de Marketing</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-marketing">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Se utilizan para rastrear a los visitantes en diferentes sitios web con el fin de 
+                        mostrar anuncios relevantes y personalizados según sus intereses.
+                    </p>
+                </div>
+
+                <div class="cookie-category">
+                    <div class="cookie-category-header">
+                        <h3>⚙️ Cookies de Preferencias</h3>
+                        <label class="cookie-toggle">
+                            <input type="checkbox" id="cookie-preferences">
+                            <span class="cookie-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <p class="cookie-category-description">
+                        Permiten al sitio web recordar tus elecciones (como tu idioma preferido o región) 
+                        para proporcionar una experiencia más personalizada.
+                    </p>
+                </div>
+            </div>
+            <div class="cookie-settings-footer">
+                <button id="savePreferences" class="cookie-btn cookie-btn-accept">
+                    <i class="fas fa-save"></i> Guardar Preferencias
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="./js/cookies.js"></script>
+    <script src="./js/main.js"></script>
+    
+</body>
+</html>

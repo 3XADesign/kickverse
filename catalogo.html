@@ -7,7 +7,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-SD9ETEJ9TG');
     </script>
     
@@ -21,8 +20,9 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Catálogo completo de camisetas de fútbol en Kickverse. Encuentra todas las equipaciones de clubes y selecciones.">
-    <title>Catálogo - Kickverse</title>
+    <meta name="description" content="Catálogo completo de camisetas de fútbol en Kickverse. Más de 500 equipaciones de clubes y selecciones. Pedidos bajo demanda.">
+    <meta name="keywords" content="camisetas fútbol, equipaciones, catálogo camisetas, comprar camisetas, LaLiga, Premier League, Serie A">
+    <title>Catálogo Completo - Kickverse</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="./img/logo.png">
@@ -30,789 +30,642 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Estilos CSS -->
-    <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/layout.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/catalogo.css">
-    <link rel="stylesheet" href="./css/camiseta-card.css">
-    <link rel="stylesheet" href="./css/modal.css">
-    <link rel="stylesheet" href="./css/versiones.css">
-    <link rel="stylesheet" href="./css/cart.css">
-    <link rel="stylesheet" href="./css/coupon.css">
-    <link rel="stylesheet" href="./css/direccion.css">
-    <link rel="stylesheet" href="./css/footer.css">
-    <link rel="stylesheet" href="./css/cookies.css">
-    <link rel="stylesheet" href="./css/utils.css">
+    <!-- Subscription Styles -->
+    <link rel="stylesheet" href="./css/subscription.css">
+    
+    <style>
+        .catalog-notice {
+            background: linear-gradient(135deg, rgba(186, 81, 221, 0.1), rgba(220, 76, 176, 0.1));
+            border: 1px solid rgba(186, 81, 221, 0.3);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+        }
+        
+        .catalog-notice-icon {
+            font-size: 2rem;
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .catalog-notice h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text-primary);
+        }
+        
+        .catalog-notice p {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+        }
+        
+        /* Tabs de Ligas */
+        .league-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+            overflow-x: auto;
+            padding-bottom: var(--spacing-sm);
+            scrollbar-width: thin;
+        }
+        
+        .league-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .league-tabs::-webkit-scrollbar-thumb {
+            background: rgba(186, 81, 221, 0.3);
+            border-radius: 3px;
+        }
+        
+        .league-tab {
+            flex-shrink: 0;
+            background: var(--color-bg-card);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-md) var(--spacing-lg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            min-width: 150px;
+        }
+        
+        .league-tab img {
+            height: 30px;
+            width: auto;
+        }
+        
+        .league-tab span {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .league-tab:hover {
+            border-color: rgba(186, 81, 221, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .league-tab.active {
+            border-color: var(--color-accent);
+            background: linear-gradient(135deg, rgba(186, 81, 221, 0.1), rgba(220, 76, 176, 0.1));
+        }
+        
+        /* Buscador mejorado */
+        .search-box {
+            position: relative;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) 50px;
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+            color: var(--color-text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-accent);
+            font-size: 1.2rem;
+        }
+        
+        /* Grid de equipos */
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .team-card {
+            background: var(--color-bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-gradient-1), var(--color-gradient-2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .team-card:hover {
+            border-color: rgba(186, 81, 221, 0.3);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .team-card:hover::before {
+            opacity: 1;
+        }
+        
+        .team-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .team-logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+        
+        .jerseys-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .jersey-item {
+            text-align: center;
+        }
+        
+        .jersey-img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: var(--spacing-xs);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-xs);
+        }
+        
+        .jersey-label {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .team-cta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .team-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(186, 81, 221, 0.3);
+        }
+        
+        .catalog-stats {
+            text-align: center;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.95rem;
+        }
+        
+        .catalog-stats strong {
+            color: var(--color-accent);
+            font-size: 1.1rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-2xl);
+            color: var(--color-text-secondary);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .league-tabs {
+                gap: var(--spacing-xs);
+            }
+            
+            .league-tab {
+                min-width: 120px;
+                padding: var(--spacing-sm) var(--spacing-md);
+            }
+            
+            .league-tab img {
+                height: 24px;
+            }
+            
+            .teams-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQFTT34L"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    
-    <!-- Header/Navigation -->
+
     <header class="header">
         <div class="header-container">
             <a href="index.html" class="header-logo">
                 <img src="./img/logo.png" alt="Kickverse Logo">
                 <span>Kickverse</span>
             </a>
-            
             <nav class="header-nav">
-                <ul class="header-nav-list">
-                    <li><a href="index.html" class="header-nav-link">Inicio</a></li>
-                    <li><a href="form.html" class="header-nav-link">Pedido Personalizado</a></li>
-                    <li><a href="catalogo.html" class="header-nav-link active">Catálogo</a></li>
-                    <li><a href="mystery-box.html" class="header-nav-link">Mystery Box</a></li>
-                </ul>
+                <a href="catalogo.html" style="color: var(--color-accent);">Catálogo</a>
+                <a href="mystery-box.html">Mystery Box</a>
             </nav>
-            
-            <div class="header-actions">
-                <button class="btn-cart" onclick="openCart()" aria-label="Abrir carrito">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge" id="cart-badge">0</span>
-                </button>
-                <button class="menu-toggle" aria-label="Abrir menú">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+            <a href="https://t.me/esKickverse" target="_blank" rel="noopener" class="header-contact">
+                <i class="fab fa-telegram"></i>
+                @esKickverse
+            </a>
         </div>
     </header>
-    
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <div class="mobile-menu-header">
-            <span class="header-logo">
-                <img src="./img/logo.png" alt="Kickverse">
-                Kickverse
-            </span>
-            <button class="mobile-menu-close" aria-label="Cerrar menú">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <nav class="mobile-menu-nav">
-            <ul class="mobile-menu-list">
-                <li><a href="index.html" class="mobile-menu-link"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a href="form.html" class="mobile-menu-link"><i class="fas fa-shirt"></i> Pedido Personalizado</a></li>
-                <li><a href="catalogo.html" class="mobile-menu-link"><i class="fas fa-th"></i> Catálogo</a></li>
-                <li><a href="mystery-box.html" class="mobile-menu-link"><i class="fas fa-box"></i> Mystery Box</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="menu-overlay"></div>
-    
-    <!-- Main Content -->
+
     <main>
-        
-        <!-- Catalogo Section -->
-        <section class="catalogo">
+        <section class="hero">
             <div class="container">
-                
-                <!-- Catalogo Header -->
-                <div class="catalogo-header">
-                    <h1>Catálogo Completo</h1>
-                    <p>Explora nuestra colección de camisetas de fútbol. Más de 500 equipaciones disponibles.</p>
-                </div>
-                
-                <!-- Promo Banner -->
-                <div class="catalogo-promo">
-                    <h3><i class="fas fa-percent"></i> ¡10% Descuento Primera Compra!</h3>
-                    <p>Descuento especial para nuevos clientes en toda la tienda</p>
-                </div>
-                
-                <!-- Filters -->
-                <div class="catalogo-filters">
-                    <div class="filters-row">
-                        <div class="filter-group">
-                            <label class="filter-label" for="filter-liga">
-                                <i class="fas fa-trophy"></i> Liga
-                            </label>
-                            <select id="filter-liga" class="filter-select">
-                                <option value="">Todas las ligas</option>
-                                <option value="laliga">La Liga</option>
-                                <option value="premier">Premier League</option>
-                                <option value="seriea">Serie A</option>
-                                <option value="bundesliga">Bundesliga</option>
-                                <option value="ligue1">Ligue 1</option>
-                                <option value="selecciones">Selecciones</option>
-                            </select>
-                        </div>
-                        
-                        <div class="filter-group">
-                            <label class="filter-label" for="filter-equipo">
-                                <i class="fas fa-shield-halved"></i> Equipo
-                            </label>
-                            <select id="filter-equipo" class="filter-select">
-                                <option value="">Todos los equipos</option>
-                            </select>
-                        </div>
-                        
-                        <div class="filter-group">
-                            <label class="filter-label" for="filter-equipacion">
-                                <i class="fas fa-shirt"></i> Equipación
-                            </label>
-                            <select id="filter-equipacion" class="filter-select">
-                                <option value="">Todas</option>
-                                <option value="local">Local</option>
-                                <option value="visitante">Visitante</option>
-                            </select>
-                        </div>
-                        
-                        <div class="filter-group">
-                            <label class="filter-label" for="filter-search">
-                                <i class="fas fa-search"></i> Buscar
-                            </label>
-                            <input type="text" 
-                                   id="filter-search" 
-                                   class="filter-search" 
-                                   placeholder="Buscar equipo...">
-                        </div>
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-th"></i>
+                        Catálogo Completo
                     </div>
-                    
-                    <div class="filters-actions">
-                        <button class="btn btn-primary filter-btn" onclick="aplicarFiltros()">
-                            <i class="fas fa-filter"></i>
-                            Aplicar Filtros
-                        </button>
-                        <button class="btn btn-secondary filter-btn" onclick="limpiarFiltros()">
-                            <i class="fas fa-redo"></i>
-                            Limpiar
-                        </button>
-                    </div>
+                    <h1>Explora Nuestro Catálogo</h1>
+                    <p class="hero-subtitle">
+                        Más de 500 camisetas de fútbol disponibles. Equipaciones de los mejores clubes y selecciones. Pedidos bajo demanda.
+                    </p>
                 </div>
-                
-                <!-- Catalogo Info -->
-                <div class="catalogo-info">
-                    <div class="catalogo-count">
-                        Mostrando <strong id="count-showing">12</strong> de <strong id="count-total">500</strong> camisetas
-                    </div>
-                    <div class="catalogo-view-options">
-                        <button class="view-btn active" aria-label="Vista de cuadrícula">
-                            <i class="fas fa-th"></i>
-                        </button>
-                        <button class="view-btn" aria-label="Vista de lista">
-                            <i class="fas fa-list"></i>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Catalogo Grid -->
-                <div class="catalogo-grid" id="catalogo-grid">
-                    <!-- Las camisetas se generan dinámicamente desde JavaScript -->
-                </div>
-                
-                <!-- CTA Final -->
-                <div class="text-center mt-xl">
-                    <p class="text-secondary mb-md">¿No encuentras lo que buscas?</p>
-                    <a href="form.html" class="btn btn-primary btn-lg">
-                        <i class="fas fa-magic"></i>
-                        Crear Pedido Personalizado
-                    </a>
-                </div>
-                
             </div>
         </section>
-        
+
+        <section class="plans-section">
+            <div class="container">
+                <div class="catalog-notice">
+                    <div class="catalog-notice-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3>Pedidos Bajo Demanda</h3>
+                    <p>
+                        Todas las camisetas están sujetas a disponibilidad y stock. 
+                        Los pedidos se gestionan de forma personalizada a través de Telegram.
+                        <br><strong>Contáctanos para consultar disponibilidad y precios.</strong>
+                    </p>
+                    <a href="https://t.me/esKickverse?text=Hola!%20Quiero%20consultar%20el%20catálogo" target="_blank" rel="noopener" class="hero-cta">
+                        <i class="fab fa-telegram"></i>
+                        <span>Contactar por Telegram</span>
+                    </a>
+                </div>
+
+                <!-- Tabs de Ligas -->
+                <div class="league-tabs">
+                    <div class="league-tab active" onclick="filterByLeague('laliga')" data-league="laliga">
+                        <img src="./img/leagues/laliga.svg" alt="LaLiga">
+                        <span>LaLiga</span>
+                    </div>
+                    <div class="league-tab" onclick="filterByLeague('premier')" data-league="premier">
+                        <img src="./img/leagues/premier.svg" alt="Premier League">
+                        <span>Premier League</span>
+                    </div>
+                    <div class="league-tab" onclick="filterByLeague('seriea')" data-league="seriea">
+                        <img src="./img/leagues/seriea.svg" alt="Serie A">
+                        <span>Serie A</span>
+                    </div>
+                    <div class="league-tab" onclick="filterByLeague('bundesliga')" data-league="bundesliga">
+                        <img src="./img/leagues/bundesliga.svg" alt="Bundesliga">
+                        <span>Bundesliga</span>
+                    </div>
+                    <div class="league-tab" onclick="filterByLeague('ligue1')" data-league="ligue1">
+                        <img src="./img/leagues/ligue1.svg" alt="Ligue 1">
+                        <span>Ligue 1</span>
+                    </div>
+                    <div class="league-tab" onclick="filterByLeague('selecciones')" data-league="selecciones">
+                        <i class="fas fa-flag" style="font-size: 1.5rem; color: var(--color-accent);"></i>
+                        <span>Selecciones</span>
+                    </div>
+                </div>
+
+                <!-- Buscador -->
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Buscar equipo...">
+                </div>
+
+                <!-- Estadísticas -->
+                <div class="catalog-stats">
+                    Mostrando <strong id="showing-count">0</strong> equipos
+                </div>
+
+                <!-- Grid de Equipos -->
+                <div class="teams-grid" id="teams-grid">
+                    <!-- Se generará dinámicamente -->
+                </div>
+
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No se encontraron resultados</h3>
+                    <p>Prueba con otro término de búsqueda o selecciona otra liga</p>
+                </div>
+
+                <div style="text-align: center; margin-top: var(--spacing-xl);">
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-md);">
+                        ¿No encuentras lo que buscas?
+                    </p>
+                    <a href="https://t.me/esKickverse?text=Hola!%20Busco%20una%20camiseta%20específica" target="_blank" rel="noopener" class="hero-cta">
+                        <i class="fab fa-telegram"></i>
+                        <span>Pregúntanos por Telegram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
-    
-    <!-- Footer -->
+
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-content">
-                
-                <!-- Brand -->
                 <div class="footer-brand">
                     <div class="footer-logo">
                         <img src="./img/logo.png" alt="Kickverse">
                         <span>Kickverse</span>
                     </div>
                     <p class="footer-description">
-                        Tu tienda online de confianza para camisetas de fútbol. 
-                        Encuentra las mejores equipaciones de clubes y selecciones al mejor precio.
+                        Tu tienda de camisetas de fútbol con la mejor calidad y precio. Catálogo completo, Mystery Boxes y suscripciones mensuales.
                     </p>
                     <div class="footer-social">
-                        <a href="https://www.instagram.com/kickverse.es/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram">
+                        <a href="https://www.instagram.com/kickverse.es/" target="_blank" rel="noopener" class="footer-social-link" aria-label="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://x.com/kickverse_es" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="X (Twitter)">
+                        <a href="https://x.com/kickverse_es" target="_blank" rel="noopener" class="footer-social-link" aria-label="X">
                             <i class="fab fa-x-twitter"></i>
                         </a>
-                        <a href="https://www.tiktok.com/@kickverse_es" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="TikTok">
+                        <a href="https://www.tiktok.com/@kickverse_es" target="_blank" rel="noopener" class="footer-social-link" aria-label="TikTok">
                             <i class="fab fa-tiktok"></i>
                         </a>
-                        <a href="https://t.me/kickverse_es" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Telegram">
+                        <a href="https://t.me/eskickverse" target="_blank" rel="noopener" class="footer-social-link" aria-label="Telegram">
                             <i class="fab fa-telegram"></i>
                         </a>
                     </div>
                 </div>
-                
-                <!-- Links -->
+
                 <div class="footer-section">
-                    <h4 class="footer-title">Enlaces</h4>
-                    <nav class="footer-links">
-                        <a href="index.html" class="footer-link">Inicio</a>
-                        <a href="form.html" class="footer-link">Pedido Personalizado</a>
-                        <a href="catalogo.html" class="footer-link">Catálogo</a>
-                        <a href="tallas.html" class="footer-link">Guía de Tallas</a>
-                        <a href="index.html#beneficios" class="footer-link">¿Por qué nosotros?</a>
-                    </nav>
+                    <h4>Productos</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Suscripciones</a></li>
+                        <li><a href="mystery-box.html">Mystery Box</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                    </ul>
                 </div>
-                
-                <!-- Información -->
+
                 <div class="footer-section">
-                    <h4 class="footer-title">Legal</h4>
-                    <nav class="footer-links">
-                        <a href="terminos.html" class="footer-link">Términos y Condiciones</a>
-                        <a href="#" class="footer-link">Política de Privacidad</a>
-                        <a href="#" class="footer-link">Política de Envíos</a>
-                        <a href="#" class="footer-link">Devoluciones</a>
-                    </nav>
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="terminos.html">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Política de Envíos</a></li>
+                        <li><a href="#">Devoluciones</a></li>
+                    </ul>
                 </div>
-                
-                <!-- Contacto -->
+
                 <div class="footer-section">
-                    <h4 class="footer-title">Contacto</h4>
+                    <h4>Contacto</h4>
                     <div class="footer-contact-item">
-                        <i class="fab fa-whatsapp"></i>
-                        <div class="footer-contact-info">
-                            <div class="footer-contact-label">WhatsApp</div>
-                            <a href="https://wa.me/34614299735" class="footer-contact-value">+34 614 299 735</a>
+                        <i class="fab fa-telegram"></i>
+                        <div>
+                            <div>Telegram</div>
+                            <a href="https://t.me/esKickverse" target="_blank" rel="noopener" class="footer-contact-value">@esKickverse</a>
                         </div>
                     </div>
                     <div class="footer-contact-item">
                         <i class="fas fa-envelope"></i>
-                        <div class="footer-contact-info">
-                            <div class="footer-contact-label">Email</div>
-                            <a href="mailto:contacto@kickverse.com" class="footer-contact-value">contacto@kickverse.com</a>
+                        <div>
+                            <div>Email</div>
+                            <a href="mailto:hola@kickverse.es" class="footer-contact-value">hola@kickverse.es</a>
                         </div>
                     </div>
                 </div>
-                
             </div>
-            
-            <!-- Footer Bottom -->
+
             <div class="footer-bottom">
-                <div class="footer-copyright">
-                    <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados.</p>
-                </div>
-                <div class="footer-payment">
-                    <span class="footer-payment-text">Métodos de pago:</span>
-                    <div class="footer-payment-icon">
-                        <i class="fab fa-cc-visa" style="font-size: 1.5rem; color: #1A1F71;"></i>
-                    </div>
-                    <div class="footer-payment-icon">
-                        <i class="fab fa-cc-mastercard" style="font-size: 1.5rem; color: #EB001B;"></i>
-                    </div>
-                    <div class="footer-payment-icon">
-                        <i class="fab fa-cc-paypal" style="font-size: 1.5rem; color: #003087;"></i>
-                    </div>
-                </div>
+                <p>&copy; 2025 <a href="index.html">Kickverse</a>. Todos los derechos reservados.</p>
             </div>
-            
         </div>
     </footer>
-    
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/34614299735?text=Hola%20Kickverse!%20Quiero%20información" 
-       class="whatsapp-float" 
-       target="_blank" 
-       rel="noopener noreferrer"
-       aria-label="Contactar por WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    
-    <!-- Modal Personalizar -->
-    <div class="modal" id="personalizar-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Personalizar Camiseta</h3>
-                <button class="modal-close" onclick="closeModal('personalizar-modal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Vista Previa de la Camiseta -->
-                <div class="modal-preview-section">
-                    <div class="modal-jersey-preview">
-                        <img id="modal-jersey-image" src="" alt="Vista previa" class="modal-jersey-img">
-                        <div id="modal-version-badge" class="modal-version-badge fan">FAN</div>
-                    </div>
-                </div>
-                
-                <!-- Selector de Versión -->
-                <div class="form-group">
-                    <label class="form-label-main">
-                        <i class="fas fa-star"></i>
-                        Elige tu versión *
-                    </label>
-                    <div class="version-cards-modal">
-                        <div class="version-card-modal selected" onclick="selectModalVersion('fan')" data-version="fan">
-                            <div class="version-badge-modal">MÁS POPULAR</div>
-                            <i class="fas fa-users"></i>
-                            <h4>Versión FAN</h4>
-                            <p class="version-desc-modal">La camiseta oficial de aficionado.</p>
-                            <p class="version-detail-modal">Personalización opcional.</p>
-                            <div class="version-price-modal">
-                                <span class="price-label-modal">DESDE</span>
-                                <span class="price-value-modal">24,99€</span>
-                            </div>
-                        </div>
-                        
-                        <div class="version-card-modal version-card-premium" onclick="selectModalVersion('player')" data-version="player">
-                            <div class="version-badge-modal version-badge-premium-modal">CALIDAD PREMIUM</div>
-                            <i class="fas fa-trophy"></i>
-                            <h4>Versión PLAYER</h4>
-                            <p class="version-desc-modal">Calidad profesional con</p>
-                            <p class="version-detail-modal">todos los extras incluidos.</p>
-                            <div class="version-price-modal version-price-premium-modal">
-                                <span class="price-label-modal">PRECIO FIJO</span>
-                                <span class="price-value-modal">34,99€</span>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" id="modal-version-selected" value="fan">
-                    <small class="form-help">
-                        <i class="fas fa-info-circle"></i>
-                        <a href="tallas.html" target="_blank">Ver guía de tallas y diferencias</a>
-                    </small>
-                </div>
 
-                <!-- Selector de Talla con Botones -->
-                <div class="form-group">
-                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">
-                        <i class="fas fa-ruler"></i> Selecciona tu talla *
-                    </label>
-                    <div class="tallas-buttons-modal">
-                        <button type="button" class="talla-btn" onclick="selectModalTalla('XS')">XS</button>
-                        <button type="button" class="talla-btn" onclick="selectModalTalla('S')">S</button>
-                        <button type="button" class="talla-btn" onclick="selectModalTalla('M')">M</button>
-                        <button type="button" class="talla-btn" onclick="selectModalTalla('L')">L</button>
-                        <button type="button" class="talla-btn" onclick="selectModalTalla('XL')">XL</button>
-                        <button type="button" class="talla-btn" onclick="selectModalTalla('XXL')">XXL</button>
+    <script>
+        // Base de datos completa del catálogo
+        const catalogData = {
+            laliga: [
+                { name: 'Real Madrid', logo: 'laliga_realmadrid.png', local: 'laliga_madrid_local.png', visitante: 'laliga_madrid_visitante.png' },
+                { name: 'FC Barcelona', logo: 'laliga_barcelona.png', local: 'laliga_barcelona_local.png', visitante: 'laliga_barcelona_visitante.png' },
+                { name: 'Atlético Madrid', logo: 'laliga_atlmadrid.png', local: 'laliga_atletico_local.png', visitante: 'laliga_atletico_visitante.png' },
+                { name: 'Athletic Bilbao', logo: 'laliga_athletic.png', local: 'laliga_bilbao_local.png', visitante: 'laliga_bilbao_visitante.png' },
+                { name: 'Real Sociedad', logo: 'laliga_realsociedad.png', local: 'laliga_realsociedad_local.png', visitante: 'laliga_realsociedad_visitante.png' },
+                { name: 'Real Betis', logo: 'laliga_betis.png', local: 'laliga_betis_local.png', visitante: 'laliga_betis_visitante.png' },
+                { name: 'Villarreal CF', logo: 'laliga_villarreal.png', local: 'laliga_villareal_local.png', visitante: 'laliga_villareal_visitante.png' },
+                { name: 'Sevilla FC', logo: 'laliga_sevilla.png', local: 'laliga_sevilla_local.png', visitante: 'laliga_sevilla_visitante.png' },
+                { name: 'Valencia CF', logo: 'laliga_valencia.png', local: 'laliga_valencia_local.png', visitante: 'laliga_valencia_visitante.png' },
+                { name: 'Celta de Vigo', logo: 'laliga_celta.png', local: 'laliga_celta_local.png', visitante: 'laliga_celta_visitante.png' },
+                { name: 'RCD Espanyol', logo: 'laliga_espanyol.png', local: 'laliga_espanyol_local.png', visitante: 'laliga_espanyol_visitante.png' },
+                { name: 'Rayo Vallecano', logo: 'laliga_rayovallecano.png', local: 'laliga_rayo_local.png', visitante: 'laliga_rayo_visitante.png' },
+                { name: 'Getafe CF', logo: 'laliga_getafe.png', local: 'laliga_getafe_local.png', visitante: 'laliga_getafe_visitante.png' },
+                { name: 'RCD Mallorca', logo: 'laliga_mallorca.png', local: 'laliga_mallorca_local.png', visitante: 'laliga_mallorca_visitante.png' },
+                { name: 'CA Osasuna', logo: 'laliga_osasuna.png', local: 'laliga_osasuna_local.png', visitante: null },
+                { name: 'Deportivo Alavés', logo: 'laliga_alaves.png', local: 'laliga_alaves_local.png', visitante: 'laliga_alaves_visitante.png' },
+                { name: 'Girona FC', logo: 'laliga_girona.png', local: 'laliga_girona_local.png', visitante: 'laliga_girona_visitante.png' },
+                { name: 'Real Oviedo', logo: 'laliga_realoviedo.png', local: 'laliga_oviedo_local.png', visitante: 'laliga_oviedo_visitante.png' },
+                { name: 'Levante UD', logo: 'laliga_levante.png', local: 'laliga_levante_local.png', visitante: 'laliga_levante_visitante.png' },
+                { name: 'Elche CF', logo: 'laliga_elche.png', local: 'laliga_elche_local.png', visitante: 'laliga_elche_visitante.png' },
+            ],
+            premier: [
+                { name: 'Manchester City', logo: 'premier_manchestercity.png', local: 'premier_manchestercity_local.png', visitante: 'premier_manchestercity_visitante.png' },
+                { name: 'Arsenal FC', logo: 'premier_arsenal.png', local: 'premier_arsenal_local.png', visitante: 'premier_arsenal_visitante.png' },
+                { name: 'Liverpool FC', logo: 'premier_liverpool.png', local: 'premier_liverpool_local.png', visitante: 'premier_liverpool_visitante.png' },
+                { name: 'Manchester United', logo: 'premier_manchesterunited.png', local: 'premier_manchesterunited_local.png', visitante: 'premier_manchesterunited_visitante.png' },
+                { name: 'Chelsea FC', logo: 'premier_chelsea.png', local: 'premier_chelsea_local.png', visitante: 'premier_chelsea_visitante.png' },
+                { name: 'Tottenham Hotspur', logo: 'premier_tottenham.png', local: 'premier_tottenham_local.png', visitante: 'premier_tottenham_visitante.png' },
+                { name: 'Newcastle United', logo: 'premier_newcastle.png', local: 'premier_newscastle_local.png', visitante: 'premier_newscastle_visitante.png' },
+                { name: 'Aston Villa', logo: 'premier_astonvilla.png', local: 'premier_astonvilla_local.png', visitante: 'premier_astonvilla_visitante.png' },
+                { name: 'West Ham United', logo: 'premier_westham.png', local: 'premier_westham_local.png', visitante: 'premier_westham_visitante.png' },
+                { name: 'Crystal Palace', logo: 'premier_crystalpalace.png', local: 'premier_crystalpalace_local.png', visitante: 'premier_crystalpalace_visitante.png' },
+                { name: 'Everton FC', logo: 'premier_everton.png', local: 'premier_everton_local.png', visitante: 'premier_everton_visitante.png' },
+            ],
+            seriea: [
+                { name: 'Juventus', logo: 'seriea_juventus.png', local: 'seriea_juventus_local.png', visitante: 'seriea_juventus_visitante.png' },
+                { name: 'Inter Milan', logo: 'seriea_inter.png', local: 'seriea_inter_local.png', visitante: 'seriea_inter_visitante.png' },
+                { name: 'AC Milan', logo: 'seriea_milan.png', local: 'seriea_milan_local.png', visitante: 'seriea_milan_visitante.png' },
+                { name: 'SSC Napoli', logo: 'seriea_napoli.png', local: 'seriea_napoli_local.png', visitante: 'seriea_napoli_visitante.png' },
+                { name: 'AS Roma', logo: 'seriea_roma.png', local: 'seriea_roma_local.png', visitante: 'seriea_roma_visitante.png' },
+                { name: 'SS Lazio', logo: 'seriea_lazio.png', local: 'seriea_lazio_local.png', visitante: 'seriea_lazio_visitante.png' },
+                { name: 'Atalanta BC', logo: 'seriea_atalanta.png', local: 'seriea_atalanta_local.png', visitante: 'seriea_atalanta_visitante.png' },
+                { name: 'Fiorentina', logo: 'seriea_fiorentina.png', local: 'seriea_fiorentina_local.png', visitante: 'seriea_fiorentina_visitante.png' },
+                { name: 'Bologna FC', logo: 'seriea_bologna.png', local: 'seriea_bologna_local.png', visitante: 'seriea_bologna_visitante.png' },
+                { name: 'Torino FC', logo: 'seriea_torino.png', local: 'seriea_torino_local.png', visitante: 'seriea_torino_visitante.png' },
+            ],
+            bundesliga: [
+                { name: 'Bayern München', logo: 'bundesliga_bayernmunchen.png', local: 'bundesliga_bayern_local.png', visitante: 'bundesliga_bayern_visitante.png' },
+                { name: 'Borussia Dortmund', logo: 'bundesliga_borussiadortmund.png', local: 'bundesliga_dortmund_local.png', visitante: 'bundesliga_dortmund_visitante.png' },
+                { name: 'Bayer Leverkusen', logo: 'bundesliga_bayerleverkusen.png', local: 'bundesliga_leverkusen_local.png', visitante: 'bundesliga_leverkusen_visitante.png' },
+                { name: 'RB Leipzig', logo: 'bundesliga_rbleipzig.png', local: 'bundesliga_Leipzig_local.png', visitante: 'bundesliga_Leipzig_visitante.png' },
+                { name: 'Eintracht Frankfurt', logo: 'bundesliga_eintrachtfrankfurt.png', local: 'bundesliga_Eintracht_local.png', visitante: 'bundesliga_Eintracht_visitante.png' },
+                { name: 'VfL Wolfsburg', logo: 'bundesliga_wolfsburg.png', local: 'bundesliga_wolfburg_local.png', visitante: 'bundesliga_wolfburg_visitante.png' },
+                { name: 'Werder Bremen', logo: 'bundesliga_werderbremen.png', local: 'bundesliga_bremen_local.png', visitante: 'bundesliga_bremen_visitante.png' },
+                { name: 'VfB Stuttgart', logo: 'bundesliga_stuttgart.png', local: 'bundesliga_Stuttgart_local.png', visitante: 'bundesliga_Stuttgart_visitante.png' },
+                { name: 'Borussia Mönchengladbach', logo: 'bundesliga_bmonchengladbach.png', local: 'bundesliga_Mönchengladbach_local.png', visitante: 'bundesliga_Mönchengladbach_visitante.png' },
+                { name: 'Union Berlin', logo: 'bundesliga_unionberlin.png', local: 'bundesliga_UnionBerlin_local.png', visitante: 'bundesliga_UnionBerlin_visitante.png' },
+                { name: 'SC Freiburg', logo: 'bundesliga_freiburg.png', local: 'bundesliga_Freiburg_local.png', visitante: 'bundesliga_Freiburg_visitante.png' },
+                { name: 'FC Augsburg', logo: 'bundesliga_augsburgo.png', local: 'bundesliga_Augsburg_local.png', visitante: 'bundesliga_Augsburg_visitante.png' },
+                { name: 'TSG Hoffenheim', logo: 'bundesliga_hoffenheim.png', local: 'bundesliga_Hoffenheim_local.png', visitante: 'bundesliga_Hoffenheim_visitante.png' },
+                { name: 'Mainz 05', logo: 'bundesliga_mainz05.png', local: 'bundesliga_Mainz05_local.png', visitante: 'bundesliga_Mainz05_visitante.png' },
+                { name: '1. FC Köln', logo: 'bundesliga_koln.png', local: 'bundesliga_Köln_local.png', visitante: 'bundesliga_Köln_visitante.png' },
+                { name: 'St. Pauli', logo: 'bundesliga_st_pauli.png', local: 'bundesliga_St.Pauli_local.png', visitante: 'bundesliga_St.Pauli_visitante.png' },
+                { name: 'Heidenheim', logo: 'bundesliga_heidenheim.png', local: 'bundesliga_Heidenheim_local.png', visitante: 'bundesliga__Heidenheim_visitante.png' },
+                { name: 'Hamburger SV', logo: 'bundesliga_hamburgo.png', local: 'bundesliga_Hamburger_local.png', visitante: 'bundesliga_Hamburger_visitante.png' },
+            ],
+            ligue1: [
+                { name: 'Paris Saint-Germain', logo: 'ligue1_psg.png', local: 'ligue1_psg_local.png', visitante: 'ligue1_psg_visitante.png' },
+                { name: 'Olympique Lyon', logo: 'ligue1_olympiquelyon.png', local: 'ligue1_lyon_local.png', visitante: 'ligue1_lyon_visitante.png' },
+                { name: 'Olympique Marseille', logo: 'ligue1_olimpiquemarsella.png', local: 'ligue1_marsella_local.png', visitante: 'ligue1_marsella_visitante.png' },
+                { name: 'AS Monaco', logo: 'ligue1_monaco.png', local: 'ligue1_monaco_local.png', visitante: 'ligue1_monaco_visitante.png' },
+            ],
+            selecciones: [
+                { name: 'Argentina', logo: 'selecciones_argentina.png', local: 'selecciones_argentina_local.png', visitante: 'selecciones_argentina_visitante.png' },
+                { name: 'Colombia', logo: 'selecciones_colombia.png', local: 'selecciones_colombia_local.png', visitante: 'selecciones_colombia_visitante.png' },
+                { name: 'Uruguay', logo: 'selecciones_uruguay.png', local: 'selecciones_uruguay_local.png', visitante: 'selecciones_uruguay_visitante.png' },
+                { name: 'Japón', logo: 'selecciones_japon.png', local: 'selecciones_japon_local.png', visitante: 'selecciones_japon_visitante.png' },
+            ]
+        };
+
+        let currentLeague = 'laliga';
+        let searchTerm = '';
+
+        function renderTeams() {
+            const grid = document.getElementById('teams-grid');
+            const emptyState = document.getElementById('empty-state');
+            
+            let teams = catalogData[currentLeague] || [];
+            
+            // Filtrar por búsqueda
+            if (searchTerm) {
+                teams = teams.filter(team => 
+                    team.name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }
+            
+            if (teams.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                document.getElementById('showing-count').textContent = '0';
+                return;
+            }
+            
+            grid.style.display = 'grid';
+            emptyState.style.display = 'none';
+            
+            grid.innerHTML = teams.map(team => `
+                <div class="team-card">
+                    <div class="team-header">
+                        <img src="./img/clubs/${team.logo}" alt="${team.name}" class="team-logo" onerror="this.src='./img/logo.png'">
+                        <h3 class="team-name">${team.name}</h3>
                     </div>
-                    <input type="hidden" id="personalizar-talla">
-                    <a href="tallas.html" target="_blank" class="tallas-guide-link" style="display: block; text-align: center; margin-top: 0.5rem;">
-                        <i class="fas fa-info-circle"></i> Ver guía de tallas
+                    <div class="jerseys-showcase">
+                        ${team.local ? `
+                            <div class="jersey-item">
+                                <img src="./img/camisetas/${team.local}" alt="${team.name} Local" class="jersey-img" onerror="this.style.display='none'">
+                                <div class="jersey-label">Local</div>
+                            </div>
+                        ` : ''}
+                        ${team.visitante ? `
+                            <div class="jersey-item">
+                                <img src="./img/camisetas/${team.visitante}" alt="${team.name} Visitante" class="jersey-img" onerror="this.style.display='none'">
+                                <div class="jersey-label">Visitante</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <a href="https://t.me/esKickverse?text=Hola!%20Quiero%20consultar%20disponibilidad%20de:%20${encodeURIComponent(team.name)}" 
+                       target="_blank" 
+                       rel="noopener" 
+                       class="team-cta">
+                        <i class="fab fa-telegram"></i>
+                        Consultar Disponibilidad
                     </a>
                 </div>
-                
-                <!-- Parches (oculto si es PLAYER) -->
-                <div class="form-group" id="modal-parches-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="personalizar-parches">
-                        <span>Añadir parches oficiales (+1,99€)</span>
-                    </label>
-                </div>
-                
-                <!-- Personalización (oculta si es PLAYER) -->
-                <div class="form-group" id="modal-personalizacion-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="personalizar-custom" onchange="toggleCustomFields()">
-                        <span>Personalizar con nombre y dorsal (+2,99€)</span>
-                    </label>
-                </div>
-                
-                <div id="custom-fields" style="display: none;">
-                    <div class="form-group">
-                        <label for="personalizar-nombre">
-                            <i class="fas fa-user"></i> Nombre
-                        </label>
-                        <input type="text" id="personalizar-nombre" placeholder="Ej: RODRÍGUEZ" maxlength="12">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="personalizar-dorsal">
-                            <i class="fas fa-hashtag"></i> Dorsal
-                        </label>
-                        <input type="number" id="personalizar-dorsal" placeholder="Ej: 10" min="1" max="99">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('personalizar-modal')">
-                    Cancelar
-                </button>
-                <button class="btn btn-primary" onclick="agregarAlCarrito()">
-                    <i class="fas fa-shopping-cart"></i>
-                    Añadir al Carrito
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal Carrito -->
-    <div class="modal" id="cart-modal">
-        <div class="modal-content modal-cart">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-shopping-cart"></i>
-                    Carrito de Compras
-                </h3>
-                <button class="modal-close" onclick="closeModal('cart-modal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="cart-empty" class="cart-empty" style="display: none;">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h4>Tu carrito está vacío</h4>
-                    <p>Añade productos para comenzar tu compra</p>
-                </div>
-                
-                <div id="cart-content">
-                    <div id="cart-items-container"></div>
-                    
-                    <div id="cart-promo-message" class="cart-promo-message" style="display: none;"></div>
-                    
-                    <!-- Cupón de descuento -->
-                    <div class="cart-coupon-section">
-                        <div class="cart-coupon-header">
-                            <i class="fas fa-tag"></i>
-                            <span>¿Tienes un cupón de descuento?</span>
-                        </div>
-                        <div class="cart-coupon-input-group">
-                            <input type="text" id="coupon-input" placeholder="Introduce tu código" maxlength="15">
-                            <button class="btn btn-primary btn-sm" onclick="applyCoupon()">Aplicar</button>
-                        </div>
-                        <div id="coupon-message" class="coupon-message"></div>
-                        <div id="applied-coupon" class="applied-coupon" style="display: none;">
-                            <div class="applied-coupon-info">
-                                <i class="fas fa-check-circle"></i>
-                                <span id="applied-coupon-code"></span>
-                            </div>
-                            <button class="btn-remove-coupon" onclick="removeCoupon()">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="cart-summary">
-                        <div class="cart-summary-row">
-                            <span>Subtotal:</span>
-                            <span id="cart-subtotal">0.00€</span>
-                        </div>
-                        <div class="cart-summary-row" id="discount-row" style="display: none;">
-                            <span class="discount-label">
-                                <i class="fas fa-tag"></i>
-                                Descuento:
-                            </span>
-                            <span class="discount-amount" id="cart-discount">-0.00€</span>
-                        </div>
-                        <div class="cart-summary-row cart-summary-total">
-                            <span>Total:</span>
-                            <span class="cart-total-price" id="cart-total">0.00€</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer" id="cart-footer">
-                <button class="btn btn-secondary" onclick="clearCart()">
-                    <i class="fas fa-trash"></i>
-                    Vaciar Carrito
-                </button>
-                <button class="btn btn-whatsapp" onclick="finalizarCompraCarrito()">
-                    <i class="fab fa-whatsapp"></i>
-                    Finalizar Compra
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Popup de Bienvenida con Descuento -->
-    <div id="welcome-popup" class="welcome-popup">
-        <div class="welcome-popup-content">
-            <button class="welcome-popup-close" onclick="closeWelcomePopup()">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="welcome-popup-icon">
-                <i class="fas fa-gift"></i>
-            </div>
-            <h2>¡Bienvenido a Kickverse!</h2>
-            <p class="welcome-popup-subtitle">Consigue tu primer descuento</p>
-            <div class="welcome-popup-offer">
-                <div class="welcome-popup-amount">5€</div>
-                <div class="welcome-popup-text">de descuento en tu primera compra</div>
-            </div>
-            <div class="welcome-popup-conditions">
-                <i class="fas fa-info-circle"></i>
-                <span>Válido para compras superiores a 60€</span>
-            </div>
-            <div class="welcome-popup-coupon">
-                <div class="welcome-popup-coupon-label">Tu código:</div>
-                <div class="welcome-popup-coupon-code" id="welcome-coupon-code">WELCOME5</div>
-                <button class="btn btn-copy" onclick="copyCouponCode('WELCOME5')">
-                    <i class="fas fa-copy"></i>
-                    Copiar código
-                </button>
-            </div>
-            <button class="btn btn-primary btn-lg" onclick="closeWelcomePopup()">
-                ¡Empezar a comprar!
-            </button>
-        </div>
-    </div>
-    
-    <!-- Modal de Dirección de Envío -->
-    <div class="modal" id="direccion-modal">
-        <div class="modal-content modal-content-md">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-map-marker-alt"></i>
-                    Dirección de Envío
-                </h3>
-                <button class="modal-close" onclick="closeModal('direccion-modal')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="direccion-form" class="direccion-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="direccion-nombre">
-                                <i class="fas fa-user"></i>
-                                Nombre completo *
-                            </label>
-                            <input type="text" 
-                                   id="direccion-nombre" 
-                                   name="nombre"
-                                   placeholder="Ej: Juan Pérez García"
-                                   required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="direccion-telefono">
-                                <i class="fas fa-phone"></i>
-                                Teléfono *
-                            </label>
-                            <input type="tel" 
-                                   id="direccion-telefono" 
-                                   name="telefono"
-                                   placeholder="Ej: +34 600 123 456"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion-email">
-                                <i class="fas fa-envelope"></i>
-                                Email
-                            </label>
-                            <input type="email" 
-                                   id="direccion-email" 
-                                   name="email"
-                                   placeholder="tu@email.com">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group form-group-full">
-                            <label for="direccion-calle">
-                                <i class="fas fa-road"></i>
-                                Dirección (Calle, número, piso, puerta) *
-                            </label>
-                            <input type="text" 
-                                   id="direccion-calle" 
-                                   name="calle"
-                                   placeholder="Ej: Calle Gran Vía 45, 3º B"
-                                   required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="direccion-ciudad">
-                                <i class="fas fa-city"></i>
-                                Ciudad *
-                            </label>
-                            <input type="text" 
-                                   id="direccion-ciudad" 
-                                   name="ciudad"
-                                   placeholder="Ej: Madrid"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion-provincia">
-                                <i class="fas fa-map"></i>
-                                Provincia *
-                            </label>
-                            <input type="text" 
-                                   id="direccion-provincia" 
-                                   name="provincia"
-                                   placeholder="Ej: Madrid"
-                                   required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="direccion-cp">
-                                <i class="fas fa-mail-bulk"></i>
-                                Código Postal *
-                            </label>
-                            <input type="text" 
-                                   id="direccion-cp" 
-                                   name="cp"
-                                   placeholder="Ej: 28001"
-                                   maxlength="5"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion-pais">
-                                <i class="fas fa-flag"></i>
-                                País *
-                            </label>
-                            <select id="direccion-pais" name="pais" required>
-                                <option value="España">España</option>
-                                <option value="Portugal">Portugal</option>
-                                <option value="Francia">Francia</option>
-                                <option value="Italia">Italia</option>
-                                <option value="Alemania">Alemania</option>
-                                <option value="Reino Unido">Reino Unido</option>
-                                <option value="Otro">Otro</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group form-group-full">
-                            <label for="direccion-notas">
-                                <i class="fas fa-sticky-note"></i>
-                                Notas adicionales (opcional)
-                            </label>
-                            <textarea id="direccion-notas" 
-                                      name="notas"
-                                      placeholder="Información adicional para la entrega (portero automático, horario preferido, etc.)"
-                                      rows="3"></textarea>
-                        </div>
-                    </div>
-                    
-                    <div class="form-info">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Esta información se guardará para futuras compras</span>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal('direccion-modal')">
-                    <i class="fas fa-times"></i>
-                    Cancelar
-                </button>
-                <button class="btn btn-whatsapp" onclick="confirmarDireccionYEnviar()">
-                    <i class="fab fa-whatsapp"></i>
-                    Confirmar y Enviar Pedido
-                </button>
-            </div>
-        </div>
-    </div>
+            `).join('');
+            
+            document.getElementById('showing-count').textContent = teams.length;
+        }
 
-    <!-- Cookie Consent Banner -->
-    <div id="cookieConsent" class="cookie-consent">
-        <div class="cookie-consent-content">
-            <div class="cookie-consent-text">
-                <h3>Usamos Cookies</h3>
-                <p>
-                    Utilizamos cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar el contenido. 
-                    Puedes aceptar todas, rechazarlas o configurar tus preferencias. 
-                    <a href="#" onclick="event.preventDefault(); window.cookieConsent.openSettings();">Más información</a>
-                </p>
-            </div>
-            <div class="cookie-consent-actions">
-                <button id="acceptCookies" class="cookie-btn cookie-btn-accept">
-                    <i class="fas fa-check"></i> Aceptar Todo
-                </button>
-                <button id="rejectCookies" class="cookie-btn cookie-btn-reject">
-                    <i class="fas fa-times"></i> Rechazar
-                </button>
-                <button id="cookieSettings" class="cookie-btn cookie-btn-settings">
-                    <i class="fas fa-cog"></i> Preferencias
-                </button>
-            </div>
-        </div>
-    </div>
+        function filterByLeague(league) {
+            currentLeague = league;
+            
+            // Actualizar tabs activos
+            document.querySelectorAll('.league-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-league="${league}"]`).classList.add('active');
+            
+            renderTeams();
+        }
 
-    <!-- Cookie Settings Modal -->
-    <div id="cookieSettingsModal" class="cookie-settings-modal">
-        <div class="cookie-settings-content">
-            <div class="cookie-settings-header">
-                <h2>Configuración de Cookies</h2>
-                <button id="closeSettings" class="cookie-settings-close" aria-label="Cerrar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="cookie-settings-body">
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <h3>🔒 Cookies Necesarias</h3>
-                        <label class="cookie-toggle">
-                            <input type="checkbox" id="cookie-necessary" checked disabled>
-                            <span class="cookie-toggle-slider"></span>
-                        </label>
-                    </div>
-                    <p class="cookie-category-description">
-                        Estas cookies son esenciales para el funcionamiento del sitio web. 
-                        Permiten funciones básicas como la navegación y el acceso a áreas seguras. 
-                        No se pueden desactivar.
-                    </p>
-                </div>
+        // Buscador
+        document.getElementById('search-input').addEventListener('input', (e) => {
+            searchTerm = e.target.value;
+            renderTeams();
+        });
 
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <h3>📊 Cookies Analíticas</h3>
-                        <label class="cookie-toggle">
-                            <input type="checkbox" id="cookie-analytics">
-                            <span class="cookie-toggle-slider"></span>
-                        </label>
-                    </div>
-                    <p class="cookie-category-description">
-                        Nos ayudan a entender cómo los visitantes interactúan con el sitio web, 
-                        recopilando información de forma anónima. Utilizamos Google Analytics para mejorar la experiencia.
-                    </p>
-                </div>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
 
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <h3>🎯 Cookies de Marketing</h3>
-                        <label class="cookie-toggle">
-                            <input type="checkbox" id="cookie-marketing">
-                            <span class="cookie-toggle-slider"></span>
-                        </label>
-                    </div>
-                    <p class="cookie-category-description">
-                        Se utilizan para rastrear a los visitantes en diferentes sitios web con el fin de 
-                        mostrar anuncios relevantes y personalizados según sus intereses.
-                    </p>
-                </div>
-
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <h3>⚙️ Cookies de Preferencias</h3>
-                        <label class="cookie-toggle">
-                            <input type="checkbox" id="cookie-preferences">
-                            <span class="cookie-toggle-slider"></span>
-                        </label>
-                    </div>
-                    <p class="cookie-category-description">
-                        Permiten al sitio web recordar tus elecciones (como tu idioma preferido o región) 
-                        para proporcionar una experiencia más personalizada.
-                    </p>
-                </div>
-            </div>
-            <div class="cookie-settings-footer">
-                <button id="savePreferences" class="cookie-btn cookie-btn-accept">
-                    <i class="fas fa-save"></i> Guardar Preferencias
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- JavaScript -->
-    <script src="./js/cookies.js"></script>
-    <script src="./js/main.js"></script>
-    
+        // Renderizar inicial
+        renderTeams();
+    </script>
 </body>
 </html>
