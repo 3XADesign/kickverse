@@ -125,6 +125,49 @@ body {
     border-color: rgba(186, 81, 221, 0.5);
 }
 
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 2px;
+    overflow: hidden;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.lang-btn:hover {
+    background: rgba(186, 81, 221, 0.15);
+    color: var(--color-text-primary);
+}
+
+.lang-btn.active {
+    background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
+    color: white;
+}
+
+.lang-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
 main {
     padding-top: 100px;
 }
@@ -810,6 +853,13 @@ main {
     }
     .header-nav a {
         font-size: 0.9rem;
+    }
+    .lang-switcher {
+        order: 2;
+    }
+    .lang-btn {
+        padding: 4px 8px;
+        font-size: 0.8rem;
     }
     .hero {
         padding: var(--spacing-xl) 0;

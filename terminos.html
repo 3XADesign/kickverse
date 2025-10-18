@@ -337,37 +337,38 @@
 
     <!-- Header -->
     <header class="header">
-        <div class="container">
+        <div class="header-container">
             <a href="index.html" class="header-logo">
-                <img src="img/logotipo.svg" alt="Kickverse Logo">
+                <img src="./img/logo.png" alt="Kickverse Logo">
+                <span>Kickverse</span>
             </a>
-            
-            <nav class="header-nav" id="mainNav">
-                <ul class="header-nav-list">
-                    <li><a href="index.html" class="header-nav-link">Inicio</a></li>
-                    <li><a href="form.html" class="header-nav-link">Pedido Personalizado</a></li>
-                    <li><a href="catalogo.html" class="header-nav-link">Catálogo</a></li>
-                    <li><a href="mystery-box.html" class="header-nav-link">Mystery Box</a></li>
-                </ul>
+            <nav class="header-nav">
+                <a href="catalogo.html">
+                    <span data-lang="es">Catálogo</span>
+                    <span data-lang="en">Catalog</span>
+                </a>
+                <a href="mystery-box.html">Mystery Box</a>
             </nav>
-
-            <div class="header-actions">
-                <button class="btn-icon" id="cartBtn" aria-label="Carrito de compras">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-badge" id="cartBadge">0</span>
+            <div class="lang-switcher">
+                <button class="lang-btn" data-lang-btn="es" aria-label="Español">
+                    ES
                 </button>
-                <button class="btn-icon mobile-menu-btn" id="mobileMenuBtn" aria-label="Menú">
-                    <i class="fas fa-bars"></i>
+                <button class="lang-btn" data-lang-btn="en" aria-label="English">
+                    EN
                 </button>
             </div>
+            <a href="https://t.me/esKickverse" target="_blank" rel="noopener" class="header-contact">
+                <i class="fab fa-telegram"></i>
+                @esKickverse
+            </a>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="terminos-container">
         <div class="terminos-header">
-            <h1>Términos y Condiciones</h1>
-            <p class="subtitle">kickverse.es - Tu tienda de camisetas de fútbol personalizadas</p>
+            <h1><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms and Conditions</span></h1>
+            <p class="subtitle"><span data-lang="es">kickverse.es - Tu tienda de camisetas de fútbol personalizadas</span><span data-lang="en">kickverse.es - Your custom football jersey store</span></p>
             <div class="promo-banner">
                 <i class="fas fa-gift"></i>
                 Oferta especial primera compra hasta 01/11 - Código: <strong>WELCOME10</strong>
@@ -792,8 +793,8 @@
 
         <!-- Contact Box -->
         <div class="contact-box">
-            <h3>¿Tienes preguntas sobre nuestros términos?</h3>
-            <p>Estamos aquí para ayudarte. Contacta con nosotros por cualquiera de estos medios:</p>
+            <h3><span data-lang="es">¿Tienes preguntas sobre nuestros términos?</span><span data-lang="en">Have questions about our terms?</span></h3>
+            <p><span data-lang="es">Estamos aquí para ayudarte. Contacta con nosotros por cualquiera de estos medios:</span><span data-lang="en">We're here to help. Contact us through any of these means:</span></p>
             <div class="contact-buttons">
                 <a href="https://wa.me/34614299735" class="contact-btn whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i>
@@ -831,15 +832,15 @@
                     <h4>Enlaces Rápidos</h4>
                     <ul>
                         <li><a href="index.html">Inicio</a></li>
-                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="catalogo.html"><span data-lang="es">Catálogo</span><span data-lang="en">Catalog</span></a></li>
                         <li><a href="form.html">Personalizar</a></li>
-                        <li><a href="tallas.html">Guía de Tallas</a></li>
-                        <li><a href="terminos.html">Términos y Condiciones</a></li>
+                        <li><a href="tallas.html"><span data-lang="es">Guía de Tallas</span><span data-lang="en">Size Guide</span></a></li>
+                        <li><a href="terminos.html"><span data-lang="es">Términos y Condiciones</span><span data-lang="en">Terms and Conditions</span></a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h4>Contacto</h4>
+                    <h4><span data-lang="es">Contacto</span><span data-lang="en">Contact</span></h4>
                     <ul>
                         <li><i class="fab fa-whatsapp"></i> +34 614 29 97 35</li>
                         <li><i class="fas fa-envelope"></i> info@kickverse.es</li>
@@ -897,5 +898,6 @@
             });
         });
     </script>
+    <script src="./js/lang.js"></script>
 </body>
 </html>
