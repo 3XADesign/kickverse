@@ -518,6 +518,83 @@ function initPriceComparison() {
 }
 
 // ============================================
+// 11. IMAGE LIGHTBOX
+// ============================================
+function initImageLightbox() {
+    // Crear el lightbox si no existe
+    if (!document.getElementById('imageLightbox')) {
+        const lightbox = document.createElement('div');
+        lightbox.id = 'imageLightbox';
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = `
+            <div class="lightbox-content">
+                <button class="lightbox-close" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+                <img class="lightbox-image" src="" alt="">
+            </div>
+        `;
+        document.body.appendChild(lightbox);
+        
+        // Event listeners para cerrar
+        const closeBtn = lightbox.querySelector('.lightbox-close');
+        closeBtn.addEventListener('click', closeLightbox);
+        
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Cerrar con ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    }
+    
+    // Hacer clickables todas las imágenes de productos
+    const productImages = document.querySelectorAll('.jersey-img, .team-logo, .testimonial-avatar, .carousel-item img, img[src*="camisetas/"]');
+    
+    productImages.forEach(img => {
+        if (!img.classList.contains('clickable-image')) {
+            img.classList.add('clickable-image');
+            img.style.cursor = 'zoom-in';
+            
+            img.addEventListener('click', () => {
+                openLightbox(img.src, img.alt);
+            });
+        }
+    });
+}
+
+function openLightbox(imageSrc, imageAlt) {
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImg = lightbox.querySelector('.lightbox-image');
+    
+    lightboxImg.src = imageSrc;
+    lightboxImg.alt = imageAlt;
+    
+    lightbox.classList.add('active');
+    document.body.classList.add('lightbox-open');
+    
+    // Event tracking
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'image_zoom', {
+            'event_category': 'engagement',
+            'event_label': imageSrc
+        });
+    }
+}
+
+function closeLightbox() {
+    const lightbox = document.getElementById('imageLightbox');
+    lightbox.classList.remove('active');
+    document.body.classList.remove('lightbox-open');
+}
+
+// ============================================
 // INICIALIZACIÓN
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -533,6 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventTracking();
     initSocialProofNotifications();
     initPriceComparison();
+    initImageLightbox(); // NUEVO
     
     console.log('✅ Todas las mejoras de conversión activas');
 });
