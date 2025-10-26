@@ -764,3 +764,149 @@
         font-size: 16px;
     }
 }
+
+/* ============================================
+   11. STICKY CTA CON MÚLTIPLES OPCIONES (MOBILE)
+   ============================================ */
+.sticky-cta-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sticky-cta-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sticky-cta-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.sticky-cta-subtitle {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.sticky-cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #a855f7;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.sticky-cta-button:hover {
+    background: #ffffff;
+    transform: scale(1.02);
+}
+
+.sticky-cta-button i {
+    font-size: 18px;
+}
+
+/* ============================================
+   12. CONTACT OPTIONS (Multi-canal)
+   ============================================ */
+.contact-options {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.contact-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.contact-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.contact-option i {
+    font-size: 18px;
+}
+
+.contact-option.telegram {
+    background: linear-gradient(135deg, rgba(38, 174, 237, 0.15), rgba(38, 174, 237, 0.25));
+    border-color: rgba(38, 174, 237, 0.3);
+}
+
+.contact-option.telegram:hover {
+    background: linear-gradient(135deg, rgba(38, 174, 237, 0.25), rgba(38, 174, 237, 0.35));
+    border-color: rgba(38, 174, 237, 0.5);
+}
+
+.contact-option.instagram {
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.15), rgba(193, 53, 132, 0.25));
+    border-color: rgba(225, 48, 108, 0.3);
+}
+
+.contact-option.instagram:hover {
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(193, 53, 132, 0.35));
+    border-color: rgba(225, 48, 108, 0.5);
+}
+
+.contact-option.twitter {
+    background: rgba(29, 155, 240, 0.15);
+    border-color: rgba(29, 155, 240, 0.3);
+}
+
+.contact-option.twitter:hover {
+    background: rgba(29, 155, 240, 0.25);
+    border-color: rgba(29, 155, 240, 0.5);
+}
+
+/* Mobile optimizations para contact options */
+@media (max-width: 768px) {
+    .contact-options {
+        gap: 8px;
+    }
+    
+    .contact-option {
+        padding: 10px 20px;
+        font-size: 14px;
+        flex: 1;
+        min-width: 140px;
+    }
+    
+    .sticky-cta-content {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .sticky-cta-button {
+        width: 100%;
+    }
+}
+
