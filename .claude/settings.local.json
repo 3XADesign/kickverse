@@ -9,7 +9,9 @@
       "Bash(/Users/danielgomezmartin/Desktop/3XA/kickverse/RUTAS_ABSOLUTAS.txt)",
       "Bash(xargs ls:*)",
       "Bash(find:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
