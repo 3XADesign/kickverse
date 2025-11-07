@@ -530,5 +530,14 @@ return [
         'btn_whatsapp' => 'WhatsApp',
         'btn_telegram' => 'Telegram',
         'btn_catalog' => 'View Catalog',
+
+        // Kids ages
+        'age_2_3' => '2-3 years',
+        'age_3_4' => '3-4 years',
+        'age_4_5' => '4-5 years',
+        'age_6_7' => '6-7 years',
+        'age_8_9' => '8-9 years',
+        'age_10_11' => '10-11 years',
+        'age_12_13' => '12-13 years',
     ],
 ];

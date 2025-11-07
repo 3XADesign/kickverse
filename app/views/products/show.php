@@ -357,13 +357,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr><td>16</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '2-3 años' : '2-3 years' ?></td><td>92-98</td><td>13-15</td></tr>
-                                            <tr><td>18</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '3-4 años' : '3-4 years' ?></td><td>98-104</td><td>15-17</td></tr>
-                                            <tr><td>20</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '4-5 años' : '4-5 years' ?></td><td>104-110</td><td>17-19</td></tr>
-                                            <tr><td>22</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '6-7 años' : '6-7 years' ?></td><td>116-122</td><td>21-24</td></tr>
-                                            <tr><td>24</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '8-9 años' : '8-9 years' ?></td><td>128-134</td><td>26-30</td></tr>
-                                            <tr><td>26</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '10-11 años' : '10-11 years' ?></td><td>140-146</td><td>32-38</td></tr>
-                                            <tr><td>28</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '12-13 años' : '12-13 years' ?></td><td>152-158</td><td>42-50</td></tr>
+                                            <tr><td>16</td><td><?= __('size_guide.age_2_3') ?></td><td>92-98</td><td>13-15</td></tr>
+                                            <tr><td>18</td><td><?= __('size_guide.age_3_4') ?></td><td>98-104</td><td>15-17</td></tr>
+                                            <tr><td>20</td><td><?= __('size_guide.age_4_5') ?></td><td>104-110</td><td>17-19</td></tr>
+                                            <tr><td>22</td><td><?= __('size_guide.age_6_7') ?></td><td>116-122</td><td>21-24</td></tr>
+                                            <tr><td>24</td><td><?= __('size_guide.age_8_9') ?></td><td>128-134</td><td>26-30</td></tr>
+                                            <tr><td>26</td><td><?= __('size_guide.age_10_11') ?></td><td>140-146</td><td>32-38</td></tr>
+                                            <tr><td>28</td><td><?= __('size_guide.age_12_13') ?></td><td>152-158</td><td>42-50</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
