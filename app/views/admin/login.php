@@ -312,7 +312,10 @@
             } finally {
                 // Restore button state
                 submitBtn.classList.remove('loading');
-                document.querySelector('.spinner')?.outerHTML = '<i class="fas fa-paper-plane" id="btnIcon"></i>';
+                const spinner = document.querySelector('.spinner');
+                if (spinner) {
+                    spinner.outerHTML = '<i class="fas fa-paper-plane" id="btnIcon"></i>';
+                }
                 btnText.textContent = 'Enviar Enlace de Acceso';
             }
         });

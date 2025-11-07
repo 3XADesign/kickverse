@@ -49,7 +49,7 @@ class Admin extends Model {
         $sql = "INSERT INTO admin_login_tokens (admin_id, token, email, expires_at, ip_address, user_agent)
                 VALUES (?, ?, ?, ?, ?, ?)";
 
-        $this->execute($sql, [
+        $this->query($sql, [
             $admin['admin_id'],
             $token,
             $email,
@@ -83,7 +83,7 @@ class Admin extends Model {
 
         // Mark token as used
         $updateSql = "UPDATE admin_login_tokens SET used_at = NOW() WHERE token = ?";
-        $this->execute($updateSql, [$token]);
+        $this->query($updateSql, [$token]);
 
         // Update last login
         $this->updateLastLogin($data['admin_id'], $_SERVER['REMOTE_ADDR'] ?? null);
@@ -98,7 +98,7 @@ class Admin extends Model {
         $sql = "UPDATE {$this->table}
                 SET last_login = NOW(), last_login_ip = ?, failed_login_attempts = 0
                 WHERE admin_id = ?";
-        $this->execute($sql, [$ipAddress, $adminId]);
+        $this->query($sql, [$ipAddress, $adminId]);
     }
 
     /**
@@ -106,7 +106,7 @@ class Admin extends Model {
      */
     public function cleanExpiredTokens() {
         $sql = "DELETE FROM admin_login_tokens WHERE expires_at < NOW()";
-        $this->execute($sql);
+        $this->query($sql);
     }
 
     /**

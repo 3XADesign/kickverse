@@ -4,15 +4,25 @@
  * Main bootstrap file
  */
 
-// FORCE ERROR DISPLAY FOR DEBUGGING
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('log_errors', 1);
+// Load environment configuration
+require_once __DIR__ . '/../config/env.php';
+
+// Configure error reporting based on environment
+if (env('APP_ENV') === 'production') {
+    error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT);
+    ini_set('display_errors', 0);
+    ini_set('log_errors', 1);
+    ini_set('error_log', __DIR__ . '/../storage/logs/error.log');
+} else {
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+    ini_set('log_errors', 1);
+}
 
 // Start session
 session_start();
 
-// Error reporting based on environment
+// Load app configuration
 $config = require __DIR__ . '/../config/app.php';
 
 // Set timezone
