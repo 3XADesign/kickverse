@@ -37,10 +37,12 @@ jobs:
           **/IMPLEMENTATION*.md
           **/*_EXAMPLE.php
           **/test_*.php
-          **/*.html
           **/DEPLOYMENT*.md
           **/ESTRUCTURA*.md
           **/RESUMEN*.md
           **/*.txt
           **/.claude/**
           **/admin_crm_audit_prompt.json
+          **/documentation/**
+          /*.html
+          !public/**
