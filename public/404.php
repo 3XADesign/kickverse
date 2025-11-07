@@ -3,15 +3,27 @@
  * 404 Not Found Error Page
  */
 
-// Load environment configuration
-require_once __DIR__ . '/../config/env.php';
+// Prevent infinite loops
+if (basename($_SERVER['SCRIPT_NAME']) !== '404.php') {
+    http_response_code(404);
+}
 
-// Load configuration
-$config = require __DIR__ . '/../config/app.php';
+// Load environment configuration safely
+$envPath = __DIR__ . '/../config/env.php';
+if (file_exists($envPath)) {
+    require_once $envPath;
+}
 
-// Load i18n system
-require_once __DIR__ . '/../app/helpers/i18n.php';
-i18n::init('es');
+// Load configuration safely
+$configPath = __DIR__ . '/../config/app.php';
+$config = file_exists($configPath) ? require $configPath : ['timezone' => 'Europe/Madrid'];
+
+// Load i18n system safely
+$i18nPath = __DIR__ . '/../app/helpers/i18n.php';
+if (file_exists($i18nPath)) {
+    require_once $i18nPath;
+    i18n::init('es');
+}
 
 // Set page variables
 $page_title = '404 - Página No Encontrada | Kickverse';
@@ -62,8 +74,8 @@ ob_start();
                     <a href="/ligas/premier" class="quick-link">
                         <i class="fas fa-shield-alt"></i> Premier League
                     </a>
-                    <a href="/ligas/champions" class="quick-link">
-                        <i class="fas fa-trophy"></i> Champions
+                    <a href="/mystery-box" class="quick-link">
+                        <i class="fas fa-gift"></i> Mystery Box
                     </a>
                 </div>
             </div>
@@ -75,5 +87,27 @@ ob_start();
 // Capture the buffered content
 $content = ob_get_clean();
 
-// Include the main layout
-include __DIR__ . '/../app/views/layouts/main.php';
+// Include the main layout if exists, otherwise render standalone
+$layoutPath = __DIR__ . '/../app/views/layouts/main.php';
+if (file_exists($layoutPath)) {
+    include $layoutPath;
+} else {
+    // Fallback standalone render
+    ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?= $page_title ?></title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/modern.css">
+        <link rel="stylesheet" href="/css/error-pages.css">
+    </head>
+    <body>
+        <?= $content ?>
+    </body>
+    </html>
+    <?php
+}

@@ -181,7 +181,7 @@
                                                     <?= getOrderStatusText($order['order_status']) ?>
                                                 </span>
                                             </td>
-                                            <td><?= date('d/m/Y H:i', strtotime($order['created_at'])) ?></td>
+                                            <td><?= date('d/m/Y H:i', strtotime($order['order_date'])) ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -261,7 +261,7 @@
                                     </div>
                                     <div class="customer-tier">
                                         <span class="badge badge-info"><?= ucfirst($customer['loyalty_tier']) ?></span>
-                                        <div class="text-muted-sm"><?= date('d/m/Y', strtotime($customer['created_at'])) ?></div>
+                                        <div class="text-muted-sm"><?= isset($customer['created_at']) ? date('d/m/Y', strtotime($customer['created_at'])) : 'N/A' ?></div>
                                     </div>
                                 </a>
                             <?php endforeach; ?>
@@ -299,7 +299,7 @@
                                     </div>
                                     <div class="payment-amount">
                                         <div class="payment-total"><?= number_format($payment['total_amount'], 2) ?></div>
-                                        <div class="text-muted-sm"><?= date('d/m/Y', strtotime($payment['created_at'])) ?></div>
+                                        <div class="text-muted-sm"><?= date('d/m/Y', strtotime($payment['order_date'])) ?></div>
                                     </div>
                                 </a>
                             <?php endforeach; ?>
@@ -418,7 +418,7 @@
                                     <div class="activity-description"><?= htmlspecialchars($activity['description']) ?></div>
                                     <div class="activity-time">
                                         <i class="fas fa-clock"></i>
-                                        <?= getTimeAgo($activity['created_at']) ?>
+                                        <?= isset($activity['created_at']) ? getTimeAgo($activity['created_at']) : 'N/A' ?>
                                     </div>
                                 </div>
                             </div>
