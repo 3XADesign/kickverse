@@ -1,0 +1,16 @@
+# Carpeta de imágenes de camisetas
+
+Esta carpeta debe contener las imágenes de las camisetas siguiendo el formato:
+
+`<liga>_<equipo>.png`
+
+## Ejemplos:
+- laliga_real_madrid.png
+- premier_mancity.png
+- selecciones_argentina.png
+
+## Especificaciones:
+- Formato: PNG
+- Resolución: 800x800px
+- Fondo: Blanco o transparente
+- Peso máximo: 200KB

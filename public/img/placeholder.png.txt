@@ -1,0 +1,2 @@
+# Placeholder image needed
+# Create a simple placeholder SVG instead

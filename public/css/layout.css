@@ -1,0 +1,161 @@
+/* ============================================
+   LAYOUT.CSS - Estructura general y responsive
+   ============================================ */
+
+/* Container principal */
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 var(--spacing-md);
+}
+
+/* Secciones */
+section {
+  padding: var(--spacing-2xl) 0;
+  position: relative;
+}
+
+section.section-dark {
+  background-color: var(--color-bg-secondary);
+}
+
+section.section-gradient {
+  background: var(--gradient-primary);
+}
+
+/* Grid System */
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Flexbox utilities */
+.flex {
+  display: flex;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-sm {
+  gap: var(--spacing-sm);
+}
+
+.gap-md {
+  gap: var(--spacing-md);
+}
+
+.gap-lg {
+  gap: var(--spacing-lg);
+}
+
+/* Main content */
+main {
+  min-height: calc(100vh - 80px);
+}
+
+/* Responsive breakpoints */
+
+/* Tablet */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+  
+  section {
+    padding: var(--spacing-2xl) 0;
+  }
+  
+  .grid-2-md {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-3-md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .hide-md {
+    display: none;
+  }
+  
+  .show-md {
+    display: block;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  section {
+    padding: 5rem 0;
+  }
+  
+  .grid-3-lg {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .grid-4-lg {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .hide-lg {
+    display: none;
+  }
+  
+  .show-lg {
+    display: block;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1600px;
+  }
+}
+
+/* Mobile only */
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none;
+  }
+  
+  .show-mobile {
+    display: block;
+  }
+}

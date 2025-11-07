@@ -1,0 +1,643 @@
+/* =========================================
+   KICKVERSE - UNIFIED SIDEBAR
+   Menú lateral unificado para toda la web
+   ========================================= */
+
+:root {
+    --unified-sidebar-width: 280px;
+    --unified-sidebar-collapsed: 80px;
+    --unified-sidebar-bg: #ffffff;
+    --unified-sidebar-z: 40;
+    --unified-sidebar-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --header-height: 72px;
+}
+
+/* =========================================
+   UNIFIED SIDEBAR - ESTRUCTURA PRINCIPAL
+   ========================================= */
+
+.unified-sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: var(--unified-sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background: var(--unified-sidebar-bg);
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+    z-index: var(--unified-sidebar-z);
+    display: flex;
+    flex-direction: column;
+    transition: all var(--unified-sidebar-transition);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Scrollbar personalizado */
+.unified-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.unified-sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.unified-sidebar::-webkit-scrollbar-thumb {
+    background: var(--gray-300);
+    border-radius: 3px;
+}
+
+.unified-sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-400);
+}
+
+/* =========================================
+   SIDEBAR COLAPSADO (PC)
+   ========================================= */
+
+body.sidebar-collapsed .unified-sidebar {
+    width: var(--unified-sidebar-collapsed);
+}
+
+body.sidebar-collapsed .unified-sidebar-text,
+body.sidebar-collapsed .unified-sidebar-logo-text,
+body.sidebar-collapsed .unified-sidebar-section-title {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden;
+}
+
+body.sidebar-collapsed .unified-sidebar-link {
+    justify-content: center;
+    padding: var(--space-3);
+    width: calc(var(--unified-sidebar-collapsed) - var(--space-2));
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.sidebar-collapsed .unified-sidebar-icon {
+    margin-right: 0;
+    font-size: 1.35rem;
+    position: relative;
+    z-index: 1;
+}
+
+body.sidebar-collapsed .unified-sidebar-link.active {
+    background: transparent;
+}
+
+body.sidebar-collapsed .unified-sidebar-link.active::before {
+    display: none;
+}
+
+body.sidebar-collapsed .unified-sidebar-link.active::after {
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.25), rgba(176, 84, 233, 0.25));
+    border: 2px solid rgba(176, 84, 233, 0.4);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+body.sidebar-collapsed .unified-sidebar-link.active .unified-sidebar-icon {
+    color: var(--primary);
+}
+
+body.sidebar-collapsed .unified-sidebar-link.active .unified-sidebar-text {
+    display: none;
+}
+
+body.sidebar-collapsed .unified-sidebar-toggle-icon {
+    transform: rotate(180deg);
+}
+
+/* Ajuste del contenido cuando el sidebar está colapsado */
+body.sidebar-collapsed main,
+body.sidebar-collapsed .header {
+    margin-left: var(--unified-sidebar-collapsed);
+}
+
+/* =========================================
+   HEADER DEL SIDEBAR
+   ========================================= */
+
+.unified-sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6);
+    border-bottom: 2px solid var(--gray-100);
+    min-height: 80px;
+    position: relative;
+}
+
+.unified-sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--gray-900);
+    flex: 1;
+    overflow: hidden;
+}
+
+.unified-sidebar-logo img {
+    height: 40px;
+    width: auto;
+    flex-shrink: 0;
+}
+
+.unified-sidebar-logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap;
+    transition: all var(--unified-sidebar-transition);
+}
+
+/* =========================================
+   BOTÓN DE TOGGLE (PC - ESQUINA SUPERIOR IZQUIERDA)
+   ========================================= */
+
+.unified-sidebar-toggle {
+    position: absolute;
+    top: 20px;
+    right: -20px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: 2px solid var(--gray-200);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: calc(var(--unified-sidebar-z) + 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.unified-sidebar-toggle:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.1);
+}
+
+.unified-sidebar-toggle:hover .unified-sidebar-toggle-icon {
+    color: white;
+}
+
+.unified-sidebar-toggle-icon {
+    font-size: 1.1rem;
+    color: var(--gray-700);
+    transition: all var(--unified-sidebar-transition);
+}
+
+/* Botón de cierre (móvil) */
+.unified-sidebar-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--gray-700);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.unified-sidebar-close:hover {
+    background: rgba(176, 84, 233, 0.15);
+    color: var(--primary);
+}
+
+/* =========================================
+   NAVEGACIÓN
+   ========================================= */
+
+.unified-sidebar-nav {
+    flex: 1;
+    padding: var(--space-4) 0;
+    overflow-y: auto;
+}
+
+.unified-sidebar-section {
+    margin-bottom: var(--space-6);
+}
+
+.unified-sidebar-section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+    padding: var(--space-2) var(--space-6);
+    margin-bottom: var(--space-2);
+    transition: all var(--unified-sidebar-transition);
+}
+
+.unified-sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.unified-sidebar-item {
+    margin: 0;
+    padding: 0;
+}
+
+.unified-sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-6);
+    color: var(--gray-700);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    position: relative;
+    margin: var(--space-1) var(--space-3);
+    border-radius: var(--radius-lg);
+}
+
+.unified-sidebar-link:hover {
+    background: var(--gray-50);
+    color: var(--primary);
+}
+
+.unified-sidebar-icon {
+    font-size: 1.3rem;
+    margin-right: var(--space-3);
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+    transition: all var(--unified-sidebar-transition);
+}
+
+.unified-sidebar-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all var(--unified-sidebar-transition);
+}
+
+/* =========================================
+   LINK ACTIVO - FONDO CIRCULAR ROSA/MORADO
+   ========================================= */
+
+.unified-sidebar-link.active {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(176, 84, 233, 0.15));
+    color: var(--primary);
+    font-weight: 600;
+    position: relative;
+}
+
+.unified-sidebar-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 70%;
+    background: linear-gradient(180deg, var(--accent), var(--primary));
+    border-radius: 0 4px 4px 0;
+}
+
+.unified-sidebar-link.active .unified-sidebar-icon {
+    color: var(--primary);
+}
+
+/* Highlight especial (Mystery Box) */
+.unified-sidebar-link.highlight {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(176, 84, 233, 0.1));
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+}
+
+.unified-sidebar-link.highlight::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    padding: 2px;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.unified-sidebar-link.highlight .unified-sidebar-icon {
+    color: var(--accent);
+}
+
+/* =========================================
+   FOOTER DEL SIDEBAR (CERRAR SESIÓN)
+   ========================================= */
+
+.unified-sidebar-footer {
+    padding: var(--space-4);
+    border-top: 2px solid var(--gray-100);
+}
+
+.unified-sidebar-logout {
+    display: flex;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    color: var(--danger);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    border-radius: var(--radius-lg);
+    justify-content: center;
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.unified-sidebar-logout:hover {
+    background: var(--danger);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.unified-sidebar-logout-icon {
+    font-size: 1.2rem;
+    margin-right: var(--space-3);
+    transition: all var(--unified-sidebar-transition);
+}
+
+.unified-sidebar-logout-text {
+    transition: all var(--unified-sidebar-transition);
+}
+
+body.sidebar-collapsed .unified-sidebar-logout-icon {
+    margin-right: 0;
+}
+
+body.sidebar-collapsed .unified-sidebar-logout-text {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden;
+}
+
+/* =========================================
+   AJUSTE DEL CONTENIDO PRINCIPAL
+   ========================================= */
+
+body.has-unified-sidebar main {
+    margin-left: var(--unified-sidebar-width);
+    transition: margin-left var(--unified-sidebar-transition);
+}
+
+/* Ajustes cuando está colapsado */
+body.sidebar-collapsed main {
+    margin-left: var(--unified-sidebar-collapsed);
+}
+
+/* =========================================
+   MÓVIL - OVERLAY Y COMPORTAMIENTO
+   ========================================= */
+
+@media (max-width: 1024px) {
+    /* Sidebar oculto por defecto en móvil */
+    .unified-sidebar {
+        transform: translateX(-100%);
+        box-shadow: none;
+        top: 0;
+        height: 100vh;
+        z-index: 10001;
+    }
+
+    /* Sidebar visible cuando está abierto */
+    body.sidebar-open .unified-sidebar {
+        transform: translateX(0);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+        z-index: 10001;
+    }
+
+    /* No afectar al contenido en móvil */
+    body.has-unified-sidebar main {
+        margin-left: 0;
+    }
+
+    body.sidebar-collapsed main {
+        margin-left: 0;
+    }
+
+    /* Overlay oscuro */
+    .unified-sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    body.sidebar-open .unified-sidebar-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Toggle button oculto en móvil (usamos el botón flotante del header) */
+    .unified-sidebar-toggle {
+        display: none;
+    }
+
+    .unified-sidebar-close {
+        display: flex;
+    }
+
+    /* El botón flotante del header abrirá el sidebar */
+    .floating-menu-btn {
+        z-index: 10002;
+    }
+}
+
+/* =========================================
+   TABLET - AJUSTES INTERMEDIOS
+   ========================================= */
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+    /* Sidebar más estrecho en tablets grandes */
+    .unified-sidebar {
+        width: 240px;
+    }
+
+    body.has-unified-sidebar main {
+        margin-left: 240px;
+    }
+
+    body.sidebar-collapsed .unified-sidebar {
+        width: var(--unified-sidebar-collapsed);
+    }
+
+    body.sidebar-collapsed main {
+        margin-left: var(--unified-sidebar-collapsed);
+    }
+}
+
+/* =========================================
+   ANIMACIONES
+   ========================================= */
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* =========================================
+   ESTADOS DE CARGA
+   ========================================= */
+
+.unified-sidebar.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.unified-sidebar.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--gray-200);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* =========================================
+   ACCESIBILIDAD
+   ========================================= */
+
+.unified-sidebar-link:focus,
+.unified-sidebar-toggle:focus,
+.unified-sidebar-logout:focus {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Reducir movimiento para usuarios con preferencias de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .unified-sidebar,
+    .unified-sidebar-link,
+    .unified-sidebar-toggle,
+    .unified-sidebar-overlay,
+    .unified-sidebar-text,
+    .unified-sidebar-icon,
+    .unified-sidebar-logo-text {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* =========================================
+   MODO ALTO CONTRASTE
+   ========================================= */
+
+@media (prefers-contrast: high) {
+    .unified-sidebar {
+        border-right: 3px solid var(--gray-900);
+    }
+
+    .unified-sidebar-link.active {
+        background: var(--primary);
+        color: white;
+    }
+
+    .unified-sidebar-link:hover {
+        background: var(--gray-900);
+        color: white;
+    }
+}
+
+/* =========================================
+   COMPATIBILIDAD CON ACCOUNT SIDEBAR ANTIGUO
+   ========================================= */
+
+/* Ocultar el sidebar antiguo de mi-cuenta cuando unified sidebar está activo */
+body.has-unified-sidebar .account-sidebar {
+    display: none !important;
+}
+
+/* Ocultar el botón de toggle del sidebar antiguo */
+body.has-unified-sidebar .mobile-menu-button {
+    display: none !important;
+}
+
+/* Ajustar el contenedor de account cuando usa unified sidebar */
+body.has-unified-sidebar .account-container {
+    display: block;
+}
+
+body.has-unified-sidebar .account-main {
+    margin-left: 0;
+    width: 100%;
+    padding: var(--spacing-xl);
+}
+
+/* =========================================
+   PRINT - OCULTAR SIDEBAR
+   ========================================= */
+
+@media print {
+    .unified-sidebar,
+    .unified-sidebar-toggle,
+    .unified-sidebar-overlay,
+    .floating-menu-btn {
+        display: none !important;
+    }
+
+    body.has-unified-sidebar main,
+    body.has-unified-sidebar .header {
+        margin-left: 0 !important;
+    }
+}

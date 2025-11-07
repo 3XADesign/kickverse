@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(/Users/danielgomezmartin/Desktop/3XA/kickverse/ESTRUCTURA_ANALISIS.md)",
+      "Bash(/Users/danielgomezmartin/Desktop/3XA/kickverse/DEPLOYMENT_ERROR_PAGES.md)",
+      "Bash(/Users/danielgomezmartin/Desktop/3XA/kickverse/RESUMEN_VISUAL.md)",
+      "Bash(/Users/danielgomezmartin/Desktop/3XA/kickverse/RUTAS_ABSOLUTAS.txt)",
+      "Bash(xargs ls:*)",
+      "Bash(find:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

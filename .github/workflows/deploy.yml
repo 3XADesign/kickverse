@@ -1,0 +1,42 @@
+name: Deploy to cPanel via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy to cPanel via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ftp.noleakos.com
+        username: kickverse@kickverse.es
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
+        protocol: ftp
+        local-dir: ./
+        server-dir: /
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/.DS_Store
+          **/README*.md
+          **/CHECKLIST*.md
+          **/IMPLEMENTATION*.md
+          **/*_EXAMPLE.php
+          **/test_*.php
+          **/*.html
+          **/DEPLOYMENT*.md
+          **/ESTRUCTURA*.md
+          **/RESUMEN*.md
+          **/*.txt
+          **/.claude/**
+          **/admin_crm_audit_prompt.json

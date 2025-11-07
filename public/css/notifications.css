@@ -1,0 +1,361 @@
+/**
+ * Sistema de Notificaciones Modales - Kickverse
+ * Estilos modernos con animaciones y blur backdrop
+ */
+
+/* Overlay y contenedor principal */
+.notification-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.notification-modal.active {
+    opacity: 1;
+}
+
+/* Overlay con blur */
+.notification-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+}
+
+/* Contenedor del modal */
+.notification-content {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 100%;
+    padding: 40px 32px 32px;
+    text-align: center;
+    transform: scale(0.9);
+    animation: scaleIn 0.3s ease forwards;
+    z-index: 1;
+}
+
+/* Botón de cerrar */
+.notification-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    color: #666;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.notification-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+    transform: rotate(90deg);
+}
+
+/* Icono del modal */
+.notification-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    animation: bounceIn 0.5s ease;
+}
+
+.notification-icon i {
+    animation: iconPulse 0.6s ease;
+}
+
+/* Success - Verde */
+.notification-icon.success {
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    color: #10b981;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+}
+
+/* Error - Rojo */
+.notification-icon.error {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    color: #ef4444;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+}
+
+/* Warning - Naranja */
+.notification-icon.warning {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #f59e0b;
+    box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
+}
+
+/* Confirm - Azul */
+.notification-icon.confirm {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #3b82f6;
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+}
+
+/* Título */
+.notification-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 12px;
+    color: #1f2937;
+    line-height: 1.3;
+}
+
+/* Mensaje */
+.notification-message {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #6b7280;
+    margin: 0 0 28px;
+}
+
+/* Contenedor de botones */
+.notification-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Botones */
+.notification-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.notification-btn:active {
+    transform: translateY(0);
+}
+
+/* Botón Success */
+.notification-btn.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.notification-btn.success:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+}
+
+/* Botón Error */
+.notification-btn.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.notification-btn.error:hover {
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+}
+
+/* Botón Warning */
+.notification-btn.warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.notification-btn.warning:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+/* Botón Confirm */
+.notification-btn.confirm {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.notification-btn.confirm:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+/* Botón Cancel */
+.notification-btn.cancel {
+    background: white;
+    color: #6b7280;
+    border: 2px solid #e5e7eb;
+    box-shadow: none;
+}
+
+.notification-btn.cancel:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    color: #374151;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .notification-content {
+        padding: 32px 24px 24px;
+        margin: 0 16px;
+    }
+
+    .notification-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .notification-title {
+        font-size: 20px;
+    }
+
+    .notification-message {
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+
+    .notification-buttons {
+        flex-direction: column;
+    }
+
+    .notification-btn {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .notification-close {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+}
+
+/* Dark mode support (opcional) */
+@media (prefers-color-scheme: dark) {
+    .notification-content {
+        background: #1f2937;
+    }
+
+    .notification-title {
+        color: #f9fafb;
+    }
+
+    .notification-message {
+        color: #d1d5db;
+    }
+
+    .notification-close {
+        background: rgba(255, 255, 255, 0.1);
+        color: #d1d5db;
+    }
+
+    .notification-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+        color: #f9fafb;
+    }
+
+    .notification-btn.cancel {
+        background: #374151;
+        color: #d1d5db;
+        border-color: #4b5563;
+    }
+
+    .notification-btn.cancel:hover {
+        background: #4b5563;
+        border-color: #6b7280;
+        color: #f9fafb;
+    }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .notification-modal,
+    .notification-overlay,
+    .notification-content,
+    .notification-icon,
+    .notification-icon i,
+    .notification-btn,
+    .notification-close {
+        animation: none !important;
+        transition: none !important;
+    }
+}
