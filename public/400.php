@@ -33,28 +33,18 @@ ob_start();
 ?>
 
 <!-- Error Hero Section -->
-<section class="error-hero error-400">
+<section class="error-hero">
     <div class="container">
         <div class="error-content">
-            <div class="error-animation">
-                <div class="jersey-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <div class="error-code">400</div>
-            </div>
+            <div class="error-code">400</div>
             <h1 class="error-title">Solicitud Incorrecta</h1>
             <p class="error-description">
-                Lo sentimos, la solicitud que enviaste no pudo ser procesada correctamente.
-                Por favor, verifica la información e inténtalo de nuevo.
+                La solicitud no pudo ser procesada correctamente. Por favor, verifica la información e inténtalo de nuevo.
             </p>
             <div class="error-actions">
                 <a href="/" class="btn btn-primary">
                     <i class="fas fa-home"></i>
                     Volver al Inicio
-                </a>
-                <a href="/productos" class="btn btn-secondary">
-                    <i class="fas fa-tshirt"></i>
-                    Ver Camisetas
                 </a>
             </div>
         </div>

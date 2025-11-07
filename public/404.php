@@ -35,7 +35,7 @@ ob_start();
 ?>
 
 <!-- Error Hero Section -->
-<section class="error-hero error-404">
+<section class="error-hero">
     <div class="container">
         <div class="error-content">
             <div class="error-code">404</div>
@@ -47,6 +47,10 @@ ob_start();
                 <a href="/" class="btn btn-primary">
                     <i class="fas fa-home"></i>
                     Volver al Inicio
+                </a>
+                <a href="/productos" class="btn btn-secondary">
+                    <i class="fas fa-tshirt"></i>
+                    Ver Camisetas
                 </a>
             </div>
         </div>

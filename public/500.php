@@ -33,20 +33,13 @@ ob_start();
 ?>
 
 <!-- Error Hero Section -->
-<section class="error-hero error-500">
+<section class="error-hero">
     <div class="container">
         <div class="error-content">
-            <div class="error-animation">
-                <div class="jersey-icon">
-                    <i class="fas fa-server"></i>
-                </div>
-                <div class="error-code">500</div>
-            </div>
+            <div class="error-code">500</div>
             <h1 class="error-title">Error del Servidor</h1>
             <p class="error-description">
-                Lo sentimos, algo salió mal en nuestro servidor.
-                Nuestro equipo ha sido notificado y estamos trabajando para solucionarlo.
-                Por favor, inténtalo de nuevo en unos minutos.
+                Algo salió mal en nuestro servidor. Estamos trabajando para solucionarlo.
             </p>
             <div class="error-actions">
                 <a href="/" class="btn btn-primary">
