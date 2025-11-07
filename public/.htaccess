@@ -1,12 +1,13 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # Redirect www to non-www
-    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    # Redirect www to non-www (only on production)
+    RewriteCond %{HTTP_HOST} ^www\.kickverse\.es$ [NC]
+    RewriteRule ^(.*)$ https://kickverse.es/$1 [R=301,L]
 
-    # Force HTTPS
+    # Force HTTPS (only on production domain)
     RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP_HOST} ^kickverse\.es$ [NC]
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Handle Authorization Header
