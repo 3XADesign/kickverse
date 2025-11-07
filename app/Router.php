@@ -158,8 +158,13 @@ class Router {
                 'message' => 'Endpoint no encontrado'
             ]);
         } else {
-            // Show 404 page
-            echo '<!DOCTYPE html>
+            // Include custom 404 page
+            $notFoundPage = __DIR__ . '/../public/404.php';
+            if (file_exists($notFoundPage)) {
+                include $notFoundPage;
+            } else {
+                // Fallback if 404.php doesn't exist
+                echo '<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -212,6 +217,7 @@ class Router {
     </div>
 </body>
 </html>';
+            }
         }
 
         exit;
