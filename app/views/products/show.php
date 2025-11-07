@@ -172,7 +172,7 @@
                     <?= __('product.shipping_info') ?>
                 </button>
                 <button class="tab-btn" onclick="switchTab('size-guide')">
-                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Guía de Tallas' : 'Size Guide' ?>
+                    <?= __('size_guide.tab_title') ?>
                 </button>
             </div>
 
@@ -212,44 +212,42 @@
 
                 <div id="tab-size-guide" class="tab-panel">
                     <div class="size-guide-header">
-                        <h3><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Guía de Tallas' : 'Size Guide' ?></h3>
+                        <h3><?= __('size_guide.title') ?></h3>
                         <p class="size-guide-subtitle">
-                            <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
-                                ? 'Encuentra tu talla perfecta. Todas las medidas están en centímetros (CM) y son aproximadas, pueden variar ±2-3cm según el fabricante.'
-                                : 'Find your perfect size. All measurements are in centimeters (CM) and are approximate, may vary ±2-3cm depending on the manufacturer.' ?>
+                            <?= __('size_guide.subtitle') ?>
                         </p>
                     </div>
 
                     <!-- Size Tips -->
                     <div class="size-tips">
-                        <h4><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Consejos para elegir tu talla' : 'Tips for choosing your size' ?></h4>
+                        <h4><?= __('size_guide.tips_title') ?></h4>
                         <div class="size-tips-grid">
                             <div class="size-tip">
                                 <i class="fas fa-ruler-combined"></i>
                                 <div>
-                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Mide con precisión:' : 'Measure accurately:' ?></strong>
-                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Usa una cinta métrica flexible y mide sobre ropa ligera' : 'Use a flexible measuring tape and measure over light clothing' ?></span>
+                                    <strong><?= __('size_guide.tip_1_title') ?>:</strong>
+                                    <span><?= __('size_guide.tip_1_desc') ?></span>
                                 </div>
                             </div>
                             <div class="size-tip">
                                 <i class="fas fa-arrows-alt-h"></i>
                                 <div>
-                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Anchura de pecho:' : 'Chest width:' ?></strong>
-                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Rodea el pecho por la parte más ancha, pasando por debajo de las axilas' : 'Wrap around the chest at the widest part, passing under the armpits' ?></span>
+                                    <strong><?= __('size_guide.tip_2_title') ?>:</strong>
+                                    <span><?= __('size_guide.tip_2_desc') ?></span>
                                 </div>
                             </div>
                             <div class="size-tip">
                                 <i class="fas fa-arrows-alt-v"></i>
                                 <div>
-                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Longitud:' : 'Length:' ?></strong>
-                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Desde el hombro hasta el final de la prenda' : 'From shoulder to the end of the garment' ?></span>
+                                    <strong><?= __('size_guide.tip_3_title') ?>:</strong>
+                                    <span><?= __('size_guide.tip_3_desc') ?></span>
                                 </div>
                             </div>
                             <div class="size-tip">
                                 <i class="fas fa-exchange-alt"></i>
                                 <div>
-                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Entre tallas:' : 'Between sizes:' ?></strong>
-                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Si estás entre dos tallas, elige la mayor para un ajuste más cómodo' : 'If you are between two sizes, choose the larger one for a more comfortable fit' ?></span>
+                                    <strong><?= __('size_guide.tip_4_title') ?>:</strong>
+                                    <span><?= __('size_guide.tip_4_desc') ?></span>
                                 </div>
                             </div>
                         </div>
@@ -262,25 +260,23 @@
                             <button class="accordion-header" onclick="toggleAccordion(this)">
                                 <span>
                                     <i class="fas fa-tshirt"></i>
-                                    GENERAL
+                                    <?= __('size_guide.category_general') ?>
                                 </span>
                                 <i class="fas fa-chevron-down accordion-icon"></i>
                             </button>
                             <div class="accordion-content">
                                 <p class="accordion-description">
-                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
-                                        ? 'Guía de tallas estándar para camisetas de aficionado. Ajuste clásico y cómodo para uso diario.'
-                                        : 'Standard size guide for fan jerseys. Classic and comfortable fit for everyday use.' ?>
+                                    <?= __('size_guide.category_general_desc') ?>
                                 </p>
                                 <div class="size-table-wrapper">
                                     <table class="size-table">
                                         <thead>
                                             <tr>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'TALLA' : 'SIZE' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ANCHURA PECHO (CM)' : 'CHEST WIDTH (CM)' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'LONGITUD (CM)' : 'LENGTH (CM)' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ALTURA (CM)' : 'HEIGHT (CM)' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'PESO (KG)' : 'WEIGHT (KG)' ?></th>
+                                                <th><?= __('size_guide.size') ?></th>
+                                                <th><?= __('size_guide.chest_width') ?> (CM)</th>
+                                                <th><?= __('size_guide.length') ?> (CM)</th>
+                                                <th><?= __('size_guide.height') ?> (CM)</th>
+                                                <th><?= __('size_guide.weight') ?> (KG)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -296,9 +292,7 @@
                                 </div>
                                 <p class="size-note">
                                     <i class="fas fa-info-circle"></i>
-                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
-                                        ? 'Este tamaño se mide a mano, puede haber un error de 2-3 cm, solo como referencia. La altura y el peso es una orientación.'
-                                        : 'This size is measured by hand, there may be an error of 2-3 cm, for reference only. Height and weight are guidelines.' ?>
+                                    <?= __('size_guide.note') ?>
                                 </p>
                             </div>
                         </div>
@@ -308,25 +302,23 @@
                             <button class="accordion-header" onclick="toggleAccordion(this)">
                                 <span>
                                     <i class="fas fa-medal"></i>
-                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'VERSIÓN PLAYER' : 'PLAYER VERSION' ?>
+                                    <?= __('size_guide.category_player') ?>
                                 </span>
                                 <i class="fas fa-chevron-down accordion-icon"></i>
                             </button>
                             <div class="accordion-content">
                                 <p class="accordion-description">
-                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
-                                        ? 'Tallas para camisetas de versión profesional. Ajuste entallado y técnico.'
-                                        : 'Sizes for professional version jerseys. Slim and technical fit.' ?>
+                                    <?= __('size_guide.category_player_desc') ?>
                                 </p>
                                 <div class="size-table-wrapper">
                                     <table class="size-table">
                                         <thead>
                                             <tr>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'TALLA' : 'SIZE' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ANCHURA PECHO (CM)' : 'CHEST WIDTH (CM)' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'LONGITUD (CM)' : 'LENGTH (CM)' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ALTURA (CM)' : 'HEIGHT (CM)' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'PESO (KG)' : 'WEIGHT (KG)' ?></th>
+                                                <th><?= __('size_guide.size') ?></th>
+                                                <th><?= __('size_guide.chest_width') ?> (CM)</th>
+                                                <th><?= __('size_guide.length') ?> (CM)</th>
+                                                <th><?= __('size_guide.height') ?> (CM)</th>
+                                                <th><?= __('size_guide.weight') ?> (KG)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -346,24 +338,22 @@
                             <button class="accordion-header" onclick="toggleAccordion(this)">
                                 <span>
                                     <i class="fas fa-child"></i>
-                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'NIÑOS' : 'KIDS' ?>
+                                    <?= __('size_guide.category_kids') ?>
                                 </span>
                                 <i class="fas fa-chevron-down accordion-icon"></i>
                             </button>
                             <div class="accordion-content">
                                 <p class="accordion-description">
-                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
-                                        ? 'Tallas para niños según edad, altura y peso.'
-                                        : 'Kids sizes according to age, height and weight.' ?>
+                                    <?= __('size_guide.category_kids_desc') ?>
                                 </p>
                                 <div class="size-table-wrapper">
                                     <table class="size-table">
                                         <thead>
                                             <tr>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'TALLA' : 'SIZE' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'EDAD' : 'AGE' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ALTURA (CM)' : 'HEIGHT (CM)' ?></th>
-                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'PESO (KG)' : 'WEIGHT (KG)' ?></th>
+                                                <th><?= __('size_guide.size') ?></th>
+                                                <th><?= __('size_guide.age') ?></th>
+                                                <th><?= __('size_guide.height') ?> (CM)</th>
+                                                <th><?= __('size_guide.weight') ?> (KG)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -386,22 +376,22 @@
                         <div class="size-guide-cta-content">
                             <i class="fas fa-question-circle"></i>
                             <div>
-                                <h4 style="color: white;"><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '¿Necesitas ayuda con tu talla?' : 'Need help with your size?' ?></h4>
-                                <p style="color: white;"><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Nuestro equipo está listo para ayudarte a encontrar la talla perfecta. ¡Contáctanos!' : 'Our team is ready to help you find the perfect size. Contact us!' ?></p>
+                                <h4 style="color: white;"><?= __('size_guide.cta_title') ?></h4>
+                                <p style="color: white;"><?= __('size_guide.cta_description') ?></p>
                             </div>
                         </div>
                         <div class="size-guide-cta-actions">
                             <a href="https://wa.me/34614299735" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
                                 <i class="fab fa-whatsapp"></i>
-                                <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'WhatsApp' : 'WhatsApp' ?>
+                                <?= __('size_guide.btn_whatsapp') ?>
                             </a>
                             <a href="https://t.me/esKickverse" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
                                 <i class="fab fa-telegram"></i>
-                                <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Telegram' : 'Telegram' ?>
+                                <?= __('size_guide.btn_telegram') ?>
                             </a>
                             <a href="/productos" class="btn btn-sm btn-secondary">
                                 <i class="fas fa-tshirt"></i>
-                                <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Ver Catálogo' : 'View Catalog' ?>
+                                <?= __('size_guide.btn_catalog') ?>
                             </a>
                         </div>
                     </div>
