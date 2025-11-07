@@ -340,12 +340,6 @@ p {
     }
 }
 
-/* Hide cart count when zero */
-.cart-count:empty,
-.cart-count[data-count="0"] {
-    display: none !important;
-}
-
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, #b054e9 0%, #c151d4 100%);

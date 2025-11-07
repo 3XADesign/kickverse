@@ -61,21 +61,6 @@
                 userMenuDropdown.classList.remove('show');
                 notificationDropdown.classList.remove('show');
             });
-
-            // Global search
-            const globalSearch = document.getElementById('globalSearch');
-            let searchTimeout;
-
-            globalSearch.addEventListener('input', function() {
-                clearTimeout(searchTimeout);
-                const query = this.value.trim();
-
-                if (query.length < 2) return;
-
-                searchTimeout = setTimeout(() => {
-                    performGlobalSearch(query);
-                }, 300);
-            });
         });
 
         // Load notifications
@@ -150,26 +135,6 @@
             if (seconds < 604800) return `Hace ${Math.floor(seconds / 86400)}d`;
 
             return date.toLocaleDateString('es-ES');
-        }
-
-        // Global search
-        async function performGlobalSearch(query) {
-            try {
-                const response = await fetch(`/admin/api/search/global?q=${encodeURIComponent(query)}`);
-                const data = await response.json();
-
-                if (data.success) {
-                    showSearchResults(data.results);
-                }
-            } catch (error) {
-                console.error('Error performing search:', error);
-            }
-        }
-
-        // Show search results
-        function showSearchResults(results) {
-            // TODO: Implement search results dropdown
-            console.log('Search results:', results);
         }
     </script>
 </body>

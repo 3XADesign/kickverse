@@ -89,12 +89,14 @@
                 </button>
             <?php endif; ?>
 
+            <?php if (!isset($_SERVER['REQUEST_URI']) || strpos($_SERVER['REQUEST_URI'], '/admin') !== 0): ?>
             <a href="/carrito" class="cart-link" title="Ver carrito">
                 <div class="cart-icon-wrapper">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
                 <span class="cart-count" id="cart-count">0</span>
             </a>
+            <?php endif; ?>
         </div>
     </div>
 </header>
@@ -1285,13 +1287,14 @@ function updateCartCount(count) {
     const desktopCount = document.getElementById('cart-count');
     const mobileCount = document.getElementById('mobile-cart-count');
 
+    // Siempre mostrar el contador, incluso cuando sea 0
     if (desktopCount) {
         desktopCount.textContent = count;
-        desktopCount.style.display = count > 0 ? 'flex' : 'none';
+        desktopCount.style.display = 'flex';
     }
     if (mobileCount) {
         mobileCount.textContent = count;
-        mobileCount.style.display = count > 0 ? 'flex' : 'none';
+        mobileCount.style.display = 'flex';
     }
 }
 

@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/admin/admin.css">
-    <link rel="stylesheet" href="/css/admin/components.css">
-    <link rel="stylesheet" href="/css/admin/tables.css">
-    <link rel="stylesheet" href="/css/admin/modals.css">
+    <link rel="stylesheet" href="/css/admin/admin.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/css/admin/components.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/css/admin/tables.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/css/admin/modals.css?v=<?= time() ?>">
 
     <?php if (isset($additional_css)): ?>
         <?php foreach ($additional_css as $css): ?>
@@ -183,15 +183,6 @@
             </div>
 
             <div class="header-right">
-                <!-- Global Search -->
-                <div class="global-search">
-                    <input type="text"
-                           id="globalSearch"
-                           placeholder="Buscar clientes, pedidos, productos..."
-                           class="search-input">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
-
                 <!-- Notifications -->
                 <div class="header-notifications">
                     <button class="notification-btn" id="notificationBtn">

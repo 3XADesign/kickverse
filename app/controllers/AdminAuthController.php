@@ -112,15 +112,15 @@ class AdminAuthController extends Controller {
      * Logout admin
      */
     public function logout() {
-        // Clear admin session
+        // Clear ONLY admin session variables (keep customer session if exists)
         unset($_SESSION['admin_id']);
         unset($_SESSION['admin_email']);
         unset($_SESSION['admin_name']);
         unset($_SESSION['admin_role']);
         unset($_SESSION['admin_logged_in']);
 
-        // Redirect to login
-        header('Location: /admin/login?message=logged_out');
+        // Redirect to home page (not admin login)
+        header('Location: /?message=admin_logged_out');
         exit;
     }
 
