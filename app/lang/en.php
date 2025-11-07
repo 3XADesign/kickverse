@@ -450,7 +450,6 @@ return [
         'error_payment_failed' => 'Payment failed',
         'error_payment_failed_msg' => 'There was a problem processing your payment. Please try again.',
         'error_creating_order' => 'Error creating order',
-        'try_again' => 'Try again',
         'change_payment_method' => 'Change payment method',
 
         // Validations
@@ -462,5 +461,74 @@ return [
 
     'cart' => [
         'proceed_to_checkout' => 'Proceed to Checkout',
+    ],
+
+    'error' => [
+        '404' => [
+            'title' => 'Page Not Found',
+            'description' => 'The page you are looking for does not exist',
+            'heading' => 'This page doesn\'t exist',
+            'message' => 'The page you are looking for is not available.',
+        ],
+        '400' => [
+            'title' => 'Bad Request',
+            'description' => 'The request could not be processed',
+            'heading' => 'Bad Request',
+            'message' => 'The request could not be processed correctly. Please verify the information and try again.',
+        ],
+        '500' => [
+            'title' => 'Server Error',
+            'description' => 'A server error has occurred',
+            'heading' => 'Server Error',
+            'message' => 'Something went wrong on our server. We are working to fix it.',
+        ],
+        'btn' => [
+            'home' => 'Back to Home',
+            'products' => 'View Jerseys',
+            'retry' => 'Retry',
+        ],
+    ],
+
+    'size_guide' => [
+        'tab_title' => 'Size Guide',
+        'title' => 'SIZE GUIDE',
+        'subtitle' => 'Find your perfect size and ensure you make the best choice',
+
+        // Size tips
+        'tips_title' => 'Tips for choosing your size',
+        'tip_1_title' => 'Take your measurements',
+        'tip_1_desc' => 'Use a flexible tape measure and measure over light clothing',
+        'tip_2_title' => 'Chest width',
+        'tip_2_desc' => 'Measure the widest part of the chest from armpit to armpit',
+        'tip_3_title' => 'Length',
+        'tip_3_desc' => 'From the highest point of the shoulder to the desired hem',
+        'tip_4_title' => 'Between sizes',
+        'tip_4_desc' => 'If you\'re between two sizes, we recommend choosing the larger one',
+
+        // Accordion categories
+        'category_general' => 'GENERAL',
+        'category_general_desc' => 'Adult jerseys - Fan Version',
+        'category_player' => 'PLAYER VERSION',
+        'category_player_desc' => 'Professional version - Fitted cut',
+        'category_kids' => 'KIDS',
+        'category_kids_desc' => 'Children\'s sizes by age',
+
+        // Table headers
+        'size' => 'SIZE',
+        'chest_width' => 'CHEST WIDTH',
+        'length' => 'LENGTH',
+        'height' => 'HEIGHT',
+        'weight' => 'WEIGHT',
+        'age' => 'AGE',
+
+        // Size note
+        'note' => 'Note: Measurements may vary ±2cm depending on the manufacturer and jersey model.',
+
+        // CTA section
+        'cta_title' => 'Need help with your size?',
+        'cta_description' => 'Our team is ready to help you find the perfect size. Contact us!',
+        'btn_whatsapp' => 'WhatsApp',
+        'btn_telegram' => 'Telegram',
+        'btn_catalog' => 'View Catalog',
     ],
 ];

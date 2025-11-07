@@ -24,8 +24,8 @@ if (file_exists($i18nPath)) {
 }
 
 // Set page variables
-$page_title = '400 - Solicitud Incorrecta | Kickverse';
-$page_description = 'La solicitud no pudo ser procesada';
+$page_title = '400 - ' . __('error.400.title') . ' | Kickverse';
+$page_description = __('error.400.description');
 $additional_css = ['/css/error-pages.css'];
 
 // Start output buffering to capture content
@@ -37,14 +37,14 @@ ob_start();
     <div class="container">
         <div class="error-content">
             <div class="error-code">400</div>
-            <h1 class="error-title">Solicitud Incorrecta</h1>
+            <h1 class="error-title"><?= __('error.400.heading') ?></h1>
             <p class="error-description">
-                La solicitud no pudo ser procesada correctamente. Por favor, verifica la información e inténtalo de nuevo.
+                <?= __('error.400.message') ?>
             </p>
             <div class="error-actions">
                 <a href="/" class="btn btn-primary">
                     <i class="fas fa-home"></i>
-                    Volver al Inicio
+                    <?= __('error.btn.home') ?>
                 </a>
             </div>
         </div>

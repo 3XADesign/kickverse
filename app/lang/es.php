@@ -484,9 +484,7 @@ return [
         'error_no_address' => 'Por favor selecciona o añade una dirección de envío',
         'error_payment_failed' => 'El pago ha fallado',
         'error_payment_failed_msg' => 'Hubo un problema procesando tu pago. Por favor, intenta de nuevo.',
-        'error_creating_order' => 'Error al crear el pedido',
-        'try_again' => 'Intentar de nuevo',
-        'change_payment_method' => 'Cambiar método de pago',
+        'error_creating_order' => 'Error al crear el pedido',        'change_payment_method' => 'Cambiar método de pago',
 
         // Validations
         'required_field' => 'Este campo es obligatorio',
@@ -497,5 +495,74 @@ return [
 
     'cart' => [
         'proceed_to_checkout' => 'Proceder al Pago',
+    ],
+
+    'error' => [
+        '404' => [
+            'title' => 'Página No Encontrada',
+            'description' => 'La página que buscas no existe',
+            'heading' => 'Esta página no existe',
+            'message' => 'La página que buscas no se encuentra disponible.',
+        ],
+        '400' => [
+            'title' => 'Solicitud Incorrecta',
+            'description' => 'La solicitud no pudo ser procesada',
+            'heading' => 'Solicitud Incorrecta',
+            'message' => 'La solicitud no pudo ser procesada correctamente. Por favor, verifica la información e inténtalo de nuevo.',
+        ],
+        '500' => [
+            'title' => 'Error del Servidor',
+            'description' => 'Ha ocurrido un error en el servidor',
+            'heading' => 'Error del Servidor',
+            'message' => 'Algo salió mal en nuestro servidor. Estamos trabajando para solucionarlo.',
+        ],
+        'btn' => [
+            'home' => 'Volver al Inicio',
+            'products' => 'Ver Camisetas',
+            'retry' => 'Reintentar',
+        ],
+    ],
+
+    'size_guide' => [
+        'tab_title' => 'Guía de Tallas',
+        'title' => 'GUÍA DE TALLAS',
+        'subtitle' => 'Encuentra tu talla perfecta y asegúrate de hacer la mejor elección',
+
+        // Size tips
+        'tips_title' => 'Consejos para elegir tu talla',
+        'tip_1_title' => 'Toma tus medidas',
+        'tip_1_desc' => 'Usa una cinta métrica flexible y mide sobre ropa ligera',
+        'tip_2_title' => 'Anchura del pecho',
+        'tip_2_desc' => 'Mide la parte más ancha del pecho de axila a axila',
+        'tip_3_title' => 'Longitud',
+        'tip_3_desc' => 'Desde el punto más alto del hombro hasta el bajo deseado',
+        'tip_4_title' => 'Entre tallas',
+        'tip_4_desc' => 'Si estás entre dos tallas, te recomendamos la mayor',
+
+        // Accordion categories
+        'category_general' => 'GENERAL',
+        'category_general_desc' => 'Camisetas para adultos - Versión Fan',
+        'category_player' => 'VERSIÓN PLAYER',
+        'category_player_desc' => 'Versión profesional - Corte ajustado',
+        'category_kids' => 'NIÑOS',
+        'category_kids_desc' => 'Tallas infantiles por edad',
+
+        // Table headers
+        'size' => 'TALLA',
+        'chest_width' => 'ANCHURA PECHO',
+        'length' => 'LONGITUD',
+        'height' => 'ALTURA',
+        'weight' => 'PESO',
+        'age' => 'EDAD',
+
+        // Size note
+        'note' => 'Nota: Las medidas pueden variar ±2cm según el fabricante y el modelo de la camiseta.',
+
+        // CTA section
+        'cta_title' => '¿Necesitas ayuda con tu talla?',
+        'cta_description' => 'Nuestro equipo está listo para ayudarte a encontrar la talla perfecta. ¡Contáctanos!',
+        'btn_whatsapp' => 'WhatsApp',
+        'btn_telegram' => 'Telegram',
+        'btn_catalog' => 'Ver Catálogo',
     ],
 ];

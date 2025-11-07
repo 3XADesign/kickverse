@@ -1,514 +1,295 @@
 <?php
-// Vista de Gestión de Ligas
+/**
+ * Admin Ligas - Vista principal de gestión de ligas
+ * Usa layout/header.php y layout/footer.php
+ */
+
+// Variables para el layout
 $current_page = 'ligas';
-$page_title = 'Gestión de Ligas';
+$page_title = 'Gestión de Ligas - Admin Kickverse';
+$breadcrumbs = [
+    ['label' => 'Ligas']
+];
+
+// Load header
+require_once __DIR__ . '/../layout/header.php';
 ?>
 
-<div class="crm-card">
-    <div class="crm-card-header">
-        <h2 class="crm-card-title">
+<!-- Page Header -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">
             <i class="fas fa-trophy"></i>
-            Ligas
-        </h2>
-        <div class="crm-card-actions">
-            <select id="filterCountry" class="form-select" style="width: auto;">
-                <option value="">Todos los países</option>
-                <?php foreach ($countries as $country): ?>
-                    <?php if (!empty($country['country'])): ?>
-                        <option value="<?= htmlspecialchars($country['country']) ?>"
-                                <?= (isset($filters['country']) && $filters['country'] === $country['country']) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($country['country']) ?>
-                        </option>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </select>
-            <select id="filterStatus" class="form-select" style="width: auto;">
-                <option value="">Todos los estados</option>
-                <option value="1" <?= (isset($filters['is_active']) && $filters['is_active'] === '1') ? 'selected' : '' ?>>Activo</option>
-                <option value="0" <?= (isset($filters['is_active']) && $filters['is_active'] === '0') ? 'selected' : '' ?>>Inactivo</option>
-            </select>
-            <button class="btn btn-primary" onclick="openCreateModal()">
-                <i class="fas fa-plus"></i>
-                Nueva Liga
-            </button>
-        </div>
+            Gestión de Ligas
+        </h1>
+        <p class="page-subtitle">Administra las ligas y competiciones disponibles</p>
     </div>
-
-    <div class="crm-card-body">
-        <div class="crm-table-container">
-            <table class="crm-table" id="ligasTable">
-                <thead>
-                    <tr>
-                        <th style="width: 60px;">ID</th>
-                        <th style="width: 80px;">Logo</th>
-                        <th>Nombre</th>
-                        <th>País</th>
-                        <th style="width: 100px;">Equipos</th>
-                        <th style="width: 80px;">Orden</th>
-                        <th style="width: 100px;">Estado</th>
-                        <th style="width: 120px;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($ligas)): ?>
-                        <tr>
-                            <td colspan="8">
-                                <div class="empty-state">
-                                    <i class="fas fa-trophy"></i>
-                                    <p class="empty-state-title">No hay ligas</p>
-                                    <p class="empty-state-text">Comienza agregando tu primera liga</p>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($ligas as $liga): ?>
-                            <tr class="table-row-clickable" onclick="openLigaModal(<?= $liga['league_id'] ?>)">
-                                <td><strong>#<?= $liga['league_id'] ?></strong></td>
-                                <td>
-                                    <?php if (!empty($liga['logo_path'])): ?>
-                                        <img src="<?= htmlspecialchars($liga['logo_path']) ?>"
-                                             alt="<?= htmlspecialchars($liga['name']) ?>"
-                                             class="table-img">
-                                    <?php else: ?>
-                                        <div class="table-img-placeholder">
-                                            <i class="fas fa-trophy"></i>
-                                        </div>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <strong style="color: var(--gray-900);">
-                                        <?= htmlspecialchars($liga['name']) ?>
-                                    </strong>
-                                    <div style="font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem;">
-                                        <?= htmlspecialchars($liga['slug']) ?>
-                                    </div>
-                                </td>
-                                <td>
-                                    <?php if (!empty($liga['country'])): ?>
-                                        <span style="color: var(--gray-700);">
-                                            <?= htmlspecialchars($liga['country']) ?>
-                                        </span>
-                                    <?php else: ?>
-                                        <span style="color: var(--gray-400);">-</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <span class="badge badge-info">
-                                        <?= $liga['team_count'] ?> equipos
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-secondary">
-                                        <?= $liga['display_order'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-<?= $liga['is_active'] ? 'success' : 'warning' ?>">
-                                        <?= $liga['is_active'] ? 'Activo' : 'Inactivo' ?>
-                                    </span>
-                                </td>
-                                <td onclick="event.stopPropagation();">
-                                    <div style="display: flex; gap: 0.5rem;">
-                                        <button class="btn btn-sm btn-secondary"
-                                                onclick="openLigaModal(<?= $liga['league_id'] ?>)"
-                                                title="Ver detalles">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-secondary"
-                                                onclick="editLiga(<?= $liga['league_id'] ?>)"
-                                                title="Editar">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <?php if ($liga['team_count'] == 0): ?>
-                                            <button class="btn btn-sm btn-danger"
-                                                    onclick="deleteLiga(<?= $liga['league_id'] ?>)"
-                                                    title="Eliminar">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
+    <div class="page-actions">
+        <button class="btn btn-primary" onclick="createLeague()">
+            <i class="fas fa-plus"></i>
+            Nueva Liga
+        </button>
     </div>
 </div>
 
-<style>
-.table-img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    border-radius: var(--radius-lg);
-    background: white;
-    padding: 0.25rem;
-    border: 1px solid var(--gray-200);
-}
+<!-- Filters Bar -->
+<div class="filters-bar">
+    <div class="filters-grid">
+        <div class="form-group" style="margin: 0;">
+            <input type="text"
+                   id="searchInput"
+                   class="form-control"
+                   placeholder="Buscar por nombre o país...">
+        </div>
+        <div class="form-group" style="margin: 0;">
+            <select id="filterCountry" class="form-control">
+                <option value="">Todos los países</option>
+            </select>
+        </div>
+        <div class="form-group" style="margin: 0;">
+            <select id="filterStatus" class="form-control">
+                <option value="">Todos los estados</option>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
+    </div>
+    <div class="filters-actions">
+        <button class="btn btn-secondary btn-sm" onclick="resetFilters()">
+            <i class="fas fa-redo"></i>
+            Limpiar filtros
+        </button>
+    </div>
+</div>
 
-.table-img-placeholder {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gray-100);
-    border-radius: var(--radius-lg);
-    color: var(--gray-400);
-    font-size: 1.25rem;
-}
-
-.table-row-clickable {
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.table-row-clickable:hover {
-    background: var(--gray-50);
-}
-
-.form-select {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--gray-300);
-    border-radius: var(--radius-lg);
-    font-size: 0.875rem;
-    color: var(--gray-700);
-    background: white;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.form-select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-@media (max-width: 768px) {
-    .crm-card-actions {
-        width: 100%;
-        flex-direction: column;
-    }
-
-    .form-select {
-        width: 100% !important;
-    }
-}
-</style>
+<!-- Leagues Table Card -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Listado de Ligas</h3>
+        <span id="totalLeagues" class="badge badge-primary">0 ligas</span>
+    </div>
+    <div class="card-body" style="padding: 0; overflow-x: auto;">
+        <table id="leaguesTable" style="width: 100%; border-collapse: collapse;">
+            <thead style="background: var(--admin-gray-50); border-bottom: 1px solid var(--admin-gray-200);">
+                <tr>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600; width: 80px;">Logo</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">#ID</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">Nombre</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">País</th>
+                    <th style="padding: 12px 16px; text-align: center; font-size: 13px; font-weight: 600;">Equipos</th>
+                    <th style="padding: 12px 16px; text-align: center; font-size: 13px; font-weight: 600;">Display Order</th>
+                    <th style="padding: 12px 16px; text-align: center; font-size: 13px; font-weight: 600;">Estado</th>
+                    <th style="padding: 12px 16px; text-align: center; font-size: 13px; font-weight: 600;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="leaguesTableBody">
+                <tr>
+                    <td colspan="8" style="padding: 60px; text-align: center;">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 20px; color: var(--admin-gray-600);">Cargando ligas...</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer" id="paginationContainer" style="display: flex; justify-content: space-between; align-items: center;">
+        <div id="paginationInfo"></div>
+        <div id="paginationButtons"></div>
+    </div>
+</div>
 
 <script>
-// Función para abrir modal con detalles de la liga
-function openLigaModal(id) {
-    const url = new URL(window.location);
-    url.searchParams.set('id', id);
-    window.history.pushState({}, '', url);
-    crmAdmin.checkURLParams();
-}
+// Leagues management script
+let currentPage = 1;
+let totalPages = 1;
+let currentFilters = {};
 
-// Función para crear nueva liga
-function openCreateModal() {
-    // TODO: Implementar modal de creación
-    showWarningModal('Funcionalidad de creación en desarrollo');
-}
+// Load leagues on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadLeagues();
 
-// Función para editar liga
-function editLiga(id) {
-    // TODO: Implementar modal de edición
-    showWarningModal('Funcionalidad de edición en desarrollo. ID: ' + id);
-}
+    // Setup filter listeners
+    document.getElementById('searchInput').addEventListener('input', debounce(() => {
+        currentPage = 1;
+        loadLeagues();
+    }, 500));
 
-// Función para eliminar liga
-function deleteLiga(id) {
-    showConfirmModal('¿Estás seguro de eliminar esta liga?', () => {
-        fetch(`/admin/ligas/${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                showSuccessModal('Liga eliminada correctamente', () => {
-                    location.reload();
-                });
-            } else {
-                showErrorModal(data.error || 'Error al eliminar la liga');
-            }
-        })
-        .catch(error => {
-            showErrorModal('Error al eliminar la liga');
-        });
+    document.getElementById('filterCountry').addEventListener('change', () => {
+        currentPage = 1;
+        loadLeagues();
     });
+
+    document.getElementById('filterStatus').addEventListener('change', () => {
+        currentPage = 1;
+        loadLeagues();
+    });
+});
+
+// Load leagues from API
+async function loadLeagues() {
+    try {
+        showLoading();
+
+        // Build query string
+        const params = new URLSearchParams();
+        params.append('page', currentPage);
+
+        const search = document.getElementById('searchInput').value.trim();
+        if (search) params.append('search', search);
+
+        const country = document.getElementById('filterCountry').value;
+        if (country) params.append('country', country);
+
+        const status = document.getElementById('filterStatus').value;
+        if (status !== '') params.append('is_active', status);
+
+        const response = await fetch(`/api/admin/ligas?${params.toString()}`);
+        const data = await response.json();
+
+        hideLoading();
+
+        if (data.success) {
+            renderLeagues(data.leagues);
+            renderPagination(data.pagination);
+            document.getElementById('totalLeagues').textContent = `${data.pagination.total} ligas`;
+
+            // Populate country filter
+            populateCountryFilter(data.leagues);
+        } else {
+            showToast('Error al cargar ligas', 'error');
+        }
+    } catch (error) {
+        hideLoading();
+        console.error('Error loading leagues:', error);
+        showToast('Error de conexión', 'error');
+    }
 }
 
-// Renderizar contenido del modal
-window.renderModalContent = function(data) {
-    const teamsHtml = data.teams && data.teams.length > 0
-        ? data.teams.map(team => `
-            <div class="team-item">
-                ${team.logo_path
-                    ? `<img src="${team.logo_path}" alt="${team.name}" class="team-logo">`
-                    : `<div class="team-logo-placeholder"><i class="fas fa-shield-alt"></i></div>`
-                }
-                <div class="team-info">
-                    <div class="team-name">${team.name}</div>
-                    <div class="team-meta">
-                        ${team.product_count} productos
-                        ${team.is_top_team ? '<span class="badge badge-warning"><i class="fas fa-star"></i> Top</span>' : ''}
-                    </div>
-                </div>
-            </div>
-        `).join('')
-        : '<p style="color: var(--gray-500); text-align: center; padding: 2rem;">No hay equipos en esta liga</p>';
+// Render leagues table
+function renderLeagues(leagues) {
+    const tbody = document.getElementById('leaguesTableBody');
 
-    return `
-        <div class="modal-liga-details">
-            <div class="liga-header">
-                ${data.logo_path
-                    ? `<img src="${data.logo_path}" alt="${data.name}" class="liga-logo-large">`
-                    : `<div class="liga-logo-large liga-logo-placeholder"><i class="fas fa-trophy"></i></div>`
-                }
-                <div class="liga-info-main">
-                    <h3>${data.name}</h3>
-                    <div class="liga-meta">
-                        ${data.country ? `<span class="meta-item"><i class="fas fa-globe"></i> ${data.country}</span>` : ''}
-                        <span class="meta-item"><i class="fas fa-code"></i> ${data.slug}</span>
-                        <span class="badge badge-${data.is_active ? 'success' : 'warning'}">
-                            ${data.is_active ? 'Activo' : 'Inactivo'}
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="liga-stats">
-                <div class="stat-item">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-label">Total Equipos</div>
-                        <div class="stat-value">${data.team_count}</div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
-                        <i class="fas fa-box"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-label">Total Productos</div>
-                        <div class="stat-value">${data.product_count}</div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-                        <i class="fas fa-sort"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-label">Orden</div>
-                        <div class="stat-value">${data.display_order}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="detail-section">
-                <h4><i class="fas fa-shield-alt"></i> Equipos de esta Liga</h4>
-                <div class="teams-list">
-                    ${teamsHtml}
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="crmAdmin.closeModal()">
-                    Cerrar
-                </button>
-                <button class="btn btn-primary" onclick="editLiga(${data.league_id})">
-                    <i class="fas fa-edit"></i>
-                    Editar Liga
-                </button>
-            </div>
-        </div>
-    `;
-};
-
-// Filtros
-document.getElementById('filterCountry')?.addEventListener('change', () => {
-    applyFilters();
-});
-
-document.getElementById('filterStatus')?.addEventListener('change', () => {
-    applyFilters();
-});
-
-function applyFilters() {
-    const country = document.getElementById('filterCountry').value;
-    const status = document.getElementById('filterStatus').value;
-
-    const url = new URL(window.location);
-    if (country) {
-        url.searchParams.set('country', country);
-    } else {
-        url.searchParams.delete('country');
+    if (leagues.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="empty-state">
+                    <div class="empty-state-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="empty-state-title">No se encontraron ligas</div>
+                    <div class="empty-state-description">Intenta cambiar los filtros de búsqueda</div>
+                </td>
+            </tr>
+        `;
+        return;
     }
 
-    if (status !== '') {
-        url.searchParams.set('is_active', status);
-    } else {
-        url.searchParams.delete('is_active');
+    tbody.innerHTML = leagues.map(league => `
+        <tr style="border-bottom: 1px solid var(--admin-gray-100); cursor: pointer;" onclick="viewLeague(${league.league_id})">
+            <td style="padding: 12px 16px;">
+                ${league.logo_path
+                    ? `<img src="${escapeHtml(league.logo_path)}" alt="${escapeHtml(league.name)}" style="width: 50px; height: 50px; object-fit: contain; border-radius: 8px; background: white; padding: 4px; border: 1px solid var(--admin-gray-200);">`
+                    : `<div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background: var(--admin-gray-100); border-radius: 8px; color: var(--admin-gray-400);"><i class="fas fa-trophy"></i></div>`
+                }
+            </td>
+            <td style="padding: 12px 16px; font-weight: 500;">#${league.league_id}</td>
+            <td style="padding: 12px 16px;">
+                <strong>${escapeHtml(league.name)}</strong>
+                <br><small style="color: var(--admin-gray-500);">${escapeHtml(league.slug)}</small>
+            </td>
+            <td style="padding: 12px 16px;">${league.country ? escapeHtml(league.country) : '<span style="color: var(--admin-gray-400);">-</span>'}</td>
+            <td style="padding: 12px 16px; text-align: center;">
+                <span class="badge badge-info">${league.teams_count} equipos</span>
+            </td>
+            <td style="padding: 12px 16px; text-align: center;">
+                <span class="badge badge-secondary">${league.display_order}</span>
+            </td>
+            <td style="padding: 12px 16px; text-align: center;">
+                <span class="badge badge-${league.is_active ? 'success' : 'warning'}">
+                    ${league.is_active ? 'Activo' : 'Inactivo'}
+                </span>
+            </td>
+            <td style="padding: 12px 16px; text-align: center;">
+                <button class="btn btn-sm btn-primary" onclick="event.stopPropagation(); viewLeague(${league.league_id})">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Render pagination
+function renderPagination(pagination) {
+    totalPages = pagination.pages;
+    currentPage = pagination.current_page;
+
+    document.getElementById('paginationInfo').textContent =
+        `Mostrando ${pagination.from}-${pagination.to} de ${pagination.total} ligas`;
+
+    const buttons = document.getElementById('paginationButtons');
+    let html = '';
+
+    // Previous button
+    html += `<button class="btn btn-sm btn-secondary" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">
+        <i class="fas fa-chevron-left"></i>
+    </button>`;
+
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+            html += `<button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-secondary'}" onclick="changePage(${i})">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+            html += `<span style="padding: 0 8px;">...</span>`;
+        }
     }
 
-    window.location = url;
+    // Next button
+    html += `<button class="btn btn-sm btn-secondary" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">
+        <i class="fas fa-chevron-right"></i>
+    </button>`;
+
+    buttons.innerHTML = html;
+}
+
+// Change page
+function changePage(page) {
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    loadLeagues();
+}
+
+// View league details
+function viewLeague(leagueId) {
+    showToast('Detalles de liga en desarrollo', 'info');
+}
+
+// Create new league
+function createLeague() {
+    showToast('Funcionalidad de creación en desarrollo', 'info');
+}
+
+// Reset filters
+function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterCountry').value = '';
+    document.getElementById('filterStatus').value = '';
+    currentPage = 1;
+    loadLeagues();
+}
+
+// Populate country filter with unique values
+function populateCountryFilter(leagues) {
+    const countries = [...new Set(leagues.map(l => l.country).filter(c => c))];
+    const select = document.getElementById('filterCountry');
+    const currentValue = select.value;
+
+    // Keep first option and add countries
+    select.innerHTML = '<option value="">Todos los países</option>' +
+        countries.sort().map(country => `<option value="${escapeHtml(country)}">${escapeHtml(country)}</option>`).join('');
+
+    select.value = currentValue;
 }
 </script>
 
-<style>
-.liga-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--gray-200);
-}
-
-.liga-logo-large {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: var(--radius-xl);
-    background: white;
-    padding: 0.5rem;
-    border: 2px solid var(--gray-200);
-}
-
-.liga-logo-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gray-100);
-    color: var(--gray-400);
-    font-size: 2.5rem;
-}
-
-.liga-info-main h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.5rem;
-}
-
-.liga-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.meta-item {
-    color: var(--gray-600);
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.liga-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.stat-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--gray-50);
-    border-radius: var(--radius-lg);
-}
-
-.stat-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.25rem;
-}
-
-.stat-label {
-    font-size: 0.75rem;
-    color: var(--gray-600);
-    margin-bottom: 0.25rem;
-}
-
-.stat-value {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--gray-900);
-}
-
-.detail-section {
-    background: var(--gray-50);
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    margin-bottom: 2rem;
-}
-
-.detail-section h4 {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: var(--gray-800);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.teams-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.team-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem;
-    background: white;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--gray-200);
-}
-
-.team-logo {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    border-radius: var(--radius-md);
-}
-
-.team-logo-placeholder {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--gray-100);
-    border-radius: var(--radius-md);
-    color: var(--gray-400);
-}
-
-.team-name {
-    font-weight: 600;
-    color: var(--gray-900);
-}
-
-.team-meta {
-    font-size: 0.75rem;
-    color: var(--gray-600);
-    margin-top: 0.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-</style>
+<?php
+// Load footer
+require_once __DIR__ . '/../layout/footer.php';
+?>

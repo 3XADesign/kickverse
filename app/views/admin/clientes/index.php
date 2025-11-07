@@ -1,473 +1,371 @@
 <?php
-// Vista de Gestión de Clientes
+/**
+ * Admin Clientes - Vista principal de gestión de clientes
+ * Usa layout/header.php y layout/footer.php
+ */
+
+// Variables para el layout
 $current_page = 'clientes';
-$page_title = 'Gestión de Clientes';
+$page_title = 'Gestión de Clientes - Admin Kickverse';
+$breadcrumbs = [
+    ['label' => 'Clientes']
+];
+
+// Load header
+require_once __DIR__ . '/../layout/header.php';
 ?>
 
-<div class="crm-card">
-    <div class="crm-card-header">
-        <h2 class="crm-card-title">
+<!-- Page Header -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">
             <i class="fas fa-users"></i>
-            Clientes
-        </h2>
-        <div class="crm-card-actions">
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Buscar clientes..." class="search-input">
-            </div>
-            <select id="filterTier" class="form-select" style="width: auto;">
+            Gestión de Clientes
+        </h1>
+        <p class="page-subtitle">Administra la base de clientes de Kickverse</p>
+    </div>
+    <div class="page-actions">
+        <button class="btn btn-primary" onclick="createClient()">
+            <i class="fas fa-plus"></i>
+            Nuevo Cliente
+        </button>
+        <button class="btn btn-secondary" onclick="exportClients()">
+            <i class="fas fa-download"></i>
+            Exportar CSV
+        </button>
+    </div>
+</div>
+
+<!-- Filters Bar -->
+<div class="filters-bar">
+    <div class="filters-grid">
+        <div class="form-group" style="margin: 0;">
+            <input type="text"
+                   id="searchInput"
+                   class="form-control"
+                   placeholder="Buscar por nombre, email, teléfono...">
+        </div>
+        <div class="form-group" style="margin: 0;">
+            <select id="filterStatus" class="form-control">
+                <option value="">Todos los estados</option>
+                <option value="active">Activo</option>
+                <option value="inactive">Inactivo</option>
+                <option value="blocked">Bloqueado</option>
+            </select>
+        </div>
+        <div class="form-group" style="margin: 0;">
+            <select id="filterTier" class="form-control">
                 <option value="">Todos los niveles</option>
                 <option value="standard">Standard</option>
                 <option value="silver">Silver</option>
                 <option value="gold">Gold</option>
                 <option value="platinum">Platinum</option>
             </select>
-            <select id="filterStatus" class="form-select" style="width: auto;">
-                <option value="">Todos los estados</option>
-                <option value="active">Activo</option>
-                <option value="inactive">Inactivo</option>
-                <option value="blocked">Bloqueado</option>
+        </div>
+        <div class="form-group" style="margin: 0;">
+            <select id="filterLanguage" class="form-control">
+                <option value="">Todos los idiomas</option>
+                <option value="es">Español</option>
+                <option value="en">English</option>
             </select>
-            <button class="btn btn-primary" onclick="window.location.href='/admin/clientes/crear'">
-                <i class="fas fa-plus"></i>
-                Nuevo Cliente
-            </button>
         </div>
     </div>
-
-    <div class="crm-card-body">
-        <div class="crm-table-container">
-            <table class="crm-table" id="clientesTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Email / Contacto</th>
-                        <th>Nivel</th>
-                        <th>Puntos</th>
-                        <th>Pedidos</th>
-                        <th>Total Gastado</th>
-                        <th>Estado</th>
-                        <th>Registro</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($clientes)): ?>
-                        <tr>
-                            <td colspan="10">
-                                <div class="empty-state">
-                                    <i class="fas fa-users"></i>
-                                    <p class="empty-state-title">No hay clientes</p>
-                                    <p class="empty-state-text">Comienza agregando tu primer cliente</p>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($clientes as $cliente): ?>
-                            <tr class="table-row-clickable" onclick="openClienteModal(<?= $cliente['customer_id'] ?>)">
-                                <td><strong>#<?= $cliente['customer_id'] ?></strong></td>
-                                <td>
-                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                        <div class="user-avatar" style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
-                                            <?= strtoupper(substr($cliente['full_name'], 0, 2)) ?>
-                                        </div>
-                                        <div>
-                                            <div style="font-weight: 600; color: var(--gray-900);">
-                                                <?= htmlspecialchars($cliente['full_name']) ?>
-                                            </div>
-                                            <?php if ($cliente['telegram_username']): ?>
-                                                <div style="font-size: 0.75rem; color: var(--gray-500);">
-                                                    <i class="fab fa-telegram"></i> @<?= htmlspecialchars($cliente['telegram_username']) ?>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="font-size: 0.875rem;">
-                                        <?php if ($cliente['email']): ?>
-                                            <div style="color: var(--gray-700);">
-                                                <i class="fas fa-envelope"></i> <?= htmlspecialchars($cliente['email']) ?>
-                                            </div>
-                                        <?php endif; ?>
-                                        <?php if ($cliente['phone']): ?>
-                                            <div style="color: var(--gray-600); margin-top: 0.25rem;">
-                                                <i class="fas fa-phone"></i> <?= htmlspecialchars($cliente['phone']) ?>
-                                            </div>
-                                        <?php endif; ?>
-                                        <?php if ($cliente['whatsapp_number']): ?>
-                                            <div style="color: var(--gray-600); margin-top: 0.25rem;">
-                                                <i class="fab fa-whatsapp"></i> <?= htmlspecialchars($cliente['whatsapp_number']) ?>
-                                            </div>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                                <td>
-                                    <?php
-                                    $tierColors = [
-                                        'standard' => 'secondary',
-                                        'silver' => 'info',
-                                        'gold' => 'warning',
-                                        'platinum' => 'purple'
-                                    ];
-                                    $tierIcons = [
-                                        'standard' => 'fa-user',
-                                        'silver' => 'fa-medal',
-                                        'gold' => 'fa-crown',
-                                        'platinum' => 'fa-gem'
-                                    ];
-                                    $tier = $cliente['loyalty_tier'];
-                                    ?>
-                                    <span class="badge badge-<?= $tierColors[$tier] ?? 'secondary' ?>">
-                                        <i class="fas <?= $tierIcons[$tier] ?? 'fa-user' ?>"></i>
-                                        <?= ucfirst($tier) ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <strong style="color: var(--primary);"><?= number_format($cliente['loyalty_points']) ?></strong> pts
-                                </td>
-                                <td>
-                                    <strong><?= $cliente['total_orders_count'] ?></strong> pedidos
-                                </td>
-                                <td>
-                                    <strong style="color: var(--success);">€<?= number_format($cliente['total_spent'], 2) ?></strong>
-                                </td>
-                                <td>
-                                    <?php
-                                    $statusColors = [
-                                        'active' => 'success',
-                                        'inactive' => 'warning',
-                                        'blocked' => 'danger'
-                                    ];
-                                    $statusLabels = [
-                                        'active' => 'Activo',
-                                        'inactive' => 'Inactivo',
-                                        'blocked' => 'Bloqueado'
-                                    ];
-                                    ?>
-                                    <span class="badge badge-<?= $statusColors[$cliente['customer_status']] ?? 'secondary' ?>">
-                                        <?= $statusLabels[$cliente['customer_status']] ?? $cliente['customer_status'] ?>
-                                    </span>
-                                </td>
-                                <td><?= date('d/m/Y', strtotime($cliente['registration_date'])) ?></td>
-                                <td onclick="event.stopPropagation();">
-                                    <div style="display: flex; gap: 0.5rem;">
-                                        <button class="btn btn-sm btn-secondary" onclick="openClienteModal(<?= $cliente['customer_id'] ?>)" title="Ver detalles">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-secondary" onclick="editCliente(<?= $cliente['customer_id'] ?>)" title="Editar">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-
-        <?php if (!empty($clientes) && $total_pages > 1): ?>
-            <div class="pagination">
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <a href="?page=<?= $i ?>" class="pagination-link <?= $i === $current_page ? 'active' : '' ?>">
-                        <?= $i ?>
-                    </a>
-                <?php endfor; ?>
-            </div>
-        <?php endif; ?>
+    <div class="filters-actions">
+        <button class="btn btn-secondary btn-sm" onclick="resetFilters()">
+            <i class="fas fa-redo"></i>
+            Limpiar filtros
+        </button>
     </div>
 </div>
 
-<style>
-.search-box {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.search-box i {
-    position: absolute;
-    left: 1rem;
-    color: var(--gray-400);
-}
-
-.search-input {
-    padding-left: 2.5rem;
-    width: 250px;
-}
-
-.table-row-clickable {
-    cursor: pointer;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
-}
-
-.pagination-link {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--gray-300);
-    border-radius: var(--radius-lg);
-    text-decoration: none;
-    color: var(--gray-700);
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.pagination-link:hover {
-    background: var(--gray-100);
-    border-color: var(--primary);
-}
-
-.pagination-link.active {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: white;
-    border-color: transparent;
-}
-
-@media (max-width: 768px) {
-    .crm-card-actions {
-        width: 100%;
-        flex-direction: column;
-    }
-
-    .search-input {
-        width: 100%;
-    }
-}
-</style>
+<!-- Customers Table Card -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Listado de Clientes</h3>
+        <span id="totalCustomers" class="badge badge-primary">0 clientes</span>
+    </div>
+    <div class="card-body" style="padding: 0; overflow-x: auto;">
+        <table id="customersTable" style="width: 100%; border-collapse: collapse;">
+            <thead style="background: var(--admin-gray-50); border-bottom: 1px solid var(--admin-gray-200);">
+                <tr>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">#ID</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">Nombre</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">Email</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">Teléfono</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">Estado</th>
+                    <th style="padding: 12px 16px; text-align: left; font-size: 13px; font-weight: 600;">Tier</th>
+                    <th style="padding: 12px 16px; text-align: right; font-size: 13px; font-weight: 600;">Puntos</th>
+                    <th style="padding: 12px 16px; text-align: right; font-size: 13px; font-weight: 600;">Total Gastado</th>
+                    <th style="padding: 12px 16px; text-align: center; font-size: 13px; font-weight: 600;">Pedidos</th>
+                    <th style="padding: 12px 16px; text-align: center; font-size: 13px; font-weight: 600;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="customersTableBody">
+                <tr>
+                    <td colspan="10" style="padding: 60px; text-align: center;">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 20px; color: var(--admin-gray-600);">Cargando clientes...</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer" id="paginationContainer" style="display: flex; justify-content: space-between; align-items: center;">
+        <div id="paginationInfo"></div>
+        <div id="paginationButtons"></div>
+    </div>
+</div>
 
 <script>
-// Función para abrir modal con detalles del cliente
-function openClienteModal(id) {
-    const url = new URL(window.location);
-    url.searchParams.set('id', id);
-    window.history.pushState({}, '', url);
-    crmAdmin.checkURLParams();
-}
+// Customers management script
+let currentPage = 1;
+let totalPages = 1;
+let currentFilters = {};
 
-// Función para editar cliente
-function editCliente(id) {
-    window.location.href = `/admin/clientes/editar/${id}`;
-}
+// Load customers on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadCustomers();
 
-// Renderizar contenido del modal
-window.renderModalContent = function(data) {
-    return `
-        <div class="modal-cliente-details">
-            <div class="cliente-header">
-                <div class="cliente-avatar-large">
-                    ${data.full_name.substring(0, 2).toUpperCase()}
-                </div>
-                <div class="cliente-info-main">
-                    <h3>${data.full_name}</h3>
-                    <div class="cliente-meta">
-                        <span class="badge badge-${data.customer_status === 'active' ? 'success' : 'warning'}">
-                            ${data.customer_status === 'active' ? 'Activo' : data.customer_status}
-                        </span>
-                        <span class="badge badge-purple">
-                            <i class="fas fa-crown"></i> ${data.loyalty_tier}
-                        </span>
-                    </div>
-                </div>
-            </div>
+    // Setup filter listeners
+    document.getElementById('searchInput').addEventListener('input', debounce(() => {
+        currentPage = 1;
+        loadCustomers();
+    }, 500));
 
-            <div class="cliente-stats">
-                <div class="stat-item">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
-                        <i class="fas fa-shopping-bag"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-label">Total Pedidos</div>
-                        <div class="stat-value">${data.total_orders_count}</div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
-                        <i class="fas fa-euro-sign"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-label">Total Gastado</div>
-                        <div class="stat-value">€${parseFloat(data.total_spent).toFixed(2)}</div>
-                    </div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-label">Puntos Lealtad</div>
-                        <div class="stat-value">${data.loyalty_points}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cliente-details-grid">
-                <div class="detail-section">
-                    <h4><i class="fas fa-envelope"></i> Información de Contacto</h4>
-                    ${data.email ? `<p><strong>Email:</strong> ${data.email}</p>` : ''}
-                    ${data.phone ? `<p><strong>Teléfono:</strong> ${data.phone}</p>` : ''}
-                    ${data.whatsapp_number ? `<p><strong>WhatsApp:</strong> ${data.whatsapp_number}</p>` : ''}
-                    ${data.telegram_username ? `<p><strong>Telegram:</strong> @${data.telegram_username}</p>` : ''}
-                </div>
-
-                <div class="detail-section">
-                    <h4><i class="fas fa-info-circle"></i> Información General</h4>
-                    <p><strong>ID:</strong> #${data.customer_id}</p>
-                    <p><strong>Registro:</strong> ${new Date(data.registration_date).toLocaleDateString('es-ES')}</p>
-                    <p><strong>Idioma:</strong> ${data.preferred_language.toUpperCase()}</p>
-                    <p><strong>Newsletter:</strong> ${data.newsletter_subscribed ? 'Sí' : 'No'}</p>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="crmAdmin.closeModal()">
-                    Cerrar
-                </button>
-                <button class="btn btn-primary" onclick="editCliente(${data.customer_id})">
-                    <i class="fas fa-edit"></i>
-                    Editar Cliente
-                </button>
-            </div>
-        </div>
-    `;
-};
-
-// Search and filter functionality
-document.getElementById('searchInput')?.addEventListener('input', (e) => {
-    filterTable();
-});
-
-document.getElementById('filterTier')?.addEventListener('change', () => {
-    filterTable();
-});
-
-document.getElementById('filterStatus')?.addEventListener('change', () => {
-    filterTable();
-});
-
-function filterTable() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const tierFilter = document.getElementById('filterTier').value;
-    const statusFilter = document.getElementById('filterStatus').value;
-    const rows = document.querySelectorAll('#clientesTable tbody tr:not(:first-child)');
-
-    rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        const matchesSearch = text.includes(searchTerm);
-        const matchesTier = !tierFilter || text.includes(tierFilter);
-        const matchesStatus = !statusFilter || text.includes(statusFilter);
-
-        row.style.display = matchesSearch && matchesTier && matchesStatus ? '' : 'none';
+    document.getElementById('filterStatus').addEventListener('change', () => {
+        currentPage = 1;
+        loadCustomers();
     });
+
+    document.getElementById('filterTier').addEventListener('change', () => {
+        currentPage = 1;
+        loadCustomers();
+    });
+
+    document.getElementById('filterLanguage').addEventListener('change', () => {
+        currentPage = 1;
+        loadCustomers();
+    });
+});
+
+// Load customers from API
+async function loadCustomers() {
+    try {
+        showLoading();
+
+        // Build query string
+        const params = new URLSearchParams();
+        params.append('page', currentPage);
+
+        const search = document.getElementById('searchInput').value.trim();
+        if (search) params.append('search', search);
+
+        const status = document.getElementById('filterStatus').value;
+        if (status) params.append('status', status);
+
+        const tier = document.getElementById('filterTier').value;
+        if (tier) params.append('tier', tier);
+
+        const language = document.getElementById('filterLanguage').value;
+        if (language) params.append('language', language);
+
+        const response = await fetch(`/api/admin/clientes?${params.toString()}`);
+        const data = await response.json();
+
+        hideLoading();
+
+        if (data.success) {
+            renderCustomers(data.customers);
+            renderPagination(data.pagination);
+            document.getElementById('totalCustomers').textContent = `${data.pagination.total} clientes`;
+        } else {
+            showToast('Error al cargar clientes', 'error');
+        }
+    } catch (error) {
+        hideLoading();
+        console.error('Error loading customers:', error);
+        showToast('Error de conexión', 'error');
+    }
+}
+
+// Render customers table
+function renderCustomers(customers) {
+    const tbody = document.getElementById('customersTableBody');
+
+    if (customers.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="10" class="empty-state">
+                    <div class="empty-state-icon"><i class="fas fa-users"></i></div>
+                    <div class="empty-state-title">No se encontraron clientes</div>
+                    <div class="empty-state-description">Intenta cambiar los filtros de búsqueda</div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tbody.innerHTML = customers.map(customer => `
+        <tr style="border-bottom: 1px solid var(--admin-gray-100); cursor: pointer;" onclick="viewCustomer(${customer.customer_id})">
+            <td style="padding: 12px 16px; font-weight: 500;">#${customer.customer_id}</td>
+            <td style="padding: 12px 16px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="avatar">${getInitials(customer.full_name)}</div>
+                    <div>
+                        <div style="font-weight: 500;">${escapeHtml(customer.full_name)}</div>
+                        ${customer.telegram_username ? `<small style="color: var(--admin-gray-500);"><i class="fab fa-telegram"></i> @${escapeHtml(customer.telegram_username)}</small>` : ''}
+                    </div>
+                </div>
+            </td>
+            <td style="padding: 12px 16px; font-size: 13px;">
+                ${customer.email ? escapeHtml(customer.email) : '<span style="color: var(--admin-gray-400);">N/A</span>'}
+            </td>
+            <td style="padding: 12px 16px; font-size: 13px;">
+                ${customer.phone ? escapeHtml(customer.phone) :
+                  customer.whatsapp_number ? `<i class="fab fa-whatsapp"></i> ${escapeHtml(customer.whatsapp_number)}` :
+                  '<span style="color: var(--admin-gray-400);">N/A</span>'}
+            </td>
+            <td style="padding: 12px 16px;">
+                <span class="badge badge-${getStatusColor(customer.customer_status)}">${getStatusLabel(customer.customer_status)}</span>
+            </td>
+            <td style="padding: 12px 16px;">
+                <span class="badge badge-${getTierColor(customer.loyalty_tier)}">${getTierLabel(customer.loyalty_tier)}</span>
+            </td>
+            <td style="padding: 12px 16px; text-align: right; font-weight: 500;">
+                ${customer.loyalty_points || 0}
+            </td>
+            <td style="padding: 12px 16px; text-align: right; font-weight: 500;">
+                €${parseFloat(customer.total_spent || 0).toFixed(2)}
+            </td>
+            <td style="padding: 12px 16px; text-align: center;">
+                <span class="badge badge-secondary">${customer.total_orders || 0}</span>
+            </td>
+            <td style="padding: 12px 16px; text-align: center;">
+                <button class="btn btn-sm btn-primary" onclick="event.stopPropagation(); viewCustomer(${customer.customer_id})">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// Render pagination
+function renderPagination(pagination) {
+    totalPages = pagination.pages;
+    currentPage = pagination.current_page;
+
+    document.getElementById('paginationInfo').textContent =
+        `Mostrando ${pagination.from}-${pagination.to} de ${pagination.total} clientes`;
+
+    const buttons = document.getElementById('paginationButtons');
+    let html = '';
+
+    // Previous button
+    html += `<button class="btn btn-sm btn-secondary" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">
+        <i class="fas fa-chevron-left"></i>
+    </button>`;
+
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+            html += `<button class="btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-secondary'}" onclick="changePage(${i})">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+            html += `<span style="padding: 0 8px;">...</span>`;
+        }
+    }
+
+    // Next button
+    html += `<button class="btn btn-sm btn-secondary" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">
+        <i class="fas fa-chevron-right"></i>
+    </button>`;
+
+    buttons.innerHTML = html;
+}
+
+// Change page
+function changePage(page) {
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    loadCustomers();
+}
+
+// View customer details
+function viewCustomer(customerId) {
+    // TODO: Implementar modal full-screen para ver detalles del cliente
+    console.log('View customer:', customerId);
+    showToast('Modal de detalles en desarrollo', 'info');
+}
+
+// Create new client
+function createClient() {
+    window.location.href = '/admin/clientes/crear';
+}
+
+// Reset filters
+function resetFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('filterStatus').value = '';
+    document.getElementById('filterTier').value = '';
+    document.getElementById('filterLanguage').value = '';
+    currentPage = 1;
+    loadCustomers();
+}
+
+// Export customers
+function exportClients() {
+    showToast('Función de exportación en desarrollo', 'info');
+}
+
+// Helper functions
+function getInitials(name) {
+    if (!name) return '??';
+    const parts = name.split(' ');
+    if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+}
+
+function getStatusLabel(status) {
+    const labels = {
+        'active': 'Activo',
+        'inactive': 'Inactivo',
+        'blocked': 'Bloqueado'
+    };
+    return labels[status] || status;
+}
+
+function getStatusColor(status) {
+    const colors = {
+        'active': 'success',
+        'inactive': 'secondary',
+        'blocked': 'danger'
+    };
+    return colors[status] || 'secondary';
+}
+
+function getTierLabel(tier) {
+    const labels = {
+        'standard': 'Standard',
+        'silver': 'Silver',
+        'gold': 'Gold',
+        'platinum': 'Platinum'
+    };
+    return labels[tier] || tier;
+}
+
+function getTierColor(tier) {
+    const colors = {
+        'standard': 'secondary',
+        'silver': 'info',
+        'gold': 'warning',
+        'platinum': 'primary'
+    };
+    return colors[tier] || 'secondary';
 }
 </script>
 
-<style>
-.cliente-header {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--gray-200);
-}
-
-.cliente-avatar-large {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 2rem;
-    font-weight: 700;
-}
-
-.cliente-info-main h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.5rem;
-}
-
-.cliente-meta {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.cliente-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.stat-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--gray-50);
-    border-radius: var(--radius-lg);
-}
-
-.stat-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: var(--radius-lg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.25rem;
-}
-
-.stat-label {
-    font-size: 0.75rem;
-    color: var(--gray-600);
-    margin-bottom: 0.25rem;
-}
-
-.stat-value {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--gray-900);
-}
-
-.cliente-details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.detail-section {
-    background: var(--gray-50);
-    padding: 1.5rem;
-    border-radius: var(--radius-lg);
-}
-
-.detail-section h4 {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: var(--gray-800);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.detail-section p {
-    margin-bottom: 0.5rem;
-    color: var(--gray-700);
-}
-</style>
+<?php
+// Load footer
+require_once __DIR__ . '/../layout/footer.php';
+?>

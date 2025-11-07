@@ -26,8 +26,8 @@ if (file_exists($i18nPath)) {
 }
 
 // Set page variables
-$page_title = '404 - Página No Encontrada | Kickverse';
-$page_description = 'La página que buscas no existe';
+$page_title = '404 - ' . __('error.404.title') . ' | Kickverse';
+$page_description = __('error.404.description');
 $additional_css = ['/css/error-pages.css'];
 
 // Start output buffering to capture content
@@ -39,18 +39,18 @@ ob_start();
     <div class="container">
         <div class="error-content">
             <div class="error-code">404</div>
-            <h1 class="error-title">Esta página no existe</h1>
+            <h1 class="error-title"><?= __('error.404.heading') ?></h1>
             <p class="error-description">
-                La página que buscas no se encuentra disponible.
+                <?= __('error.404.message') ?>
             </p>
             <div class="error-actions">
                 <a href="/" class="btn btn-primary">
                     <i class="fas fa-home"></i>
-                    Volver al Inicio
+                    <?= __('error.btn.home') ?>
                 </a>
                 <a href="/productos" class="btn btn-secondary">
                     <i class="fas fa-tshirt"></i>
-                    Ver Camisetas
+                    <?= __('error.btn.products') ?>
                 </a>
             </div>
         </div>

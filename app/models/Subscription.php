@@ -185,7 +185,7 @@ class Subscription extends Model {
         }
 
         $placeholders = implode(',', array_fill(0, count($leagueIds), '?'));
-        $sql = "SELECT league_id, league_name FROM leagues WHERE league_id IN ({$placeholders})";
+        $sql = "SELECT league_id, name FROM leagues WHERE league_id IN ({$placeholders})";
 
         return $this->fetchAll($sql, $leagueIds);
     }
@@ -208,7 +208,7 @@ class Subscription extends Model {
         }
 
         $placeholders = implode(',', array_fill(0, count($teamIds), '?'));
-        $sql = "SELECT team_id, team_name, team_logo_url FROM teams WHERE team_id IN ({$placeholders})";
+        $sql = "SELECT team_id, name, logo_path FROM teams WHERE team_id IN ({$placeholders})";
 
         return $this->fetchAll($sql, $teamIds);
     }

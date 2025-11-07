@@ -430,7 +430,7 @@ class CheckoutPageController extends Controller {
 
         // Get payment code if Telegram payment
         $paymentCode = null;
-        $telegramUrl = 'https://t.me/kickversebot'; // Replace with actual bot
+        $telegramUrl = 'https://t.me/esKickverse';
 
         if ($method === 'telegram') {
             $payment = $this->customerModel->fetchOne(

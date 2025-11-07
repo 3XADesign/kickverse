@@ -181,11 +181,13 @@ $router->post('/admin/clientes', 'ClientesController@store');
 $router->get('/admin/clientes/editar/:id', 'ClientesController@edit');
 $router->put('/admin/clientes/:id', 'ClientesController@update');
 $router->delete('/admin/clientes/:id', 'ClientesController@delete');
-$router->get('/api/admin/clientes/:id', 'ClientesController@show');
+$router->get('/api/admin/clientes', 'api/AdminClientesApiController@getAll');
+$router->get('/api/admin/clientes/:id', 'api/AdminClientesApiController@getOne');
 
 // ---------- PEDIDOS ----------
 $router->get('/admin/pedidos', 'PedidosController@index');
-$router->get('/api/admin/pedidos/:id', 'PedidosController@show');
+$router->get('/api/admin/pedidos', 'api/AdminPedidosApiController@getAll');
+$router->get('/api/admin/pedidos/:id', 'api/AdminPedidosApiController@getOne');
 $router->post('/api/admin/pedidos/:id/status', 'PedidosController@updateStatus');
 $router->post('/api/admin/pedidos/:id/payment', 'PedidosController@updatePayment');
 $router->post('/api/admin/pedidos/:id/tracking', 'PedidosController@updateTracking');
@@ -198,7 +200,8 @@ $router->post('/admin/productos', 'ProductosController@store');
 $router->get('/admin/productos/editar/:id', 'ProductosController@edit');
 $router->put('/admin/productos/:id', 'ProductosController@update');
 $router->delete('/admin/productos/:id', 'ProductosController@delete');
-$router->get('/api/admin/productos/:id', 'ProductosController@show');
+$router->get('/api/admin/productos', 'api/AdminProductosApiController@getAll');
+$router->get('/api/admin/productos/:id', 'api/AdminProductosApiController@getOne');
 
 // ---------- LIGAS ----------
 $router->get('/admin/ligas', 'LigasController@index');
@@ -207,7 +210,8 @@ $router->post('/admin/ligas', 'LigasController@store');
 $router->get('/admin/ligas/editar/:id', 'LigasController@edit');
 $router->put('/admin/ligas/:id', 'LigasController@update');
 $router->delete('/admin/ligas/:id', 'LigasController@delete');
-$router->get('/api/admin/ligas/:id', 'LigasController@show');
+$router->get('/api/admin/ligas', 'api/AdminLigasApiController@getAll');
+$router->get('/api/admin/ligas/:id', 'api/AdminLigasApiController@getOne');
 
 // ---------- EQUIPOS ----------
 $router->get('/admin/equipos', 'EquiposController@index');
@@ -216,11 +220,13 @@ $router->post('/admin/equipos', 'EquiposController@store');
 $router->get('/admin/equipos/editar/:id', 'EquiposController@edit');
 $router->put('/admin/equipos/:id', 'EquiposController@update');
 $router->delete('/admin/equipos/:id', 'EquiposController@delete');
-$router->get('/api/admin/equipos/:id', 'EquiposController@show');
+$router->get('/api/admin/equipos', 'api/AdminEquiposApiController@getAll');
+$router->get('/api/admin/equipos/:id', 'api/AdminEquiposApiController@getOne');
 
 // ---------- SUSCRIPCIONES ----------
 $router->get('/admin/suscripciones', 'SuscripcionesController@index');
-$router->get('/api/admin/suscripciones/:id', 'SuscripcionesController@show');
+$router->get('/api/admin/suscripciones', 'api/AdminSuscripcionesApiController@getAll');
+$router->get('/api/admin/suscripciones/:id', 'api/AdminSuscripcionesApiController@getOne');
 $router->post('/admin/suscripciones/pause/:id', 'SuscripcionesController@pause');
 $router->post('/admin/suscripciones/cancel/:id', 'SuscripcionesController@cancel');
 $router->post('/admin/suscripciones/reactivate/:id', 'SuscripcionesController@reactivate');
@@ -239,14 +245,14 @@ $router->get('/admin/mystery-boxes', 'MysteryBoxesController@index');
 $router->get('/api/admin/mystery-boxes/:id', 'MysteryBoxesController@show');
 
 // ---------- CUPONES ----------
-// TODO: Crear CuponesController
 $router->get('/admin/cupones', 'CuponesController@index');
 $router->get('/admin/cupones/crear', 'CuponesController@create');
 $router->post('/admin/cupones', 'CuponesController@store');
 $router->get('/admin/cupones/editar/:id', 'CuponesController@edit');
 $router->put('/admin/cupones/:id', 'CuponesController@update');
 $router->delete('/admin/cupones/:id', 'CuponesController@delete');
-$router->get('/api/admin/cupones/:id', 'CuponesController@show');
+$router->get('/api/admin/cupones', 'api/AdminCuponesApiController@getAll');
+$router->get('/api/admin/cupones/:id', 'api/AdminCuponesApiController@getOne');
 
 // ---------- INVENTARIO ----------
 // TODO: Crear InventarioController

@@ -171,6 +171,9 @@
                 <button class="tab-btn" onclick="switchTab('shipping')">
                     <?= __('product.shipping_info') ?>
                 </button>
+                <button class="tab-btn" onclick="switchTab('size-guide')">
+                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Guía de Tallas' : 'Size Guide' ?>
+                </button>
             </div>
 
             <div class="tabs-content">
@@ -205,6 +208,203 @@
                             Devoluciones gratuitas en 30 días
                         </li>
                     </ul>
+                </div>
+
+                <div id="tab-size-guide" class="tab-panel">
+                    <div class="size-guide-header">
+                        <h3><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Guía de Tallas' : 'Size Guide' ?></h3>
+                        <p class="size-guide-subtitle">
+                            <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
+                                ? 'Encuentra tu talla perfecta. Todas las medidas están en centímetros (CM) y son aproximadas, pueden variar ±2-3cm según el fabricante.'
+                                : 'Find your perfect size. All measurements are in centimeters (CM) and are approximate, may vary ±2-3cm depending on the manufacturer.' ?>
+                        </p>
+                    </div>
+
+                    <!-- Size Tips -->
+                    <div class="size-tips">
+                        <h4><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Consejos para elegir tu talla' : 'Tips for choosing your size' ?></h4>
+                        <div class="size-tips-grid">
+                            <div class="size-tip">
+                                <i class="fas fa-ruler-combined"></i>
+                                <div>
+                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Mide con precisión:' : 'Measure accurately:' ?></strong>
+                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Usa una cinta métrica flexible y mide sobre ropa ligera' : 'Use a flexible measuring tape and measure over light clothing' ?></span>
+                                </div>
+                            </div>
+                            <div class="size-tip">
+                                <i class="fas fa-arrows-alt-h"></i>
+                                <div>
+                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Anchura de pecho:' : 'Chest width:' ?></strong>
+                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Rodea el pecho por la parte más ancha, pasando por debajo de las axilas' : 'Wrap around the chest at the widest part, passing under the armpits' ?></span>
+                                </div>
+                            </div>
+                            <div class="size-tip">
+                                <i class="fas fa-arrows-alt-v"></i>
+                                <div>
+                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Longitud:' : 'Length:' ?></strong>
+                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Desde el hombro hasta el final de la prenda' : 'From shoulder to the end of the garment' ?></span>
+                                </div>
+                            </div>
+                            <div class="size-tip">
+                                <i class="fas fa-exchange-alt"></i>
+                                <div>
+                                    <strong><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Entre tallas:' : 'Between sizes:' ?></strong>
+                                    <span><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Si estás entre dos tallas, elige la mayor para un ajuste más cómodo' : 'If you are between two sizes, choose the larger one for a more comfortable fit' ?></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size Categories Accordion -->
+                    <div class="size-accordion">
+                        <!-- General -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>
+                                    <i class="fas fa-tshirt"></i>
+                                    GENERAL
+                                </span>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <p class="accordion-description">
+                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
+                                        ? 'Guía de tallas estándar para camisetas de aficionado. Ajuste clásico y cómodo para uso diario.'
+                                        : 'Standard size guide for fan jerseys. Classic and comfortable fit for everyday use.' ?>
+                                </p>
+                                <div class="size-table-wrapper">
+                                    <table class="size-table">
+                                        <thead>
+                                            <tr>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'TALLA' : 'SIZE' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ANCHURA PECHO (CM)' : 'CHEST WIDTH (CM)' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'LONGITUD (CM)' : 'LENGTH (CM)' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ALTURA (CM)' : 'HEIGHT (CM)' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'PESO (KG)' : 'WEIGHT (KG)' ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>S</td><td>52-54</td><td>70-74</td><td>165-173</td><td>50-60</td></tr>
+                                            <tr><td>M</td><td>54-56</td><td>74-76</td><td>170-178</td><td>55-70</td></tr>
+                                            <tr><td>L</td><td>56-58</td><td>76-78</td><td>175-182</td><td>70-80</td></tr>
+                                            <tr><td>XL</td><td>58-60</td><td>78-80</td><td>178-185</td><td>80-90</td></tr>
+                                            <tr><td>2XL</td><td>60-62</td><td>80-82</td><td>182-190</td><td>85-95</td></tr>
+                                            <tr><td>3XL</td><td>62-64</td><td>82-84</td><td>188-195</td><td>90-100</td></tr>
+                                            <tr><td>4XL</td><td>64-66</td><td>84-86</td><td>195-200</td><td>100-120</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p class="size-note">
+                                    <i class="fas fa-info-circle"></i>
+                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
+                                        ? 'Este tamaño se mide a mano, puede haber un error de 2-3 cm, solo como referencia. La altura y el peso es una orientación.'
+                                        : 'This size is measured by hand, there may be an error of 2-3 cm, for reference only. Height and weight are guidelines.' ?>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Player Version -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>
+                                    <i class="fas fa-medal"></i>
+                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'VERSIÓN PLAYER' : 'PLAYER VERSION' ?>
+                                </span>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <p class="accordion-description">
+                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
+                                        ? 'Tallas para camisetas de versión profesional. Ajuste entallado y técnico.'
+                                        : 'Sizes for professional version jerseys. Slim and technical fit.' ?>
+                                </p>
+                                <div class="size-table-wrapper">
+                                    <table class="size-table">
+                                        <thead>
+                                            <tr>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'TALLA' : 'SIZE' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ANCHURA PECHO (CM)' : 'CHEST WIDTH (CM)' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'LONGITUD (CM)' : 'LENGTH (CM)' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ALTURA (CM)' : 'HEIGHT (CM)' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'PESO (KG)' : 'WEIGHT (KG)' ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>S</td><td>50-52</td><td>68-72</td><td>165-173</td><td>50-60</td></tr>
+                                            <tr><td>M</td><td>52-54</td><td>72-74</td><td>170-178</td><td>55-70</td></tr>
+                                            <tr><td>L</td><td>54-56</td><td>74-76</td><td>175-182</td><td>70-80</td></tr>
+                                            <tr><td>XL</td><td>56-58</td><td>76-78</td><td>178-185</td><td>80-90</td></tr>
+                                            <tr><td>2XL</td><td>58-60</td><td>78-80</td><td>182-190</td><td>85-95</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kids -->
+                        <div class="accordion-item">
+                            <button class="accordion-header" onclick="toggleAccordion(this)">
+                                <span>
+                                    <i class="fas fa-child"></i>
+                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'NIÑOS' : 'KIDS' ?>
+                                </span>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <p class="accordion-description">
+                                    <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es'
+                                        ? 'Tallas para niños según edad, altura y peso.'
+                                        : 'Kids sizes according to age, height and weight.' ?>
+                                </p>
+                                <div class="size-table-wrapper">
+                                    <table class="size-table">
+                                        <thead>
+                                            <tr>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'TALLA' : 'SIZE' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'EDAD' : 'AGE' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'ALTURA (CM)' : 'HEIGHT (CM)' ?></th>
+                                                <th><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'PESO (KG)' : 'WEIGHT (KG)' ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr><td>16</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '2-3 años' : '2-3 years' ?></td><td>92-98</td><td>13-15</td></tr>
+                                            <tr><td>18</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '3-4 años' : '3-4 years' ?></td><td>98-104</td><td>15-17</td></tr>
+                                            <tr><td>20</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '4-5 años' : '4-5 years' ?></td><td>104-110</td><td>17-19</td></tr>
+                                            <tr><td>22</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '6-7 años' : '6-7 years' ?></td><td>116-122</td><td>21-24</td></tr>
+                                            <tr><td>24</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '8-9 años' : '8-9 years' ?></td><td>128-134</td><td>26-30</td></tr>
+                                            <tr><td>26</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '10-11 años' : '10-11 years' ?></td><td>140-146</td><td>32-38</td></tr>
+                                            <tr><td>28</td><td><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '12-13 años' : '12-13 years' ?></td><td>152-158</td><td>42-50</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact CTA -->
+                    <div class="size-guide-cta">
+                        <div class="size-guide-cta-content">
+                            <i class="fas fa-question-circle"></i>
+                            <div>
+                                <h4 style="color: white;"><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? '¿Necesitas ayuda con tu talla?' : 'Need help with your size?' ?></h4>
+                                <p style="color: white;"><?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Nuestro equipo está listo para ayudarte a encontrar la talla perfecta. ¡Contáctanos!' : 'Our team is ready to help you find the perfect size. Contact us!' ?></p>
+                            </div>
+                        </div>
+                        <div class="size-guide-cta-actions">
+                            <a href="https://wa.me/34614299735" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
+                                <i class="fab fa-whatsapp"></i>
+                                <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'WhatsApp' : 'WhatsApp' ?>
+                            </a>
+                            <a href="https://t.me/esKickverse" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
+                                <i class="fab fa-telegram"></i>
+                                <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Telegram' : 'Telegram' ?>
+                            </a>
+                            <a href="/productos" class="btn btn-sm btn-secondary">
+                                <i class="fas fa-tshirt"></i>
+                                <?= isset($_SESSION['lang']) && $_SESSION['lang'] === 'es' ? 'Ver Catálogo' : 'View Catalog' ?>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -530,6 +730,292 @@
 .error-message i {
     color: #ef4444;
 }
+
+/* Size Guide Styles */
+.size-guide-header {
+    margin-bottom: var(--space-8);
+}
+
+.size-guide-subtitle {
+    color: var(--gray-600);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: var(--space-2);
+}
+
+/* Size Tips */
+.size-tips {
+    background: var(--gray-50);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    margin-bottom: var(--space-8);
+}
+
+.size-tips h4 {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-4);
+    color: var(--gray-900);
+}
+
+.size-tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+}
+
+@media (max-width: 768px) {
+    .size-tips-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+}
+
+.size-tip {
+    display: flex;
+    gap: var(--space-3);
+    align-items: flex-start;
+}
+
+.size-tip i {
+    color: var(--primary);
+    font-size: 1.25rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.size-tip strong {
+    display: block;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+    font-size: 0.9375rem;
+}
+
+.size-tip span {
+    color: var(--gray-600);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+/* Accordion */
+.size-accordion {
+    margin-bottom: var(--space-8);
+}
+
+.accordion-item {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-3);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.accordion-item:hover {
+    border-color: var(--primary);
+}
+
+.accordion-header {
+    width: 100%;
+    padding: var(--space-4) var(--space-5);
+    background: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--gray-900);
+    transition: var(--transition);
+}
+
+.accordion-header:hover {
+    background: var(--gray-50);
+}
+
+.accordion-header span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.accordion-header i.fas {
+    color: var(--primary);
+}
+
+.accordion-icon {
+    transition: transform 0.3s ease;
+    color: var(--gray-400) !important;
+}
+
+.accordion-item.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 1000px;
+}
+
+.accordion-description {
+    padding: 0 var(--space-5) var(--space-4);
+    color: var(--gray-600);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+/* Size Table */
+.size-table-wrapper {
+    padding: 0 var(--space-5) var(--space-4);
+    overflow-x: auto;
+}
+
+.size-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.size-table thead th {
+    background: var(--gray-100);
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--gray-300);
+    white-space: nowrap;
+}
+
+.size-table tbody td {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--gray-200);
+    color: var(--gray-700);
+}
+
+.size-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.size-table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.size-table tbody td:first-child {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.size-note {
+    padding: var(--space-4) var(--space-5);
+    background: #fef3c7;
+    border: 1px solid #fbbf24;
+    border-radius: var(--radius-lg);
+    color: #92400e;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    margin: var(--space-4) var(--space-5) var(--space-4);
+}
+
+.size-note i {
+    color: #f59e0b;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* Size Guide CTA */
+.size-guide-cta {
+    background: linear-gradient(135deg, #FF69B4 0%, #8A2BE2 100%);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+}
+
+.size-guide-cta-content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    flex: 1;
+    min-width: 250px;
+}
+
+.size-guide-cta-content i {
+    font-size: 2rem;
+    opacity: 0.9;
+    flex-shrink: 0;
+}
+
+.size-guide-cta-content h4 {
+    font-size: 1.125rem;
+    margin: 0 0 var(--space-2);
+    font-weight: 600;
+}
+
+.size-guide-cta-content p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.9375rem;
+}
+
+.size-guide-cta-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.size-guide-cta-actions .btn {
+    white-space: nowrap;
+}
+
+.size-guide-cta-actions .btn-primary {
+    background: white;
+    color: var(--primary);
+}
+
+.size-guide-cta-actions .btn-primary:hover {
+    background: var(--gray-50);
+    transform: translateY(-2px);
+}
+
+.size-guide-cta-actions .btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border-color: white;
+}
+
+.size-guide-cta-actions .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .size-guide-cta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .size-guide-cta-content {
+        min-width: 100%;
+    }
+
+    .size-guide-cta-actions {
+        width: 100%;
+    }
+
+    .size-guide-cta-actions .btn {
+        flex: 1;
+    }
+}
 </style>
 
 <script data-timestamp="<?= time() ?>">
@@ -592,6 +1078,22 @@ function switchTab(tabName) {
         panel.classList.remove('active');
     });
     document.getElementById('tab-' + tabName).classList.add('active');
+}
+
+// Toggle accordion
+function toggleAccordion(button) {
+    const item = button.closest('.accordion-item');
+    const wasActive = item.classList.contains('active');
+
+    // Close all accordion items
+    document.querySelectorAll('.accordion-item').forEach(el => {
+        el.classList.remove('active');
+    });
+
+    // Open clicked item if it wasn't active
+    if (!wasActive) {
+        item.classList.add('active');
+    }
 }
 
 // Add to cart

@@ -116,7 +116,7 @@ class Admin extends Model {
         $stats = [];
 
         // Total customers
-        $sql = "SELECT COUNT(*) as count FROM customers";
+        $sql = "SELECT COUNT(*) as count FROM customers WHERE deleted_at IS NULL";
         $result = $this->fetchAll($sql);
         $stats['total_customers'] = $result[0]['count'] ?? 0;
 
@@ -130,22 +130,25 @@ class Admin extends Model {
         $result = $this->fetchAll($sql);
         $stats['total_products'] = $result[0]['count'] ?? 0;
 
-        // Total revenue
-        $sql = "SELECT SUM(total_amount) as revenue FROM orders WHERE status = 'completed'";
+        // Total revenue (use order_status and payment_status, not 'status')
+        $sql = "SELECT COALESCE(SUM(total_amount), 0) as revenue
+                FROM orders
+                WHERE order_status = 'delivered'
+                AND payment_status = 'completed'";
         $result = $this->fetchAll($sql);
         $stats['total_revenue'] = $result[0]['revenue'] ?? 0;
 
-        // Recent orders
+        // Recent orders (use order_date, not created_at)
         $sql = "SELECT o.*, c.full_name as customer_name
                 FROM orders o
                 LEFT JOIN customers c ON o.customer_id = c.customer_id
-                ORDER BY o.created_at DESC
+                ORDER BY o.order_date DESC
                 LIMIT 10";
         $stats['recent_orders'] = $this->fetchAll($sql);
 
-        // Low stock products
+        // Low stock products (fix subquery to use stock_quantity)
         $sql = "SELECT p.*,
-                       (SELECT SUM(quantity) FROM product_variants WHERE product_id = p.product_id) as total_stock
+                       (SELECT SUM(stock_quantity) FROM product_variants WHERE product_id = p.product_id) as total_stock
                 FROM products p
                 WHERE p.is_active = 1
                 HAVING total_stock < 10

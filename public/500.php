@@ -24,8 +24,8 @@ if (file_exists($i18nPath)) {
 }
 
 // Set page variables
-$page_title = '500 - Error del Servidor | Kickverse';
-$page_description = 'Ha ocurrido un error en el servidor';
+$page_title = '500 - ' . __('error.500.title') . ' | Kickverse';
+$page_description = __('error.500.description');
 $additional_css = ['/css/error-pages.css'];
 
 // Start output buffering to capture content
@@ -37,18 +37,18 @@ ob_start();
     <div class="container">
         <div class="error-content">
             <div class="error-code">500</div>
-            <h1 class="error-title">Error del Servidor</h1>
+            <h1 class="error-title"><?= __('error.500.heading') ?></h1>
             <p class="error-description">
-                Algo salió mal en nuestro servidor. Estamos trabajando para solucionarlo.
+                <?= __('error.500.message') ?>
             </p>
             <div class="error-actions">
                 <a href="/" class="btn btn-primary">
                     <i class="fas fa-home"></i>
-                    Volver al Inicio
+                    <?= __('error.btn.home') ?>
                 </a>
                 <a href="javascript:location.reload()" class="btn btn-secondary">
                     <i class="fas fa-sync-alt"></i>
-                    Reintentar
+                    <?= __('error.btn.retry') ?>
                 </a>
             </div>
         </div>

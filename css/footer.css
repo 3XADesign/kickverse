@@ -6,7 +6,6 @@
   background-color: var(--color-bg-secondary);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: var(--spacing-2xl) 0 var(--spacing-md);
-  margin-top: var(--spacing-2xl);
 }
 
 .footer-container {

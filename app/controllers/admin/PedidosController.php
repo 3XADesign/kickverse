@@ -393,8 +393,10 @@ class PedidosController {
      * Check admin authentication
      */
     private function checkAdminAuth() {
-        session_start();
-        if (!isset($_SESSION['admin_id'])) {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['admin_logged_in']) || !$_SESSION['admin_logged_in']) {
             header('Location: /admin/login');
             exit;
         }

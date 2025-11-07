@@ -134,13 +134,9 @@ class AdminAuthController extends Controller {
             exit;
         }
 
-        // Get dashboard statistics
-        $stats = $this->adminModel->getDashboardStats();
-
-        $this->view('admin/dashboard', [
-            'page_title' => 'Dashboard - Admin Kickverse',
-            'admin_name' => $_SESSION['admin_name'] ?? 'Admin',
-            'stats' => $stats
-        ]);
+        // Use DashboardController for full dashboard functionality
+        require_once __DIR__ . '/admin/DashboardController.php';
+        $dashboardController = new DashboardController();
+        $dashboardController->index();
     }
 }

@@ -46,147 +46,10 @@ class CuponesController {
     public function index() {
         $this->checkAdminAuth();
 
-        // Pagination
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $offset = ($page - 1) * $this->perPage;
-
-        // Filters
-        $where = [];
-        $params = [];
-
-        if (isset($_GET['status']) && $_GET['status'] !== '') {
-            if ($_GET['status'] === 'active') {
-                $where[] = "is_active = TRUE AND (expiry_date IS NULL OR expiry_date >= CURDATE())";
-            } else if ($_GET['status'] === 'expired') {
-                $where[] = "expiry_date < CURDATE()";
-            } else if ($_GET['status'] === 'inactive') {
-                $where[] = "is_active = FALSE";
-            }
-        }
-
-        // Search
-        if (isset($_GET['search']) && $_GET['search'] !== '') {
-            $search = '%' . $_GET['search'] . '%';
-            $where[] = "(code LIKE ? OR description LIKE ?)";
-            $params[] = $search;
-            $params[] = $search;
-        }
-
-        $whereClause = !empty($where) ? 'WHERE ' . implode(' AND ', $where) : '';
-
-        // Get total count
-        $countSql = "SELECT COUNT(*) as total FROM coupons $whereClause";
-        $stmt = $this->db->prepare($countSql);
-        $stmt->execute($params);
-        $totalCoupons = $stmt->fetch(PDO::FETCH_ASSOC)['total'];
-        $totalPages = ceil($totalCoupons / $this->perPage);
-
-        // Get cupones
-        $sql = "SELECT c.*,
-                       COUNT(DISTINCT cu.usage_id) as total_uses,
-                       SUM(cu.discount_applied) as total_discount_given
-                FROM coupons c
-                LEFT JOIN coupon_usage cu ON c.coupon_id = cu.coupon_id
-                $whereClause
-                GROUP BY c.coupon_id
-                ORDER BY c.created_at DESC
-                LIMIT ? OFFSET ?";
-
-        $params[] = $this->perPage;
-        $params[] = $offset;
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute($params);
-        $cupones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Get stats
-        $statsStmt = $this->db->query("
-            SELECT
-                COUNT(*) as total_coupons,
-                COUNT(CASE WHEN is_active = TRUE AND (expiry_date IS NULL OR expiry_date >= CURDATE()) THEN 1 END) as active_coupons,
-                COUNT(CASE WHEN expiry_date < CURDATE() THEN 1 END) as expired_coupons,
-                COALESCE(SUM(cu.total_uses), 0) as total_uses,
-                COALESCE(SUM(cu.total_discount), 0) as total_discount_given
-            FROM coupons c
-            LEFT JOIN (
-                SELECT coupon_id, COUNT(*) as total_uses, SUM(discount_applied) as total_discount
-                FROM coupon_usage
-                GROUP BY coupon_id
-            ) cu ON c.coupon_id = cu.coupon_id
-        ");
-        $stats = $statsStmt->fetch(PDO::FETCH_ASSOC);
-
-        // Render view
-        $content = $this->renderView('admin/cupones/index', [
-            'cupones' => $cupones,
-            'stats' => $stats,
-            'current_page' => $page,
-            'total_pages' => $totalPages,
-            'total_cupones' => $totalCoupons
-        ]);
-
-        $this->renderLayout('admin-crm', [
-            'content' => $content,
-            'page_title' => 'Gestión de Cupones',
-            'active_page' => 'cupones',
-            'admin_name' => $_SESSION['admin_name'] ?? $_SESSION['admin_email'] ?? 'Admin'
-        ]);
-    }
-
-    /**
-     * Ver detalles de un cupón (API JSON)
-     */
-    public function show($id) {
-        $this->checkAdminAuth();
-
-        // Get coupon details
-        $stmt = $this->db->prepare("
-            SELECT c.*,
-                   COUNT(DISTINCT cu.usage_id) as total_uses,
-                   SUM(cu.discount_applied) as total_discount_given
-            FROM coupons c
-            LEFT JOIN coupon_usage cu ON c.coupon_id = cu.coupon_id
-            WHERE c.coupon_id = ?
-            GROUP BY c.coupon_id
-        ");
-        $stmt->execute([$id]);
-        $coupon = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!coupon) {
-            http_response_code(404);
-            echo json_encode([
-                'success' => false,
-                'message' => 'Cupón no encontrado',
-                'data' => null
-            ]);
-            return;
-        }
-
-        // Get usage history
-        $usageStmt = $this->db->prepare("
-            SELECT cu.*,
-                   c.full_name as customer_name,
-                   c.email as customer_email,
-                   o.order_id,
-                   o.total_amount as order_total
-            FROM coupon_usage cu
-            JOIN customers c ON cu.customer_id = c.customer_id
-            JOIN orders o ON cu.order_id = o.order_id
-            WHERE cu.coupon_id = ?
-            ORDER BY cu.used_at DESC
-            LIMIT 50
-        ");
-        $usageStmt->execute([$id]);
-        $usage_history = $usageStmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $coupon['usage_history'] = $usage_history;
-
-        header('Content-Type: application/json');
-        echo json_encode([
-            'success' => true,
-            'message' => '',
-            'data' => $coupon
-        ]);
+        // Simply render the view - data will be loaded via API
+        ob_start();
+        include __DIR__ . '/../../views/admin/cupones/index.php';
+        echo ob_get_clean();
     }
 
     /**
@@ -213,39 +76,61 @@ class CuponesController {
 
         $data = $_POST;
 
-        // Validación básica
-        if (empty($data['code']) || empty($data['discount_type'])) {
-            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Campos requeridos faltantes'];
+        // Validación
+        $errors = $this->validateCouponData($data);
+        if (!empty($errors)) {
+            $_SESSION['flash'] = ['type' => 'error', 'message' => implode(', ', $errors)];
             header('Location: /admin/cupones/crear');
             exit;
         }
 
-        // Insertar cupón
-        $stmt = $this->db->prepare("
-            INSERT INTO coupons (
-                code, description, discount_type, discount_value,
-                min_order_amount, max_discount_amount, max_uses_per_customer,
-                expiry_date, is_active, applicable_to, applicable_ids
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+        try {
+            // Check if code already exists
+            $checkStmt = $this->db->prepare("SELECT coupon_id FROM coupons WHERE code = ?");
+            $checkStmt->execute([strtoupper($data['code'])]);
+            if ($checkStmt->fetch()) {
+                $_SESSION['flash'] = ['type' => 'error', 'message' => 'El código de cupón ya existe'];
+                header('Location: /admin/cupones/crear');
+                exit;
+            }
 
-        $stmt->execute([
-            strtoupper($data['code']),
-            $data['description'] ?? null,
-            $data['discount_type'],
-            $data['discount_value'],
-            $data['min_order_amount'] ?? null,
-            $data['max_discount_amount'] ?? null,
-            $data['max_uses_per_customer'] ?? null,
-            $data['expiry_date'] ?? null,
-            isset($data['is_active']) ? 1 : 0,
-            $data['applicable_to'] ?? 'all',
-            $data['applicable_ids'] ?? null
-        ]);
+            // Insert coupon
+            $stmt = $this->db->prepare("
+                INSERT INTO coupons (
+                    code, description, discount_type, discount_value,
+                    max_discount_amount, min_purchase_amount,
+                    applies_to_product_type, applies_to_first_order_only,
+                    usage_limit_total, usage_limit_per_customer,
+                    valid_from, valid_until, is_active, created_by
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ");
 
-        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Cupón creado correctamente'];
-        header('Location: /admin/cupones');
-        exit;
+            $stmt->execute([
+                strtoupper($data['code']),
+                $data['description'] ?? null,
+                $data['discount_type'],
+                $data['discount_value'],
+                $data['max_discount_amount'] ?? null,
+                $data['min_purchase_amount'] ?? 0.00,
+                $data['applies_to_product_type'] ?? 'all',
+                isset($data['applies_to_first_order_only']) ? 1 : 0,
+                $data['usage_limit_total'] ?? null,
+                $data['usage_limit_per_customer'] ?? 1,
+                $data['valid_from'] ?? null,
+                $data['valid_until'] ?? null,
+                isset($data['is_active']) ? 1 : 0,
+                $_SESSION['admin_id'] ?? null
+            ]);
+
+            $_SESSION['flash'] = ['type' => 'success', 'message' => 'Cupón creado correctamente'];
+            header('Location: /admin/cupones');
+            exit;
+        } catch (PDOException $e) {
+            error_log("Error creating coupon: " . $e->getMessage());
+            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Error al crear el cupón'];
+            header('Location: /admin/cupones/crear');
+            exit;
+        }
     }
 
     /**
@@ -282,36 +167,108 @@ class CuponesController {
 
         $data = $_POST;
 
-        $stmt = $this->db->prepare("
-            UPDATE coupons SET
-                code = ?,
-                description = ?,
-                discount_type = ?,
-                discount_value = ?,
-                min_order_amount = ?,
-                max_discount_amount = ?,
-                max_uses_per_customer = ?,
-                expiry_date = ?,
-                is_active = ?
-            WHERE coupon_id = ?
-        ");
+        // Validación
+        $errors = $this->validateCouponData($data, $id);
+        if (!empty($errors)) {
+            $_SESSION['flash'] = ['type' => 'error', 'message' => implode(', ', $errors)];
+            header('Location: /admin/cupones/editar/' . $id);
+            exit;
+        }
 
-        $stmt->execute([
-            strtoupper($data['code']),
-            $data['description'] ?? null,
-            $data['discount_type'],
-            $data['discount_value'],
-            $data['min_order_amount'] ?? null,
-            $data['max_discount_amount'] ?? null,
-            $data['max_uses_per_customer'] ?? null,
-            $data['expiry_date'] ?? null,
-            isset($data['is_active']) ? 1 : 0,
-            $id
-        ]);
+        try {
+            // Check if code already exists (excluding current coupon)
+            $checkStmt = $this->db->prepare("SELECT coupon_id FROM coupons WHERE code = ? AND coupon_id != ?");
+            $checkStmt->execute([strtoupper($data['code']), $id]);
+            if ($checkStmt->fetch()) {
+                $_SESSION['flash'] = ['type' => 'error', 'message' => 'El código de cupón ya existe'];
+                header('Location: /admin/cupones/editar/' . $id);
+                exit;
+            }
 
-        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Cupón actualizado correctamente'];
-        header('Location: /admin/cupones');
-        exit;
+            $stmt = $this->db->prepare("
+                UPDATE coupons SET
+                    code = ?,
+                    description = ?,
+                    discount_type = ?,
+                    discount_value = ?,
+                    max_discount_amount = ?,
+                    min_purchase_amount = ?,
+                    applies_to_product_type = ?,
+                    applies_to_first_order_only = ?,
+                    usage_limit_total = ?,
+                    usage_limit_per_customer = ?,
+                    valid_from = ?,
+                    valid_until = ?,
+                    is_active = ?
+                WHERE coupon_id = ?
+            ");
+
+            $stmt->execute([
+                strtoupper($data['code']),
+                $data['description'] ?? null,
+                $data['discount_type'],
+                $data['discount_value'],
+                $data['max_discount_amount'] ?? null,
+                $data['min_purchase_amount'] ?? 0.00,
+                $data['applies_to_product_type'] ?? 'all',
+                isset($data['applies_to_first_order_only']) ? 1 : 0,
+                $data['usage_limit_total'] ?? null,
+                $data['usage_limit_per_customer'] ?? 1,
+                $data['valid_from'] ?? null,
+                $data['valid_until'] ?? null,
+                isset($data['is_active']) ? 1 : 0,
+                $id
+            ]);
+
+            $_SESSION['flash'] = ['type' => 'success', 'message' => 'Cupón actualizado correctamente'];
+            header('Location: /admin/cupones');
+            exit;
+        } catch (PDOException $e) {
+            error_log("Error updating coupon: " . $e->getMessage());
+            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Error al actualizar el cupón'];
+            header('Location: /admin/cupones/editar/' . $id);
+            exit;
+        }
+    }
+
+    /**
+     * Validar datos del cupón
+     */
+    private function validateCouponData($data, $couponId = null) {
+        $errors = [];
+
+        // Code required and alphanumeric
+        if (empty($data['code'])) {
+            $errors[] = 'El código es requerido';
+        } elseif (!preg_match('/^[A-Z0-9_-]+$/i', $data['code'])) {
+            $errors[] = 'El código solo puede contener letras, números, guiones y guiones bajos';
+        }
+
+        // Discount type
+        if (empty($data['discount_type']) || !in_array($data['discount_type'], ['fixed', 'percentage'])) {
+            $errors[] = 'Tipo de descuento inválido';
+        }
+
+        // Discount value
+        if (!isset($data['discount_value']) || $data['discount_value'] <= 0) {
+            $errors[] = 'El valor del descuento debe ser mayor a 0';
+        }
+
+        // Valid dates
+        if (!empty($data['valid_from']) && !empty($data['valid_until'])) {
+            if (strtotime($data['valid_from']) > strtotime($data['valid_until'])) {
+                $errors[] = 'La fecha de inicio debe ser anterior a la fecha de fin';
+            }
+        }
+
+        // Usage limits
+        if (!empty($data['usage_limit_per_customer']) && !empty($data['usage_limit_total'])) {
+            if ($data['usage_limit_per_customer'] > $data['usage_limit_total']) {
+                $errors[] = 'El límite por cliente no puede ser mayor al límite total';
+            }
+        }
+
+        return $errors;
     }
 
     /**
